@@ -132,7 +132,7 @@ public class UndoRedoHandler {
 
     public boolean doneRedo() {
 	// TODO Auto-generated method stub
-	if (doneRedo == true) {
+	if (doneRedo) {
 	    doneRedo = false;
 	    return true;
 	}

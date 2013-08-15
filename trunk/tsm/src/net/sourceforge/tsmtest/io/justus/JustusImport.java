@@ -77,7 +77,7 @@ public class JustusImport {
 		if (!m1.isCanceled()) {
 		    if (readPackages(e, parentPackage, "<html>",
 			    isSeqeuenceTestCase, getSubMonitor(m1, number),
-			    number) == true) {
+			    number)) {
 			importSuccessful = true;
 		    }
 		} else {

@@ -319,7 +319,7 @@ public class RichText extends Composite {
 				e.doit = false;
 			    }
 			} else if (!e.text.equals(" ") //$NON-NLS-1$
-				&& img.isGeneratingFullSizeMode() == false
+				&& !img.isGeneratingFullSizeMode()
 				&& e.start <= img.getOffset()
 				&& e.text.length() + e.start > img.getOffset()) {
 			    styledText.replaceTextRange(e.start, 0, " "); //$NON-NLS-1$
@@ -331,7 +331,9 @@ public class RichText extends Composite {
 			    .replaceTextRange(
 				    deleteImage
 					    - System.getProperty(
-						    "line.separator").length(), 1 + 2 * System.getProperty("line.separator").length(), ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						    "line.separator")
+						    .length(), 1 + 2 * System
+						    .getProperty("line.separator").length(), ""); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		    e.doit = false;
 		}
 		if (maxCharacters >= 0) {
@@ -341,13 +343,13 @@ public class RichText extends Composite {
 		    }
 		    styledText.redraw();
 		}
-		if (e.doit == true) {
+		if (e.doit) {
 		    verifyImages(e);
 		}
 		
 		if (undoRedoHandler.doneRedo()) {
 		    undoRedoHandler.saveUndo();
-		} else if (e.start - e.end < 0 && deleteCurrent == false) {
+		} else if (e.start - e.end < 0 && !deleteCurrent) {
 		    deleteCurrent = true;
 		    undoRedoHandler.saveUndo();
 		} else {
@@ -492,7 +494,7 @@ public class RichText extends Composite {
 			styledText.redraw();
 		    }
 		}
-		if (hover == false) {
+		if (!hover) {
 		    styledText.setCursor(oldCursor);
 		    if (hoverImage != null) {
 			hoverImage.setOverResize(false);
@@ -514,7 +516,7 @@ public class RichText extends Composite {
 		    // paint images
 		    timage.paintImage(event);
 		}
-		if (firstView == true) {
+		if (firstView) {
 		    styledText.update();
 		    styledText.redraw();
 		    firstView = false;

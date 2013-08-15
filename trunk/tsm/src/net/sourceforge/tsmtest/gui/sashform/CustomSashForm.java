@@ -46,20 +46,20 @@ public class CustomSashForm extends Composite {
     /**
      * The width of all sashes in the form.
      */
-    public int SASH_WIDTH = 3;
+    protected int SASH_WIDTH = 3;
 
-    int sashStyle;
-    CustomComposite[] sashes = new CustomComposite[0];
+    private int sashStyle;
+    protected CustomComposite[] sashes = new CustomComposite[0];
     // Remember background and foreground
     // colors to determine whether to set
     // sashes to the default color (null) or
     // a specific color
-    Color background = null;
-    Color foreground = null;
-    Control[] controls = new Control[0];
-    Control maxControl = null;
+    private Color background = null;
+    private Color foreground = null;
+    protected Control[] controls = new Control[0];
+    protected Control maxControl = null;
     Listener sashListener;
-    static final int DRAG_MINIMUM = 20;
+    private static final int DRAG_MINIMUM = 20;
 
     /**
      * Constructs a new instance of this class given its parent and a style

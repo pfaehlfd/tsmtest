@@ -28,8 +28,8 @@ import com.itextpdf.text.pdf.PdfWriter;
  */
 class Footer extends PdfPageEventHelper {
 
-    int pagenumber;
-    long id;
+    private int pagenumber;
+    private long id;
     private static Font normalFont = new Font(Font.HELVETICA, 8, Font.NORMAL);
 
     /**

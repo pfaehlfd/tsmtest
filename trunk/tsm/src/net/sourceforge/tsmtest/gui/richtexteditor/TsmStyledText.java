@@ -74,7 +74,7 @@ public class TsmStyledText extends StyledText {
 	return images;
     }
 
-    UndoRedoHandler undoHelper;
+    private UndoRedoHandler undoHelper;
     private RichText relatedRichText;
     private String projectPath;
     private String testcaseData;

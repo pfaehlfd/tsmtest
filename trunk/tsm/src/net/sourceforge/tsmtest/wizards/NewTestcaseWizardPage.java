@@ -205,7 +205,7 @@ public class NewTestcaseWizardPage extends WizardPage {
 	final int dotLoc = fileName.lastIndexOf('.');
 	if (dotLoc != -1) {
 	    final String ext = fileName.substring(dotLoc + 1);
-	    if (ext.equalsIgnoreCase("xml") == false) { //$NON-NLS-1$
+	    if (!ext.equalsIgnoreCase("xml")) { //$NON-NLS-1$
 		updateStatus(Messages.NewTestcaseWizardPage_15);
 		return;
 	    }
