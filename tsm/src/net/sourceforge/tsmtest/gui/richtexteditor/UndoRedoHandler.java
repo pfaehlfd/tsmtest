@@ -22,10 +22,10 @@ import org.xml.sax.SAXException;
  *
  */
 public class UndoRedoHandler {
-    RichText rich;
-    LinkedList<UndoRedoElement> undoRanges = new LinkedList<UndoRedoElement>();
-    LinkedList<UndoRedoElement> redoRanges = new LinkedList<UndoRedoElement>();
-    boolean doUndo = false;
+    private RichText rich;
+    private LinkedList<UndoRedoElement> undoRanges = new LinkedList<UndoRedoElement>();
+    private LinkedList<UndoRedoElement> redoRanges = new LinkedList<UndoRedoElement>();
+    private boolean doUndo = false;
     private UndoRedoElement lastUndo;
     private boolean doneRedo;
 
@@ -113,8 +113,8 @@ public class UndoRedoHandler {
      * 
      */
     public class UndoRedoElement {
-	String editorPart;
-	int caretPosition;
+	private String editorPart;
+	private int caretPosition;
 
 	public UndoRedoElement(String editorPart, int offset) {
 	    this.editorPart = editorPart;

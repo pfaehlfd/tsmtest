@@ -67,7 +67,7 @@ public class PackageSelectionDialog extends SelectionDialog {
     private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
     // the widget group;
-    ContainerSelectionGroup group;
+    private ContainerSelectionGroup group;
 
     // the root resource to populate the viewer with
     private final IContainer initialSelection;
@@ -76,10 +76,10 @@ public class PackageSelectionDialog extends SelectionDialog {
     private boolean allowNewContainerName = true;
 
     // the validation message
-    Label statusMessage;
+    private Label statusMessage;
 
     // for validating the selection
-    ISelectionValidator validator;
+    private ISelectionValidator validator;
 
     // show closed projects by default
     private boolean showClosedProjects = true;

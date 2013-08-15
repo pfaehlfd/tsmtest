@@ -809,7 +809,7 @@ public class DataModel extends AbstractDataModel implements
      * @return filename without the extension
      */
     private String stripExtension(final String filename) {
-	final int extensionIndex = filename.lastIndexOf("."); //$NON-NLS-1$
+	final int extensionIndex = filename.lastIndexOf('.'); //$NON-NLS-1$
 	if (extensionIndex == -1) {
 	    return filename;
 	}

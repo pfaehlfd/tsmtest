@@ -34,7 +34,7 @@ public class PasteAction extends Action {
     // FIXME Better clipboard handling
     private static ArrayList<TSMResource> customClipboard = null;
     private static boolean copy;
-    public static boolean enabled = false;
+    protected static boolean enabled = false;
     private static final Collection<PasteAction> allActions = new ArrayList<PasteAction>();
 
     public PasteAction(final String name, final IWorkbenchWindow window,

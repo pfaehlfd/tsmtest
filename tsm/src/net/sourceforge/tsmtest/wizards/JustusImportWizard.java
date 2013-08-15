@@ -54,8 +54,8 @@ import org.jdom2.input.SAXBuilder;
  */
 public class JustusImportWizard extends Wizard implements INewWizard {
 
-    protected JustusPage page;
-    int elements;
+    private JustusPage page;
+    private int elements;
 
     /**
      * The constructor
@@ -136,8 +136,8 @@ public class JustusImportWizard extends Wizard implements INewWizard {
     }
 
     class InternalRunnable implements Runnable {
-	IPath dest;
-	boolean sequence;
+	private IPath dest;
+	private boolean sequence;
 
 	@Override
 	public void run() {

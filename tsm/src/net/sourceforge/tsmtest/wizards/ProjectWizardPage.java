@@ -77,7 +77,7 @@ public class ProjectWizardPage extends WizardPage {
     private String initialProjectFieldValue;
 
     // widgets
-    Text projectNameField;
+    private Text projectNameField;
 
     private final Listener nameModifyListener = new Listener() {
 	@Override

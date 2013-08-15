@@ -667,17 +667,17 @@ public class Overview extends MultiPageEditorPartInput implements
 		    final String duration = rep.getData().getRealDuration();
 		    if (duration.length() > 5) {
 			hours += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			minutes += Integer.parseInt(duration.substring(
-				duration.indexOf(":") + 1,
-				duration.lastIndexOf(":")));
+				duration.indexOf(':') + 1,
+				duration.lastIndexOf(':')));
 			seconds += Integer.parseInt(duration.substring(duration
-				.lastIndexOf(":") + 1));
+				.lastIndexOf(':') + 1));
 		    } else if (duration.length() > 2) {
 			minutes += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			seconds += Integer.parseInt(duration.substring(duration
-				.indexOf(":")) + 1);
+				.indexOf(':')) + 1);
 		    } else {
 			seconds += Integer.parseInt(duration);
 		    }
@@ -713,17 +713,17 @@ public class Overview extends MultiPageEditorPartInput implements
 		    final String duration = rep.getData().getRealDuration();
 		    if (duration.length() > 5) {
 			hours_high += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			minutes_high += Integer.parseInt(duration.substring(
-				duration.indexOf(":") + 1,
-				duration.lastIndexOf(":")));
+				duration.indexOf(':') + 1,
+				duration.lastIndexOf(':')));
 			seconds_high += Integer.parseInt(duration
-				.substring(duration.lastIndexOf(":") + 1));
+				.substring(duration.lastIndexOf(':') + 1));
 		    } else if (duration.length() > 2) {
 			minutes_high += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			seconds_high += Integer.parseInt(duration
-				.substring(duration.indexOf(":")) + 1);
+				.substring(duration.indexOf(':')) + 1);
 		    } else {
 			seconds_high += Integer.parseInt(duration);
 		    }
@@ -732,17 +732,17 @@ public class Overview extends MultiPageEditorPartInput implements
 		    final String duration = rep.getData().getRealDuration();
 		    if (duration.length() > 5) {
 			hours_middle += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			minutes_middle += Integer.parseInt(duration.substring(
-				duration.indexOf(":") + 1,
-				duration.lastIndexOf(":")));
+				duration.indexOf(':') + 1,
+				duration.lastIndexOf(':')));
 			seconds_middle += Integer.parseInt(duration
-				.substring(duration.lastIndexOf(":") + 1));
+				.substring(duration.lastIndexOf(':') + 1));
 		    } else if (duration.length() > 2) {
 			minutes_middle += Integer.parseInt(duration.substring(
-				0, duration.indexOf(":")));
+				0, duration.indexOf(':')));
 			seconds_middle += Integer.parseInt(duration
-				.substring(duration.indexOf(":")) + 1);
+				.substring(duration.indexOf(':')) + 1);
 		    } else {
 			seconds_middle += Integer.parseInt(duration);
 		    }
@@ -750,17 +750,17 @@ public class Overview extends MultiPageEditorPartInput implements
 		    final String duration = rep.getData().getRealDuration();
 		    if (duration.length() > 5) {
 			hours_low += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			minutes_low += Integer.parseInt(duration.substring(
-				duration.indexOf(":") + 1,
-				duration.lastIndexOf(":")));
+				duration.indexOf(':') + 1,
+				duration.lastIndexOf(':')));
 			seconds_low += Integer.parseInt(duration
-				.substring(duration.lastIndexOf(":") + 1));
+				.substring(duration.lastIndexOf(':') + 1));
 		    } else if (duration.length() > 2) {
 			minutes_low += Integer.parseInt(duration.substring(0,
-				duration.indexOf(":")));
+				duration.indexOf(':')));
 			seconds_low += Integer.parseInt(duration
-				.substring(duration.indexOf(":")) + 1);
+				.substring(duration.indexOf(':')) + 1);
 		    } else {
 			seconds_low += Integer.parseInt(duration);
 		    }
