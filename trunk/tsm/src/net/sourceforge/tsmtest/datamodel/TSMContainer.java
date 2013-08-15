@@ -25,7 +25,7 @@ import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
  */
 public abstract class TSMContainer extends TSMResource {
 
-    List<TSMResource> children = new ArrayList<TSMResource>();
+    private List<TSMResource> children = new ArrayList<TSMResource>();
 
     protected TSMContainer(final String name, final TSMContainer parent) {
 	super(name, parent);

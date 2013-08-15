@@ -34,10 +34,10 @@ import org.eclipse.ui.dialogs.WizardResourceImportPage;
 
 public class JustusPage extends WizardResourceImportPage {
 
-    Text text;
-    Label importLabel;
-    Composite p;
-    boolean sequenceIsCase = true;
+    private Text text;
+//    Label importLabel;
+//    Composite p;
+    private boolean sequenceIsCase = true;
 
     protected JustusPage(final String name, final IStructuredSelection selection) {
 	super(name, selection);

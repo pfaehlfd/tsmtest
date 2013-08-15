@@ -12,7 +12,7 @@ package net.sourceforge.tsmtest.gui.sashform;
 
 public class CustomSashFormData {
 
-    long weight;
+    protected long weight;
 
     String getName() {
 	String string = getClass().getName();

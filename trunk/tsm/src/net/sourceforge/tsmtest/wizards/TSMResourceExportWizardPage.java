@@ -447,7 +447,7 @@ public abstract class TSMResourceExportWizardPage extends
 	    return true;
 	}
 
-	final int separatorIndex = resourceName.lastIndexOf("."); //$NON-NLS-1$
+	final int separatorIndex = resourceName.lastIndexOf('.'); //$NON-NLS-1$
 	if (separatorIndex == -1) {
 	    return false;
 	}

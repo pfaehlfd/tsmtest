@@ -40,11 +40,11 @@ public class OverviewStepSash {
     private static final int POSDESC = 0;
     private static final int POSDURATION = 1;
 
-    Color red;
-    Color green;
-    Color yellow;
-    Color grey;
-    Color white;
+    private Color red;
+    private Color green;
+    private Color yellow;
+    private Color grey;
+    private Color white;
 
     public OverviewStepSash(Composite parent) {
 	tableManager = new SashManager<TSMTestCase>(parent) {

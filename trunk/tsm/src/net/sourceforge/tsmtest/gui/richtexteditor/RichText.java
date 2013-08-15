@@ -159,10 +159,10 @@ public class RichText extends Composite {
     private final Cursor oldCursor;
 
     private AtomicBoolean mouseDown;
-    Cursor resizeCursor;
+    private Cursor resizeCursor;
 
-    Cursor handCursor;
-    TsmStyledTextImage hoverImage = null;
+    private Cursor handCursor;
+    private TsmStyledTextImage hoverImage = null;
     private int maxCharacters = -1;
     private boolean editText;
     private Menu menu;
@@ -965,7 +965,7 @@ public class RichText extends Composite {
 	styledText.setAlwaysShowScrollBars(false);
 	styledText.setLayoutData(new GridData(GridData.FILL_BOTH));
 	styledText.addKeyListener(new KeyAdapter() {
-	    boolean undoPressed = false;
+	private boolean undoPressed = false;
 
 	    @Override
 	    public void keyPressed(final KeyEvent e) {

@@ -34,7 +34,7 @@ import org.eclipse.swt.graphics.Rectangle;
 public class TsmStyledTextImage {
 
     private static final int MARGIN_RIGHT = 10;
-    Image image;
+    private Image image;
     private int offset;
     /**
      * The relative path to the image relative to the workspace root.
