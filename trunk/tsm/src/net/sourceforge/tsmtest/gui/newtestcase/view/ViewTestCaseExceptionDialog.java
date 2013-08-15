@@ -53,8 +53,8 @@ public class ViewTestCaseExceptionDialog extends Dialog {
 	Composite container = (Composite) super.createDialogArea(parent);
 	container.setLayout(new GridLayout(1, false));
 	
-	Label lblEsGabFolgende = new Label(container, SWT.NONE);
-	lblEsGabFolgende.setText(Messages.ViewTestCaseExceptionDialog_1);
+	Label lblfollowinErrorOccurred = new Label(container, SWT.NONE);
+	lblfollowinErrorOccurred.setText(Messages.ViewTestCaseExceptionDialog_1);
 	
 	Label label = new Label(container, SWT.NONE);
 	label.setText(errorMessage);

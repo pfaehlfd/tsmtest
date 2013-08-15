@@ -244,7 +244,6 @@ public class RichText extends Composite {
 	    final int replaceCharCount = e.end - e.start;
 	    final int newCharCount = e.text.length();
 	    if (styledText.getImages().size() > 0) {
-
 		final Iterator<TsmStyledTextImage> img = styledText.getImages()
 			.iterator();
 		while (img.hasNext()) {
@@ -353,10 +352,10 @@ public class RichText extends Composite {
 		    deleteCurrent = true;
 		    undoRedoHandler.saveUndo();
 		} else {
-		    if(deleteCurrent && e.text.length() > 0){
+		    if (deleteCurrent && e.text.length() > 0) {
 			deleteCurrent = false;
 			undoRedoHandler.saveUndo();
-		    }else if (e.text.indexOf(" ") != -1) {
+		    } else if (e.text.indexOf(' ') != -1) {
 			undoCounter++;
 			if (undoCounter == 4) {
 			    undoRedoHandler.saveUndo();
@@ -784,7 +783,6 @@ public class RichText extends Composite {
      * Clear all styled data
      */
     protected void clearStylesFromSelection() {
-
 	final Point sel = styledText.getSelectionRange();
 	if ((sel != null) && (sel.y != 0)) {
 	    final StyleRange style = new StyleRange(sel.x, sel.y, null, null,

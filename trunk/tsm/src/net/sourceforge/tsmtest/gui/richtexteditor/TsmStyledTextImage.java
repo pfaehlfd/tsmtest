@@ -171,7 +171,6 @@ public class TsmStyledTextImage {
      * @param event
      */
     public void paintImage(final PaintObjectEvent event) {
-
 	if (maxResizeFlag) {
 	    int verticalBar = 10;
 	    if (((TsmStyledText) event.getSource()).getVerticalBar() != null) {
@@ -504,7 +503,7 @@ public class TsmStyledTextImage {
     /**
      * returns the html tag of the string
      * 
-     * @return html string for the Image Tag
+     * @return html string for the image tag
      */
     public String getHtmlTag() {
 	String srcStr;

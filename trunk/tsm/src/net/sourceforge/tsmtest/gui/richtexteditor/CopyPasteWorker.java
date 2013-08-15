@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
  */
 public class CopyPasteWorker {
 
-    // the clipboard wich is used
+    // the clipboard which is used
     private final Clipboard clipboard;
 
     // the current copied or cutted styles
@@ -54,11 +54,11 @@ public class CopyPasteWorker {
     private String copiedString;
 
     // saves the start positions of the style ranges to add the paste
-    // mouseposition later on
+    // mouse position later on
     private int[] startRange;
     private Display display;
 
-    // the positon where the selection of text starts
+    // the position where the selection of text starts
     private int startSelection;
 
     // ArrayList to temporary save the copied pictures
@@ -141,12 +141,12 @@ public class CopyPasteWorker {
 
 	copiedStyles = styles;
 
-	// set the start position of the copied styles relativ to the selection
+	// set the start position of the copied styles relativly to the selection
 	for (int i = 0; i < copiedStyles.length; i++) {
 	    copiedStyles[i].start = copiedStyles[i].start - selStart;
 	}
 
-	// saves the start positions relativ to the selection in an array
+	// saves the start positions relativly to the selection in an array
 	startRange = new int[copiedStyles.length];
 	for (int i = 0; i < startRange.length; i++) {
 	    startRange[i] = copiedStyles[i].start;
@@ -264,7 +264,6 @@ public class CopyPasteWorker {
 
 	    // if text will be paste the first time
 	    if (!thirdCopy) {
-
 		// sets the new offset position of the image to add
 
 		image.setOffset(relImgOffset.get(index)
@@ -276,7 +275,6 @@ public class CopyPasteWorker {
 		thirdCopy = true;
 		index++;
 	    } else {
-
 		// creating a new instance of the copied pictures
 		final TsmStyledTextImage tImage = new TsmStyledTextImage(
 			new Image(styledText.getDisplay(), image.getSrc()),

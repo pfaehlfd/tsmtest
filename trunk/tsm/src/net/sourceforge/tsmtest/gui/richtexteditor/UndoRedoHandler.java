@@ -38,8 +38,10 @@ public class UndoRedoHandler {
 	    String actualText = rich.getFormattedText();
 	    int caretOffset = rich.getCaretOffset();
 	    if (!rich.getStyledTextComponent().isFocusControl()
-		    && caretOffset == 0)
+		    && caretOffset == 0) {
 		caretOffset = actualText.length();
+	    }
+		
 	    undoRanges.push(new UndoRedoElement(actualText, caretOffset));
 	}
     }
@@ -88,7 +90,6 @@ public class UndoRedoHandler {
 
 	    try {
 		if (!currentText.equals(redoElement.getPart())) {
-
 		    rich.setFormattedText(redoElement.getPart(), true);
 		    rich.setCaretOffset(redoElement.getCaretPosition());
 		}

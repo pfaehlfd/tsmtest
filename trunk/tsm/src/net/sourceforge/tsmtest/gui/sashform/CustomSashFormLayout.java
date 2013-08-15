@@ -30,10 +30,13 @@ public class CustomSashFormLayout extends Layout {
 	int width = 0;
 	int height = 0;
 	if (cArray.length == 0) {
-	    if (wHint != SWT.DEFAULT)
+	    if (wHint != SWT.DEFAULT) {
 		width = wHint;
-	    if (hHint != SWT.DEFAULT)
+	    }
+	    if (hHint != SWT.DEFAULT) {
 		height = hHint;
+	    }
+	    
 	    return new Point(width, height);
 	}
 	// determine control sizes
@@ -88,10 +91,14 @@ public class CustomSashFormLayout extends Layout {
 	}
 	width += sashForm.getBorderWidth() * 2;
 	height += sashForm.getBorderWidth() * 2;
-	if (wHint != SWT.DEFAULT)
+	if (wHint != SWT.DEFAULT) {
 	    width = wHint;
-	if (hHint != SWT.DEFAULT)
+	}
+
+	if (hHint != SWT.DEFAULT) {
 	    height = hHint;
+	}
+	    
 	return new Point(width, height);
     }
 
@@ -102,12 +109,16 @@ public class CustomSashFormLayout extends Layout {
     protected void layout(Composite composite, boolean flushCache) {
 	CustomSashForm sashForm = (CustomSashForm) composite;
 	Rectangle area = sashForm.getClientArea();
-	if (area.width <= 1 || area.height <= 1)
+	if (area.width <= 1 || area.height <= 1) {
 	    return;
+	}
+
 
 	Control[] newControls = sashForm.getControls(true);
-	if (sashForm.controls.length == 0 && newControls.length == 0)
+	if (sashForm.controls.length == 0 && newControls.length == 0){
 	    return;
+	}
+
 	sashForm.controls = newControls;
 
 	Control[] controls = sashForm.controls;
@@ -149,8 +160,10 @@ public class CustomSashFormLayout extends Layout {
 		sashForm.sashes = newSashes;
 	    }
 	}
-	if (controls.length == 0)
+	if (controls.length == 0) {
 	    return;
+	}
+	    
 	CustomComposite[] sashes = sashForm.sashes;
 	// get the ratios
 	long[] ratios = new long[controls.length];
