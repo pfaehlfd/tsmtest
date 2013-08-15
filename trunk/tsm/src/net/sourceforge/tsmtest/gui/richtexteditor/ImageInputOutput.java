@@ -40,13 +40,11 @@ public class ImageInputOutput {
     private ImageLoader il;
 
     public static ImageInputOutput createHandler(final String[] paths) {
-	final ImageInputOutput tempObj = new ImageInputOutput(paths);
-	return tempObj;
+	return new ImageInputOutput(paths);
     }
 
     public static ImageInputOutput createHandler(final ImageData img) {
-	final ImageInputOutput tempObj = new ImageInputOutput(img);
-	return tempObj;
+	return new ImageInputOutput(img);
     }
 
     /**
@@ -151,9 +149,7 @@ public class ImageInputOutput {
      * @return Images sources
      */
     public String[] getTempImageSrc() {
-	final String[] tempSrc = tempImagePaths
-		.toArray(new String[tempImagePaths.size()]);
-	return tempSrc;
+	return tempImagePaths.toArray(new String[tempImagePaths.size()]);
     }
 
     /**
