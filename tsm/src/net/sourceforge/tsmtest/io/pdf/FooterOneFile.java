@@ -24,14 +24,14 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 /**
- * This class wirtes a different id for every test case
+ * This class writes a different id for every test case
  * 
  * @author Verena Käfer
  * 
  */
 class FooterOneFile extends PdfPageEventHelper {
-    int pagenumber;
-    long id;
+    private int pagenumber;
+    private long id;
     private static Font normalFont = new Font(Font.HELVETICA, 8, Font.NORMAL);
 
     /**

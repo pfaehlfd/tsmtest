@@ -18,7 +18,7 @@ import org.eclipse.ltk.core.refactoring.participants.ResourceChangeChecker;
 public class Rename extends
 	org.eclipse.ltk.core.refactoring.participants.RenameParticipant {
 
-    String resourceName = "";
+    private String resourceName = "";
 
     /*
      * (non-Javadoc)

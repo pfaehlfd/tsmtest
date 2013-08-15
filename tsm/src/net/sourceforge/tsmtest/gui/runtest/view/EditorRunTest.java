@@ -120,9 +120,9 @@ public class EditorRunTest extends EditorPartInput implements
 
     private boolean descriptionChanged = false;
 
-    String[] buttonName = { "OK" };
-    Color red = new Color(null, 255, 100, 100);
-    Color white = new Color(null, 255, 255, 255);
+    private String[] buttonName = { "OK" };
+    private Color red = new Color(null, 255, 100, 100);
+    private Color white = new Color(null, 255, 255, 255);
 
     // --------------------------
 

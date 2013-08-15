@@ -47,7 +47,7 @@ import com.itextpdf.text.DocumentException;
  */
 public class PdfWizard extends Wizard implements INewWizard {
 
-    protected PdfPage page;
+    private PdfPage page;
 
     /**
      * The constructor
@@ -116,7 +116,7 @@ public class PdfWizard extends Wizard implements INewWizard {
     }
 
     private class InternalRunnable implements Runnable {
-	String path;
+	private String path;
 
 	@Override
 	public void run() {

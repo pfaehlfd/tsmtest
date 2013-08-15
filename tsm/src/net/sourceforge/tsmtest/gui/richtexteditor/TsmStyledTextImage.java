@@ -245,7 +245,7 @@ public class TsmStyledTextImage {
 		    (int) (image.getBounds().width * scale),
 		    (int) (image.getBounds().height * scale));
 
-	    if (isResizeOn() || chanceFactor == true) {
+	    if (isResizeOn() || chanceFactor) {
 		imageStyle.metrics = new GlyphMetrics((bounds.height), 0,
 			(bounds.width));
 		chanceFactor = false;
@@ -451,7 +451,7 @@ public class TsmStyledTextImage {
     public void doFullSize(final TsmStyledText styledText,
 	    final boolean grabMaximumSize) {
 	this.grabMaximumSize = grabMaximumSize;
-	if (fullSizeMode == false) {
+	if (!fullSizeMode) {
 	    // make full Size
 	    generateFullSizeMode = true;
 	    styledText.replaceTextRange(offset, 0,

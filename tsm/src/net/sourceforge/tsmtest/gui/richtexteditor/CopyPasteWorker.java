@@ -263,7 +263,7 @@ public class CopyPasteWorker {
 	for (final TsmStyledTextImage image : tempImages) {
 
 	    // if text will be paste the first time
-	    if (thirdCopy == false) {
+	    if (!thirdCopy) {
 
 		// sets the new offset position of the image to add
 
