@@ -61,53 +61,67 @@ import com.itextpdf.text.pdf.PdfWriter;
  * 
  */
 public class ExportPdf {
+    // font sizes
+    private static final int standardFontSize = 12;
+    private static final int headerFontSize = 18;
+    private static final int smallFontSize = 8;
     // five basic fonts
-    private static Font normalFont = new Font(Font.HELVETICA, 12, Font.NORMAL);
-    private static Font boldFont = new Font(Font.HELVETICA, 12, Font.BOLD);
-    private static Font italicFont = new Font(Font.HELVETICA, 12, Font.ITALIC);
-    private static Font underlineFont = new Font(Font.HELVETICA, 12,
+    private static Font normalFont = new Font(Font.HELVETICA, standardFontSize, Font.NORMAL);
+    private static Font boldFont = new Font(Font.HELVETICA, standardFontSize, Font.BOLD);
+    private static Font italicFont = new Font(Font.HELVETICA, standardFontSize, Font.ITALIC);
+    private static Font underlineFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.UNDERLINE);
-    private static Font strikeFont = new Font(Font.HELVETICA, 12,
+    private static Font strikeFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.STRIKETHRU);
 
     // 2 mixed fonts
-    private static Font boldItalicFont = new Font(Font.HELVETICA, 12,
+    private static Font boldItalicFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.BOLDITALIC);
-    private static Font boldUnderlineFont = new Font(Font.HELVETICA, 12,
+    private static Font boldUnderlineFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.BOLD | Font.UNDERLINE);
-    private static Font boldStrikeFont = new Font(Font.HELVETICA, 12, Font.BOLD
+    private static Font boldStrikeFont = new Font(Font.HELVETICA, standardFontSize, Font.BOLD
 	    | Font.STRIKETHRU);
-    private static Font italicUnderlineFont = new Font(Font.HELVETICA, 12,
+    private static Font italicUnderlineFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.ITALIC | Font.UNDERLINE);
-    private static Font italicStrikeFont = new Font(Font.HELVETICA, 12,
+    private static Font italicStrikeFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.ITALIC | Font.STRIKETHRU);
-    private static Font underlineStrikeFont = new Font(Font.HELVETICA, 12,
+    private static Font underlineStrikeFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.UNDERLINE | Font.STRIKETHRU);
 
     // 3 mixed fonts
-    private static Font boldItalicUnderlineFont = new Font(Font.HELVETICA, 12,
+    private static Font boldItalicUnderlineFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.BOLD | Font.ITALIC | Font.UNDERLINE);
-    private static Font boldItalicStrikeFont = new Font(Font.HELVETICA, 12,
+    private static Font boldItalicStrikeFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.BOLD | Font.ITALIC | Font.STRIKETHRU);
-    private static Font boldUnderlineStrikeFont = new Font(Font.HELVETICA, 12,
+    private static Font boldUnderlineStrikeFont = new Font(Font.HELVETICA, standardFontSize,
 	    Font.BOLD | Font.UNDERLINE | Font.STRIKETHRU);
     private static Font italicUnderlineStrikeFont = new Font(Font.HELVETICA,
-	    12, Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
+	    standardFontSize, Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
 
     // all fonts
-    private static Font allFont = new Font(Font.HELVETICA, 12, Font.BOLD
+    private static Font allFont = new Font(Font.HELVETICA, standardFontSize, Font.BOLD
 	    | Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
 
     // header font
-    private static Font bigBold = new Font(Font.HELVETICA, 18, Font.BOLD);
+    private static Font bigBold = new Font(Font.HELVETICA, headerFontSize, Font.BOLD);
 
     // captureFont
-    private static Font smallFont = new Font(Font.HELVETICA, 8);
+    private static Font smallFont = new Font(Font.HELVETICA, smallFontSize);
 
     private static boolean bold;
     private static boolean italic;
     private static boolean underline;
     private static boolean strike;
+    
+    // margins
+    private static final float leftMargin = 25;
+    private static final float rightMargin = 25;
+    private static final float topMargin = 25;
+    private static final float bottomMargin = 60;
+    
+    //WidthPercentage
+    private static final float WidthPercentage = 100;
+    
 
     static PdfWriter writer;
 
@@ -139,7 +153,7 @@ public class ExportPdf {
 		counterForPics = 1;
 		Document document = new Document();
 		document.setPageSize(PageSize.A4);
-		document.setMargins(25, 25, 25, 60);
+		document.setMargins(leftMargin, rightMargin, topMargin, bottomMargin);
 		// reset list
 		imageList = new ArrayList<Image>();
 		nameList = new ArrayList<String>();
@@ -161,13 +175,12 @@ public class ExportPdf {
 		document.close();
 	    } else {
 		// go through the list and create one document for each entry
-		int counter = 1;
 		for (int i = 0; i < newList.size(); i++) {
 		    TSMResource r = newList.get(i);
 		    counterForPics = 1;
 		    Document document = new Document();
 		    document.setPageSize(PageSize.A4);
-		    document.setMargins(25, 25, 25, 60);
+		    document.setMargins(leftMargin, rightMargin, topMargin, bottomMargin);
 		    // reset list
 		    imageList = new ArrayList<Image>();
 		    nameList = new ArrayList<String>();
@@ -300,7 +313,7 @@ public class ExportPdf {
 		    - document.rightMargin() - document.leftMargin();
 
 	    PdfPTable imageTable = new PdfPTable(1);
-	    imageTable.setWidthPercentage(100);
+	    imageTable.setWidthPercentage(WidthPercentage);
 	    Phrase appendix = new Phrase(Messages.ExportPdf_25, bigBold);
 	    Paragraph emptyLine = new Paragraph();
 	    addEmptyLine(emptyLine, 2);
@@ -412,7 +425,7 @@ public class ExportPdf {
 		createContentTable(chapter, file, getSubMonitor(monitor, 1));
 
 		PdfPTable shortDescriptionTable = new PdfPTable(1);
-		shortDescriptionTable.setWidthPercentage(100);
+		shortDescriptionTable.setWidthPercentage(WidthPercentage);
 		Phrase shortDescriptionEntry = new Phrase();
 		Paragraph shortDescription = new Paragraph(
 			Messages.ExportPdf_17, boldFont);
@@ -431,7 +444,7 @@ public class ExportPdf {
 		chapter.add(emptyLine);
 
 		PdfPTable preconditionTable = new PdfPTable(1);
-		preconditionTable.setWidthPercentage(100);
+		preconditionTable.setWidthPercentage(WidthPercentage);
 		Phrase preconditionEntry = new Phrase();
 		Paragraph precondition = new Paragraph(Messages.ExportPdf_19,
 			boldFont);
@@ -452,7 +465,7 @@ public class ExportPdf {
 		chapter.add(emptyLine);
 
 		PdfPTable finalResultTable = new PdfPTable(1);
-		finalResultTable.setWidthPercentage(100);
+		finalResultTable.setWidthPercentage(WidthPercentage);
 		Phrase finalResultEntry = new Phrase();
 		Paragraph finalResult = new Paragraph(Messages.ExportPdf_20,
 			boldFont);
@@ -487,7 +500,7 @@ public class ExportPdf {
 		createContentTable(chapter, file, getSubMonitor(monitor, 1));
 
 		PdfPTable shortDescriptionTable = new PdfPTable(1);
-		shortDescriptionTable.setWidthPercentage(100);
+		shortDescriptionTable.setWidthPercentage(WidthPercentage);
 		Phrase shortDescriptionEntry = new Phrase();
 		Paragraph shortDescription = new Paragraph(
 			Messages.ExportPdf_21, boldFont);
@@ -504,7 +517,7 @@ public class ExportPdf {
 		chapter.add(empyLine);
 
 		PdfPTable preconditionTable = new PdfPTable(1);
-		preconditionTable.setWidthPercentage(100);
+		preconditionTable.setWidthPercentage(WidthPercentage);
 		Phrase preconditionEntry = new Phrase();
 		Paragraph precondition = new Paragraph(Messages.ExportPdf_22,
 			boldFont);
@@ -529,7 +542,7 @@ public class ExportPdf {
 		chapter.add(finalResult);
 
 		PdfPTable finalResultTable = new PdfPTable(1);
-		finalResultTable.setWidthPercentage(100);
+		finalResultTable.setWidthPercentage(WidthPercentage);
 		Phrase line = new Phrase();
 
 		parse(line, "", document, file); //$NON-NLS-1$
@@ -556,7 +569,7 @@ public class ExportPdf {
 			- document.rightMargin() - document.leftMargin();
 
 		PdfPTable imageTable = new PdfPTable(1);
-		imageTable.setWidthPercentage(100);
+		imageTable.setWidthPercentage(WidthPercentage);
 		Phrase appendix = new Phrase(Messages.ExportPdf_25, bigBold);
 		Paragraph emptyLine = new Paragraph();
 		addEmptyLine(emptyLine, 2);
@@ -631,7 +644,7 @@ public class ExportPdf {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		table.setWidths(new float[] { 30, 70 });
 
 		PdfPCell project = new PdfPCell(new Phrase(
@@ -822,7 +835,7 @@ public class ExportPdf {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		table.setWidths(new float[] { 30, 70 });
 
 		PdfPCell c1 = new PdfPCell(new Phrase(Messages.ExportPdf_51,
@@ -1022,7 +1035,7 @@ public class ExportPdf {
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 
 		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1091,7 +1104,7 @@ public class ExportPdf {
 	    } else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 
 		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -1407,7 +1420,7 @@ public class ExportPdf {
 		createContentTableOne(chapter, file, getSubMonitor(monitor, 1));
 
 		PdfPTable table = new PdfPTable(1);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		Phrase paragraph5 = new Phrase();
 		Paragraph p2 = new Paragraph(Messages.ExportPdf_116, boldFont);
 		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
@@ -1426,7 +1439,7 @@ public class ExportPdf {
 		chapter.add(paragraph8);
 
 		PdfPTable table2 = new PdfPTable(1);
-		table2.setWidthPercentage(100);
+		table2.setWidthPercentage(WidthPercentage);
 		Phrase paragraph7 = new Phrase();
 		Paragraph p3 = new Paragraph(Messages.ExportPdf_118, boldFont);
 		paragraph7.add(p3);
@@ -1449,7 +1462,7 @@ public class ExportPdf {
 		chapter.add(paragraph3);
 
 		PdfPTable table3 = new PdfPTable(1);
-		table3.setWidthPercentage(100);
+		table3.setWidthPercentage(WidthPercentage);
 		Phrase paragraph10 = new Phrase();
 		Paragraph p4 = new Paragraph(Messages.ExportPdf_119, boldFont);
 		paragraph10.add(p4);
@@ -1468,7 +1481,7 @@ public class ExportPdf {
 		createContentTableOne(chapter, file, getSubMonitor(monitor, 1));
 
 		PdfPTable table = new PdfPTable(1);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		Phrase paragraph5 = new Phrase();
 		Paragraph p2 = new Paragraph(Messages.ExportPdf_120, boldFont);
 		paragraph5.add(p2);
@@ -1487,7 +1500,7 @@ public class ExportPdf {
 		chapter.add(paragraph8);
 
 		PdfPTable table2 = new PdfPTable(1);
-		table2.setWidthPercentage(100);
+		table2.setWidthPercentage(WidthPercentage);
 		Phrase paragraph7 = new Phrase();
 		Paragraph p3 = new Paragraph(Messages.ExportPdf_121, boldFont);
 		paragraph7.add(p3);
@@ -1514,7 +1527,7 @@ public class ExportPdf {
 		chapter.add(paragraph9);
 
 		PdfPTable table3 = new PdfPTable(1);
-		table3.setWidthPercentage(100);
+		table3.setWidthPercentage(WidthPercentage);
 		Phrase paragraph10 = new Phrase();
 
 		parse(paragraph10, "", document, file); //$NON-NLS-1$
@@ -1549,7 +1562,7 @@ public class ExportPdf {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		table.setWidths(new float[] { 30, 70 });
 
 		PdfPCell c17 = new PdfPCell(new Phrase("ID", smallFont)); //$NON-NLS-1$
@@ -1739,7 +1752,7 @@ public class ExportPdf {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 		table.setWidths(new float[] { 30, 70 });
 
 		// PdfPCell c1 = new PdfPCell(new Phrase("Name:", boldFont));
@@ -1946,7 +1959,7 @@ public class ExportPdf {
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 
 		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -2015,7 +2028,7 @@ public class ExportPdf {
 	    } else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(100);
+		table.setWidthPercentage(WidthPercentage);
 
 		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
