@@ -118,7 +118,6 @@ public class ViewTestCase extends EditorPartInput implements
 
     @Override
     public void createPartControl(final Composite parent) {
-
 	parent.addDisposeListener(new DisposeListener() {
 
 	    /*
@@ -464,16 +463,16 @@ public class ViewTestCase extends EditorPartInput implements
 
 	if (testCaseData.getExpectedDuration().length() > 0) {
 	    // check if right format
-	    final String[] s = testCaseData.getExpectedDuration().split(":");
+	    final String[] splittedDuration = testCaseData.getExpectedDuration().split(":");
 	    // TODO Findbugs says this variable is never read or used after
 	    // assignment
 	    String expectedDuration = testCaseData.getExpectedDuration();
 	    try {
 		// HH:something
-		if (s.length > 1) {
+		if (splittedDuration.length > 1) {
 		    // HH:MMsomething
-		    if (s[1].length() == 2) {
-			expectedDuration = s[0] + ":" + s[1];
+		    if (splittedDuration[1].length() == 2) {
+			expectedDuration = splittedDuration[0] + ":" + splittedDuration[1];
 			TSMTestCase.durationFormat.parse(expectedDuration);
 		    } else {
 			throw new ParseException(null, 0);

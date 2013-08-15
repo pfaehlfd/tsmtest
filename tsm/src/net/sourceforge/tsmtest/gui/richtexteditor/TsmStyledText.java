@@ -33,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
  * 
  */
 public class TsmStyledText extends StyledText {
-
     public static final int SINGLE_TEXT = 0;
     public static final int SINGLE_STYLE = 1;
     public static final int APPEND_TEXT = 2;
@@ -175,7 +174,6 @@ public class TsmStyledText extends StyledText {
 
     public void setRelatedRichTextComponent(final RichText richText) {
 	relatedRichText = richText;
-
     }
 
     public String getProjectName() {

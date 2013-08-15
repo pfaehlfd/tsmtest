@@ -29,7 +29,7 @@ public final class RichStringBuilder {
     private Stack<FontStyle> fontStyleStack;
  
     /**
-     * Contructor to create a new StringBuilder and a new Stack to save the Fontstyles
+     * Constructor to create a new StringBuilder and a new Stack to save the Fontstyles
      */
     public RichStringBuilder() {
         builder = new StringBuilder();
@@ -136,9 +136,15 @@ public final class RichStringBuilder {
  
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (null == o) return false;
-        if (!(o instanceof RichStringBuilder)) return false;
+	if (this == o) {
+	    return true;
+	}
+	if (null == o) {
+	    return false;
+	}
+	if (!(o instanceof RichStringBuilder)) {
+	    return false;
+	}
  
         return ((RichStringBuilder) o).builder.equals(builder);
     }

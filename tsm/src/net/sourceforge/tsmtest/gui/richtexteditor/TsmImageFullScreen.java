@@ -36,8 +36,7 @@ import org.eclipse.swt.widgets.Shell;
  *
  */
 public class TsmImageFullScreen {
-
-    private TsmStyledTextImage timage;
+    private TsmStyledTextImage tImage;
     private Display display;
     private float scale = 1;
     private int x;
@@ -46,12 +45,12 @@ public class TsmImageFullScreen {
     private Point dragPoint;
 
     public TsmImageFullScreen(TsmStyledTextImage timage) {
-	this.timage = timage;
+	this.tImage = timage;
 	run();
     }
 
     public void dispose() {
-	timage.dispose();
+	tImage.dispose();
 	display.dispose();
     }
 
@@ -61,12 +60,12 @@ public class TsmImageFullScreen {
 	shell.setSize(200, 200);
 	Monitor primary = display.getPrimaryMonitor();
 	Rectangle bounds = primary.getBounds();
-	shell.setText(timage.getSrc());
+	shell.setText(tImage.getSrc());
 	// shell.set
 	shell.open();
 	shell.setLayout(new FillLayout());
 
-	final Image image = timage.getImage();
+	final Image image = tImage.getImage();
 	
 	final Point origin = new Point(0, 0);
 	final Canvas canvas = new Canvas(shell, SWT.NONE);
@@ -85,8 +84,10 @@ public class TsmImageFullScreen {
 	    }
 	});
 	// check if image bigger than screen
-	if(image.getBounds().width > bounds.width || image.getBounds().height > bounds.height) {
-	    scale = Math.min(image.getBounds().width / bounds.width, image.getBounds().height / bounds.height);
+	if (image.getBounds().width > bounds.width
+		|| image.getBounds().height > bounds.height) {
+	    scale = Math.min(image.getBounds().width / bounds.width,
+		    image.getBounds().height / bounds.height);
 	    canvas.redraw();
 	}
 	
@@ -115,14 +116,15 @@ public class TsmImageFullScreen {
 	shell.addMouseWheelListener(new MouseWheelListener() {
 	    @Override
 	    public void mouseScrolled(MouseEvent e) {
-		if (scale < 1)
+		if (scale < 1) {
 		    scale += (float) ((float) e.count / 24) * scale;
-		else
+		} else {
 		    scale += (float) ((float) e.count / ((float) 12 - ((float) scale / 3)));
+		}
 
-		if (scale < 0.01)
+		if (scale < 0.01) {
 		    scale = (float) 0.01;
-		else if (scale > 30) {
+		} else if (scale > 30) {
 		    scale = 30;
 		}
 		canvas.redraw();
@@ -131,8 +133,9 @@ public class TsmImageFullScreen {
 	canvas.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseUp(MouseEvent e) {
-		if (e.button == 1)
+		if (e.button == 1) {
 		    buttonPressed = false;
+		}
 	    }
 
 	    @Override
@@ -140,8 +143,9 @@ public class TsmImageFullScreen {
 		if (!buttonPressed) {
 		    dragPoint = new Point(e.x - origin.x, e.y - origin.y);
 		}
-		if (e.button == 1)
+		if (e.button == 1) {
 		    buttonPressed = true;
+		}
 	    }
 	});
 	canvas.addMouseMoveListener(new MouseMoveListener() {

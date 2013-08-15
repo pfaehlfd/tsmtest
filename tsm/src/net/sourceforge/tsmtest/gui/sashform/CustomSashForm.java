@@ -58,7 +58,7 @@ public class CustomSashForm extends Composite {
     private Color foreground = null;
     protected Control[] controls = new Control[0];
     protected Control maxControl = null;
-    Listener sashListener;
+    protected Listener sashListener;
     private static final int DRAG_MINIMUM = 20;
 
     /**
@@ -98,10 +98,14 @@ public class CustomSashForm extends Composite {
 	super.setLayout(new CustomSashFormLayout());
 	sashStyle = ((style & SWT.VERTICAL) != 0) ? SWT.HORIZONTAL
 		: SWT.VERTICAL;
-	if ((style & SWT.BORDER) != 0)
+	if ((style & SWT.BORDER) != 0) {
 	    sashStyle |= SWT.BORDER;
-	if ((style & SWT.SMOOTH) != 0)
+	}
+	
+	if ((style & SWT.SMOOTH) != 0) {
 	    sashStyle |= SWT.SMOOTH;
+	}
+	    
 	sashListener = new Listener() {
 	    public void handleEvent(Event e) {
 		onDragSash(e);
@@ -166,8 +170,10 @@ public class CustomSashForm extends Composite {
 	int style = super.getStyle();
 	style |= getOrientation() == SWT.VERTICAL ? SWT.VERTICAL
 		: SWT.HORIZONTAL;
-	if ((sashStyle & SWT.SMOOTH) != 0)
+	if ((sashStyle & SWT.SMOOTH) != 0) {
 	    style |= SWT.SMOOTH;
+	}
+	    
 	return style;
     }
 
@@ -220,10 +226,14 @@ public class CustomSashForm extends Composite {
 	Control[] children = getChildren();
 	Control[] result = new Control[0];
 	for (int i = 0; i < children.length; i++) {
-	    if (children[i] instanceof CustomComposite)
+	    if (children[i] instanceof CustomComposite) {
 		continue;
-	    if (onlyVisible && !children[i].getVisible())
+	    }
+
+	    if (onlyVisible && !children[i].getVisible()) {
 		continue;
+	    }
+		
 	    Control[] newResult = new Control[result.length + 1];
 	    System.arraycopy(result, 0, newResult, 0, result.length);
 	    newResult[result.length] = children[i];
@@ -241,8 +251,10 @@ public class CustomSashForm extends Composite {
 		break;
 	    }
 	}
-	if (sashIndex == -1)
+	
+	if (sashIndex == -1) {
 	    return;
+	}
 
 	Control c1 = controls[sashIndex];
 	Control c2 = controls[sashIndex + 1];
@@ -481,8 +493,9 @@ public class CustomSashForm extends Composite {
      */
     public void setSashWidth(int width) {
 	checkWidget();
-	if (SASH_WIDTH == width)
+	if (SASH_WIDTH == width){
 	    return;
+	}
 	SASH_WIDTH = width;
 	layout(false);
     }

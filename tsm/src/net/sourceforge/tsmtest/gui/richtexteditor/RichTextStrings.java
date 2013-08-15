@@ -20,7 +20,6 @@ import net.sourceforge.tsmtest.Messages;
  *
  */
 public class RichTextStrings {
-
     /**
      * Bold tooltip text
      */

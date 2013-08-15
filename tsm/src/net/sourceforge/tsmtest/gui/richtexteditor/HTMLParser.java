@@ -60,7 +60,7 @@ public class HTMLParser {
 	    plainText = plainText.replace(replace[0], replace[1]);
 	}
 
-	//TODO Singleton f�r diesen StyledTextEditor
+	// TODO Singleton for this StyledTextEditor
 	//creates a new TsmStyledText to work with the text and the styles without changing the contents of the original
 	initializeTempStyledText();
 	
@@ -124,7 +124,6 @@ public class HTMLParser {
 	    
 	    //if there are no more style ranges in this line
 	    if (start < end) {
-		
 		// add text to builder
 		builder.append(plainText.substring(start, end
 			- styledText.getLineDelimiter().length()));
@@ -156,7 +155,7 @@ public class HTMLParser {
     }
 
     private void initializeTempStyledText() {
-	//TODO Singleton f�r diesen StyledTextEditor
+	// TODO Singleton for this StyledTextEditor
 	stTemp = new TsmStyledText(styledText, SWT.None, null);
 	
     }

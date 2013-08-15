@@ -54,7 +54,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * 
  */
 public final class RichTextParser {
-
     // A string array containing the characters which may not take place in the
     // styled text
     private static String[][] htmlEscapes = { { "%20", " " }, { "%23", "#" },
@@ -226,7 +225,6 @@ public final class RichTextParser {
 	    final List<FontStyle> lastStyles = lastFontStyles(true);
 
 	    if (lastStyles != null) {
-
 		// apply the included FontStyles and transform the text in the
 		// RichText into these Styles
 		final StyleRange range = transform(lastStyles);
@@ -326,6 +324,7 @@ public final class RichTextParser {
 		    index++;
 		}
 		TsmStyledTextImage tempImage;
+		// TODO Check if double "if (isMaxW)" is correct. Looks wrong.
 		if (isMaxW) {
 		    tempImage = new TsmStyledTextImage(image, project,
 			    filename, offset);

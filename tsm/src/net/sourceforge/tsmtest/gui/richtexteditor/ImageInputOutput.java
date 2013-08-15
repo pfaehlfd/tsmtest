@@ -29,7 +29,6 @@ import org.eclipse.swt.graphics.ImageLoader;
  * 
  */
 public class ImageInputOutput {
-
     private String[] imagePaths;
 
     private ImageData imageDataToSave;
@@ -136,8 +135,8 @@ public class ImageInputOutput {
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		}
-		// TODO das ding noch aufrufen in der Paste methode// getSources
-		// implementieren
+		// TODO Call the thing again in the paste method
+		// TODO implement getSources
 
 	    }
 	}
