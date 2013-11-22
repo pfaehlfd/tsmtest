@@ -39,7 +39,7 @@ public class RunTestAction extends Action implements SelectionObservable {
 	final TSMResource res = SelectionManager.instance.getSelection()
 		.getFirstResource();
 
-	if (res != null && res instanceof TSMTestCase) {
+	if (res instanceof TSMTestCase) {
 	    try {
 		EditorRunTest.openGUI((TSMTestCase) res);
 	    } catch (final PartInitException e) {
@@ -52,7 +52,7 @@ public class RunTestAction extends Action implements SelectionObservable {
     public void selectionChanged() {
 	final TSMResource res = SelectionManager.instance.getSelection()
 		.getFirstResource();
-	if (res != null && res instanceof TSMTestCase) {
+	if (res instanceof TSMTestCase) {
 	    setEnabled(true);
 	} else {
 	    setEnabled(false);

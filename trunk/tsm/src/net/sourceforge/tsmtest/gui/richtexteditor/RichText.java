@@ -922,7 +922,6 @@ public class RichText extends Composite {
 	} else {
 	    mntmClean.setEnabled(false);
 	}
-
     }
 
     private void handleKeyReleased(final KeyEvent event) {
