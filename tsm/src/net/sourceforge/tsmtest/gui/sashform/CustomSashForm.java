@@ -46,7 +46,7 @@ public class CustomSashForm extends Composite {
     /**
      * The width of all sashes in the form.
      */
-    protected int SASH_WIDTH = 3;
+    protected static int SASH_WIDTH = 3;
 
     private int sashStyle;
     protected CustomComposite[] sashes = new CustomComposite[0];
@@ -213,7 +213,7 @@ public class CustomSashForm extends Composite {
 	int[] ratios = new int[cArray.length];
 	for (int i = 0; i < cArray.length; i++) {
 	    Object data = cArray[i].getLayoutData();
-	    if (data != null && data instanceof CustomSashFormData) {
+	    if (data instanceof CustomSashFormData) {
 		ratios[i] = (int) (((CustomSashFormData) data).weight * 1000 >> 16);
 	    } else {
 		ratios[i] = 200;
@@ -286,12 +286,12 @@ public class CustomSashForm extends Composite {
 		event.doit = false;
 	    }
 	    Object data1 = c1.getLayoutData();
-	    if (data1 == null || !(data1 instanceof CustomSashFormData)) {
+	    if (!(data1 instanceof CustomSashFormData)) {
 		data1 = new CustomSashFormData();
 		c1.setLayoutData(data1);
 	    }
 	    Object data2 = c2.getLayoutData();
-	    if (data2 == null || !(data2 instanceof CustomSashFormData)) {
+	    if (!(data2 instanceof CustomSashFormData)) {
 		data2 = new CustomSashFormData();
 		c2.setLayoutData(data2);
 	    }
@@ -323,12 +323,12 @@ public class CustomSashForm extends Composite {
 		event.doit = false;
 	    }
 	    Object data1 = c1.getLayoutData();
-	    if (data1 == null || !(data1 instanceof CustomSashFormData)) {
+	    if (!(data1 instanceof CustomSashFormData)) {
 		data1 = new CustomSashFormData();
 		c1.setLayoutData(data1);
 	    }
 	    Object data2 = c2.getLayoutData();
-	    if (data2 == null || !(data2 instanceof CustomSashFormData)) {
+	    if (!(data2 instanceof CustomSashFormData)) {
 		data2 = new CustomSashFormData();
 		c2.setLayoutData(data2);
 	    }
@@ -548,7 +548,7 @@ public class CustomSashForm extends Composite {
 	}
 	for (int i = 0; i < cArray.length; i++) {
 	    Object data = cArray[i].getLayoutData();
-	    if (data == null || !(data instanceof CustomSashFormData)) {
+	    if (!(data instanceof CustomSashFormData)) {
 		data = new CustomSashFormData();
 		cArray[i].setLayoutData(data);
 	    }

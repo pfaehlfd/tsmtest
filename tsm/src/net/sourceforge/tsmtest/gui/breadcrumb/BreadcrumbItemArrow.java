@@ -291,7 +291,7 @@ class BreadcrumbItemArrow {
 						} else {
 							final Point p = tree.toDisplay(e.x, e.y);
 							final Item item = dropDownViewer.scrollUp(p.x, p.y);
-							if (item != null && item instanceof TreeItem) {
+							if (item instanceof TreeItem) {
 								updateSelection((TreeItem) item, e);
 							}
 						}
@@ -308,7 +308,7 @@ class BreadcrumbItemArrow {
 							final Point p = tree.toDisplay(e.x, e.y);
 							final Item item = dropDownViewer.scrollDown(p.x,
 									p.y);
-							if (item != null && item instanceof TreeItem) {
+							if (item instanceof TreeItem) {
 								updateSelection((TreeItem) item, e);
 							}
 						}

@@ -48,16 +48,15 @@ public class TSMHierarchyContentProvider implements ITreeContentProvider {
 	    final List<TSMResource> children = new ArrayList<TSMResource>();
 	    for (final TSMResource child : container.getChildren()) {
 		// Dont show the images folder
-		if (child instanceof TSMPackage) {
-		    if (child.getName().equals(DataModelTypes.imageFolderName)) {
-			continue;
-		    }
+		if (child instanceof TSMPackage
+			&& child.getName().equals(
+				DataModelTypes.imageFolderName)) {
+		    continue;
 		}
 		// Only show TSMReport if it has no Test Case
-		if (child instanceof TSMReport) {
-		    if (((TSMReport) child).getTestCase() != null) {
-			continue;
-		    }
+		if (child instanceof TSMReport
+			&& ((TSMReport) child).getTestCase() != null) {
+		    continue;
 		}
 //		if (isFiltered(child)) {
 		    children.add(child);

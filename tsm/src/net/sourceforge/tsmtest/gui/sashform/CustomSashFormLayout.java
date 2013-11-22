@@ -67,7 +67,7 @@ public class CustomSashFormLayout extends Layout {
 	long total = 0;
 	for (int i = 0; i < cArray.length; i++) {
 	    Object data = cArray[i].getLayoutData();
-	    if (data != null && data instanceof CustomSashFormData) {
+	    if (data instanceof CustomSashFormData) {
 		ratios[i] = ((CustomSashFormData) data).weight;
 	    } else {
 		data = new CustomSashFormData();
@@ -170,7 +170,7 @@ public class CustomSashFormLayout extends Layout {
 	long total = 0;
 	for (int i = 0; i < controls.length; i++) {
 	    Object data = controls[i].getLayoutData();
-	    if (data != null && data instanceof CustomSashFormData) {
+	    if (data instanceof CustomSashFormData) {
 		ratios[i] = ((CustomSashFormData) data).weight;
 	    } else {
 		data = new CustomSashFormData();
