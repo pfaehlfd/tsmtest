@@ -258,11 +258,17 @@ public class JustusImportWizard extends Wizard implements INewWizard {
 	// System.out.println(root.getName());
 	if (root.getChild("sequence") != null) { //$NON-NLS-1$
 	    if (root.getChild("sequence").getChildText("description") != null) { //$NON-NLS-1$ //$NON-NLS-2$
+		//Justus sets the description text according to the language that was first set, when the project was created.
+		//Check for english description.
 		if (root.getChild("sequence") //$NON-NLS-1$
 			.getChildText("description") //$NON-NLS-1$
-			.equals("This is the root node of the project." //$NON-NLS-1$
-				+ " It contains all test sequences and test cases.")) { //$NON-NLS-1$
-		    return root;
+			.equals("This is the root node of the project." ) || //$NON-NLS-1$
+			
+			//Check for german description.
+			root.getChild("sequence") //$NON-NLS-1$
+				.getChildText("description") //$NON-NLS-1$
+				.equals("Dies ist der Wurzelknoten des Projekts.")) { //$NON-NLS-1$
+		return root;
 		}
 	    }
 	}
