@@ -262,12 +262,12 @@ public class JustusImportWizard extends Wizard implements INewWizard {
 		//Check for english description.
 		if (root.getChild("sequence") //$NON-NLS-1$
 			.getChildText("description") //$NON-NLS-1$
-			.equals("This is the root node of the project." ) || //$NON-NLS-1$
-			
+			.contains("This is the root node of the project." ) || //$NON-NLS-1$
+
 			//Check for german description.
 			root.getChild("sequence") //$NON-NLS-1$
 				.getChildText("description") //$NON-NLS-1$
-				.equals("Dies ist der Wurzelknoten des Projekts.")) { //$NON-NLS-1$
+				.contains("Dies ist der Wurzelknoten des Projekts.")) { //$NON-NLS-1$
 		return root;
 		}
 	    }
