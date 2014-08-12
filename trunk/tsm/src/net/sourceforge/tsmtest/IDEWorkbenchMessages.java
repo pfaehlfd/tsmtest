@@ -14,7 +14,7 @@ package net.sourceforge.tsmtest;
 
 import org.eclipse.osgi.util.NLS;
 
-public class IDEWorkbenchMessages extends NLS {
+public final class IDEWorkbenchMessages extends NLS {
     private static final String BUNDLE_NAME = "net.sourceforge.tsmtest.messages"; //$NON-NLS-1$
     public static String ContainerSelectionDialog_0;
     public static String ContainerSelectionDialog_1;

@@ -23,7 +23,7 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  * @author Jenny Krüwald
  */
 
-public class FilterModel {
+public final class FilterModel {
 
     private static volatile FilterModel instance;
 

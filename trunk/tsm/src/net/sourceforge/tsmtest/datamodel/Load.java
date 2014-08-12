@@ -36,8 +36,8 @@ public class Load {
     /**
      * Loads the Test case data out of the given document
      * 
-     * @param file
-     *            The IFile of the test case
+     * @param doc
+     *            The Document of the test case
      * @param parent
      * @return a test case
      */
@@ -107,18 +107,18 @@ public class Load {
 	testCase.setShortDescription(root.getChildText("shortDescription"));
 
 	// Test steps
-	for (Element e : root.getChild("steps").getChildren()) {
+	for (Element currentElement : root.getChild("steps").getChildren()) {
 
 	    TestStepDescriptor addTestStep = new TestStepDescriptor();
 
-	    addTestStep.setExpectedResult(e.getChildText("expectedResult"));
+	    addTestStep.setExpectedResult(currentElement.getChildText("expectedResult"));
 
-	    addTestStep.setRealResult(e.getChildText("realResult"));
+	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(e
+	    addTestStep.setRichTextDescription(currentElement
 		    .getChildText("richTextDescription"));
 
-	    String statusText = e.getChildText("stepStatus");
+	    String statusText = currentElement.getChildText("stepStatus");
 	    StatusType status = StatusType.notExecuted;
 
 	    if (statusText.equals("passed")) {
@@ -151,33 +151,33 @@ public class Load {
     /**
      * Loads the Protocol data out of the given document
      * 
-     * @param file
-     *            The IFile of the protocol
+     * @param doc
+     *            The Document of the protocol
      * @param parent
      * @return A test case protocol
      */
     public static TestCaseDescriptor loadProtocol(Document doc) {
 
 	Element root = doc.getRootElement();
-	TestCaseDescriptor p = new TestCaseDescriptor();
+	TestCaseDescriptor testCaseDescriptor = new TestCaseDescriptor();
 
 	// Meta data
-	p.setId(Long.valueOf(root.getAttributeValue("id")));
+	testCaseDescriptor.setId(Long.valueOf(root.getAttributeValue("id")));
 
-	p.setAssignedTo(root.getChildText("assignedTo"));
+	testCaseDescriptor.setAssignedTo(root.getChildText("assignedTo"));
 
-	p.setAuthor(root.getChildText("author"));
+	testCaseDescriptor.setAuthor(root.getChildText("author"));
 
 	try {
 	    Date creationDate = new Date(Long.parseLong(root
 		    .getChildText("creationDate")));
-	    p.setCreationDate(creationDate);
+	    testCaseDescriptor.setCreationDate(creationDate);
 	} catch (NumberFormatException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
-	p.setExpectedDuration(root.getChildText("expectedDuration"));
+	testCaseDescriptor.setExpectedDuration(root.getChildText("expectedDuration"));
 
 	Date lastExecution;
 
@@ -188,7 +188,7 @@ public class Load {
 		lastExecution = new Date(Long.parseLong(root
 			.getChildText("lastExecution")));
 	    }
-	    p.setLastExecution(lastExecution);
+	    testCaseDescriptor.setLastExecution(lastExecution);
 	} catch (NumberFormatException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
@@ -196,53 +196,54 @@ public class Load {
 
 	Date lastChangedOn = new Date(Long.parseLong(root
 		.getChildText("lastChangedOn")));
-	p.setLastChangedOn(lastChangedOn);
+	testCaseDescriptor.setLastChangedOn(lastChangedOn);
 
-	p.setNumberOfExecutions(Integer.valueOf(root
+	testCaseDescriptor.setNumberOfExecutions(Integer.valueOf(root
 		.getChildText("numberOfExecutions")));
 
-	p.setNumberOfFailures(Integer.valueOf(root
+	testCaseDescriptor.setNumberOfFailures(Integer.valueOf(root
 		.getChildText("numberOfFailures")));
 
 	// priority
 	if (root.getChildText("priority").equals("low")) {
-	    p.setPriority(PriorityType.low);
+	    testCaseDescriptor.setPriority(PriorityType.low);
 	} else if (root.getChildText("priority").equals("medium")) {
-	    p.setPriority(PriorityType.medium);
+	    testCaseDescriptor.setPriority(PriorityType.medium);
 	} else {
-	    p.setPriority(PriorityType.high);
+	    testCaseDescriptor.setPriority(PriorityType.high);
 	}
 
-	p.setRealDuration(root.getChildText("realDuration"));
+	testCaseDescriptor.setRealDuration(root.getChildText("realDuration"));
 
-	p.setRichTextPrecondition(root.getChildText("richTextPrecondition"));
+	testCaseDescriptor.setRichTextPrecondition(root.getChildText("richTextPrecondition"));
 
-	p.setRichTextResult(root.getChildText("richTextResult"));
+	testCaseDescriptor.setRichTextResult(root.getChildText("richTextResult"));
 
-	p.setShortDescription(root.getChildText("shortDescription"));
+	testCaseDescriptor.setShortDescription(root.getChildText("shortDescription"));
 	
 	int revision = 0;
 	try {
-	    String s = root.getChildText("revision");
-	    if (s != null)
+	    String revisionText = root.getChildText("revision");
+	    if (revisionText != null) {
 		revision = Integer.parseInt(root.getChildText("revision"));
+	    }
 	} catch(NumberFormatException e) {
 	    // revision was not a number or non-existent, we keep it as 0
 	}
-	p.setRevisionNumber(revision);
+	testCaseDescriptor.setRevisionNumber(revision);
 
-	for (Element e : root.getChild("steps").getChildren()) {
+	for (Element currentElement : root.getChild("steps").getChildren()) {
 
 	    TestStepDescriptor addTestStep = new TestStepDescriptor();
 
-	    addTestStep.setExpectedResult(e.getChildText("expectedResult"));
+	    addTestStep.setExpectedResult(currentElement.getChildText("expectedResult"));
 
-	    addTestStep.setRealResult(e.getChildText("realResult"));
+	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(e
+	    addTestStep.setRichTextDescription(currentElement
 		    .getChildText("richTextDescription"));
 
-	    String statusText = e.getChildText("stepStatus");
+	    String statusText = currentElement.getChildText("stepStatus");
 	    StatusType status = StatusType.notExecuted;
 
 	    if (statusText.equals("passed")) {
@@ -255,21 +256,21 @@ public class Load {
 		status = StatusType.notExecuted;
 	    }
 	    addTestStep.setStatus(status);
-	    p.addStep(addTestStep);
+	    testCaseDescriptor.addStep(addTestStep);
 	}
 
 	// status
 	if (root.getChildText("status").equals("passed")) {
-	    p.setStatus(StatusType.passed);
+	    testCaseDescriptor.setStatus(StatusType.passed);
 	} else if (root.getChildText("status").equals("passedWithAnnotation")) {
-	    p.setStatus(StatusType.passedWithAnnotation);
+	    testCaseDescriptor.setStatus(StatusType.passedWithAnnotation);
 	} else if (root.getChildText("status").equals("failed")) {
-	    p.setStatus(StatusType.failed);
+	    testCaseDescriptor.setStatus(StatusType.failed);
 	} else {
-	    p.setStatus(StatusType.notExecuted);
+	    testCaseDescriptor.setStatus(StatusType.notExecuted);
 	}
 
-	return p;
+	return testCaseDescriptor;
 
     }
 }

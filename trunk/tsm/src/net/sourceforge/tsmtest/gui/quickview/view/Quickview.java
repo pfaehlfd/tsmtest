@@ -499,14 +499,18 @@ public class Quickview extends ViewPart implements SelectionObservable {
 		}
 
 	    }
-	    if (file instanceof TSMTestCase)
+	    if (file instanceof TSMTestCase) {
 		setTestCase((TSMTestCase) file);
-	    else if (file instanceof TSMReport)
+	    }
+	    else if (file instanceof TSMReport) {
 		setProtocol((TSMReport) file);
-	    else if (file instanceof TSMPackage)
+	    }
+	    else if (file instanceof TSMPackage) {
 		setPackage((TSMPackage) file);
-	    else if (file instanceof TSMProject)
+	    }
+	    else if (file instanceof TSMProject) {
 		setProject((TSMProject) file);
+	    }
 	}
     }
 

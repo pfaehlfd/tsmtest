@@ -18,7 +18,7 @@ import org.eclipse.swt.dnd.TransferData;
  * @author Albert Flaig
  *
  */
-public class TSMFileTransfer extends ByteArrayTransfer {
+public final class TSMFileTransfer extends ByteArrayTransfer {
 
     private static final String TSMResourceNAME = "net.sourceforge.tsmtest.resource";
     private static final int TSMResourceID = registerType(TSMResourceNAME);

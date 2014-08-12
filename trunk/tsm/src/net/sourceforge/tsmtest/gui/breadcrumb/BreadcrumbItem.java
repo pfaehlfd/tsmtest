@@ -52,7 +52,7 @@ public class BreadcrumbItem extends Item {
 	private boolean isLastItem;
 
 	/* package */
-	Object element;
+	protected Object element;
 	
 	/**
 	 * Create a new breadcrumb item with the given viewer and the given parent

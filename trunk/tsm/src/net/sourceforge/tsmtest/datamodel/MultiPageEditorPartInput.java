@@ -47,14 +47,18 @@ public abstract class MultiPageEditorPartInput extends MultiPageEditorPart {
 	    resource = ((ResourceEditorInput) input).getInput();
 	}
 	// TODO Error message
-	if(resource == null)
+	if(resource == null) {
 	    throw new PartInitException(Messages.MultiPageEditorPartInput_0);
-	if (resource instanceof TSMTestCase)
+	}
+	if (resource instanceof TSMTestCase) {
 	    getInput((TSMTestCase) resource);
-	else if (resource instanceof TSMReport)
+	}
+	else if (resource instanceof TSMReport) {
 	    getInput((TSMReport) resource);
-	else
+	}
+	else {
 	    throw new PartInitException(Messages.MultiPageEditorPartInput_1);
+	}
 	setSite(site);
 	setInput(input);
     }

@@ -869,6 +869,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	return export;
     }
     
+    /**
+     * @return The revision as a string.
+     */
     public String getRevision(){
 	return revision.getText();
     }

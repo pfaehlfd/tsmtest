@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ToolTipListener implements Listener {
     Shell tip = null;
-    RichText desc = null;
+    RichText richTextDesc = null;
     private String htmlToolTip;
     private Shell displayShell;
     private Point displaySize = new Point(400, 200);
@@ -53,7 +53,7 @@ public class ToolTipListener implements Listener {
 	    }
 	    tip.dispose();
 	    tip = null;
-	    desc = null;
+	    richTextDesc = null;
 	    break;
 	}
 	case SWT.MouseEnter:
@@ -65,26 +65,26 @@ public class ToolTipListener implements Listener {
 	    tip.setLayout(new FillLayout());
 	    final PointerInfo p = MouseInfo.getPointerInfo();
 	    tip.setLocation(p.getLocation().x - 310, p.getLocation().y + 20);
-	    desc = new RichText(tip, SWT.NONE);
-	    displaySize = desc.computeSize(displaySize.x, SWT.DEFAULT);
+	    richTextDesc = new RichText(tip, SWT.NONE);
+	    displaySize = richTextDesc.computeSize(displaySize.x, SWT.DEFAULT);
 	    displaySize.y = Math.max(displaySize.y + 20, 200);
-	    desc.setEnabled(false);
-	    desc.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
+	    richTextDesc.setEnabled(false);
+	    richTextDesc.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 1,
 		    1));
 	    tip.setSize(displaySize);
 	    tip.open();
 	    try {
-		desc.setProjectName(project);
-		desc.setFormattedText(htmlToolTip);
+		richTextDesc.setProjectName(project);
+		richTextDesc.setFormattedText(htmlToolTip);
 	    } catch (final Exception e) {
 		e.printStackTrace();
 	    }
-	    displaySize = desc.computeSize(displaySize.x, SWT.DEFAULT);
+	    displaySize = richTextDesc.computeSize(displaySize.x, SWT.DEFAULT);
 	    displaySize.y = Math.max(displaySize.y + 20, 200);
 	    tip.setSize(displaySize);
 	}
 	case SWT.MouseDown: {
-	    displaySize = desc.computeSize(displaySize.x, SWT.DEFAULT);
+	    displaySize = richTextDesc.computeSize(displaySize.x, SWT.DEFAULT);
 	    displaySize.y = Math.max(displaySize.y + 20, 200);
 	    tip.setSize(displaySize);
 

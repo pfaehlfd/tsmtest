@@ -633,12 +633,12 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            defaultHandler="net.sourceforge.tsmtest.gui.help.help"
+            defaultHandler="net.sourceforge.tsmtest.gui.help.Help"
             description="Opens the guide for TSM"
             id="net.sourceforge.tsmtest.gui.help"
             name="TSM help">
          <defaultHandler
-               class="net.sourceforge.tsmtest.gui.help.help">
+               class="net.sourceforge.tsmtest.gui.help.Help">
             <parameter
                   name="net.sourceforge.tsmtest.parameter1"
                   value="net.sourceforge.tsmtest.parameter1">

@@ -108,8 +108,9 @@ public class ClickableImage extends Composite {
      * 		if true, next image will be displayed 
      */
     private void changeImage(boolean inc) {
-	if (inc)
+	if (inc) {
 	    currentState = (currentState + 1) % 4;
+	}
 	
 	switch (states[currentState]){
 	case failed:
@@ -139,11 +140,11 @@ public class ClickableImage extends Composite {
      * Sets the status to the specific type, invokes a change for those who
      * listen
      * 
-     * @param st
+     * @param statusType
      *            new status for the image
      */
-    public void setStatus(StatusType st) {
-	switch (st) {
+    public void setStatus(StatusType statusType) {
+	switch (statusType) {
 	case failed:
 	    currentState = 3;
 	    changeImage(false);

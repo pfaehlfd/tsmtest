@@ -204,7 +204,7 @@ public class ResourceManager {
 
     public static Image getImgTSMProject() {
 	if (imgTSMProject == null) {
-	    imgTSMProject = Activator.getImageDescriptor(getPathTSMProject())
+	    imgTSMProject = Activator.getImageDescriptor(getPathProject())
 		    .createImage();
 	}
 	return imgTSMProject;
@@ -354,11 +354,6 @@ public class ResourceManager {
 
     public static String getPathTSMPackage() {
 	return "icons/package.png";
-    }
-
-    public static String getPathTSMProject() {
-	// TODO
-	return getPathProject();
     }
 
     public static String getPathTSMTestCase() {

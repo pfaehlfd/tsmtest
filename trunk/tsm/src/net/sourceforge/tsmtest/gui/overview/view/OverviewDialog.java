@@ -66,7 +66,7 @@ public class OverviewDialog extends InputDialog {
     }
 
     /**
-     * Creates the OK and Cancle Button
+     * Creates the OK and Cancel Button
      * 
      * @param parent
      *            composite to be displayed in
@@ -97,7 +97,7 @@ public class OverviewDialog extends InputDialog {
     protected Control createDialogArea(Composite parent) {
 	//main composite
 	Composite comp = (Composite) super.createDialogArea(parent);
-	// We have 2 Text-children that we dont need
+	// We have 2 Text-children that we don't need
 	//see more below
 	Control[] children = comp.getChildren();
 	Group scrollGroup = new Group(parent, SWT.NO_MERGE_PAINTS);
@@ -114,9 +114,9 @@ public class OverviewDialog extends InputDialog {
 	    Label noRev = new Label(comp, SWT.FILL);
 	    noRev.setText(Messages.OverviewDialog_4);
 	    
-		for (Control c : children) {
-		    c.moveBelow(null);
-		    c.setVisible(false);
+		for (Control currentControl : children) {
+		    currentControl.moveBelow(null);
+		    currentControl.setVisible(false);
 		}
 	    return comp;
 	}
@@ -152,10 +152,10 @@ public class OverviewDialog extends InputDialog {
 	scrollComp.setMinSize(300, btnheight);
 	scrollComp.setExpandHorizontal(true);
 	scrollComp.setExpandVertical(true);
-	//hide and move unneeded childrens below
-	for (Control c : children) {
-	    c.moveBelow(null);
-	    c.setVisible(false);
+	//hide and move unneeded children below
+	for (Control currentControl : children) {
+	    currentControl.moveBelow(null);
+	    currentControl.setVisible(false);
 	}
 	return comp;
     }
@@ -163,7 +163,7 @@ public class OverviewDialog extends InputDialog {
     private void setup(Button btn, final int revision) {
 	Collection<TSMTestCase> tcs = (Collection<TSMTestCase>) TSMTestCase.list();
 	int counter = 0;
-	//go through all existing testcases checking the amount of tc each revision has
+	//Go through all existing testcases checking the amount of testcase each revision has
 	for (TSMTestCase tc : tcs) {
 	    Collection<TSMReport> reps = (Collection<TSMReport>) tc
 		    .getReports();

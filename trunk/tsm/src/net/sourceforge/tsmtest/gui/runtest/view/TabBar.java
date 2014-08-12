@@ -70,19 +70,19 @@ public class TabBar implements DataModelObservable {
     /**
      * Updates the TabBar to reflect the package of the given testcase
      * 
-     * @param tcf
+     * @param testCaseFile
      *            the TSMTestCase of the testcase
      */
-    public void setFile(TSMTestCase tcf) {
+    public void setFile(TSMTestCase testCaseFile) {
 	// Somehow it's under the impression that it is disposed, then we do nothing
 	if (scCases.isDisposed()){
 	    return;
 	}
 	// Removing out references to the old data
 	allFileList = null;
-	testFile = tcf;
+	testFile = testCaseFile;
 
-	currentPackage = tcf.getParent();
+	currentPackage = testCaseFile.getParent();
 	allFileList = currentPackage.getTestCases();
 
 	SashForm sfCases = new SashForm(scCases, SWT.HORIZONTAL);
@@ -94,40 +94,40 @@ public class TabBar implements DataModelObservable {
 
 	// Get the average font width
 	GC gc = new GC(scCases);
-	int wi = gc.getFontMetrics().getAverageCharWidth();
+	int averageCharWidth = gc.getFontMetrics().getAverageCharWidth();
 	gc.dispose();
 
 	for (int i = 0; i < allFileList.size(); i++) {
-	    TSMTestCase f = allFileList.get(i);
-	    final Button b = new Button(sfCases, SWT.NONE);
+	    TSMTestCase testCase = allFileList.get(i);
+	    final Button button = new Button(sfCases, SWT.NONE);
 
-	    b.setText(f.getName());
+	    button.setText(testCase.getName());
 	    // We set the associated TestCaseObject as Data so we can retrive
 	    // it later if it should be executed.
-	    b.setData(fileID, f);
-	    b.addSelectionListener(new SelectionAdapter() {
+	    button.setData(fileID, testCase);
+	    button.addSelectionListener(new SelectionAdapter() {
 		@Override
 		public void widgetSelected(SelectionEvent e) {
 		    CallRunTest ctt = new CallRunTest();
-		    ctt.execute((TSMTestCase) b.getData(fileID));
+		    ctt.execute((TSMTestCase) button.getData(fileID));
 		}
 	    });
 	    if (listen != null) {
-		b.addSelectionListener(listen);
+		button.addSelectionListener(listen);
 	    }
 	    // Calculating the needed width for the buttons
-	    int chars = b.getText().length();
-	    int w = (int) (chars * wi * 1.2);
-	    myWidth += w;
-	    weights[i] = w;
-	    b.setSize(w, SWT.DEFAULT);
+	    int chars = button.getText().length();
+	    int width = (int) (chars * averageCharWidth * 1.2);
+	    myWidth += width;
+	    weights[i] = width;
+	    button.setSize(width, SWT.DEFAULT);
 
 	    // We cannot open our current testcase again
-	    if (f.equals(tcf)) {
+	    if (testCase.equals(testCaseFile)) {
 		Color blue = new Color(scCases.getDisplay(), 0, 0, 200);
-		b.setBackground(blue);
-		b.setEnabled(false);
-		b.setForeground(blue);
+		button.setBackground(blue);
+		button.setEnabled(false);
+		button.setForeground(blue);
 		myPos = myWidth + scCases.getParent().getSize().x - 100;
 		blue.dispose();
 	    }

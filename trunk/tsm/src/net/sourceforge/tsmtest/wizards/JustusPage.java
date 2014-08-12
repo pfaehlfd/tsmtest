@@ -166,7 +166,7 @@ public class JustusPage extends WizardResourceImportPage {
 
 	});
 
-	final Composite f = new Composite(options, SWT.None);
+	final Composite composite = new Composite(options, SWT.None);
 
 	final Button testCaseIsTestCase = new Button(options, SWT.RADIO);
 	testCaseIsTestCase.setText(Messages.JustusPage_6);
@@ -228,7 +228,7 @@ public class JustusPage extends WizardResourceImportPage {
     }
 
     /**
-     * @return If a sequrnce should be imported as a test case
+     * @return If a sequence should be imported as a test case
      */
     public boolean isSequenceTestCase() {
 	return sequenceIsCase;

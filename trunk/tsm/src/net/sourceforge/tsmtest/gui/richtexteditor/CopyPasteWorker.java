@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
  * @author Daniel Hertl
  * 
  */
-public class CopyPasteWorker {
+public final class CopyPasteWorker {
 
     // the clipboard which is used
     private final Clipboard clipboard;

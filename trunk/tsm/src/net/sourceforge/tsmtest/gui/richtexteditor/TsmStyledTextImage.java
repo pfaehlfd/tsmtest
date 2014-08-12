@@ -168,16 +168,16 @@ public class TsmStyledTextImage {
     /**
      * Draws an Image into the styled text component
      * 
-     * @param event
+     * @param paintObjectEvent
      */
-    public void paintImage(final PaintObjectEvent event) {
+    public void paintImage(final PaintObjectEvent paintObjectEvent) {
 	if (maxResizeFlag) {
 	    int verticalBar = 10;
-	    if (((TsmStyledText) event.getSource()).getVerticalBar() != null) {
-		verticalBar += ((TsmStyledText) event.getSource())
+	    if (((TsmStyledText) paintObjectEvent.getSource()).getVerticalBar() != null) {
+		verticalBar += ((TsmStyledText) paintObjectEvent.getSource())
 			.getVerticalBar().getSize().x;
 	    }
-	    scale = (float) (((TsmStyledText) event.getSource()).getBounds().width
+	    scale = (float) (((TsmStyledText) paintObjectEvent.getSource()).getBounds().width
 		    - verticalBar - MARGIN_RIGHT)
 		    / image.getBounds().width;
 	    if (scale > 1.0) {
@@ -187,11 +187,11 @@ public class TsmStyledTextImage {
 	    fullSizeMode = true;
 	    chanceFactor = true;
 	}
-	final StyleRange style = event.style;
+	final StyleRange style = paintObjectEvent.style;
 	// System.out.println(style.start+" _-_-  "+offset);
 	if (style.start == offset) {
-	    final int x = event.x;
-	    final int y = event.y + event.ascent - style.metrics.ascent;
+	    final int x = paintObjectEvent.x;
+	    final int y = paintObjectEvent.y + paintObjectEvent.ascent - style.metrics.ascent;
 
 	    if (scale == 0) {
 		// initialize some values to calculate scale factor
@@ -210,7 +210,7 @@ public class TsmStyledTextImage {
 	    if (isResizeOn() && resizePoint != null) {
 		// Resize Image - calculate scale factor
 		if (image.getBounds().width > RichText.INITIAL_WIDTH_IMAGE) {
-		    scale = (float) (resizePoint.x - event.x)
+		    scale = (float) (resizePoint.x - paintObjectEvent.x)
 			    / image.getBounds().width;
 		}
 		if (scale < minScale) {
@@ -223,15 +223,15 @@ public class TsmStyledTextImage {
 
 	    // don't draw over the border
 	    int verticalBar = 0;
-	    if (((TsmStyledText) event.getSource()).getVerticalBar() != null) {
-		verticalBar = ((TsmStyledText) event.getSource())
+	    if (((TsmStyledText) paintObjectEvent.getSource()).getVerticalBar() != null) {
+		verticalBar = ((TsmStyledText) paintObjectEvent.getSource())
 			.getVerticalBar().getSize().x;
 	    }
-	    if (x + image.getBounds().width * scale > ((TsmStyledText) event
+	    if (x + image.getBounds().width * scale > ((TsmStyledText) paintObjectEvent
 		    .getSource()).getBounds().width
 		    - MARGIN_RIGHT
 		    - verticalBar) {
-		final float tempscale = (float) (((TsmStyledText) event
+		final float tempscale = (float) (((TsmStyledText) paintObjectEvent
 			.getSource()).getBounds().width - verticalBar - MARGIN_RIGHT)
 			/ image.getBounds().width;
 		if (tempscale < scale) {
@@ -252,35 +252,35 @@ public class TsmStyledTextImage {
 
 	    // draw image
 	    // System.out.println("draw Image !");
-	    event.gc.drawImage(image, 0, 0, image.getBounds().width,
+	    paintObjectEvent.gc.drawImage(image, 0, 0, image.getBounds().width,
 		    image.getBounds().height, x, y, bounds.width, bounds.height);
 
 	    // paint Resize Icon
 	    if (paintResizeMode && !(fullSizeMode && grabMaximumSize)) {
 		resizeBounds = new Rectangle(x + bounds.width - 9, y
 			+ bounds.height - 9, 10, 10);
-		Color c = new Color(image.getDevice(), 255, 255, 255);
-		event.gc.setForeground(c);
-		c.dispose();
-		event.gc.fillRectangle(resizeBounds);
-		c = new Color(image.getDevice(), 0, 0, 0);
-		event.gc.setForeground(c);
-		c.dispose();
-		event.gc.drawRectangle(resizeBounds);
+		Color color = new Color(image.getDevice(), 255, 255, 255);
+		paintObjectEvent.gc.setForeground(color);
+		color.dispose();
+		paintObjectEvent.gc.fillRectangle(resizeBounds);
+		color = new Color(image.getDevice(), 0, 0, 0);
+		paintObjectEvent.gc.setForeground(color);
+		color.dispose();
+		paintObjectEvent.gc.drawRectangle(resizeBounds);
 
 	    }
 	    if (paintResizeMode) {
 		fillSizeBounds = new Rectangle(x + bounds.width - 14, y - 1,
 			14, 14);
 		if (fullSizeMode) {
-		    event.gc.drawImage(ResourceManager.getImgFullResizeHover(),
+		    paintObjectEvent.gc.drawImage(ResourceManager.getImgFullResizeHover(),
 			    fillSizeBounds.x + 1, fillSizeBounds.y + 1);
 		} else {
-		    event.gc.drawImage(ResourceManager.getImgFullResize(),
+		    paintObjectEvent.gc.drawImage(ResourceManager.getImgFullResize(),
 			    fillSizeBounds.x + 1, fillSizeBounds.y + 1);
 		}
 		if (getOverFillSize()) {
-		    event.gc.drawRectangle(fillSizeBounds);
+		    paintObjectEvent.gc.drawRectangle(fillSizeBounds);
 		}
 	    }
 	}

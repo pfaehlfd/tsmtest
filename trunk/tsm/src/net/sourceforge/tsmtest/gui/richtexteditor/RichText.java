@@ -384,16 +384,16 @@ public class RichText extends Composite {
 	styledText.addPaintListener(new PaintListener() {
 
 	    @Override
-	    public void paintControl(final PaintEvent e) {
+	    public void paintControl(final PaintEvent paintEvent) {
 		if (editText && styledText.isFocusControl()
 			&& maxCharacters != -1) {
 		    final String alert = styledText.getText().length() + "/" //$NON-NLS-1$
 			    + maxCharacters;
 		    if (maxCharacters != styledText.getText().length()) {
-			e.gc.setBackground(new Color(e.gc.getDevice(), 200,
+			paintEvent.gc.setBackground(new Color(paintEvent.gc.getDevice(), 200,
 				200, 200));
 		    } else {
-			e.gc.setBackground(new Color(e.gc.getDevice(), 200,
+			paintEvent.gc.setBackground(new Color(paintEvent.gc.getDevice(), 200,
 				100, 100));
 		    }
 
@@ -404,10 +404,10 @@ public class RichText extends Composite {
 
 		    if (new Rectangle(x - 6, y, alert.length() * (6 + 1), 14)
 			    .contains(styledText.getCaret().getLocation())) {
-			e.gc.drawText(styledText.getText().length() + "/" //$NON-NLS-1$
+			paintEvent.gc.drawText(styledText.getText().length() + "/" //$NON-NLS-1$
 				+ maxCharacters, x, y + 20);
 		    } else {
-			e.gc.drawText(styledText.getText().length() + "/" //$NON-NLS-1$
+			paintEvent.gc.drawText(styledText.getText().length() + "/" //$NON-NLS-1$
 				+ maxCharacters, x, y);
 		    }
 		}
@@ -424,7 +424,7 @@ public class RichText extends Composite {
 	styledText.addMouseListener(new MouseListener() {
 
 	    @Override
-	    public void mouseUp(final MouseEvent e) {
+	    public void mouseUp(final MouseEvent mouseEvent) {
 		if (hoverImage != null) {
 		    hoverImage.stopResize();
 		    for (final ModifyListener listener : modifyListeners) {
@@ -436,7 +436,7 @@ public class RichText extends Composite {
 	    }
 
 	    @Override
-	    public void mouseDown(final MouseEvent e) {
+	    public void mouseDown(final MouseEvent mouseEvent) {
 		if (hoverImage != null && hoverImage.getOverResize()) {
 		    hoverImage.startResize();
 		} else if (hoverImage != null && hoverImage.getOverFillSize()) {
@@ -455,19 +455,19 @@ public class RichText extends Composite {
 	styledText.addMouseMoveListener(new MouseMoveListener() {
 
 	    @Override
-	    public void mouseMove(final MouseEvent e) {
+	    public void mouseMove(final MouseEvent mouseEvent) {
 		boolean hover = false;
 		for (final TsmStyledTextImage image : styledText.getImages()) {
 		    if (image.getBounds() != null
-			    && (image.getBounds().contains(e.x, e.y) || image
+			    && (image.getBounds().contains(mouseEvent.x, mouseEvent.y) || image
 				    .isResizeOn())) {
 			// Mouse is over image
 			hover = true;
 			if (image.isResizeOn()) {
-			    image.setResizePoint(new Point(e.x, e.y));
+			    image.setResizePoint(new Point(mouseEvent.x, mouseEvent.y));
 			}
 			if (image.getResizeBounds() != null
-				&& image.getResizeBounds().contains(e.x, e.y)) {
+				&& image.getResizeBounds().contains(mouseEvent.x, mouseEvent.y)) {
 			    // mouse is over the resizer
 			    resizeCursor = new Cursor(Display.getCurrent(),
 				    SWT.CURSOR_SIZESE);
@@ -475,7 +475,7 @@ public class RichText extends Composite {
 			    resizeCursor.dispose();
 			    image.setOverResize(true);
 			} else if (image.getFullSizeBounds() != null
-				&& image.getFullSizeBounds().contains(e.x, e.y)) {
+				&& image.getFullSizeBounds().contains(mouseEvent.x, mouseEvent.y)) {
 			    // mouse is over the fill resize icon
 			    image.setOverFillSize(true);
 			    styledText.setCursor(handCursor);
@@ -510,10 +510,10 @@ public class RichText extends Composite {
 	    private boolean firstView = true;
 
 	    @Override
-	    public void paintObject(final PaintObjectEvent event) {
+	    public void paintObject(final PaintObjectEvent paintObjectEvent) {
 		for (final TsmStyledTextImage timage : styledText.getImages()) {
 		    // paint images
-		    timage.paintImage(event);
+		    timage.paintImage(paintObjectEvent);
 		}
 		if (firstView) {
 		    styledText.update();

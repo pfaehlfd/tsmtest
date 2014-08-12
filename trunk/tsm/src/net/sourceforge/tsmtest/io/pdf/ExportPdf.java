@@ -147,8 +147,8 @@ public class ExportPdf {
     public static void print(List<TSMResource> newList, String path,
 	    boolean oneFile, IProgressMonitor monitor)
 	    throws DocumentException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, "document", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, "document", 1);
+	if (!progressMonitor.isCanceled()) {
 	    if (oneFile) {
 		counterForPics = 1;
 		Document document = new Document();
@@ -175,8 +175,7 @@ public class ExportPdf {
 		document.close();
 	    } else {
 		// go through the list and create one document for each entry
-		for (int i = 0; i < newList.size(); i++) {
-		    TSMResource r = newList.get(i);
+		for (TSMResource currentResource : newList) {
 		    counterForPics = 1;
 		    Document document = new Document();
 		    document.setPageSize(PageSize.A4);
@@ -185,10 +184,10 @@ public class ExportPdf {
 		    imageList = new ArrayList<Image>();
 		    nameList = new ArrayList<String>();
 
-		    String fileName = path + r.getPath() + "/" + r.getName() //$NON-NLS-1$
+		    String fileName = path + currentResource.getPath() + "/" + currentResource.getName() //$NON-NLS-1$
 			    + ".pdf"; //$NON-NLS-1$
 
-		    File destinationFolder = new File(path + r.getPath());
+		    File destinationFolder = new File(path + currentResource.getPath());
 
 		    if (!destinationFolder.exists()) {
 			if (!destinationFolder.mkdirs()) {
@@ -204,11 +203,11 @@ public class ExportPdf {
 		    writer = PdfWriter.getInstance(document, fos);
 
 		    Footer footer = null;
-		    if (r instanceof TSMTestCase) {
-			ITestCaseDescriptor t = ((TSMTestCase) r).getData();
+		    if (currentResource instanceof TSMTestCase) {
+			ITestCaseDescriptor t = ((TSMTestCase) currentResource).getData();
 			footer = new Footer(t.getId());
 		    } else {
-			ITestCaseDescriptor t = ((TSMReport) r).getData();
+			ITestCaseDescriptor t = ((TSMReport) currentResource).getData();
 			footer = new Footer(t.getId());
 		    }
 
@@ -216,15 +215,15 @@ public class ExportPdf {
 		    writer.setPageEvent(footer);
 
 		    document.open();
-		    addMetaData(document, r);
-		    addContent(document, r, getSubMonitor(monitor, 1));
+		    addMetaData(document, currentResource);
+		    addContent(document, currentResource, getSubMonitor(monitor, 1));
 		    document.close();
 		}
 
 	    }
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -246,12 +245,12 @@ public class ExportPdf {
 	    List<TSMResource> newList, FooterOneFile footer,
 	    IProgressMonitor monitor) throws MalformedURLException,
 	    DocumentException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> content", 1);
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> content", 1);
 	int chapterNumber = 1;
 	Chapter chapter = null;
 	// go through all files
 	for (int i = 0; i < newList.size(); i++) {
-	    if (!m1.isCanceled()) {
+	    if (!progressMonitor.isCanceled()) {
 		TSMResource file = newList.get(i);
 		footer.setId(getId(file));
 		// first element has a new chapter
@@ -363,7 +362,7 @@ public class ExportPdf {
 	    imageTable.addCell(appendixCell);
 	    document.add(imageTable);
 	}
-	m1.done();
+	progressMonitor.done();
     }
 
     /**
@@ -404,8 +403,8 @@ public class ExportPdf {
      */
     private static void addContent(Document document, TSMResource file,
 	    IProgressMonitor monitor) throws DocumentException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> " + file.getName(), 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> " + file.getName(), 1);
+	if (!progressMonitor.isCanceled()) {
 	    // protocol
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
@@ -620,9 +619,9 @@ public class ExportPdf {
 		imageTable.addCell(appendixCell);
 		document.add(imageTable);
 	    }
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -638,8 +637,8 @@ public class ExportPdf {
     private static void createContentTable(Section section, TSMResource file,
 	    IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> content", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> content", 1);
+	if (!progressMonitor.isCanceled()) {
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
@@ -842,144 +841,144 @@ public class ExportPdf {
 			boldFont));
 		c1.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c1);
-		PdfPCell c2 = new PdfPCell(new Phrase(file.getProject()
+		PdfPCell pdfCell2 = new PdfPCell(new Phrase(file.getProject()
 			.getName()));
-		c2.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c2);
+		pdfCell2.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell2);
 
 		PdfPCell c3 = new PdfPCell(new Phrase(Messages.ExportPdf_52,
 			boldFont));
 		c3.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c3);
-		PdfPCell c4;
+		PdfPCell pdfCell4;
 		if (file.getProject().equals(file.getParent())) {
-		    c4 = new PdfPCell(new Phrase("-")); //$NON-NLS-1$
+		    pdfCell4 = new PdfPCell(new Phrase("-")); //$NON-NLS-1$
 		} else {
-		    c4 = new PdfPCell(new Phrase(file.getParent().getName()));
+		    pdfCell4 = new PdfPCell(new Phrase(file.getParent().getName()));
 		}
-		c4.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c4);
+		pdfCell4.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell4);
 
-		PdfPCell c5 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
-		c5.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c5);
-		PdfPCell c6 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
-		c6.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c6);
+		PdfPCell pdfCell5 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		pdfCell5.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell5);
+		PdfPCell pdfCell6 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
+		pdfCell6.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell6);
 
-		PdfPCell c7 = new PdfPCell(new Phrase(Messages.ExportPdf_56,
+		PdfPCell pdfCell7 = new PdfPCell(new Phrase(Messages.ExportPdf_56,
 			boldFont));
-		c7.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c7);
-		PdfPCell c8 = new PdfPCell(new Phrase(testCase.getPriority()
+		pdfCell7.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell7);
+		PdfPCell pdfCell8 = new PdfPCell(new Phrase(testCase.getPriority()
 			.toString()));
-		c8.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c8);
+		pdfCell8.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell8);
 
-		PdfPCell c9 = new PdfPCell(new Phrase(Messages.ExportPdf_57,
+		PdfPCell pdfCell9 = new PdfPCell(new Phrase(Messages.ExportPdf_57,
 			boldFont));
-		c9.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c9);
-		PdfPCell c10 = new PdfPCell(new Phrase(
+		pdfCell9.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell9);
+		PdfPCell pdfCell10 = new PdfPCell(new Phrase(
 			testCase.getExpectedDuration()));
-		c10.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c10);
+		pdfCell10.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell10);
 
 		PdfPCell c11 = new PdfPCell(new Phrase(Messages.ExportPdf_58,
 			boldFont));
 		c11.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c11);
 		// System.out.println(testCase.getRealDuration());
-		PdfPCell c12 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
-		c12.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c12);
+		PdfPCell pdfCell12 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
+		pdfCell12.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell12);
 
-		PdfPCell c13 = new PdfPCell(new Phrase(Messages.ExportPdf_60,
+		PdfPCell pdfCell13 = new PdfPCell(new Phrase(Messages.ExportPdf_60,
 			boldFont));
-		c13.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c13);
-		PdfPCell c14 = new PdfPCell(new Phrase(testCase.getAuthor()));
-		c14.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c14);
+		pdfCell13.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell13);
+		PdfPCell pdfCell14 = new PdfPCell(new Phrase(testCase.getAuthor()));
+		pdfCell14.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell14);
 
 		PdfPCell c15 = new PdfPCell(new Phrase(Messages.ExportPdf_61,
 			boldFont));
 		c15.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c15);
-		PdfPCell c16 = new PdfPCell(new Phrase(
+		PdfPCell pdfCell16 = new PdfPCell(new Phrase(
 			Integer.toString(testCase.getNumberOfExecutions())));
-		c16.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c16);
+		pdfCell16.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell16);
 
-		PdfPCell c17 = new PdfPCell(new Phrase(Messages.ExportPdf_62,
+		PdfPCell pdfCell17 = new PdfPCell(new Phrase(Messages.ExportPdf_62,
 			boldFont));
-		c17.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c17);
-		PdfPCell c18 = new PdfPCell(new Phrase(
+		pdfCell17.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell17);
+		PdfPCell pdfCell18 = new PdfPCell(new Phrase(
 			Integer.toString(testCase.getNumberOfFailures())));
-		c18.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c18);
+		pdfCell18.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell18);
 
-		PdfPCell c19 = new PdfPCell(new Phrase(Messages.ExportPdf_63,
+		PdfPCell pdfCell19 = new PdfPCell(new Phrase(Messages.ExportPdf_63,
 			boldFont));
-		c19.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c19);
+		pdfCell19.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell19);
 
-		PdfPCell c20;
+		PdfPCell pdfCell20;
 		if (testCase.getLastExecution() == null) {
-		    c20 = new PdfPCell(new Phrase(Messages.ExportPdf_64));
+		    pdfCell20 = new PdfPCell(new Phrase(Messages.ExportPdf_64));
 		} else {
 
-		    c20 = new PdfPCell(new Phrase(
+		    pdfCell20 = new PdfPCell(new Phrase(
 			    DataModelTypes.dateFormat.format(testCase
 				    .getLastExecution())));
 		}
-		c20.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c20);
+		pdfCell20.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell20);
 
-		PdfPCell c21 = new PdfPCell(new Phrase(Messages.ExportPdf_65,
+		PdfPCell pdfCell21 = new PdfPCell(new Phrase(Messages.ExportPdf_65,
 			boldFont));
-		c21.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c21);
-		PdfPCell c22 = new PdfPCell(new Phrase(
+		pdfCell21.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell21);
+		PdfPCell pdfCell22 = new PdfPCell(new Phrase(
 			DataModelTypes.dateFormat.format(testCase
 				.getLastChangedOn()), normalFont));
-		c22.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c22);
+		pdfCell22.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell22);
 
-		PdfPCell c25 = new PdfPCell(new Phrase(Messages.ExportPdf_66,
+		PdfPCell pdfCell25 = new PdfPCell(new Phrase(Messages.ExportPdf_66,
 			boldFont));
-		c25.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c25);
+		pdfCell25.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell25);
 		if (testCase.getStatus() == DataModelTypes.StatusType.passed) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageAccept = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathAccept()));
-		    i.scaleToFit(10, 10);
+		    imageAccept.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_67));
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageAccept, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else if (testCase.getStatus() == DataModelTypes.StatusType.passedWithAnnotation) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageInformation = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathInformation()));
-		    i.scaleToFit(10, 10);
+		    imageInformation.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_68));
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageInformation, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else if (testCase.getStatus() == DataModelTypes.StatusType.failed) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageCross = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathCross()));
-		    i.scaleToFit(10, 10);
+		    imageCross.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_69 + "   ")); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageCross, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
@@ -993,25 +992,25 @@ public class ExportPdf {
 		}
 
 		// line
-		PdfPCell c27 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
-		c27.setBorder(Rectangle.BOTTOM);
-		table.addCell(c27);
-		PdfPCell c28 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
-		c28.setBorder(Rectangle.BOTTOM);
-		table.addCell(c28);
+		PdfPCell pdfCell27 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		pdfCell27.setBorder(Rectangle.BOTTOM);
+		table.addCell(pdfCell27);
+		PdfPCell pdfCell28 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
+		pdfCell28.setBorder(Rectangle.BOTTOM);
+		table.addCell(pdfCell28);
 
-		PdfPCell c29 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
-		c29.setBorder(Rectangle.TOP);
-		table.addCell(c29);
-		PdfPCell c30 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
-		c30.setBorder(Rectangle.TOP);
-		table.addCell(c30);
+		PdfPCell pdfCell29 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		pdfCell29.setBorder(Rectangle.TOP);
+		table.addCell(pdfCell29);
+		PdfPCell pdfCell30 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
+		pdfCell30.setBorder(Rectangle.TOP);
+		table.addCell(pdfCell30);
 
 		section.add(table);
 	    }
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -1029,8 +1028,8 @@ public class ExportPdf {
     private static void createStepTable(Section section, TSMResource file,
 	    Document doc, IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> steps", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> steps", 1);
+	if (!progressMonitor.isCanceled()) {
 	    isTestStep = true;
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
@@ -1062,36 +1061,36 @@ public class ExportPdf {
 
 		List<TestStepDescriptor> steps = protocol.getSteps();
 		int counter = 1;
-		for (TestStepDescriptor s : steps) {
+		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
-		    parse(paragraph6, s.getExpectedResult(), doc, file);
+		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
 		    table.addCell(paragraph6);
 		    Phrase paragraph7 = new Phrase();
-		    parse(paragraph7, s.getRealResult(), doc, file);
+		    parse(paragraph7, currentTestStepDescriptor.getRealResult(), doc, file);
 		    table.addCell(paragraph7);
-		    if (s.getStatus() == DataModelTypes.StatusType.passed) {
+		    if (currentTestStepDescriptor.getStatus() == DataModelTypes.StatusType.passed) {
 			Image i = Image.getInstance(ResourceManager
 				.getURL(ResourceManager.getPathAccept()));
 			i.scaleToFit(15, 15);
 			PdfPCell cell = new PdfPCell(i, false);
 			table.addCell(cell);
-		    } else if (s.getStatus() == DataModelTypes.StatusType.passedWithAnnotation) {
+		    } else if (currentTestStepDescriptor.getStatus() == DataModelTypes.StatusType.passedWithAnnotation) {
 			Image i = Image.getInstance(ResourceManager
 				.getURL(ResourceManager.getPathInformation()));
 			i.scaleToFit(15, 15);
 			PdfPCell cell = new PdfPCell(i, false);
 			table.addCell(cell);
-		    } else if (s.getStatus() == DataModelTypes.StatusType.failed) {
+		    } else if (currentTestStepDescriptor.getStatus() == DataModelTypes.StatusType.failed) {
 			Image i = Image.getInstance(ResourceManager
 				.getURL(ResourceManager.getPathCross()));
 			i.scaleToFit(15, 15);
 			PdfPCell cell = new PdfPCell(i, false);
 			table.addCell(cell);
-		    } else if (s.getStatus() == DataModelTypes.StatusType.notExecuted) {
+		    } else if (currentTestStepDescriptor.getStatus() == DataModelTypes.StatusType.notExecuted) {
 
 			table.addCell(""); //$NON-NLS-1$
 		    }
@@ -1106,38 +1105,38 @@ public class ExportPdf {
 		PdfPTable table = new PdfPTable(5);
 		table.setWidthPercentage(WIDTH_PERCENTAGE);
 
-		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(c1);
+		PdfPCell pdfCell1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
+		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(pdfCell1);
 		float[] columnWidths = new float[] { 2f, 15f, 15f, 15f, 5f };
 		table.setWidths(columnWidths);
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_83, boldFont));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(c1);
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_83, boldFont));
+		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(pdfCell1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_84, boldFont));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(c1);
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_84, boldFont));
+		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(pdfCell1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_85, boldFont));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(c1);
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_85, boldFont));
+		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(pdfCell1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_86, boldFont));
-		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(c1);
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_86, boldFont));
+		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+		table.addCell(pdfCell1);
 
 		table.setHeaderRows(1);
 
 		List<TestStepDescriptor> steps = testCase.getSteps();
 		int counter = 1;
-		for (TestStepDescriptor s : steps) {
+		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
-		    parse(paragraph6, s.getExpectedResult(), doc, file);
+		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
 		    table.addCell(paragraph6);
 		    // for filling out
 		    table.addCell(""); //$NON-NLS-1$
@@ -1150,9 +1149,9 @@ public class ExportPdf {
 		section.add(table);
 	    }
 	    isTestStep = false;
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -1185,72 +1184,72 @@ public class ExportPdf {
 	// split at every tag and check what tag it is. Change font accordingly.
 	String[] parts = text.split("<"); //$NON-NLS-1$
 
-	for (String s : parts) {
+	for (String currentString : parts) {
 	    for (String[] replace : RichText.escapes) {
-		s = s.replace(replace[1], replace[0]);
+		currentString = currentString.replace(replace[1], replace[0]);
 	    }
 
-	    if (s.startsWith("html>")) { //$NON-NLS-1$
+	    if (currentString.startsWith("html>")) { //$NON-NLS-1$
 		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
 		phrase.add(p);
-	    } else if (s.startsWith("p>")) { //$NON-NLS-1$
-		Paragraph p = new Paragraph(s.substring(2, s.length()),
+	    } else if (currentString.startsWith("p>")) { //$NON-NLS-1$
+		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
 			normalFont);
 		phrase.add(p);
-	    } else if (s.startsWith("b>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("b>")) { //$NON-NLS-1$
 		bold = true;
-		Paragraph p = new Paragraph(s.substring(2, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("i>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("i>")) { //$NON-NLS-1$
 		italic = true;
-		Paragraph p = new Paragraph(s.substring(2, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("ins>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("ins>")) { //$NON-NLS-1$
 		underline = true;
-		Paragraph p = new Paragraph(s.substring(4, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(4, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("del>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("del>")) { //$NON-NLS-1$
 		strike = true;
-		Paragraph p = new Paragraph(s.substring(4, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(4, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("/html>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/html>")) { //$NON-NLS-1$
 		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
 		phrase.add(p);
-	    } else if (s.startsWith("/p>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/p>")) { //$NON-NLS-1$
 		Paragraph paragraph4 = new Paragraph();
 		addEmptyLine(paragraph4, 1);
 		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
 		phrase.add(paragraph4);
 		phrase.add(p);
-	    } else if (s.startsWith("/b>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/b>")) { //$NON-NLS-1$
 		bold = false;
-		Paragraph p = new Paragraph(s.substring(3, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(3, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("/i>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/i>")) { //$NON-NLS-1$
 		italic = false;
-		Paragraph p = new Paragraph(s.substring(3, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(3, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("/ins>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/ins>")) { //$NON-NLS-1$
 		underline = false;
-		Paragraph p = new Paragraph(s.substring(5, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()),
 			getFont());
 		phrase.add(p);
-	    } else if (s.startsWith("/del>")) { //$NON-NLS-1$
+	    } else if (currentString.startsWith("/del>")) { //$NON-NLS-1$
 		strike = false;
-		Paragraph p = new Paragraph(s.substring(5, s.length()),
+		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()),
 			getFont());
 		phrase.add(p);
 	    }
 	    // image
-	    else if (s.startsWith("img")) { //$NON-NLS-1$
+	    else if (currentString.startsWith("img")) { //$NON-NLS-1$
 
-		String[] split = s.split("\""); //$NON-NLS-1$
+		String[] split = currentString.split("\""); //$NON-NLS-1$
 		// split[1] is project + name
 
 		String path = ResourcesPlugin.getWorkspace().getRoot()
@@ -1266,9 +1265,9 @@ public class ExportPdf {
 		File file = new File(path);
 		URL pathToImage = file.toURI().toURL();
 
-		Image i = Image.getInstance(pathToImage);
+		Image image = Image.getInstance(pathToImage);
 		String name = file.getName();
-		imageList.add(i);
+		imageList.add(image);
 		nameList.add(name);
 
 		// document sizes
@@ -1282,16 +1281,16 @@ public class ExportPdf {
 		if (split[split.length - 2].equals("100%")) { //$NON-NLS-1$
 		    if (isTestStep) {
 			// image has to be scaled
-			if (i.getWidth() > cellWidth) {
+			if (image.getWidth() > cellWidth) {
 			    // scales to cell width
-			    float scaleFactor = i.getHeight() / cellWidth;
-			    i.scaleToFit(cellWidth, i.getHeight() * scaleFactor);
+			    float scaleFactor = image.getHeight() / cellWidth;
+			    image.scaleToFit(cellWidth, image.getHeight() * scaleFactor);
 			}
 		    } else {
 			// scale to text width
-			if (i.getWidth() > docWidth) {
-			    float scaleFactor = i.getHeight() / docWidth;
-			    i.scaleToFit(docWidth, i.getWidth() * scaleFactor);
+			if (image.getWidth() > docWidth) {
+			    float scaleFactor = image.getHeight() / docWidth;
+			    image.scaleToFit(docWidth, image.getWidth() * scaleFactor);
 			}
 		    }
 
@@ -1301,34 +1300,34 @@ public class ExportPdf {
 			// check if image too big for cell
 			// scale factor
 			Float width = Float.valueOf(split[split.length - 2])
-				* i.getWidth();
+				* image.getWidth();
 			Float height = Float.valueOf(split[split.length - 2])
-				* i.getHeight();
+				* image.getHeight();
 			if (width > cellWidth) {
-			    float scaleFactor = i.getWidth() / cellWidth;
-			    i.scaleToFit(cellWidth, i.getHeight() * scaleFactor);
+			    float scaleFactor = image.getWidth() / cellWidth;
+			    image.scaleToFit(cellWidth, image.getHeight() * scaleFactor);
 			} else {
 			    // scale with factor
-			    i.scaleToFit(width.intValue(), height.intValue());
+			    image.scaleToFit(width.intValue(), height.intValue());
 			}
 			// out of table
 		    } else {
 			// scale with factor
 			Float width = Float.valueOf(split[split.length - 2])
-				* i.getWidth();
+				* image.getWidth();
 			Float height = Float.valueOf(split[split.length - 2])
-				* i.getHeight();
+				* image.getHeight();
 
 			// check if image bigger then page
 			if (width > docWidth || height > docHeight) {
-			    i.scaleToFit(docWidth, docHeight);
+			    image.scaleToFit(docWidth, docHeight);
 			} else {
-			    i.scaleToFit(width.intValue(), height.intValue());
+			    image.scaleToFit(width.intValue(), height.intValue());
 			}
 		    }
 		}
 
-		Chunk c = new Chunk(i, 0, 0);
+		Chunk c = new Chunk(image, 0, 0);
 
 		Anchor anchor = new Anchor(c);
 		anchor.setReference("#" + Integer.toString(counterForPics)); //$NON-NLS-1$
@@ -1349,12 +1348,12 @@ public class ExportPdf {
 		phrase.add(new Paragraph(name, smallFont));
 		phrase.add(paragraph4);
 		counterForPics++;
-	    } else if (s.startsWith("/img>")) { //$NON-NLS-1$
-		Paragraph p = new Paragraph(s.substring(5, s.length()));
+	    } else if (currentString.startsWith("/img>")) { //$NON-NLS-1$
+		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()));
 		phrase.add(p);
 	    } else {
-		if (!s.equals("")) { //$NON-NLS-1$
-		    Paragraph p = new Paragraph("<" + s); //$NON-NLS-1$
+		if (!currentString.equals("")) { //$NON-NLS-1$
+		    Paragraph p = new Paragraph("<" + currentString); //$NON-NLS-1$
 		    phrase.add(p);
 		}
 	    }
@@ -1411,8 +1410,8 @@ public class ExportPdf {
     public static void createEntries(Document document, Paragraph chapter,
 	    TSMResource file, FooterOneFile event, IProgressMonitor monitor)
 	    throws MalformedURLException, DocumentException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> entries", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> entries", 1);
+	if (!progressMonitor.isCanceled()) {
 	    // protocol
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
@@ -1429,9 +1428,9 @@ public class ExportPdf {
 		paragraph5.add(p);
 		parse(paragraph5, protocol.getShortDescription(), document,
 			file);
-		PdfPCell c = new PdfPCell(paragraph5);
-		c.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c);
+		PdfPCell pdfCell = new PdfPCell(paragraph5);
+		pdfCell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell);
 		chapter.add(table);
 
 		Paragraph paragraph8 = new Paragraph();
@@ -1446,9 +1445,9 @@ public class ExportPdf {
 		paragraph7.add(p);
 		parse(paragraph7, protocol.getRichTextPrecondition(), document,
 			file);
-		PdfPCell c2 = new PdfPCell(paragraph7);
-		c2.setBorder(Rectangle.NO_BORDER);
-		table2.addCell(c2);
+		PdfPCell pdfCell2 = new PdfPCell(paragraph7);
+		pdfCell2.setBorder(Rectangle.NO_BORDER);
+		table2.addCell(pdfCell2);
 		chapter.add(table2);
 
 		Paragraph para = new Paragraph();
@@ -1468,9 +1467,9 @@ public class ExportPdf {
 		paragraph10.add(p4);
 		paragraph10.add(p);
 		parse(paragraph10, protocol.getRichTextResult(), document, file);
-		PdfPCell c3 = new PdfPCell(paragraph10);
-		c3.setBorder(Rectangle.NO_BORDER);
-		table3.addCell(c3);
+		PdfPCell pdfCell3 = new PdfPCell(paragraph10);
+		pdfCell3.setBorder(Rectangle.NO_BORDER);
+		table3.addCell(pdfCell3);
 		chapter.add(table3);
 
 	    }
@@ -1483,16 +1482,16 @@ public class ExportPdf {
 		PdfPTable table = new PdfPTable(1);
 		table.setWidthPercentage(WIDTH_PERCENTAGE);
 		Phrase paragraph5 = new Phrase();
-		Paragraph p2 = new Paragraph(Messages.ExportPdf_120, boldFont);
-		paragraph5.add(p2);
-		Paragraph p = new Paragraph();
-		addEmptyLine(p, 1);
-		paragraph5.add(p);
+		Paragraph paragraph2 = new Paragraph(Messages.ExportPdf_120, boldFont);
+		paragraph5.add(paragraph2);
+		Paragraph paragraph = new Paragraph();
+		addEmptyLine(paragraph, 1);
+		paragraph5.add(paragraph);
 		parse(paragraph5, testCase.getShortDescription(), document,
 			file);
-		PdfPCell c = new PdfPCell(paragraph5);
-		c.setBorder(Rectangle.NO_BORDER);
-		table.addCell(c);
+		PdfPCell pdfCell = new PdfPCell(paragraph5);
+		pdfCell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(pdfCell);
 		chapter.add(table);
 
 		Paragraph paragraph8 = new Paragraph();
@@ -1504,7 +1503,7 @@ public class ExportPdf {
 		Phrase paragraph7 = new Phrase();
 		Paragraph p3 = new Paragraph(Messages.ExportPdf_121, boldFont);
 		paragraph7.add(p3);
-		paragraph7.add(p);
+		paragraph7.add(paragraph);
 		parse(paragraph7, testCase.getRichTextPrecondition(), document,
 			file);
 		PdfPCell c2 = new PdfPCell(paragraph7);
@@ -1538,9 +1537,9 @@ public class ExportPdf {
 		chapter.add(table3);
 
 	    }
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -1556,8 +1555,8 @@ public class ExportPdf {
     private static void createContentTableOne(Paragraph chapter,
 	    TSMResource file, IProgressMonitor monitor)
 	    throws DocumentException, MalformedURLException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> table", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> table", 1);
+	if (!progressMonitor.isCanceled()) {
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
@@ -1690,34 +1689,34 @@ public class ExportPdf {
 		c25.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c25);
 		if (protocol.getStatus() == DataModelTypes.StatusType.passed) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageAccept = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathAccept()));
-		    i.scaleToFit(10, 10);
+		    imageAccept.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_137));
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageAccept, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else if (protocol.getStatus() == DataModelTypes.StatusType.passedWithAnnotation) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageInformation = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathInformation()));
-		    i.scaleToFit(10, 10);
+		    imageInformation.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_138));
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageInformation, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else if (protocol.getStatus() == DataModelTypes.StatusType.failed) {
-		    Image i = Image.getInstance(ResourceManager
+		    Image imageCross = Image.getInstance(ResourceManager
 			    .getURL(ResourceManager.getPathCross()));
-		    i.scaleToFit(10, 10);
+		    imageCross.scaleToFit(10, 10);
 		    Paragraph paragraph = new Paragraph();
 		    paragraph.add(new Phrase(Messages.ExportPdf_139 + "   ")); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$ //$NON-NLS-1$
-		    paragraph.add(new Chunk(i, -1f, 1f));
+		    paragraph.add(new Chunk(imageCross, -1f, 1f));
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
@@ -1933,9 +1932,9 @@ public class ExportPdf {
 
 		chapter.add(table);
 	    }
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 
@@ -1953,8 +1952,8 @@ public class ExportPdf {
     private static void createStepTableOne(Paragraph chapter, TSMResource file,
 	    Document doc, IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor m1 = startMonitor(monitor, " -> steps", 1);
-	if (!m1.isCanceled()) {
+	IProgressMonitor progressMonitor = startMonitor(monitor, " -> steps", 1);
+	if (!progressMonitor.isCanceled()) {
 	    isTestStep = true;
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
@@ -2074,9 +2073,9 @@ public class ExportPdf {
 		chapter.add(table);
 	    }
 	    isTestStep = false;
-	    m1.done();
+	    progressMonitor.done();
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
     }
 

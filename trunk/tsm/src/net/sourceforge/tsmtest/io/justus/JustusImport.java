@@ -66,22 +66,22 @@ public class JustusImport {
 
 	boolean importSuccessful = false;
 
-	final IProgressMonitor m1 = startMonitor(monitor, "root", 1);
+	final IProgressMonitor progressMonitor1 = startMonitor(monitor, "root", 1);
 
 	// Disable data model refreshing because a sequence of new files will be
 	// created
 	DataModel.getInstance().setEnabled(false);
 	try {
 	    // go through the elements and import them
-	    for (final Element e : root.getChildren()) {
-		if (!m1.isCanceled()) {
-		    if (readPackages(e, parentPackage, "<html>",
-			    isSeqeuenceTestCase, getSubMonitor(m1, number),
+	    for (final Element currentElement : root.getChildren()) {
+		if (!progressMonitor1.isCanceled()) {
+		    if (readPackages(currentElement, parentPackage, "<html>",
+			    isSeqeuenceTestCase, getSubMonitor(progressMonitor1, number),
 			    number)) {
 			importSuccessful = true;
 		    }
 		} else {
-		    m1.done();
+		    progressMonitor1.done();
 		}
 	    }
 	} finally {
@@ -92,7 +92,7 @@ public class JustusImport {
 	ResourcesPlugin.getWorkspace().getRoot()
 		.refreshLocal(IResource.DEPTH_INFINITE, null);
 
-	m1.done();
+	progressMonitor1.done();
 
 	DataModel.getInstance().refresh();
 
@@ -126,10 +126,10 @@ public class JustusImport {
 	} else if (parentElement.getAttributeValue("title") != null) {
 	    monitorName = parentElement.getAttributeValue("title");
 	}
-	final IProgressMonitor m1 = startMonitor(monitor, " -> " + monitorName,
+	final IProgressMonitor progressMonitor = startMonitor(monitor, " -> " + monitorName,
 		number);
 	for (final Element currentElement : parentElement.getChildren()) {
-	    if (!m1.isCanceled()) {
+	    if (!progressMonitor.isCanceled()) {
 		// if (!m1.isCanceled()) {
 		// path of root + path of parent package
 		final IPath oldIPath = ResourcesPlugin.getWorkspace().getRoot()
@@ -177,18 +177,17 @@ public class JustusImport {
 		    if (tsmPackage == null) {
 			return false;
 		    }
-		    m1.worked(1);
+		    progressMonitor.worked(1);
 		    // add the current precondition
 		    String newPreCondition = preCondition;
-		    if (currentElement.getChildText("pre") != null) {
-			if (!currentElement.getChildText("pre").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
+		    if (currentElement.getChildText("pre") != null && 
+			    !currentElement.getChildText("pre").equals("")) { //$NON-NLS-1$ //$NON-NLS-2$
 			    newPreCondition = preCondition
 				    + "<p>" //$NON-NLS-1$
 				    + replaceCharacters(currentElement
 					    .getChildText("pre")) + "</p><p></p>"; //$NON-NLS-1$ //$NON-NLS-2$
 			}
 
-		    }
 
 		    // add the new created folder to the path and transfer it
 		    // into
@@ -198,13 +197,13 @@ public class JustusImport {
 		    path = new Path(newPathString);
 		    iPath = path;
 		    readPackages(currentElement, iPath, newPreCondition,
-			    isSeqeuenceTestCase, getSubMonitor(m1, number),
+			    isSeqeuenceTestCase, getSubMonitor(progressMonitor, number),
 			    number - 1);
 
 		} else if (currentElement.getName().equals("testcase")) { //$NON-NLS-1$
 		    if (!isSeqeuenceTestCase) {
 			if (!createTestCase(currentElement, preCondition,
-				tsmContainer, getSubMonitor(m1, number), number)) {
+				tsmContainer, getSubMonitor(progressMonitor, number), number)) {
 			    return false;
 			}
 		    } else {
@@ -221,17 +220,17 @@ public class JustusImport {
 		// } else {
 		// m1.done();
 		// }
-		m1.worked(1);
+		progressMonitor.worked(1);
 	    } else {
-		m1.done();
+		progressMonitor.done();
 	    }
 	}
-	m1.done();
+	progressMonitor.done();
 	return true;
     }
 
     /**
-     * @param newString
+     * @param name
      *            The name of the test case or package which should be parsed.
      * @return The parsed string
      */
@@ -297,10 +296,10 @@ public class JustusImport {
 	    final String preCondition, final TSMContainer tsmContainer,
 	    final IProgressMonitor monitor, final int number)
 	    throws ParseException, CoreException {
-	final IProgressMonitor m1 = startMonitor(monitor, " -> "
+	final IProgressMonitor progressMonitor = startMonitor(monitor, " -> "
 		+ currentElement.getAttributeValue("title"), 1);
 
-	if (!m1.isCanceled()) {
+	if (!progressMonitor.isCanceled()) {
 	    // create a new test case for every element
 	    String name;
 	    int counter = 1;
@@ -425,10 +424,10 @@ public class JustusImport {
 		}
 	    }
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
-	m1.worked(1);
-	m1.done();
+	progressMonitor.worked(1);
+	progressMonitor.done();
 	return true;
     }
 
@@ -452,8 +451,8 @@ public class JustusImport {
 	    final String preCondition, final TSMContainer tsmContainer,
 	    final IProgressMonitor monitor, final int number)
 	    throws ParseException, CoreException {
-	final IProgressMonitor m1 = startMonitor(monitor, "", 1);
-	if (!m1.isCanceled()) {
+	final IProgressMonitor progressMonitor = startMonitor(monitor, "", 1);
+	if (!progressMonitor.isCanceled()) {
 	    String name;
 	    int counter = 1;
 	    int hours = 0;
@@ -494,7 +493,7 @@ public class JustusImport {
 
 	    // every test case is one test step
 	    for (final Element currentElement : parentElement.getChildren()) {
-		if (!m1.isCanceled()) {
+		if (!progressMonitor.isCanceled()) {
 		    // just test cases
 		    if (currentElement.getName().equals("testcase")) {
 			if (currentElement.getAttributeValue("priority") != null) {
@@ -570,7 +569,7 @@ public class JustusImport {
 			testCase.addStep(step);
 		    }
 		} else {
-		    m1.done();
+		    progressMonitor.done();
 		}
 	    }
 
@@ -633,10 +632,10 @@ public class JustusImport {
 		}
 	    }
 	} else {
-	    m1.done();
+	    progressMonitor.done();
 	}
-	m1.worked(1);
-	m1.done();
+	progressMonitor.worked(1);
+	progressMonitor.done();
 	return true;
     }
 

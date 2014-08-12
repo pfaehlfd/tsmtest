@@ -65,7 +65,7 @@ import org.jdom2.input.SAXBuilder;
  * @author Albert Flaig
  */
 @SuppressWarnings("restriction")
-public class DataModel extends AbstractDataModel implements
+public final class DataModel extends AbstractDataModel implements
 	IResourceChangeListener {
     /**
      * used for console logging

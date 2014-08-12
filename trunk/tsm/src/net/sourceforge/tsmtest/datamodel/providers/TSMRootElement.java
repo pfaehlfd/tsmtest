@@ -19,7 +19,7 @@ import net.sourceforge.tsmtest.datamodel.TSMProject;
  * @author Albert Flaig
  *
  */
-public class TSMRootElement {
+public final class TSMRootElement {
 
     public static TSMRootElement getInstance() {
 	return new TSMRootElement();

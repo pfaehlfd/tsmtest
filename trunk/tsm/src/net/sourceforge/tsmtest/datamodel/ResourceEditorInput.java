@@ -23,7 +23,7 @@ import org.eclipse.ui.IPersistableElement;
  */
 public class ResourceEditorInput implements IEditorInput {
 
-    protected TSMResource input;
+    private TSMResource input;
 
     /**
      * Creates a <code>NullEditorInput</code> for the given editor reference.
