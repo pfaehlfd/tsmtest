@@ -264,7 +264,7 @@ class BreadcrumbItemArrow {
 			});
 
 			tree.addListener(SWT.MouseMove, new Listener() {
-				TreeItem fLastItem = null;
+				private TreeItem fLastItem = null;
 
 				@Override
 				public void handleEvent(final Event e) {

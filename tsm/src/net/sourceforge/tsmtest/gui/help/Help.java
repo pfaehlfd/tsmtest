@@ -28,8 +28,8 @@ import org.osgi.framework.Bundle;
 
 
 
-public class help extends AbstractHandler{
-    public static final String ID = "net.sourceforge.tsmtest.gui.help.help";
+public class Help extends AbstractHandler{
+    public static final String ID = "net.sourceforge.tsmtest.gui.help.Help";
 
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {

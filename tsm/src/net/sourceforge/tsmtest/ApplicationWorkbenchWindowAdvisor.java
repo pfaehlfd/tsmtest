@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Tobbias Hirning - initial version
+ *    Tobias Hirning - initial version
  *    Florian Krüger - enhancements
  *    Bernhard Wetzel - added comments
  *******************************************************************************/

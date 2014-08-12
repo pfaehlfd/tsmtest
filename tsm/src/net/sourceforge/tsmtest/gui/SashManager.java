@@ -62,7 +62,7 @@ public class SashManager<T> {
     private boolean disposed = false;
 
     /**
-     * getter for Scrollspeed
+     * Getter for Scrollspeed
      * 
      * @return scrollspeed
      */
@@ -110,11 +110,11 @@ public class SashManager<T> {
 	    /**
 	     * handles the mousewheel
 	     */
-	    public void mouseScrolled(final MouseEvent e) {
-		ScrolledComposite sc = (ScrolledComposite) e.getSource();
-		Point p = sc.getOrigin();
-		p.y -= e.count * SCROLLSPEED;
-		sc.setOrigin(p);
+	    public void mouseScrolled(final MouseEvent mouseEvent) {
+		ScrolledComposite scrolledComposite = (ScrolledComposite) mouseEvent.getSource();
+		Point point = scrolledComposite.getOrigin();
+		point.y -= mouseEvent.count * SCROLLSPEED;
+		scrolledComposite.setOrigin(point);
 	    }
 	};
 
@@ -136,14 +136,14 @@ public class SashManager<T> {
 
 	heightListener = new ModifyListener() {
 	    @Override
-	    public void modifyText(ModifyEvent e) {
+	    public void modifyText(ModifyEvent modifyEvent) {
 		SashManager<?>.SashManagerRow row = null;
-		if (e.getSource() instanceof Control) {
-		    Control c = (Control) e.getSource();
-		    if (c.getParent() instanceof SashManager.SashManagerRow) {
-			row = (SashManager<?>.SashManagerRow) c.getParent();
-		    } else if (c.getParent().getParent() instanceof SashManager.SashManagerRow) {
-			row = (SashManager<?>.SashManagerRow) c.getParent()
+		if (modifyEvent.getSource() instanceof Control) {
+		    Control control = (Control) modifyEvent.getSource();
+		    if (control.getParent() instanceof SashManager.SashManagerRow) {
+			row = (SashManager<?>.SashManagerRow) control.getParent();
+		    } else if (control.getParent().getParent() instanceof SashManager.SashManagerRow) {
+			row = (SashManager<?>.SashManagerRow) control.getParent()
 				.getParent();
 		    }
 		}
@@ -160,7 +160,7 @@ public class SashManager<T> {
     }
 
     /**
-     * used to create Default data
+     * Used to create Default data
      * 
      * @return null
      */
@@ -186,7 +186,7 @@ public class SashManager<T> {
      * @param width
      * @param fixedWidth
      * @param traversable
-     * @param tooltip
+     * @param tooltip Text of the tooltip
      */
     public void addColumn(SashManagerColumn<?> sashManagerColumn, String title,
 	    int width, boolean fixedWidth, boolean traversable, String tooltip) {
@@ -216,21 +216,21 @@ public class SashManager<T> {
 	}
 	// Clear all
 	while (!(rowList.isEmpty())) {
-	    SashManagerRow s = rowList.getFirst();
-	    rowList.remove(s);
-	    s.dispose();
+	    SashManagerRow sashManagerRow = rowList.getFirst();
+	    rowList.remove(sashManagerRow);
+	    sashManagerRow.dispose();
 	}
 	// Add sashes
 	this.addSashesAtTop(objects.size());
 	// Set the content of the sashes
 	for (int i = 0; i < objects.size(); i++) {
-	    SashManagerRow s = rowList.get(i);
+	    SashManagerRow sashManagerRow = rowList.get(i);
 	    T ts = objects.get(i);
-	    s.setInput(ts);
+	    sashManagerRow.setInput(ts);
 	}
 	for (int i = 0; i < rowList.size(); i++) {
-	    SashManagerRow sf = rowList.get(i);
-	    sf.render(i);
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    sashManagerRow.render(i);
 	}
 	// Update the labels
 	Display.getCurrent().syncExec(new Runnable() {
@@ -238,8 +238,9 @@ public class SashManager<T> {
 		updateLabels(false, null);
 		// setting the focus to avoid some strange shifting to
 		// the project explorer
-		if (isDisposed())
+		if (isDisposed()) {
 		    return;
+		}
 		scrolledComposite.setFocus();
 
 	    }
@@ -257,26 +258,27 @@ public class SashManager<T> {
 	}
 	// Clear all
 	while (!(rowList.isEmpty())) {
-	    SashManagerRow s = rowList.getFirst();
-	    rowList.remove(s);
-	    s.dispose();
+	    SashManagerRow sashManagerRow = rowList.getFirst();
+	    rowList.remove(sashManagerRow);
+	    sashManagerRow.dispose();
 	}
 	// Add sashes
 	this.addSashesAtTop(revisions.size());
 	// Set the content of the sashes
 	for (int i = 0; i < revisions.size(); i++) {
-	    SashManagerRow s = rowList.get(i);
-	    s.setInput(revisions.get(i));
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    sashManagerRow.setInput(revisions.get(i));
 	}
 	for (int i = 0; i < rowList.size(); i++) {
-	    SashManagerRow sf = rowList.get(i);
-	    sf.render(i);
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    sashManagerRow.render(i);
 	}
 	// Update the labels
 	Display.getCurrent().asyncExec(new Runnable() {
 	    public void run() {
-		if (disposed)
+		if (disposed) {
 		    return;
+		}
 		updateLabels(false, null);
 		// setting the focus to avoid some strange shifting to
 		// the project explorer
@@ -292,8 +294,8 @@ public class SashManager<T> {
     public List<T> getContent() {
 	List<T> content = new ArrayList<T>();
 	for (int i = 0; i < rowList.size(); i++) {
-	    SashManagerRow s = rowList.get(i);
-	    content.add(s.getContent(i));
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    content.add(sashManagerRow.getContent(i));
 	}
 	return content;
     }
@@ -316,8 +318,9 @@ public class SashManager<T> {
 	SashManagerRow sashRow = rowList.remove(row);
 	sashRow.dispose();
 	row = Math.min(row + 1, rowList.size() - 1);
-	if (!rowList.isEmpty())
+	if (!rowList.isEmpty()) {
 	    sashRow = rowList.get(row);
+	}
 	updateLabels(true, sashRow);
 	rowNumberChanged(rowList.size());
     }
@@ -351,20 +354,20 @@ public class SashManager<T> {
      *            starting index for adding
      */
     public void addSashes(int num, int index) {
-	SashManagerRow sf = null;
+	SashManagerRow sashManagerRow = null;
 	for (int i = 0; i < num; i++) {
-	    sf = new SashManagerRow(sashBody, SWT.HORIZONTAL);
-	    sf.setup();
-	    rowList.add(index + i, sf);
+	    sashManagerRow = new SashManagerRow(sashBody, SWT.HORIZONTAL);
+	    sashManagerRow.setup();
+	    rowList.add(index + i, sashManagerRow);
 	}
-	updateLabels(false, sf);
+	updateLabels(false, sashManagerRow);
 	rowNumberChanged(rowList.size());
     }
 
     private void rowNumberChanged(int num) {
 	for (int i = 0; i < num; i++) {
-	    SashManagerRow sf = rowList.get(i);
-	    sf.rowNumberChanged(num, i);
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    sashManagerRow.rowNumberChanged(num, i);
 	}
     }
 
@@ -415,15 +418,15 @@ public class SashManager<T> {
 
 	// Getting the current height and check for changes
 	for (int i = 0; i < rowList.size(); i++) {
-	    SashManagerRow s = rowList.get(i);
+	    SashManagerRow sashManagerRow = rowList.get(i);
 
-	    s.setWeights(sashWidths);
+	    sashManagerRow.setWeights(sashWidths);
 
-	    sashHeights[i] = Math.max(30, s.getMaxHeight());
+	    sashHeights[i] = Math.max(30, sashManagerRow.getMaxHeight());
 	    height += sashHeights[i];
 
-	    force = force || s.isHeightChanged();
-	    s.setHeightChanged(false);
+	    force = force || sashManagerRow.isHeightChanged();
+	    sashManagerRow.setHeightChanged(false);
 	}
 	// We only need to layout if sth. was changed or it is forced
 	if (force) {
@@ -433,8 +436,9 @@ public class SashManager<T> {
 	    scrolledComposite.setMinSize(size);
 	    scrolledComposite.setSize(size);
 	    scrolledComposite.getParent().layout(true, true);
-	    if (scrollToRow != null)
+	    if (scrollToRow != null) {
 		scrollToVisible(scrollToRow);
+	    }
 	    scrolledComposite.redraw();
 	    scrolledComposite.update();
 	}
@@ -448,17 +452,20 @@ public class SashManager<T> {
      */
     private void updateLabels(boolean resizeForce, SashManagerRow scrollToRow) {
 
-	if (isDisposed())
+	if (isDisposed()) {
 	    return;
+	}
 
-	if (rowList.isEmpty())
+	if (rowList.isEmpty()) {
 	    return;
+	}
 
 	for (int i = 0; i < rowList.size(); i++) {
-	    SashManagerRow sf = rowList.get(i);
-	    sf.rowIndexChanged(i);
-	    if (i >= 1)
-		sf.moveBelow(rowList.get(i - 1));
+	    SashManagerRow sashManagerRow = rowList.get(i);
+	    sashManagerRow.rowIndexChanged(i);
+	    if (i >= 1) {
+		sashManagerRow.moveBelow(rowList.get(i - 1));
+	    }
 	}
 	resize(resizeForce, scrollToRow);
     }
@@ -540,18 +547,19 @@ public class SashManager<T> {
 	 * Sets up the columnheader
 	 * 
 	 * @param title
-	 *            titel of the columm
+	 *            title of the columm
 	 * @param width
 	 * @param fixedWidth
 	 * @param traversable
-	 * @param tooltip
+	 * @param tooltip Text of the tooltip
 	 */
 	final void setup(String title, int width, boolean fixedWidth,
 		boolean traversable, String tooltip) {
 	    columnHeader = new Label(sashHeader, SWT.CENTER);
 	    columnHeader.setText(title);
-	    if (tooltip != null)
+	    if (tooltip != null) {
 		columnHeader.setToolTipText(tooltip);
+	    }
 	    Font font = columnHeader.getFont();
 	    String name = "";
 	    int height = 16;
@@ -713,7 +721,7 @@ public class SashManager<T> {
 	private int oldMaxHeight;
 
 	/**
-	 * creats a new row
+	 * Creates a new row
 	 * 
 	 * @param parent
 	 *            parent composite

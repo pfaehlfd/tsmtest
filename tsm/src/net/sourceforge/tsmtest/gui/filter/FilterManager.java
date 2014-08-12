@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Jenny Krüwald
  * 
  */
-public class FilterManager {
+public final class FilterManager {
     /**
      * Returns the Singleton of this class.
      */

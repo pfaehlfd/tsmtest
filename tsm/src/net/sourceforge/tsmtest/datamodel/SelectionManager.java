@@ -41,7 +41,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
  * 
  * @author Albert Flaig
  */
-public class SelectionManager {
+public final class SelectionManager {
     /**
      * Returns the Singleton of this class.
      */

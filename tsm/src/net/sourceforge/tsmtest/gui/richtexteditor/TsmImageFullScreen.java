@@ -93,9 +93,9 @@ public class TsmImageFullScreen {
 	
 	Rectangle rect1 = image.getBounds();
 	Rectangle rectMax = display.getClientArea();
-	Monitor[] list = display.getMonitors();
-	if (list.length > 0) {
-	    rectMax = list[0].getBounds();
+	Monitor[] monitorList = display.getMonitors();
+	if (monitorList.length > 0) {
+	    rectMax = monitorList[0].getBounds();
 	    //System.out.println(rectMax);
 	}
 

@@ -54,7 +54,7 @@ public class OverviewStepSash {
 	    }
 	};
 
-	// testcase name and est are always displayed
+	// Testcase name and estimated time are always displayed
 	tableManager.addColumn(createLabelColumn(tableManager),
 		Messages.OverviewStepSash_0, 10, false, false, null);
 	tableManager.addColumn(createLabelColumn(tableManager),
@@ -67,7 +67,7 @@ public class OverviewStepSash {
 		dispose();
 	    }
 	});
-	// creating colors
+	// Creating colors
 	red = new Color(parent.getDisplay(), 255, 50, 50);
 	green = new Color(parent.getDisplay(), 60, 160, 60);
 	yellow = new Color(parent.getDisplay(), 245, 245, 0);
@@ -77,27 +77,28 @@ public class OverviewStepSash {
     }
 
     /**
-     * Disposes all colours
+     * Disposes all colors
      */
     public void dispose() {
 	red.dispose();
 	green.dispose();
 	yellow.dispose();
 	grey.dispose();
+	white.dispose();
     }
 
     /**
-     * sets the layoutdata of the tableManager
+     * Sets the layout data of the tableManager
      * 
      * @param layout
-     *            layoutdata
+     *            layout data
      */
     public void setLayoutData(Object layout) {
 	tableManager.setLayoutData(layout);
     }
 
     /**
-     * returns the sashManager
+     * Returns the sashManager
      * 
      * @return instance of sashManager
      */
@@ -116,7 +117,7 @@ public class OverviewStepSash {
     }
 
     /**
-     * Creates a new Label column in the sash form
+     * Creates a new label column in the sash form
      * @param Column 
      * 
      * @param SashManager
@@ -125,10 +126,9 @@ public class OverviewStepSash {
     private SashManager<TSMTestCase>.SashManagerColumn<Label> createLabelColumn(
 	    SashManager<TSMTestCase> tableManager) {
 	return tableManager.new SashManagerColumn<Label>() {
-	    
 	    private int height = 50;
 	    /**
-	     * creates a new Label
+	     * Creates a new Label
 	     * 
 	     * @param parent
 	     *            composite to be displayed in
@@ -147,15 +147,16 @@ public class OverviewStepSash {
 	    /**
 	     * Returns the height
 	     * 
-	     * @return returns 50
+	     * @return returns the height of the label
 	     */
 	    @Override
 	    protected int getHeight(Label widget) {
 		return height;
 	    }
-	    
+
 	    /**
 	     * Sets the height
+	     * @param height
 	     */
 	    public void setHeight(int height) {
 		this.height = height;
@@ -175,10 +176,10 @@ public class OverviewStepSash {
 		if (data == null) {
 		    return;
 		}
-		// need only the latest report of each revision
-		TSMReport[] reps = getOnlyLastReport(data);
+		// Need only the latest report of each revision
+		TSMReport[] reports = getOnlyLastReport(data);
 		ITestCaseDescriptor tcdata = data.getData();
-		// first pos is name
+		// First position is name
 		if (column == POSDESC) {
 		    widget.setText(data.getName());
 		    String lastChanged = Messages.OverviewStepSash_2
@@ -188,7 +189,7 @@ public class OverviewStepSash {
 			lastChanged = Messages.OverviewStepSash_3;
 		    }
 		    widget.setToolTipText(lastChanged);
-		    // second pos is est time
+		    // Second position is estimated time
 		} else if (column == POSDURATION) {
 		    widget.setText(tcdata.getExpectedDuration() + " h");
 		    // rest revisions
@@ -197,18 +198,18 @@ public class OverviewStepSash {
 		    Integer currentRev = Integer.parseInt(getColumnNames().get(
 			    column));
 		    // check each report if it is the corresponding
-		    for (TSMReport rep : reps) {
-			if (rep == null) {
+		    for (TSMReport currentReport : reports) {
+			if (currentReport == null) {
 			    continue;
 			}
-			if (rep.getData().getRevisionNumber() == currentRev) {
-			    String realDur = rep.getData().getRealDuration();
-			    if (!(realDur.isEmpty())) {
-				realDur = " ("	+ realDur + ")";
+			if (currentReport.getData().getRevisionNumber() == currentRev) {
+			    String realDuration = currentReport.getData().getRealDuration();
+			    if (!(realDuration.isEmpty())) {
+				realDuration = " ("	+ realDuration + ")";
 			    }
 			    String status =Messages.OverviewStepSash_8;
 			    // colour bg + set text like status
-			    switch (rep.getData().getStatus()) {
+			    switch (currentReport.getData().getStatus()) {
 			    case failed:
 				widget.setBackground(red);
 				status = Messages.ClickableImage_4;
@@ -230,8 +231,8 @@ public class OverviewStepSash {
 			    }
 			    // sets status, real duration + tester
 			    widget.setText(status
-				    + "\n" + realDur + "\n" + Messages.OverviewStepSash_5
-				    + rep.getData().getAssignedTo());
+				    + "\n" + realDuration + "\n" + Messages.OverviewStepSash_5
+				    + currentReport.getData().getAssignedTo());
 			    return;
 			}
 		    }
@@ -261,31 +262,31 @@ public class OverviewStepSash {
      * Goes through all reports of the testcase and returns the latest report of
      * each revision
      * 
-     * @param data
+     * @param testcase
      *            testcase that is scanned
      * @return Array of reports with the latest report of each revision ordered
      *         from top to down
      */
-    protected TSMReport[] getOnlyLastReport(TSMTestCase data) {
-	// getting all revisions + 2 "-1" at the beginning to equal columns
-	ArrayList<Integer> revisions = getRevisions(data.getReports());
-	// getting all reports
-	Collection<TSMReport> reps = data.getReports();
-	// collector for the acceptet reps
+    protected TSMReport[] getOnlyLastReport(TSMTestCase testcase) {
+	// Getting all revisions + 2 "-1" at the beginning to equal columns
+	ArrayList<Integer> revisions = getRevisions(testcase.getReports());
+	// Getting all reports
+	Collection<TSMReport> reps = testcase.getReports();
+	// Collector for the accepted reps
 	TSMReport[] newReps = new TSMReport[revisions.size()];
-	// check for latest report
+	// Check for latest report
 	Date[] latest = new Date[revisions.size()];
-	// we display newest first
+	// We display newest first
 	Collections.reverse(revisions);
-	for (TSMReport r : reps) {
-	    //checks if latest report of its revisions
-	    //saved if true
-	    if (latest[revisions.indexOf(r.getData().getRevisionNumber())] == null
+	for (TSMReport currentReport : reps) {
+	    //Checks if latest report of its revisions
+	    //Saved if true
+	    if (latest[revisions.indexOf(currentReport.getData().getRevisionNumber())] == null
 		    || latest[revisions
-			    .indexOf(r.getData().getRevisionNumber())].before(r
+			    .indexOf(currentReport.getData().getRevisionNumber())].before(currentReport
 			    .getData().getLastExecution())) {
-		newReps[revisions.indexOf(r.getData().getRevisionNumber())] = r;
-		latest[revisions.indexOf(r.getData().getRevisionNumber())] = r
+		newReps[revisions.indexOf(currentReport.getData().getRevisionNumber())] = currentReport;
+		latest[revisions.indexOf(currentReport.getData().getRevisionNumber())] = currentReport
 			.getData().getLastExecution();
 	    }
 	}
@@ -320,7 +321,7 @@ public class OverviewStepSash {
 	return tableManager.getContent();
     }
     /**
-     * Returns a list with the test of the labelhaeders of each column
+     * Returns a list with the test of the label-headers of each column
      * @return ArrayList<String>
      * 			List of columnnames
      */
@@ -329,25 +330,23 @@ public class OverviewStepSash {
     }
 
     /**
-     * adds a column to the sashform
-     * 
-     * @param revision
-     * 		name of the column
+     * Adds a column to the sashform
+     * @param revision Name of the column
+     * @param tooltip Text for the tooltip
      */
     public void addColumn(String revision, String tooltip) {
 	tableManager.addColumn(createLabelColumn(tableManager), revision, revision.length()+10,
 		false, false, tooltip);
     }
     /**
-     * removes a column
-     * @param revision
-     * 		index of the column that is to be deleted
+     * Removes a column
+     * @param revision Index of the column that is to be deleted
      */
     public void removeColumn(int revision) {
 	tableManager.removeColumn(revision);
     }
     /**
-     * removes a columns except the first 2
+     * Removes all columns except the first two
      */
     public void removeAllColumns() {
 	tableManager.removeAllColumns();

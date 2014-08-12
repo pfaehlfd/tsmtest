@@ -138,78 +138,78 @@ public class PdfPage extends ExportWizardPage {
 	// go through all files and check if test case or protocol. If yes add
 	// it to newList
 	List<IFile> newList = new ArrayList<IFile>();
-	for (final IResource r : list) {
-	    // r is IFile
-	    if (r instanceof IFile) {
-		// r is protocol or test case
+	for (final IResource currentRessource : list) {
+	    // currentRessource is IFile
+	    if (currentRessource instanceof IFile) {
+		// currentRessource is protocol or test case
 		// all files
 		if (exportFiles == 0) {
-		    if (((IFile) r).getContentDescription() != null) {
-			if (((IFile) r).getContentDescription()
+		    if (((IFile) currentRessource).getContentDescription() != null) {
+			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
-			    if (((IFile) r)
+			    if (((IFile) currentRessource)
 				    .getContentDescription()
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_PROTOCOL)
-				    || ((IFile) r)
+				    || ((IFile) currentRessource)
 					    .getContentDescription()
 					    .getContentType()
 					    .getId()
 					    .equals(DataModelTypes.CONTENT_TYPE_ID_TESTCASE)) {
-				newList.add((IFile) r);
+				newList.add((IFile) currentRessource);
 			    }
 			}
 		    }
 
 		    // only test cases
 		} else if (exportFiles == 1) {
-		    if (((IFile) r).getContentDescription() != null) {
-			if (((IFile) r).getContentDescription()
+		    if (((IFile) currentRessource).getContentDescription() != null) {
+			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
-			    if (((IFile) r)
+			    if (((IFile) currentRessource)
 				    .getContentDescription()
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_TESTCASE)) {
-				newList.add((IFile) r);
+				newList.add((IFile) currentRessource);
 			    }
 			}
 		    }
 
 		    // only protocols
 		} else if (exportFiles == 2) {
-		    if (((IFile) r).getContentDescription() != null) {
-			if (((IFile) r).getContentDescription()
+		    if (((IFile) currentRessource).getContentDescription() != null) {
+			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
-			    if (((IFile) r)
+			    if (((IFile) currentRessource)
 				    .getContentDescription()
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_PROTOCOL)) {
-				newList.add((IFile) r);
+				newList.add((IFile) currentRessource);
 			    }
 			}
 		    }
 		    // only protocols with a certain revision
 		} else {
-		    if (((IFile) r).getContentDescription() != null) {
-			if (((IFile) r).getContentDescription()
+		    if (((IFile) currentRessource).getContentDescription() != null) {
+			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
 			    String revisionText = getRevision();
-			    if (((IFile) r)
+			    if (((IFile) currentRessource)
 				    .getContentDescription()
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_PROTOCOL)) {
 				TSMResource res = DataModel.getInstance()
-					.convertToTSMResource(r);
+					.convertToTSMResource(currentRessource);
 				TSMReport report = (TSMReport) res;
 				TestCaseDescriptor tcd = report
 					.createDataCopy();
 				if (String.valueOf(tcd.getRevisionNumber())
 					.equals(revisionText)) {
-				    newList.add((IFile) r);
+				    newList.add((IFile) currentRessource);
 				}
 			    }
 			}

@@ -796,7 +796,7 @@ public class EditorRunTest extends EditorPartInput implements
     private class TimeRunner implements Runnable {
 	@Override
 	public void run() {
-	    final Runnable r = new Runnable() {
+	    final Runnable runnable = new Runnable() {
 
 		@Override
 		public void run() {
@@ -824,7 +824,7 @@ public class EditorRunTest extends EditorPartInput implements
 		    Thread.sleep(200);
 		} catch (final InterruptedException e) {
 		}
-		Display.getDefault().syncExec(r);
+		Display.getDefault().syncExec(runnable);
 	    }
 	}
     }

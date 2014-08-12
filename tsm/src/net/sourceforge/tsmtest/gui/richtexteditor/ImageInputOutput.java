@@ -28,7 +28,7 @@ import org.eclipse.swt.graphics.ImageLoader;
  * @author Daniel Hertl
  * 
  */
-public class ImageInputOutput {
+public final class ImageInputOutput {
     private String[] imagePaths;
 
     private ImageData imageDataToSave;

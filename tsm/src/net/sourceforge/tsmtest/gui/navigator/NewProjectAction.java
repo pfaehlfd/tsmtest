@@ -23,7 +23,7 @@ public class NewProjectAction extends Action {
     public NewProjectAction(final String name) {
 	super(name);
 	final ImageDescriptor img = Activator
-		.getImageDescriptor(ResourceManager.getPathTSMProject());
+		.getImageDescriptor(ResourceManager.getPathProject());
 	setImageDescriptor(img);
 	setHoverImageDescriptor(img);
 	setDisabledImageDescriptor(img);

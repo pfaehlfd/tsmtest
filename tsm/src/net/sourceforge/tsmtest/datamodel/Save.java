@@ -44,7 +44,7 @@ import org.jdom2.output.XMLOutputter;
  */
 public class Save {
 
-    static Logger log = Logger.getLogger(Save.class);
+    private static Logger log = Logger.getLogger(Save.class);
 
     /**
      * This method extracts from the xmlCode all img tags and calls

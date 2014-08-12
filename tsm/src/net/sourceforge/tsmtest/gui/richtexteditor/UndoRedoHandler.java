@@ -22,22 +22,22 @@ import org.xml.sax.SAXException;
  *
  */
 public class UndoRedoHandler {
-    private RichText rich;
+    private RichText richText;
     private LinkedList<UndoRedoElement> undoRanges = new LinkedList<UndoRedoElement>();
     private LinkedList<UndoRedoElement> redoRanges = new LinkedList<UndoRedoElement>();
     private boolean doUndo = false;
     private UndoRedoElement lastUndo;
     private boolean doneRedo;
 
-    public UndoRedoHandler(RichText rich) {
-	this.rich = rich;
+    public UndoRedoHandler(RichText richText) {
+	this.richText = richText;
     }
 
     public void saveUndo() {
 	if (!doUndo) {
-	    String actualText = rich.getFormattedText();
-	    int caretOffset = rich.getCaretOffset();
-	    if (!rich.getStyledTextComponent().isFocusControl()
+	    String actualText = richText.getFormattedText();
+	    int caretOffset = richText.getCaretOffset();
+	    if (!richText.getStyledTextComponent().isFocusControl()
 		    && caretOffset == 0) {
 		caretOffset = actualText.length();
 	    }
@@ -48,20 +48,20 @@ public class UndoRedoHandler {
 
     public void undo() {
 	doneRedo = true;
-	String currentText = rich.getFormattedText();
+	String currentText = richText.getFormattedText();
 	doUndo = true;
 	if (undoRanges.size() > 0) {
 	    UndoRedoElement undoElement = undoRanges.pop();
 	    if (lastUndo != null && !currentText.equals(lastUndo.getPart())) {
 		redoRanges.clear();
 	    }
-	    redoRanges.push(new UndoRedoElement(currentText, rich
+	    redoRanges.push(new UndoRedoElement(currentText, richText
 		    .getCaretOffset()));
 
 	    try {
 		if (!currentText.equals(undoElement.getPart())) {
-		    rich.setFormattedText(undoElement.getPart(), true);
-		    rich.setCaretOffset(undoElement.getCaretPosition());
+		    richText.setFormattedText(undoElement.getPart(), true);
+		    richText.setCaretOffset(undoElement.getCaretPosition());
 		}
 	    } catch (ParserConfigurationException e) {
 		// TODO Auto-generated catch block
@@ -82,16 +82,16 @@ public class UndoRedoHandler {
 	lastUndo = null;
 	doneRedo = true;
 	doUndo = true;
-	String currentText = rich.getFormattedText();
+	String currentText = richText.getFormattedText();
 	if (redoRanges.size() > 0) {
 	    UndoRedoElement redoElement = redoRanges.pop();
-	    undoRanges.push(new UndoRedoElement(currentText, rich
+	    undoRanges.push(new UndoRedoElement(currentText, richText
 		    .getCaretOffset()));
 
 	    try {
 		if (!currentText.equals(redoElement.getPart())) {
-		    rich.setFormattedText(redoElement.getPart(), true);
-		    rich.setCaretOffset(redoElement.getCaretPosition());
+		    richText.setFormattedText(redoElement.getPart(), true);
+		    richText.setCaretOffset(redoElement.getCaretPosition());
 		}
 	    } catch (ParserConfigurationException e) {
 		// TODO Auto-generated catch block

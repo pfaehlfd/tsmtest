@@ -380,8 +380,9 @@ public class CustomSashForm extends Composite {
 	    super.setOrientation(orientation);
 	    return;
 	}
-	if (getOrientation() == orientation)
+	if (getOrientation() == orientation) {
 	    return;
+	}
 	if (orientation != SWT.HORIZONTAL && orientation != SWT.VERTICAL) {
 	    SWT.error(SWT.ERROR_INVALID_ARGUMENT);
 	}

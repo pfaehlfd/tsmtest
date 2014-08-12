@@ -121,8 +121,8 @@ public class DialogRunTest extends InputDialog {
 
 	// We have 2 Text-children that we neither see nor use, thus we don't
 	// want them to grab any space at the top
-	for (final Control c : children) {
-	    c.moveBelow(richTextField);
+	for (final Control control : children) {
+	    control.moveBelow(richTextField);
 	}
 
 	richTextField.redraw();

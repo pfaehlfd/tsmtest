@@ -42,10 +42,12 @@ public class PreferenceManager {
 	public void propertyChange(PropertyChangeEvent event) {
 	    if (event.getProperty().startsWith("tsm.")) {
 		PreferenceModel model = new PreferenceModel();
-		if (event.getNewValue().equals("choice1"))
+		if (event.getNewValue().equals("choice1")) {
 		    model.setRole(PreferenceConstants.ROLE_TESTER);
-		else
+		}
+		else {
 		    model.setRole(PreferenceConstants.ROLE_TEST_MANAGER);
+		}
 		changePreference(model);
 	    }
 	}
