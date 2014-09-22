@@ -25,6 +25,7 @@ import net.sourceforge.tsmtest.datamodel.TSMProject;
 import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
+import net.sourceforge.tsmtest.gui.filter.FilterModel;
 
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -47,38 +48,38 @@ public class TSMHierarchyContentProvider implements ITreeContentProvider {
 	    final TSMContainer container = (TSMContainer) parentElement;
 	    final List<TSMResource> children = new ArrayList<TSMResource>();
 	    for (final TSMResource child : container.getChildren()) {
-		// Dont show the images folder
+		// Don't show the images folder.
 		if (child instanceof TSMPackage
 			&& child.getName().equals(
 				DataModelTypes.imageFolderName)) {
 		    continue;
 		}
-		// Only show TSMReport if it has no Test Case
+		// Only show TSMReport if it has no test case.
 		if (child instanceof TSMReport
 			&& ((TSMReport) child).getTestCase() != null) {
 		    continue;
 		}
-//		if (isFiltered(child)) {
+		if (isFiltered(child)) {
 		    children.add(child);
-//		}
+		}
 	    }
 	    return (children.toArray());
 	} else if (parentElement instanceof TSMTestCase) {
 	    final List<TSMResource> children = new ArrayList<TSMResource>();
 	    for (final TSMResource child : ((TSMTestCase) parentElement)
 		    .getReports()) {
-//		if (isFiltered(child)) {
+		if (isFiltered(child)) {
 		    children.add(child);
-//		}
+		}
 	    }
 	    return (children.toArray());
 	} else if (parentElement instanceof TSMRootElement) {
 	    final List<TSMResource> children = new ArrayList<TSMResource>();
 	    for (final TSMResource child : ((TSMRootElement) parentElement)
 		    .getChildren()) {
-//		if (isFiltered(child)) {
+		if (isFiltered(child)) {
 		    children.add(child);
-//		}
+		}
 	    }
 	    return (children.toArray());
 	}
@@ -114,142 +115,145 @@ public class TSMHierarchyContentProvider implements ITreeContentProvider {
 	    final Object newInput) {
     }
 
-//    private boolean isFiltered(final TSMResource child) {
-//	if (child instanceof TSMTestCase
-//		&& FilterModel.getInstance().isTestCases()) {
-//	    final TSMTestCase testCase = (TSMTestCase) child;
-//	    if (FilterModel.getInstance().isHigh()
-//		    || FilterModel.getInstance().isMedium()
-//		    || FilterModel.getInstance().isLow()) {
-//		switch (testCase.getData().getPriority()) {
-//		case high:
-//		    if (!FilterModel.getInstance().isHigh()) {
-//			return false;
-//		    }
-//		    break;
-//		case medium:
-//		    if (!FilterModel.getInstance().isMedium()) {
-//			return false;
-//		    }
-//		    break;
-//		case low:
-//		    if (!FilterModel.getInstance().isLow()) {
-//			return false;
-//		    }
-//		    break;
-//		}
-//	    }
-//
-//	    if (FilterModel.getInstance().isNotExecuted()
-//		    && testCase.getData().getNumberOfExecutions() != 0) {
-//		return false;
-//	    }
-//
-//	    if (FilterModel.getInstance().isUnassigned()
-//		    && !testCase.getData().getAssignedTo().isEmpty()) {
-//		return false;
-//	    }
-//	    if (!testCase
-//		    .getName()
-//		    .toLowerCase()
-//		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
-//		return false;
-//	    }
-//
-//	    if (!testCase
-//		    .getData()
-//		    .getAuthor()
-//		    .toLowerCase()
-//		    .contains(
-//			    FilterModel.getInstance().getCreator()
-//				    .toLowerCase())) {
-//		return false;
-//	    }
-//	    if (!isSameDay(FilterModel.getInstance().getLastExecution(),
-//		    testCase.getData().getLastExecution())
-//		    || (testCase.getData().getLastExecution() == null && FilterModel
-//			    .getInstance().getLastExecution() != null)) {
-//		return false;
-//	    }
-//
-//	    if (!isSameDay(FilterModel.getInstance().getCreationTime(),
-//		    testCase.getData().getCreationDate())) {
-//		return false;
-//	    }
-//	    if (!isSameDay(FilterModel.getInstance().getLastChange(), testCase
-//		    .getData().getLastChangedOn())) {
-//		return false;
-//	    }
-//
-//	    return true;
-//	} else if (child instanceof TSMReport
-//		&& !FilterModel.getInstance().isTestCases()) {
-//	    final TSMReport report = (TSMReport) child;
-//	    if (FilterModel.getInstance().isPassed()
-//		    || FilterModel.getInstance().isFailed()
-//		    || FilterModel.getInstance().isPassedWithAnnotation()
-//		    || FilterModel.getInstance().isNotExecuted()) {
-//		switch (report.getData().getStatus()) {
-//		case passed:
-//		    if (!FilterModel.getInstance().isPassed()) {
-//			return false;
-//		    }
-//		    break;
-//		case passedWithAnnotation:
-//		    if (!FilterModel.getInstance().isPassedWithAnnotation()) {
-//			return false;
-//		    }
-//		    break;
-//		case failed:
-//		    if (!FilterModel.getInstance().isFailed()) {
-//			return false;
-//		    }
-//		    break;
-//		case notExecuted:
-//		    if (!FilterModel.getInstance().isNotExecuted()) {
-//			return false;
-//		    }
-//		    break;
-//		}
-//	    }
-//
-//	    if (FilterModel.getInstance().isUnassigned()
-//		    && !report.getData().getAssignedTo().isEmpty()) {
-//		return false;
-//	    }
-//	    if (!report
-//		    .getName()
-//		    .toLowerCase()
-//		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
-//		return false;
-//	    }
-//
-//	    if (!report
-//		    .getData()
-//		    .getAssignedTo()
-//		    .toLowerCase()
-//		    .contains(
-//			    FilterModel.getInstance().getCreator()
-//				    .toLowerCase())) {
-//		return false;
-//	    }
-//
-//	    if (!isSameDay(FilterModel.getInstance().getCreationTime(), report
-//		    .getData().getCreationDate())) {
-//		return false;
-//	    }
-//
-//	    return true;
-//	} else {
-//	    if (child instanceof TSMTestCase
-//		    && !FilterModel.getInstance().isTestCases()) {
-//		if (getChildren(child).length == 0) {
-//		    return false;
-//		}
-//	    }
-//	    return true;
-//	}
-//    }
+    private boolean isFiltered(final TSMResource child) {
+	//Filter for test cases.
+	if (child instanceof TSMTestCase
+		&& FilterModel.getInstance().filterForTestCases()) {
+	    final TSMTestCase testCase = (TSMTestCase) child;
+	    if (FilterModel.getInstance().isHigh()
+		    || FilterModel.getInstance().isMedium()
+		    || FilterModel.getInstance().isLow()) {
+		switch (testCase.getData().getPriority()) {
+		case high:
+		    if (!FilterModel.getInstance().isHigh()) {
+			return false;
+		    }
+		    break;
+		case medium:
+		    if (!FilterModel.getInstance().isMedium()) {
+			return false;
+		    }
+		    break;
+		case low:
+		    if (!FilterModel.getInstance().isLow()) {
+			return false;
+		    }
+		    break;
+		}
+	    }
+
+	    if (FilterModel.getInstance().isNotExecuted()
+		    && testCase.getData().getNumberOfExecutions() != 0) {
+		return false;
+	    }
+
+	    if (FilterModel.getInstance().isUnassigned()
+		    && !testCase.getData().getAssignedTo().isEmpty()) {
+		return false;
+	    }
+	    if (!testCase
+		    .getName()
+		    .toLowerCase()
+		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
+		return false;
+	    }
+
+	    if (!testCase
+		    .getData()
+		    .getAuthor()
+		    .toLowerCase()
+		    .contains(
+			    FilterModel.getInstance().getCreator()
+				    .toLowerCase())) {
+		return false;
+	    }
+	    if (!isSameDay(FilterModel.getInstance().getLastExecution(),
+		    testCase.getData().getLastExecution())
+		    || (testCase.getData().getLastExecution() == null && FilterModel
+			    .getInstance().getLastExecution() != null)) {
+		return false;
+	    }
+
+	    if (!isSameDay(FilterModel.getInstance().getCreationTime(),
+		    testCase.getData().getCreationDate())) {
+		return false;
+	    }
+	    if (!isSameDay(FilterModel.getInstance().getLastChange(), testCase
+		    .getData().getLastChangedOn())) {
+		return false;
+	    }
+
+	    return true;
+	} 
+	//Filter for protocols
+	else if (child instanceof TSMReport
+		&& !FilterModel.getInstance().filterForTestCases()) {
+	    final TSMReport report = (TSMReport) child;
+	    if (FilterModel.getInstance().isPassed()
+		    || FilterModel.getInstance().isFailed()
+		    || FilterModel.getInstance().isPassedWithAnnotation()
+		    || FilterModel.getInstance().isNotExecuted()) {
+		switch (report.getData().getStatus()) {
+		case passed:
+		    if (!FilterModel.getInstance().isPassed()) {
+			return false;
+		    }
+		    break;
+		case passedWithAnnotation:
+		    if (!FilterModel.getInstance().isPassedWithAnnotation()) {
+			return false;
+		    }
+		    break;
+		case failed:
+		    if (!FilterModel.getInstance().isFailed()) {
+			return false;
+		    }
+		    break;
+		case notExecuted:
+		    if (!FilterModel.getInstance().isNotExecuted()) {
+			return false;
+		    }
+		    break;
+		}
+	    }
+
+	    if (FilterModel.getInstance().isUnassigned()
+		    && !report.getData().getAssignedTo().isEmpty()) {
+		return false;
+	    }
+	    if (!report
+		    .getName()
+		    .toLowerCase()
+		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
+		return false;
+	    }
+
+	    if (!report
+		    .getData()
+		    .getAssignedTo()
+		    .toLowerCase()
+		    .contains(
+			    FilterModel.getInstance().getCreator()
+				    .toLowerCase())) {
+		return false;
+	    }
+
+	    if (!isSameDay(FilterModel.getInstance().getCreationTime(), report
+		    .getData().getCreationDate())) {
+		return false;
+	    }
+
+	    return true;
+	} else {
+	    if (child instanceof TSMTestCase
+		    && !FilterModel.getInstance().filterForTestCases()) {
+		if (getChildren(child).length == 0) {
+		    return false;
+		}
+	    }
+	    return true;
+	}
+    }
 
     private boolean isSameDay(final Date date1, final Date date2) {
 	if (date1 == null || date2 == null) {

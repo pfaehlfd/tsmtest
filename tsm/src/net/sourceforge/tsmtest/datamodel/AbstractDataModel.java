@@ -112,6 +112,9 @@ public abstract class AbstractDataModel {
 
     protected abstract TSMReport getReportByData(ITestCaseDescriptor data);
 
+    /**
+     * @return a Set of Strings with the name of all creators of test cases.
+     */
     protected abstract Set<String> getAllCreators();
 
     protected abstract void pasteFiles(ArrayList<TSMResource> filesToCopy,
