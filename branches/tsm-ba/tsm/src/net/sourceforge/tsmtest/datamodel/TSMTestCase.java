@@ -113,11 +113,18 @@ public class TSMTestCase extends TSMResource {
 	return 1;
     }
 
+    /**
+     * @param creationDate The date of the creation of test case.
+     * @return A random and unique ID for a test case.
+     */
     public static long generateID(final Date creationDate) {
 	return creationDate.getTime()
 		+ (long) (Math.random() * Integer.MAX_VALUE);
     }
 
+    /**
+     * @return An array of Strings with the name of all creators of test cases.
+     */
     public static String[] getAllCreators() {
 	final Set<String> list = DataModel.getInstance().getAllCreators();
 	final String[] array = new String[list.size()];

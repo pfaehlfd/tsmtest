@@ -28,7 +28,7 @@ public final class FilterModel {
     private static volatile FilterModel instance;
 
     /**
-     * creating new filtermodel if none exists
+     * Creates a new filtermodel if none exists
      * 
      * @return instance of filtermodel
      */
@@ -109,12 +109,15 @@ public final class FilterModel {
     private boolean failed;
     private boolean notExecuted;
     /**
-     * Whether to search for a test case or a report.
+     * Whether to filter for a test case or a report.
      */
-    private boolean testCases;
+    private boolean filterForTestCases;
 
-    public boolean isTestCases() {
-	return testCases;
+    /**
+     * @return true if we want to filter for test cases, false if we want to filter for protocols.
+     */
+    public boolean filterForTestCases() {
+	return filterForTestCases;
     }
 
     public void setPriority(PriorityType priority, boolean checked) {
@@ -182,8 +185,8 @@ public final class FilterModel {
 
     }
 
-    public void setTestCases(boolean b) {
-	this.testCases = b;
+    public void setFilterForTestCases(boolean b) {
+	this.filterForTestCases = b;
 	FilterManager.instance.invoke();
     }
 
@@ -200,7 +203,7 @@ public final class FilterModel {
 	notExecuted = false;
 	passed = false;
 	passedWithAnnotation = false;
-	testCases = true;
+	filterForTestCases = true;
 	unassigned = false;
 	FilterManager.instance.invoke();
     }

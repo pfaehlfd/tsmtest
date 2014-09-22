@@ -40,7 +40,7 @@
             id="net.sourceforge.tsmtest.gui.navigator.TSMNavigator"
             name="TSM Navigator">
       </view>
-      <!--   
+      
       <view
             allowMultiple="false"
             category="tsm.category"
@@ -48,7 +48,6 @@
             id="net.sourceforge.tsmtest.gui.filter.Filter"
             name="%filter.name">
       </view>
-      -->
       
       <!--
       <view
