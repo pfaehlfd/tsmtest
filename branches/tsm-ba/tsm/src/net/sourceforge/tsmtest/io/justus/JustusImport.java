@@ -46,7 +46,6 @@ import org.jdom2.Element;
  * 
  */
 public class JustusImport {
-
     /**
      * @param source
      *            The String path given by the wizard.
@@ -58,7 +57,6 @@ public class JustusImport {
      * @throws ParseException
      * @throws DataModelException
      */
-
     public static boolean importFile(final Element root,
 	    final IPath parentPackage, final boolean isSeqeuenceTestCase,
 	    final IProgressMonitor monitor, final int number)
@@ -112,7 +110,6 @@ public class JustusImport {
      * @throws DataModelException
      * @throws ParseException
      */
-
     private static synchronized boolean readPackages(
 	    final Element parentElement, final IPath parentPath,
 	    final String preCondition, final boolean isSeqeuenceTestCase,
@@ -230,6 +227,7 @@ public class JustusImport {
     }
 
     /**
+     * Replaces characters that would cause illegal xml tags or parsing problems with "#".
      * @param name
      *            The name of the test case or package which should be parsed.
      * @return The parsed string
@@ -251,14 +249,13 @@ public class JustusImport {
     }
 
     /**
-     * The method replaces several characters. Needed for rich text
+     * The method replaces several characters. Needed for rich text.
      * 
      * @param text
      *            The text to parse
      * @return The text with replaced characters.
      */
     private static String replaceCharacters(final String text) {
-
 	final String[][] escapes = new String[RichText.escapes.length + 2][2];
 	System.arraycopy(RichText.escapes, 0, escapes, 0,
 		RichText.escapes.length);

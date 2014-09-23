@@ -42,7 +42,7 @@ public final class FilterModel {
     private boolean failed;
     private boolean notExecuted;
     
-    final FilterManager filterManager = FilterManager.getInstance();
+    private final FilterManager filterManager = FilterManager.getInstance();
 
     /**
      * FilterModel singleton.
