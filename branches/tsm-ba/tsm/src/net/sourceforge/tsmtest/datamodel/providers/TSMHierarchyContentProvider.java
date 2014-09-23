@@ -115,146 +115,187 @@ public class TSMHierarchyContentProvider implements ITreeContentProvider {
 	    final Object newInput) {
     }
 
+    /**
+     * Checks if a TSMResource is filtered.
+     * @param child that shall be checked if it is filtered.
+     * @return true if it is filtered, false otherwise.
+     */
     private boolean isFiltered(final TSMResource child) {
+	final FilterModel filterModel = FilterModel.getInstance();
+
 	//Filter for test cases.
 	if (child instanceof TSMTestCase
-		&& FilterModel.getInstance().filterForTestCases()) {
+		&& filterModel.filterForTestCases()) {
+	    //Save test case locally.
 	    final TSMTestCase testCase = (TSMTestCase) child;
-	    if (FilterModel.getInstance().isHigh()
-		    || FilterModel.getInstance().isMedium()
-		    || FilterModel.getInstance().isLow()) {
+	    
+	    //Filter for priorities.
+	    if (filterModel.isPriorityHigh()
+		    || filterModel.isPriorityMedium()
+		    || filterModel.isPriorityLow()) {
+		//Get priority of the test case.
 		switch (testCase.getData().getPriority()) {
+		//Check whether we want to filter for the corresponding priority.
 		case high:
-		    if (!FilterModel.getInstance().isHigh()) {
+		    if (!filterModel.isPriorityHigh()) {
 			return false;
 		    }
 		    break;
 		case medium:
-		    if (!FilterModel.getInstance().isMedium()) {
+		    if (!filterModel.isPriorityMedium()) {
 			return false;
 		    }
 		    break;
 		case low:
-		    if (!FilterModel.getInstance().isLow()) {
+		    if (!filterModel.isPriorityLow()) {
 			return false;
 		    }
 		    break;
 		}
 	    }
 
-	    if (FilterModel.getInstance().isNotExecuted()
+	    //Check whether we want to filter for status "not executed"
+	    //and whether the test case has this status.
+	    if (filterModel.isStatusNotExecuted()
 		    && testCase.getData().getNumberOfExecutions() != 0) {
 		return false;
 	    }
 
-	    if (FilterModel.getInstance().isUnassigned()
+	    //Check whether we want to filter for unassigned test cases
+	    //and whether the test case has this status.
+	    if (filterModel.isUnassigned()
 		    && !testCase.getData().getAssignedTo().isEmpty()) {
 		return false;
 	    }
+	    
+	    //Filter the name of the test case.
 	    if (!testCase
 		    .getName()
 		    .toLowerCase()
-		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
+		    .contains(filterModel.getName().toLowerCase())) {
 		return false;
 	    }
 
+	    //Filter the creator of the test case.
 	    if (!testCase
 		    .getData()
 		    .getAuthor()
 		    .toLowerCase()
 		    .contains(
-			    FilterModel.getInstance().getCreator()
+			    filterModel.getCreator()
 				    .toLowerCase())) {
 		return false;
 	    }
-	    if (!isSameDay(FilterModel.getInstance().getLastExecution(),
+	    
+	    //Filter for last execution on a given date.
+	    if (!isSameDay(filterModel.getLastExecution(),
 		    testCase.getData().getLastExecution())
-		    || (testCase.getData().getLastExecution() == null && FilterModel
-			    .getInstance().getLastExecution() != null)) {
+		    || (testCase.getData().getLastExecution() == null && filterModel.getLastExecution() != null)) {
 		return false;
 	    }
 
-	    if (!isSameDay(FilterModel.getInstance().getCreationTime(),
+	    //Filter for a given creation date.
+	    if (!isSameDay(filterModel.getCreationTime(),
 		    testCase.getData().getCreationDate())) {
 		return false;
 	    }
-	    if (!isSameDay(FilterModel.getInstance().getLastChange(), testCase
+	    
+	    //Filter for last changed on for a given date.
+	    if (!isSameDay(filterModel.getLastChange(), testCase
 		    .getData().getLastChangedOn())) {
 		return false;
 	    }
 
+	    //When we come finally here we want to filter the given test case.
 	    return true;
 	} 
 	//Filter for protocols
 	else if (child instanceof TSMReport
-		&& !FilterModel.getInstance().filterForTestCases()) {
+		&& !filterModel.filterForTestCases()) {
+	  //Save protocol locally.
 	    final TSMReport report = (TSMReport) child;
-	    if (FilterModel.getInstance().isPassed()
-		    || FilterModel.getInstance().isFailed()
-		    || FilterModel.getInstance().isPassedWithAnnotation()
-		    || FilterModel.getInstance().isNotExecuted()) {
+
+	    //Filter for status.
+	    if (filterModel.isStatusPassed()
+		    || filterModel.isStatusFailed()
+		    || filterModel.isStatusPassedWithAnnotation()
+		    || filterModel.isStatusNotExecuted()) {
+		//Get priority of the test case.
 		switch (report.getData().getStatus()) {
 		case passed:
-		    if (!FilterModel.getInstance().isPassed()) {
+		    //Check whether we want to filter for the corresponding status.
+		    if (!filterModel.isStatusPassed()) {
 			return false;
 		    }
 		    break;
 		case passedWithAnnotation:
-		    if (!FilterModel.getInstance().isPassedWithAnnotation()) {
+		    if (!filterModel.isStatusPassedWithAnnotation()) {
 			return false;
 		    }
 		    break;
 		case failed:
-		    if (!FilterModel.getInstance().isFailed()) {
+		    if (!filterModel.isStatusFailed()) {
 			return false;
 		    }
 		    break;
 		case notExecuted:
-		    if (!FilterModel.getInstance().isNotExecuted()) {
+		    if (!filterModel.isStatusNotExecuted()) {
 			return false;
 		    }
 		    break;
 		}
 	    }
 
-	    if (FilterModel.getInstance().isUnassigned()
+	    //Check whether we want to filter for unassigned protocols
+	    //and whether the protocol has this status.
+	    if (filterModel.isUnassigned()
 		    && !report.getData().getAssignedTo().isEmpty()) {
 		return false;
 	    }
 	    if (!report
 		    .getName()
 		    .toLowerCase()
-		    .contains(FilterModel.getInstance().getName().toLowerCase())) {
+		    .contains(filterModel.getName().toLowerCase())) {
 		return false;
 	    }
 
+	    //Filter the name of the protocol.
 	    if (!report
 		    .getData()
 		    .getAssignedTo()
 		    .toLowerCase()
 		    .contains(
-			    FilterModel.getInstance().getCreator()
+			    filterModel.getCreator()
 				    .toLowerCase())) {
 		return false;
 	    }
 
-	    if (!isSameDay(FilterModel.getInstance().getCreationTime(), report
+	    //Filter the creator of the protocol.
+	    if (!isSameDay(filterModel.getCreationTime(), report
 		    .getData().getCreationDate())) {
 		return false;
 	    }
 
 	    return true;
 	} else {
+	    //Filter for test cases without protocols.
 	    if (child instanceof TSMTestCase
-		    && !FilterModel.getInstance().filterForTestCases()) {
-		if (getChildren(child).length == 0) {
+		    && !filterModel.filterForTestCases()
+		    && getChildren(child).length == 0) {
 		    return false;
-		}
 	    }
+	    
+	  //When we come finally here we want to filter the given protocol.
 	    return true;
 	}
     }
 
+    /**
+     * Checks if two days of given dates are equal.
+     * @param date1
+     * @param date2
+     * @return true if date1 is equal to date2, false otherwise
+     */
     private boolean isSameDay(final Date date1, final Date date2) {
 	if (date1 == null || date2 == null) {
 	    return true;

@@ -24,13 +24,30 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  */
 
 public final class FilterModel {
-
+    /**
+     * Instance of the FilterModel.
+     */
     private static volatile FilterModel instance;
+    private boolean unassigned;
+    private String name = "";
+    private String creator = "";
+    private Date lastExecution;
+    private Date creationTime;
+    private Date lastChange;
+    private boolean high;
+    private boolean medium;
+    private boolean low;
+    private boolean passed;
+    private boolean passedWithAnnotation;
+    private boolean failed;
+    private boolean notExecuted;
+    
+    final FilterManager filterManager = FilterManager.getInstance();
 
     /**
-     * Creates a new filtermodel if none exists
+     * FilterModel singleton.
      * 
-     * @return instance of filtermodel
+     * @return instance of FilterModel.
      */
     public static FilterModel getInstance() {
 	if (instance == null) {
@@ -40,7 +57,6 @@ public final class FilterModel {
     }
 
     private FilterModel() {
-
     }
 
     public boolean isUnassigned() {
@@ -67,47 +83,34 @@ public final class FilterModel {
 	return lastChange;
     }
 
-    public boolean isHigh() {
+    public boolean isPriorityHigh() {
 	return high;
     }
 
-    public boolean isMedium() {
+    public boolean isPriorityMedium() {
 	return medium;
     }
 
-    public boolean isLow() {
+    public boolean isPriorityLow() {
 	return low;
     }
 
-    public boolean isPassed() {
+    public boolean isStatusPassed() {
 	return passed;
     }
 
-    public boolean isPassedWithAnnotation() {
+    public boolean isStatusPassedWithAnnotation() {
 	return passedWithAnnotation;
     }
 
-    public boolean isFailed() {
+    public boolean isStatusFailed() {
 	return failed;
     }
 
-    public boolean isNotExecuted() {
+    public boolean isStatusNotExecuted() {
 	return notExecuted;
     }
 
-    private boolean unassigned;
-    private String name = "";
-    private String creator = "";
-    private Date lastExecution;
-    private Date creationTime;
-    private Date lastChange;
-    private boolean high;
-    private boolean medium;
-    private boolean low;
-    private boolean passed;
-    private boolean passedWithAnnotation;
-    private boolean failed;
-    private boolean notExecuted;
     /**
      * Whether to filter for a test case or a report.
      */
@@ -120,7 +123,11 @@ public final class FilterModel {
 	return filterForTestCases;
     }
 
-    public void setPriority(PriorityType priority, boolean checked) {
+    /**
+     * @param priority
+     * @param checked indicates if given priority is selected.
+     */
+    public void setPriority(PriorityType priority, boolean checked) {	
 	switch (priority) {
 	case high:
 	    this.high = checked;
@@ -132,9 +139,13 @@ public final class FilterModel {
 	    this.low = checked;
 	    break;
 	}
-	FilterManager.instance.invoke();
+	filterManager.invoke();
     }
 
+    /**
+     * @param status
+     * @param checked indicates if given status is selected.
+     */
     public void setStatus(StatusType status, boolean checked) {
 	switch (status) {
 	case passed:
@@ -150,46 +161,70 @@ public final class FilterModel {
 	    this.notExecuted = checked;
 	    break;
 	}
-	FilterManager.instance.invoke();
+	filterManager.invoke();
     }
 
+    /**
+     * @param checked indicates if filter "unassigned test case" is selected.
+     */
     public void setUnassigned(boolean checked) {
 	this.unassigned = checked;
-	FilterManager.instance.invoke();
+	filterManager.invoke();
     }
 
-    public void setName(String text) {
-	this.name = text;
-	FilterManager.instance.invoke();
+    /**
+     * @param name the name to be filtered for.
+     */
+    public void setName(String name) {
+	this.name = name;
+	filterManager.invoke();
     }
 
-    public void setCreator(String text) {
-	this.creator = text;
-	FilterManager.instance.invoke();
+    /**
+     * @param creatorName the name of the creator to be filtered for.
+     */
+    public void setCreator(String creatorName) {
+	this.creator = creatorName;
+	filterManager.invoke();
     }
 
-    public void setLastExecution(Date time) {
-	this.lastExecution = time;
-	FilterManager.instance.invoke();
+    /**
+     * @param lastExecution the date of the last execution to be filtered for.
+     */
+    public void setLastExecution(Date lastExecution) {
+	this.lastExecution = lastExecution;
+	filterManager.invoke();
     }
 
-    public void setCreationTime(Date time) {
-	this.creationTime = time;
-	FilterManager.instance.invoke();
+    /**
+     * @param creationTime the creation time to be filtered for.
+     */
+    public void setCreationTime(Date creationTime) {
+	this.creationTime = creationTime;
+	filterManager.invoke();
 
     }
 
-    public void setLastChange(Date time) {
-	this.lastChange = time;
-	FilterManager.instance.invoke();
+    /**
+     * @param lastChangedDate the date of the last change to be filtered for.
+     */
+    public void setLastChange(Date lastChangedDate) {
+	this.lastChange = lastChangedDate;
+	filterManager.invoke();
 
     }
 
-    public void setFilterForTestCases(boolean b) {
-	this.filterForTestCases = b;
-	FilterManager.instance.invoke();
+    /**
+     * @param checked indicates if filter is set to "test cases".
+     */
+    public void setFilterForTestCases(boolean checked) {
+	this.filterForTestCases = checked;
+	filterManager.invoke();
     }
 
+    /**
+     * Reset all filter settings to default.
+     */
     public void reset() {
 	creationTime = null;
 	creator = "";
@@ -205,6 +240,8 @@ public final class FilterModel {
 	passedWithAnnotation = false;
 	filterForTestCases = true;
 	unassigned = false;
-	FilterManager.instance.invoke();
+	
+	//Propagate changes to model.
+	filterManager.invoke();
     }
 }
