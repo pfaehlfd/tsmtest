@@ -174,7 +174,7 @@
       <perspectiveExtension
             targetID="org.eclipse.ui.resourcePerspective">
          <view
-               id="net.sourceforge.tsmtest.gui.navigator"
+               id="net.sourceforge.tsmtest.gui.navigator.TSMNavigator"
                ratio="0.5"
                relationship="stack"
                relative="org.eclipse.ui.navigator.ProjectExplorer">

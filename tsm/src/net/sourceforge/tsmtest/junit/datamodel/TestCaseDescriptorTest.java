@@ -94,7 +94,7 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testGetPriority() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	assertEquals(DataModelTypes.PriorityType.low, testTestCaseDescriptor.getPriority());
+	assertEquals(DataModelTypes.PriorityType.medium, testTestCaseDescriptor.getPriority());
     }
 
     /**
@@ -103,8 +103,6 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetPriority() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	assertEquals(DataModelTypes.PriorityType.low, testTestCaseDescriptor.getPriority());
-	testTestCaseDescriptor.setPriority(DataModelTypes.PriorityType.medium);
 	assertEquals(DataModelTypes.PriorityType.medium, testTestCaseDescriptor.getPriority());
 	testTestCaseDescriptor.setPriority(DataModelTypes.PriorityType.high);
 	assertEquals(DataModelTypes.PriorityType.high, testTestCaseDescriptor.getPriority());
@@ -118,7 +116,7 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testGetExpectedDuration() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	assertEquals("", testTestCaseDescriptor.getExpectedDuration());
+	assertEquals("00:00", testTestCaseDescriptor.getExpectedDuration());
 	testTestCaseDescriptor.setExpectedDuration("99:99");
 	assertEquals("99:99", testTestCaseDescriptor.getExpectedDuration());
     }
