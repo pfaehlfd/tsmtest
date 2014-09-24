@@ -255,8 +255,8 @@ public class TestCaseDescriptorTest {
     public final void testGetNumberOfExecutions() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals(0, testTestCaseDescriptor.getNumberOfExecutions());
-	testTestCaseDescriptor.setNumberOfExecutions(2147483647);
-	assertEquals(2147483647, testTestCaseDescriptor.getNumberOfExecutions());
+	testTestCaseDescriptor.setNumberOfExecutions(Integer.MAX_VALUE);
+	assertEquals(Integer.MAX_VALUE, testTestCaseDescriptor.getNumberOfExecutions());
     }
 
     /**
@@ -266,8 +266,8 @@ public class TestCaseDescriptorTest {
     public final void testSetNumberOfExecutions() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals(0, testTestCaseDescriptor.getNumberOfExecutions());
-	testTestCaseDescriptor.setNumberOfExecutions(2147483647);
-	assertEquals(2147483647, testTestCaseDescriptor.getNumberOfExecutions());
+	testTestCaseDescriptor.setNumberOfExecutions(Integer.MAX_VALUE);
+	assertEquals(Integer.MAX_VALUE, testTestCaseDescriptor.getNumberOfExecutions());
     }
 
     /**
@@ -288,8 +288,8 @@ public class TestCaseDescriptorTest {
     public final void testGetNumberOfFailures() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals(0, testTestCaseDescriptor.getNumberOfFailures());
-	testTestCaseDescriptor.setNumberOfFailures(2147483647);
-	assertEquals(2147483647, testTestCaseDescriptor.getNumberOfFailures());
+	testTestCaseDescriptor.setNumberOfFailures(Integer.MAX_VALUE);
+	assertEquals(Integer.MAX_VALUE, testTestCaseDescriptor.getNumberOfFailures());
     }
 
     /**
@@ -299,8 +299,8 @@ public class TestCaseDescriptorTest {
     public final void testSetNumberOfFailures() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals(0, testTestCaseDescriptor.getNumberOfFailures());
-	testTestCaseDescriptor.setNumberOfFailures(2147483647);
-	assertEquals(2147483647, testTestCaseDescriptor.getNumberOfFailures());
+	testTestCaseDescriptor.setNumberOfFailures(Integer.MAX_VALUE);
+	assertEquals(Integer.MAX_VALUE, testTestCaseDescriptor.getNumberOfFailures());
     }
 
     /**
