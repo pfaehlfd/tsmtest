@@ -34,7 +34,8 @@ Wir freuen uns, dass Sie sich für Testsuite-Management (TSM) entschieden haben.
 TSM wurde im Rahmen eines Studienprojekts von Studenten der Universität Stuttgart im Bachelor-Studiengang Softwaretechnik entwickelt.
 
 \section{Einleitung}
-Dieses Handbuch ermöglicht Ihnen den Einstieg in die Verwendung des Eclipse-Plugins TSM und der alleinstehenden Programmversion in der Version 1.5.1. Es erklärt Ihnen die Installation und die Benutzung.\\
+Dieses Handbuch ermöglicht Ihnen den Einstieg in die Verwendung des Eclipse-Plugins TSM und der alleinstehenden Programmversion in der Version 1.5.1.
+Es erklärt Ihnen die Installation und die Benutzung.\\
 
 
 \subsection{Lizenzbedingungen}
@@ -69,8 +70,10 @@ TSM ist für Eclipse-RCP entwickelt und kann über den internen Plugin-Assistent
 \subsubsection{Voraussetzungen}
 Sie benötigen für die Installation der Update-Site:
 \begin{itemize}
- \item Java Runtime Environment in der Version 1.6 (Minimalvoraussetzung)\footnote{\href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}{http://www.oracle.com/technetwork/java/javase/downloads/index.html}}
- \item Eclipse in der Version 4.2 (Minimalvoraussetzung)\footnote{\href{http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/junosr1}{http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/junosr1}}
+ \item Java Runtime Environment in der Version 1.6 (Minimalvoraussetzung)\footnote{\href{http://www.oracle.com/technetwork/java/javase/downloads/index.html}
+ {http://www.oracle.com/technetwork/java/javase/downloads/index.html}}
+ \item Eclipse in der Version 4.2 (Minimalvoraussetzung)\footnote{\href{http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/junosr1}
+ {http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/junosr1}}
  \item Die installierbare Plugin-Version von TSM.
 \end{itemize}
 
@@ -88,8 +91,9 @@ Sie benötigen für die Installation der Update-Site:
  \item Nach dem Eclipse-Neustart können Sie mittels \textit{Window}, \textit{Open Perspective}, \textit{Other...} die TSM-Perspektive öffnen.
 \end{enumerate}
 
-%\subsubsection{Fehlermeldung}
-%Wir bitten Sie, uns Fehler, die Sie finden mittels des Bug-Tracking-Werkzeugs Redmine unter \\ \href{https://iste.plan.io/projects/tsm/issues/new}{https://iste.plan.io/projects/tsm/issues/new} mitzuteilen. Stellen Sie dazu bitte die Option \texttt{Tracker} auf \texttt{Bug}. Auch hierfür benötigen Sie Zugangsdaten.
+\subsubsection{Fehlermeldung}
+Wir bitten Sie, uns Fehler, die Sie finden mittels des Bug-Tracking-Werkzeugs Sourceforges unter \\ \href{https://sourceforge.net/p/tsmtest/tickets/}
+{https://sourceforge.net/p/tsmtest/tickets/} mitzuteilen.
 
 \section{Benutzung des TSM-Navigators}
 In diesem Kapitel wird Ihnen die Benutzung von TSM mit dem TSM-Navigator erklärt. Der TSM-Navigator wurde speziell für TSM entwickelt.
@@ -120,7 +124,7 @@ Ein Projekt ist der Überbegriff für eine Sammlung von Paketen und Testfällen.
 \item Geben Sie im Assistenten in \texttt{Neues Projekt:} den Namen Ihres Projekts an und klicken auf \texttt{Finish}. Das Projekt liegt nun im TSM-Navigator.
 \end{enumerate}
 \textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Projekt} ein Projekt anlegen.
-Oder Sie öffnen per Tastenkombination \texttt{STRG + N} den Assistenten. Wählen Sie dort \texttt{TSM} und dann \texttt{TSM-Projekt} folgen Sie dem Assistenten.}
+Oder Sie öffnen per Tastenkombination \texttt{STRG+N} den Assistenten. Wählen Sie dort \texttt{TSM} und dann \texttt{TSM-Projekt} folgen Sie dem Assistenten.}
 
 \subsubsection{Projekt umbenennen}
 \begin{enumerate}
@@ -155,7 +159,7 @@ Um ein Paket anlegen zu können, muss bereits ein Projekt angelegt sein.
 \end{enumerate}
 
 \textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Paket} ein Paket anlegen.
-Oder per Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent indem Sie unter dem Ordner TSM auf TSM-Paket klicken und dem Assistenten folgen.}
+Oder per Tastenkombination \texttt{STRG+N} öffnet sich ein Assistent indem Sie unter dem Ordner \texttt{TSM} auf \texttt{TSM-Paket} klicken und dem Assistenten folgen.}
 
 \subsubsection{Paket umbenennen}
 \begin{enumerate}
@@ -202,7 +206,7 @@ Diskettensymbol klicken
 
 \end{enumerate}
 \textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Testfall} einen Testfall anlegen.
-Oder per Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent, indem Sie unter dem Ordner TSM auf TSM-Testfall klicken und dem Assistenten folgen.}
+Oder per Tastenkombination \texttt{STRG+N} öffnet sich ein Assistent, indem Sie unter dem Ordner \texttt{TSM} auf \texttt{TSM-Testfall} klicken und dem Assistenten folgen.}
 
 \subsubsection{Testfall umbenennen}
 \begin{enumerate}
@@ -231,7 +235,8 @@ Diskettensymbol klicken
 \end{enumerate}
 
 \subsubsection{Formatierung im Editor}
-Richttextfelder bezeichnen die Felder im Testfall die editierbar und formatierbar sind, wie die \texttt{Kurzbeschreibung}, die \texttt{Vorbedingung} oder in den Testschritten \texttt{Aktion} und \texttt{Erwartetes Ergebnis}.
+Richttextfelder bezeichnen die Felder im Testfall die editierbar und formatierbar sind, wie die \texttt{Kurzbeschreibung}, die \texttt{Vorbedingung} oder 
+in den Testschritten \texttt{Aktion} und \texttt{Erwartetes Ergebnis}.
 \paragraph{Formatierung}
 \begin{enumerate}
 \item Markieren Sie das Wort oder den Text welchen Sie editieren möchten und machen Sie einen Rechtsklick darauf.
@@ -266,7 +271,8 @@ Zusätzlich gibt es noch die zwei Funktionen \texttt{Kopieren} und \texttt{Einf�
 
 Die Bilder im Editor können skaliert werden.
 Dazu können Sie entweder auf das Symbol in der oberen rechten Bildecke klicken um es auf Maximalgröße zu skalieren oder am Symbol in der unteren rechten Ecke ziehen, um es zu skalieren.
-Des Weiteren öffnet sich ein Vorschaufenster, wenn Sie auf das Bild klicken. Im Vorschaufenster können Sie die Bildansicht mit Hilfe des Mausrads vergrößern oder verkleinern und mittels Zug mit dem Mauszeiger verschieben.
+Des Weiteren öffnet sich ein Vorschaufenster, wenn Sie auf das Bild klicken.
+Im Vorschaufenster können Sie die Bildansicht mit Hilfe des Mausrads vergrößern oder verkleinern und mittels Zug mit dem Mauszeiger verschieben.
 
 \subsubsection{Testfall ausführen}
 \begin{enumerate}
@@ -274,7 +280,7 @@ Des Weiteren öffnet sich ein Vorschaufenster, wenn Sie auf das Bild klicken. Im
 \includegraphics[width= 15px]{BilderHandbuchTSMNavigator/Testfall/Play.png}.
 \item Ihr Testfall öffnet sich als neuer Registerreiter.
 
-Wenn Sie die Maus über das blaue Informationssymbol halten, können Sie die Kurzbeschreibung sehen.
+Wenn Sie den Mauszeiger über das blaue Informationssymbol halten, können Sie die Kurzbeschreibung sehen.
 Darunter ist die Vorbedingung und in der Tabelle werden die einzelnen Testschritte nochmals angezeigt.
 
 
@@ -290,7 +296,8 @@ Dieser ist anfangs grau (\texttt{nicht ausgeführt}), was bedeutet, dass der Sch
 dann gelb (\texttt{bestanden mit Anmerkungen}) und dann rot (\texttt{nicht bestanden}), beim nächsten Klick steht er wieder auf \texttt{nicht ausgeführt}.
 
 Sollten Fehler in der Testfallbeschreibung gefunden werden, kann über die \texttt{Testfall bearbeiten}-Schaltfläche in die Testfall-bearbeiten-Ansicht gewechselt werden. \\
-Oben rechts befindet sich eine Stoppuhr, sie startet sobald man den Test ausführt. Man kann die Stoppuhr auch pausieren lassen. Sie setzt sich jedes Mal zurück, sobald man einen neuen Testfall ausführt.
+Oben rechts befindet sich eine Stoppuhr, sie startet sobald man den Test ausführt.
+Man kann die Stoppuhr auch pausieren lassen. Sie setzt sich jedes Mal zurück, sobald man einen neuen Testfall ausführt.
 
 \item Nachdem der Testfall durchgeführt wurde, kann das Endresultat beschrieben werden indem man auf \texttt{Fertig} klickt.
 \item Der Wert in der Auswahlbox wird automatisch auf die höchste verwendete Fehlerfarbe gesetzt, kann aber noch geändert werden.
@@ -356,7 +363,7 @@ Protokolle wie auch Testfälle können als PDF-Datei exportiert werden.
 \end{figure}
 
 \item Wählen Sie im Assistenten \texttt{TSM} und dann \texttt{PDF-Datei} aus und klicken Sie auf \texttt{Next}.
-\item Es öffnet sich ein Assistent, in dem Sie alle Testfälle oder Protokolle auswählen können, welche Testfälle oder Protokolle sie exportieren möchten.
+\item Es öffnet sich ein Assistent, in dem Sie alle Testfälle oder Protokolle auswählen können, welche Sie exportieren möchten.
 
 \begin{figure}[H]
 \centering
@@ -421,7 +428,7 @@ Die Ergebnisse der Filterung erscheint links im TSM-Navigator, es werden nur die
 
 Klickt man auf \texttt{Clear selection}, so wird alles aufgehoben und alle Protokolle und Testfälle erscheinen im TSM-Navigator wieder.
 
-\textbf{Achtung im Project Explorer kann man nicht filtern!}
+\textbf{Achtung, im Project Explorer kann man nicht filtern!}
 
 \newpage
 \section{Benutzung im Project Explorer}
@@ -430,7 +437,6 @@ Ein Projekt ist der Überbegriff für eine Sammlung von Paketen und Testfällen.
 
 \subsubsection{Projekt anlegen: }
 \begin{enumerate}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width= 260px]{BilderHandbuch/AnlegenM.png}
@@ -439,7 +445,7 @@ Ein Projekt ist der Überbegriff für eine Sammlung von Paketen und Testfällen.
 
 \end{figure}
 
-\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie die Maus über \texttt{Neu}.
+\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie den Mauszeiger über \texttt{Neu}.
 \item Im erscheinenden Menü klicken Sie auf \texttt{TSM-Projekt}, es öffnet sich ein Assistent.
 
 \begin{figure}[H]
@@ -452,8 +458,9 @@ Ein Projekt ist der Überbegriff für eine Sammlung von Paketen und Testfällen.
 \item Im Assistenten geben Sie in \texttt{Neues Projekt} den Namen Ihres Projekts an und klicken auf \texttt{Finish}. Das Projekt liegt nun im Project Explorer.
 \end{enumerate}
 
-\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im Explorer unter \texttt{New...} - \texttt{TSM-Projekt} ein Projekt anlegen.
-Oder per Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent, indem Sie unter dem Ordner TSM auf TSM-Projekt klicken und den Assistenten befolgen.}
+\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Projekt} ein Projekt anlegen.
+Oder Sie öffnen per Tastenkombination \texttt{STRG+N} den Assistenten. Wählen Sie dort \texttt{TSM} und dann \texttt{TSM-Projekt} folgen Sie dem Assistenten.}
+
 
 \subsubsection{Projekt umbenennen}
 \begin{enumerate}
@@ -476,16 +483,16 @@ Oder per Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent, indem S
 \label{fig:UmbenennenFenster2}
 \end{figure}
 
-\item Geben Sie im Fenster den neuen Namen Ihres Projekts an und klicken Sie auf \texttt{Ok}. Das Projekt wird umbenannt. Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind: $ < > ? " : | _ . \setminus / *$
+\item Geben Sie im Fenster den neuen Namen Ihres Projekts an und klicken Sie auf \texttt{Ok}. Das Projekt wird umbenannt.
+Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind: $ < > ? " : | _ . \setminus / *$
 \end{enumerate}
 
 \subsection{Paket}
-Ein Paket ist eine Struktureinheit, um ein Projekt logisch untergliedern zu können. Pakete enthalten Testfälle und weitere Pakete.
+Ein Paket ist eine Struktureinheit, um ein Projekt logisch untergliedern zu können. Pakete können Testfälle und weitere Pakete enthalten.
 
 \subsubsection{Paket anlegen}
 Um ein Paket anlegen zu können muss bereits ein Projekt angelegt sein.
 \begin{enumerate}
-
 \begin{figure}[H]
 \centering
 \includegraphics[width= 260px]{BilderHandbuch/AnlegenM.png}
@@ -493,7 +500,7 @@ Um ein Paket anlegen zu können muss bereits ein Projekt angelegt sein.
 \label{fig:AnlegenM2}
 \end{figure}
 
-\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie die Maus über \texttt{Neu}.
+\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie den Mauszeiger über \texttt{Neu}.
 \item Im erscheinenden Menü klicken Sie auf \texttt{TSM Package}, es öffnet sich ein Assistent.
 
 \begin{figure}[H]
@@ -506,7 +513,8 @@ Um ein Paket anlegen zu können muss bereits ein Projekt angelegt sein.
 \item Geben Sie im Assistenten den Namen Ihres Pakets an und klicken Sie auf \texttt{Finish}. Das Paket liegt nun im Project Explorer.
 \end{enumerate}
 
-\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{Neu...} - \texttt{TSM-Paket} ein Paket anlegen. Oder per  Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent indem Sie unter dem Ordner TSM auf TSM-Paket klicken und den Assistenten befolgen.}
+\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Paket} ein Paket anlegen.
+Oder per Tastenkombination \texttt{STRG+N} öffnet sich ein Assistent indem Sie unter dem Ordner \texttt{TSM} auf \texttt{TSM-Paket} klicken und dem Assistenten folgen.}
 
 \subsubsection{Paket umbenennen}
 \begin{enumerate}
@@ -528,7 +536,8 @@ Um ein Paket anlegen zu können muss bereits ein Projekt angelegt sein.
 \label{fig:UmbenennenFenster}
 \end{figure}
 
-\item Geben Sie im Fenster den neuen Namen Ihres Pakets an und klicken Sie auf \texttt{Ok}. Das Paket wird umbenannt. Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind:$ < > ? " : | _ . \setminus / *$
+\item Geben Sie im Fenster den neuen Namen Ihres Pakets an und klicken Sie auf \texttt{Ok}. Das Paket wird umbenannt.
+Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind:$ < > ? " : | _ . \setminus / *$
 \end{enumerate}
 
 \subsection{Testfall}
@@ -546,7 +555,7 @@ Falls Sie das falsche Projekt/Paket selektiert haben, können Sie im Assistenten
 \end{figure}
 
 \begin{enumerate}
-\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie die Maus über \texttt{Neu}.
+\item Klicken Sie auf \texttt{Datei} in der Menüleiste und halten Sie den Mauszeiger über \texttt{Neu}.
 
 \begin{figure}[H]
 \centering
@@ -574,8 +583,8 @@ Diskettensymbol klicken
 
 \end{enumerate}
 
-\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{Neu...} - \texttt{TSM-Testfall} ein Testfall anlegen. Oder per  Tastenkombination \texttt{STRG + N} öffnet sich ein Assistent, indem Sie unter dem Ordner TSM auf TSM-Testfall klicken und den Assistenten befolgen.}
-
+\textit{\textbf{Alternativ} können Sie auch per Rechtsklick im TSM-Navigator unter \texttt{New...} - \texttt{TSM-Testfall} einen Testfall anlegen.
+Oder per Tastenkombination \texttt{STRG+N} öffnet sich ein Assistent, indem Sie unter dem Ordner \texttt{TSM} auf \texttt{TSM-Testfall} klicken und dem Assistenten folgen.}
 \subsubsection{Testfall umbenennen}
 \begin{enumerate}
 \item Machen Sie einen Rechtsklick auf den Testfall, welchen Sie umbenennen möchten.
@@ -596,10 +605,11 @@ Diskettensymbol klicken
 \label{fig:UmbenennenFenster}
 \end{figure}
 
-\item Geben Sie im Fenster den neuen Namen Ihres Testfalls an und klicken Sie auf \texttt{Ok}. Der Testfall wird umbenannt. Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind: $ < > ? " : | _ . \setminus / *$
+\item Geben Sie im Fenster den neuen Namen Ihres Testfalls an und klicken Sie auf \texttt{Ok}. Der Testfall wird umbenannt.
+Bitte beachten Sie, dass die folgenden Zeichen nicht erlaubt sind: $ < > ? " : | _ . \setminus / *$
 \end{enumerate}
 
-\textit{\textbf{Alternativ} können Sie auch einen Doppelklick auf den Testfall machen und ihn dann direkt im Bearbeitungsmodus umbenennen.}
+\textit{\textbf{Alternativ} können Sie auch einen Doppelklick auf den Testfall machen und ihn dann im Bearbeitungsmodus umbenennen.}
 
 \subsubsection{Testfall bearbeiten}
 \textbf{Achtung}, es öffnet sich immer der letzte benutzte Editor. Wählen Sie gegebenenfalls über das Kontextmenü \texttt{Öffnen mit} und dann \texttt{Test Case Editor}.
@@ -613,7 +623,8 @@ Diskettensymbol klicken
 \end{enumerate}
 
 \subsubsection{Formatierung im Editor}
-Richtexteditoren bezeichnen die Felder im Testfall die editierbar und formatierbar sind, wie z.\,B.: \texttt{Kurzbeschreibung}, \texttt{Vorbedingung} in den Testschritten \texttt{Aktion} und \texttt{Erwartetes Ergebnis}.
+Richtexteditoren bezeichnen die Felder im Testfall die editierbar und
+formatierbar sind, wie z.\,B.: \texttt{Kurzbeschreibung}, \texttt{Vorbedingung} in den Testschritten \texttt{Aktion} und \texttt{Erwartetes Ergebnis}.
 \paragraph{Formatierung}
 \begin{enumerate}
 \item Markieren Sie das Wort oder den Text welchen Sie editieren möchten und machen Sie einen Rechtsklick darauf.
@@ -660,7 +671,7 @@ Möchten Sie die Formatierung aufheben, so markieren Sie das Wort oder den Text 
 
 \item Machen Sie einen Rechtsklick und wählen Sie \texttt{Öffnen mit} und dann \texttt{Execute Test} aus.
 \item Im Reiter öffnet sich Ihr Testfall.
-Wenn Sie die Maus über das blaue Informationssymbol halten, so können Sie die Kurzbeschreibung sehen.
+Wenn Sie den Mauszeiger über das blaue Informationssymbol halten, so können Sie die Kurzbeschreibung sehen.
 \\
 Darunter ist die Vorbedingung und in der Tabelle werden die einzelnen Testschritte nochmals angezeigt.
 
@@ -672,11 +683,13 @@ Darunter ist die Vorbedingung und in der Tabelle werden die einzelnen Testschrit
 \end{figure}
 
 \item In der Spalte \texttt{Tatsächliches Ergebnis} wird das aktuelle Resultat des Testschrittes eingegeben.
-\item In der Spalte \texttt{Status} gibt es einen Kreis. Dieser ist anfangs grau (\texttt{nicht ausgeführt}), was bedeutet, dass der Schritt noch nicht durchgeführt wurde.
-Durch anklicken wird er erst grün (\texttt{bestanden}), dann gelb (\texttt{bestanden mit Anmerkungen}) und dann rot (\texttt{nicht bestanden}), beim nächsten Klick wieder auf \texttt{nicht ausgeführt}.
+In der Spalte \texttt{Status} gibt es einen Kreis.
+Dieser ist anfangs grau (\texttt{nicht ausgeführt}), was bedeutet, dass der Schritt noch nicht durchgeführt wurde. Durch anklicken wird er erst grün (\texttt{bestanden}), 
+dann gelb (\texttt{bestanden mit Anmerkungen}) und dann rot (\texttt{nicht bestanden}), beim nächsten Klick steht er wieder auf \texttt{nicht ausgeführt}.
 
 Sollten Fehler in der Testfallbeschreibung gefunden werden, kann über die \texttt{Testfall bearbeiten}-Schaltfläche in die Testfall-bearbeiten-Ansicht gewechselt werden.
-Oben links befindet sich eine Stoppuhr, sie startet sobald man den Test ausführt. Man kann die Stoppuhr auch pausieren lassen. Sie setzt sich jedes Mal zurück, sobald man einen neuen Testfall ausführt. 
+Oben links befindet sich eine Stoppuhr, sie startet sobald man den Test ausführt. Man kann die Stoppuhr auch pausieren lassen.
+Sie setzt sich jedes Mal zurück, sobald man einen neuen Testfall ausführt. 
 
 \item Nachdem der Testfall durchgeführt wurde, kann das Endresultat beschrieben werden indem man auf \texttt{Fertig} klickt.
 \item Der Wert in der Auswahlbox wird automatisch auf die höchste verwendete Fehlerfarbe gesetzt, kann aber noch geändert werden.
@@ -684,7 +697,8 @@ Oben links befindet sich eine Stoppuhr, sie startet sobald man den Test ausführ
 \end{enumerate}
 Sobald Sie das Endresultat speichern, öffnet sich das Protokoll des Testfalls.\\
 \\\
-Sollten Sie bei der Ausführung einmal die falsche Revision eingegeben haben. können Sie diese in der .xml-Datei ändern. Öffnen Sie hierzu das Protokoll mit dem xml-Editor. Ändern Sie den Punkt \texttt{Revision} und speichern Sie. 
+Sollten Sie bei der Ausführung einmal die falsche Revision eingegeben haben. können Sie diese in der .xml-Datei ändern.
+Öffnen Sie hierzu das Protokoll mit dem xml-Editor. Ändern Sie den Punkt \texttt{Revision} und speichern Sie. 
 
 \subsection{Protokoll anzeigen}
 Sobald Sie das Endresultat gespeichert haben, erscheint eine Protokolldatei über dem Testfall, den Sie gerade ausgeführt haben.
@@ -713,7 +727,7 @@ Sobald Sie das Endresultat gespeichert haben, erscheint eine Protokolldatei übe
 Oben in der Breadcumb-Leiste können Sie zwischen den einzelnen Projekten/Paketen/Testfällen umschalten um andere Protokolle anzeigen zu lassen.
 
 \subsection{TSM-Schnellansicht}
-Auf der rechten Seite finden Sie eine Schnellansicht (\texttt{TSM Quickview}).
+Auf der rechten Seite finden Sie die \texttt{TSM-Schnellansicht}.
 
 \begin{figure}[H]
 \centering
@@ -723,8 +737,8 @@ Auf der rechten Seite finden Sie eine Schnellansicht (\texttt{TSM Quickview}).
 \end{figure}
 
 Die Schnellansicht zeigt den Status des jeweiligen selektierten Objekts an.\\
-In Abbildung \ref{fig:Projekt} sehen Sie die \texttt{Quickview} eines beispielhaften Projekts, \texttt{Type} zeigt, was selektiert ist.
-In Abbildung \ref{fig:Paket} sehen Sie die \texttt{Quickview} eines beispielhaften Pakets und in Abbildung \ref{fig:Testfalls} sehen Sie die \texttt{Quickview} eines beispielhaften Testfalls.
+In Abbildung \ref{fig:Projekt} sehen Sie die Schnellansicht eines beispielhaften Projekts, \texttt{Type} zeigt, was selektiert ist.
+In Abbildung \ref{fig:Paket} sehen Sie die Schnellansicht eines beispielhaften Pakets und in Abbildung \ref{fig:Testfalls} sehen Sie die Schnellansicht eines beispielhaften Testfalls.
 
 
 \newpage
@@ -748,7 +762,7 @@ Protokolle wie auch Testfälle können als PDF-Datei exportiert werden.
 \end{figure}
 
 \item Wählen Sie im Assistenten \texttt{TSM} und dann \texttt{PDF-Datei} aus und klicken Sie auf \texttt{Weiter}.
-\item Es öffnet sich ein Assistent, in dem Sie alle Testfälle oder Protokolle auswählen können, um diese zu exportieren.
+\item Es öffnet sich ein Assistent, in dem Sie alle Testfälle oder Protokolle auswählen können, welche Sie exportieren möchten.
 
 \begin{figure}[H]
 \centering
@@ -758,7 +772,7 @@ Protokolle wie auch Testfälle können als PDF-Datei exportiert werden.
 \end{figure}
 
 \item Wählen Sie ein Verzeichnis aus, in dem Sie auf \texttt{Durchsuchen...} und dann auf \texttt{Fertig} klicken.
-\item Die PDF-Dateien liegen nun in dem Verzeichnis in das Sie sie exportiert haben.
+\item Die PDF-Dateien liegen nun in dem Verzeichnis, welches Sie zuvor ausgewählt haben.
 \end{enumerate}
 
 \subsection{Justus-Import}
@@ -787,10 +801,12 @@ Sollte die Übersicht trotz einer vorhandenen Selektion nichts anzeigen, so sele
 Die Probleme sind von schwerwiegend nach unproblematisch sortiert.\\
 
 \subsection*{Testfälle dürfen nicht in nicht-TSM-Projekte verschoben werden}
-Momentan können Testfälle nicht in nicht-TSM-Projekten erstellt werden. Das Verschieben dorthin ist allerdings möglich. Dort kann jedoch nicht für einen reibungslosen Ablauf aller Funktionalitäten garantiert werden.
+Momentan können Testfälle nicht in nicht-TSM-Projekten erstellt werden. Das Verschieben dorthin ist allerdings möglich.
+Dort kann jedoch nicht für einen reibungslosen Ablauf aller Funktionalitäten garantiert werden.
 
 \subsection*{Per \textit{refactor} $ \rightarrow $ \textit{rename} kann ein Name mit mehr als 200 Zeichen eingegeben werden}
-Per \textit{refactor} $ \rightarrow $ \textit{rename} kann ein Name mit mehr als 200 Zeichen eingegeben werden. Auch wird dort nicht auf die unter Windows im Dateinamen verbotenen Zeichen überprüft.
+Per \textit{refactor} $ \rightarrow $ \textit{rename} kann ein Name mit mehr als 200 Zeichen eingegeben werden. 
+Auch wird dort nicht auf die unter Windows im Dateinamen verbotenen Zeichen überprüft.
 Dies geschieht erst, nachdem der Testfall erneut zum Bearbeiten geöffnet wurde. Daher wird empfohlen auf die gewählten Zeichen und die Länge der Namen zu achten.
 
 \subsection*{Schleierhaftes Verhalten bei Cut/Copy\&Paste von Bildern}
@@ -803,19 +819,22 @@ Bilder, die kopiert wurden und nach einem anschließenden Neustarten der Softwar
 Manuell ist es relativ langsam. Außerdem kann man nicht nach rechts scrollen wenn zu viele Revisionen angezeigt werden.
 
 \subsection*{Tastenkürzel unter Linux bei der RCP-Version}
-Bei manchen Systemkonfigurationen werden Tastenkürzel ohne aktiviert, ohne dass die Strg-Taste gedrückt wurde oder gedrückt gehalten wird. Dies hat zur Folge dass z.\,B. ein bloßes Drücken von "N" den Assistenten öffnet.
+Bei manchen Systemkonfigurationen werden Tastenkürzel ohne aktiviert, ohne dass die Strg-Taste gedrückt wurde oder gedrückt gehalten wird.
+Dies hat zur Folge dass z.\,B. ein bloßes Drücken von "N" den Assistenten öffnet.
 
 \subsection*{Kaufmannsund in Dateinamen nicht möglich}
 Bilder, deren Dateiname oder Pfad ein Kaufmannsund (\&) enthält können nicht eingefügt und angezeigt werden.
 
 \subsection*{Projekte können im TSM-Navigator nicht ausgeschnitten oder kopiert und eingefügt werden}
-Um dieses Problem zu umgehen sollte ein neues TSM-Projekt angelegt werden und anschließend der gesamte Inhalt kopiert werden. Man sollte dabei beachten, dass Protokolle nicht mit kopiert werden können. Diese können nur verschoben werden.
+Um dieses Problem zu umgehen sollte ein neues TSM-Projekt angelegt werden und anschließend der gesamte Inhalt kopiert werden.
+Man sollte dabei beachten, dass Protokolle nicht mit kopiert werden können. Diese können nur verschoben werden.
 
 \subsection*{Verwaiste Protokolle werden in der Übersicht nicht berücksichtigt}
 Löscht man einen Testfall aber nicht seine zugehörigen Protokolle, so bleiben diese ohne zugehörigen Testfall. Sie werden dann in der Übersicht nicht mehr berücksichtigt.
 
 \subsection*{Die Übersicht kann in bestimmten Fällen nicht geöffnet werden}
-Sind bereits andere Testfälle oder Protokolle offen, so kann es vorkommen dass die Übersicht sich nicht anzeigen lässt (ohne Hinweis oder Meldung). Um das Problem zu beheben sollten alle offenen Testfälle oder Protokolle geschlossen werden.
+Sind bereits andere Testfälle oder Protokolle offen, so kann es vorkommen dass die Übersicht sich nicht anzeigen lässt (ohne Hinweis oder Meldung).
+Um das Problem zu beheben sollten alle offenen Testfälle oder Protokolle geschlossen werden.
 
 \subsection*{Unklare Fehlermeldung beim Export von nicht vorhandener Revision}
 Exportiert man eine Revision die nicht vorhanden ist, erscheint eine unklare Fehlermeldung: "Sie haben keine Datei zum Exportieren ausgewählt."
