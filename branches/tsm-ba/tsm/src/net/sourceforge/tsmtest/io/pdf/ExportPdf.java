@@ -19,6 +19,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -639,6 +640,9 @@ public class ExportPdf {
 	    MalformedURLException, IOException {
 	IProgressMonitor progressMonitor = startMonitor(monitor, " -> content", 1);
 	if (!progressMonitor.isCanceled()) {
+	    //date format from the data model.
+	    final SimpleDateFormat dateFormat = DataModelTypes.getDateFormat();
+
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
@@ -762,7 +766,7 @@ public class ExportPdf {
 		lastChanged.setBorder(Rectangle.NO_BORDER);
 		table.addCell(lastChanged);
 		PdfPCell lastChangedEntry = new PdfPCell(new Phrase(
-			DataModelTypes.dateFormat.format(protocol
+			dateFormat.format(protocol
 				.getLastChangedOn()), normalFont));
 		lastChangedEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(lastChangedEntry);
@@ -930,7 +934,7 @@ public class ExportPdf {
 		} else {
 
 		    pdfCell20 = new PdfPCell(new Phrase(
-			    DataModelTypes.dateFormat.format(testCase
+			    dateFormat.format(testCase
 				    .getLastExecution())));
 		}
 		pdfCell20.setBorder(Rectangle.NO_BORDER);
@@ -941,7 +945,7 @@ public class ExportPdf {
 		pdfCell21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell21);
 		PdfPCell pdfCell22 = new PdfPCell(new Phrase(
-			DataModelTypes.dateFormat.format(testCase
+			dateFormat.format(testCase
 				.getLastChangedOn()), normalFont));
 		pdfCell22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell22);
@@ -1557,6 +1561,9 @@ public class ExportPdf {
 	    throws DocumentException, MalformedURLException, IOException {
 	IProgressMonitor progressMonitor = startMonitor(monitor, " -> table", 1);
 	if (!progressMonitor.isCanceled()) {
+	    //dateFormat form the data model.
+	    final SimpleDateFormat dateFormat = DataModelTypes.getDateFormat();
+
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
@@ -1679,7 +1686,7 @@ public class ExportPdf {
 		c21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c21);
 		PdfPCell c22 = new PdfPCell(new Phrase(
-			DataModelTypes.dateFormat.format(protocol
+			dateFormat.format(protocol
 				.getLastChangedOn()), normalFont));
 		c22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c22);
@@ -1854,7 +1861,7 @@ public class ExportPdf {
 		} else {
 
 		    c20 = new PdfPCell(new Phrase(
-			    DataModelTypes.dateFormat.format(testCase
+			    dateFormat.format(testCase
 				    .getLastExecution())));
 		}
 		c20.setBorder(Rectangle.NO_BORDER);
@@ -1865,7 +1872,7 @@ public class ExportPdf {
 		c21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c21);
 		PdfPCell c22 = new PdfPCell(new Phrase(
-			DataModelTypes.dateFormat.format(testCase
+			dateFormat.format(testCase
 				.getLastChangedOn()), normalFont));
 		c22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c22);
