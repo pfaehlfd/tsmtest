@@ -116,7 +116,7 @@ public class DataModelException extends Exception {
 	    throw new DataModelException(DataModelException.TESTCASEOBJECT_NULL);
 	} else if (name == null || name.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (name.length() > 200) {
+	} else if (name.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (testCase.getAuthor() == null) {
 	    throw new DataModelException(DataModelException.AUTHOR_NULL_EMPTY);
@@ -166,7 +166,7 @@ public class DataModelException extends Exception {
 	    throw new DataModelException(DataModelException.PROJECTOBJECT_NULL);
 	} else if (packageName == null || packageName.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (packageName.length() > 200) {
+	} else if (packageName.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (packageName.contains("<")) { //$NON-NLS-1$
 	    throw new DataModelException(
@@ -213,7 +213,7 @@ public class DataModelException extends Exception {
 	}
 	if (projectName == null || projectName.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (projectName.length() > 200) {
+	} else if (projectName.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (projectName.contains("<")) { //$NON-NLS-1$
 	    throw new DataModelException(

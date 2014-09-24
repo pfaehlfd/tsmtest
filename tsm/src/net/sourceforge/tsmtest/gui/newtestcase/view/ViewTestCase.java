@@ -20,12 +20,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.SWTUtils;
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.EditorPartInput;
 import net.sourceforge.tsmtest.datamodel.ResourceEditorInput;
 import net.sourceforge.tsmtest.datamodel.TSMContainer;
@@ -201,7 +203,7 @@ public class ViewTestCase extends EditorPartInput implements
 	txtName = new Text(mainSettings, SWT.BORDER);
 	txtName.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 	txtName.addModifyListener(dirtyListen);
-	txtName.setTextLimit(200);
+	txtName.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 
 	lblProject = new Label(mainSettings, SWT.NONE);
 	lblProject.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,

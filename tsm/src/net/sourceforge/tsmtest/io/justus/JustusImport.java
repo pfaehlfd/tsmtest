@@ -20,6 +20,7 @@ import java.util.Date;
 
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.TSMContainer;
 import net.sourceforge.tsmtest.datamodel.TSMPackage;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
@@ -242,8 +243,8 @@ public class JustusImport {
 	newString = newString.replace("\\", "#"); //$NON-NLS-1$ //$NON-NLS-2$
 	newString = newString.replace("/", "#"); //$NON-NLS-1$ //$NON-NLS-2$
 	newString = newString.replace("|", "#"); //$NON-NLS-1$ //$NON-NLS-2$
-	if (newString.length() > 200) {
-	    newString = newString.substring(0, 200);
+	if (newString.length() > DataModelTypes.NAME_MAX_LENGTH) {
+	    newString = newString.substring(0, DataModelTypes.NAME_MAX_LENGTH);
 	}
 	return newString;
     }
