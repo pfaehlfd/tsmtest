@@ -1,6 +1,7 @@
 package net.sourceforge.tsmtest.rename;
 
 import net.sourceforge.tsmtest.Messages;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
 
@@ -64,7 +65,7 @@ public class Rename extends
 
 		    if (name == null || name.isEmpty()) {
 			character = false;
-		    } else if (name.length() > 200) {
+		    } else if (name.length() > DataModelTypes.NAME_MAX_LENGTH) {
 			length = false;
 		    } else if (name.contains("<")) { //$NON-NLS-1$
 			character = false;

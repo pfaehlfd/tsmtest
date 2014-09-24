@@ -59,6 +59,11 @@ public class DataModelTypes {
 	    "yyyy-MM-dd, HH:mm:ss");
 
     public static final String imageFolderName = "images";
+    
+    /**
+     * Maximum length for names (projects, packets, test cases, file names, ...)
+     */
+    public static final int NAME_MAX_LENGTH = 200;
 
     /**
      * @param file

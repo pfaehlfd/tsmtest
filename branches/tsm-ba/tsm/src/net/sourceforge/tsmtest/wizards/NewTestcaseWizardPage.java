@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.SelectionManager.SelectionException;
 
 import org.eclipse.core.resources.IContainer;
@@ -137,7 +138,7 @@ public class NewTestcaseWizardPage extends WizardPage {
 	if (container != null) {
 	    containerText.setText(container.getFullPath().toString());
 	}
-	fileText.setTextLimit(200);
+	fileText.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 	// fileText.setText("testcase");
 	fileText.setFocus();
     }

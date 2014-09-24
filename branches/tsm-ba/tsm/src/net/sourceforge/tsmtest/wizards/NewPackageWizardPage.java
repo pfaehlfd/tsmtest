@@ -490,7 +490,7 @@ public class NewPackageWizardPage extends WizardPage implements Listener {
 	// resource name entry field
 	resourceNameField = new Text(nameGroup, SWT.BORDER);
 	resourceNameField.addListener(SWT.Modify, this);
-	resourceNameField.setTextLimit(200);
+	resourceNameField.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 	resourceNameField.addFocusListener(new FocusAdapter() {
 	    @Override
 	    public void focusLost(final FocusEvent e) {
