@@ -46,8 +46,8 @@ public class TestCaseTest {
 	    testTestCaseDescriptor.setExpectedDuration("99:99");
 	    testTestCaseDescriptor.setId(9999999);
 	    testTestCaseDescriptor.setLastExecution(testDate);
-	    testTestCaseDescriptor.setNumberOfExecutions(2147483647);
-	    testTestCaseDescriptor.setNumberOfFailures(2147483647);
+	    testTestCaseDescriptor.setNumberOfExecutions(Integer.MAX_VALUE);
+	    testTestCaseDescriptor.setNumberOfFailures(Integer.MAX_VALUE);
 	    testTestCaseDescriptor
 		    .setPriority(DataModelTypes.PriorityType.high);
 	    testTestCaseDescriptor.setRealDuration("99:99");
@@ -85,9 +85,9 @@ public class TestCaseTest {
 	    assertEquals("99:99", testTestCase.getData().getExpectedDuration());
 	    assertEquals(9999999, testTestCase.getData().getId());
 	    assertEquals(testDate.getTime(), testTestCase.getData().getLastExecution().getTime());
-	    assertEquals(2147483647, testTestCase.getData()
+	    assertEquals(Integer.MAX_VALUE, testTestCase.getData()
 		    .getNumberOfExecutions());
-	    assertEquals(2147483647, testTestCase.getData().getNumberOfFailures());
+	    assertEquals(Integer.MAX_VALUE, testTestCase.getData().getNumberOfFailures());
 	    assertEquals(DataModelTypes.PriorityType.high, testTestCase
 		    .getData().getPriority());
 	    assertEquals("99:99", testTestCase.getData().getRealDuration());
