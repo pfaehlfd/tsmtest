@@ -306,7 +306,7 @@ public class ViewReport extends MultiPageEditorPartInput implements
 	if (input.getData().getLastExecution() == null) {
 	    executedLabel.setText(Messages.ViewReport_22);
 	} else {
-	    executedLabel.setText(DataModelTypes.dateFormat.format(input
+	    executedLabel.setText(DataModelTypes.getDateFormat().format(input
 		    .getData().getLastExecution()));
 	}
 	tableManager.setProjectName(input.getProject().getName());

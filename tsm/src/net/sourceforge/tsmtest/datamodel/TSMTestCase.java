@@ -34,8 +34,7 @@ import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
  *
  */
 public class TSMTestCase extends TSMResource {
-
-    public static final DateFormat durationFormat = createDateFormat();
+    private static final DateFormat durationFormat = createDateFormat();
     private TestCaseDescriptor data;
 
     protected TSMTestCase(final String name, final TSMContainer parent,
@@ -44,6 +43,10 @@ public class TSMTestCase extends TSMResource {
 	this.data = data;
     }
 
+    /**
+     * Creates the DateFormat object for the duration.
+     * @return an DateFormat object with the format "HH:mm".
+     */
     private static DateFormat createDateFormat() {
 	final DateFormat durationFormat = new SimpleDateFormat("HH:mm");
 	durationFormat.setLenient(false);
@@ -134,5 +137,12 @@ public class TSMTestCase extends TSMResource {
 	    array[i] = iterator.next();
 	}
 	return array;
+    }
+    
+    /**
+     * @return an DateFormat object with the format "HH:mm".
+     */
+    public static synchronized DateFormat getDurationFormat() {
+	return durationFormat;
     }
 }

@@ -55,7 +55,7 @@ public class DataModelTypes {
     /**
      * Global date format for durations and dates of last execution.
      */
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat(
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 	    "yyyy-MM-dd, HH:mm:ss");
 
     public static final String imageFolderName = "images";
@@ -76,5 +76,12 @@ public class DataModelTypes {
 	    return TSMProject.getCategory();
 	}
 	return -1;
+    }
+    
+    /**
+     * @return the date format for the data model.
+     */
+    public static synchronized SimpleDateFormat getDateFormat() {
+	return dateFormat;
     }
 }

@@ -82,7 +82,6 @@ public class ViewTestCase extends EditorPartInput implements
     private Text txtDuration;
     private PriorityType priority;
     private Combo comboPriority;
-    // private Composite myParent;
     private RichText richTextEditShortDes;
     private RichText richTextEditPreCon;
     private Group preCondition;
@@ -119,7 +118,6 @@ public class ViewTestCase extends EditorPartInput implements
     @Override
     public void createPartControl(final Composite parent) {
 	parent.addDisposeListener(new DisposeListener() {
-
 	    /*
 	     * Detach a non-ui thread to extract and save the images
 	     */
@@ -170,7 +168,6 @@ public class ViewTestCase extends EditorPartInput implements
 	});
 
 	dirtyListen = new ModifyListener() {
-
 	    @Override
 	    public void modifyText(final ModifyEvent e) {
 		setDirty(true);
@@ -464,8 +461,6 @@ public class ViewTestCase extends EditorPartInput implements
 	if (testCaseData.getExpectedDuration().length() > 0) {
 	    // check if right format
 	    final String[] splittedDuration = testCaseData.getExpectedDuration().split(":");
-	    // TODO Findbugs says this variable is never read or used after
-	    // assignment
 	    String expectedDuration = testCaseData.getExpectedDuration();
 	    try {
 		// HH:something
@@ -473,7 +468,7 @@ public class ViewTestCase extends EditorPartInput implements
 		    // HH:MMsomething
 		    if (splittedDuration[1].length() == 2) {
 			expectedDuration = splittedDuration[0] + ":" + splittedDuration[1];
-			TSMTestCase.durationFormat.parse(expectedDuration);
+			TSMTestCase.getDurationFormat().parse(expectedDuration);
 		    } else {
 			throw new ParseException(null, 0);
 		    }
@@ -517,16 +512,25 @@ public class ViewTestCase extends EditorPartInput implements
 	return false;
     }
 
+    /**
+     * Sets the error message if the name is not valid.
+     */
     public void nameNotValid() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_CHAR;
     }
 
+    /**
+     * Sets the error message if the duration is not valid.
+     */
     public void durationNotValid() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_INVALID;
     }
 
+    /**
+     * Sets the error message if the duration field is empty.
+     */
     public void durationEmpty() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_EMPTY;
@@ -541,6 +545,9 @@ public class ViewTestCase extends EditorPartInput implements
 	shortDescription.setBackground(backgroundColorGroupField);
     }
 
+    /**
+     * Sets the error message if the name field is empty.
+     */
     public void nameEmpty() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_EMPTY;
