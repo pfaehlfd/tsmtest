@@ -20,6 +20,7 @@ public class PreferenceConstants {
 
 	public static final String P_CHOICE = "tsm.choicePreference";
 
+	//Role constants.
 	public static final int ROLE_TESTER = 0;
 	public static final int ROLE_TEST_MANAGER = 1;
 	

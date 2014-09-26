@@ -171,10 +171,10 @@ public class EditorRunTest extends EditorPartInput implements
     }
 
     /**
-     * Asks for confirmation to load the execution state if the time is not
+     * Asks for confirmation to load the execution data if the time is not
      * empty
      * 
-     * @return whether to load
+     * @return a MessageDialog whether to load the saved execution data.
      */
     private boolean confirmLoading() {
 	if (input.getData().getRealDuration().isEmpty()) {
@@ -429,6 +429,7 @@ public class EditorRunTest extends EditorPartInput implements
 	richTextPreCon.addModifyListener(listen);
 	richTextPreCon.setProjectName(input.getProject().getName());
 
+	//Indicates whether the old execution data is loaded.
 	boolean load = false;
 	if (!input.getData().getRealDuration().equals(INITTIME)) {
 	    if (input.getData().getRealDuration().split(":").length == 3) {
@@ -436,6 +437,7 @@ public class EditorRunTest extends EditorPartInput implements
 	    }
 	}
 
+	//Load old execution data.
 	if (load) {
 	    log.debug(Messages.EditorRunTest_13);
 	    final String[] times = input.getData().getRealDuration().split(":"); //$NON-NLS-1$
@@ -650,15 +652,15 @@ public class EditorRunTest extends EditorPartInput implements
 	testCase.setRevisionNumber(revision);
 
 	// Getting the final description for the run
-	final DialogRunTest dia = new DialogRunTest(txtTime.getText(),
+	final DialogRunTest dialog = new DialogRunTest(txtTime.getText(),
 		txtTester.getText(), worstStatus, input.getProject().getName());
 	StatusType caseStatus;
 
-	if (dia.open() == Window.OK) {
-	    final TestResult res = dia.getRunTestValue();
-	    testCase.setRichTextResult(res.getDescription());
-	    caseStatus = res.getState();
-	    if (res.isUpdateTime()) {
+	if (dialog.open() == Window.OK) {
+	    final TestResult testResult = dialog.getRunTestValue();
+	    testCase.setRichTextResult(testResult.getDescription());
+	    caseStatus = testResult.getState();
+	    if (testResult.isUpdateTime()) {
 		testCase.setExpectedDuration(testCase.getRealDuration());
 	    }
 	    testCase.setStatus(caseStatus);
@@ -769,6 +771,7 @@ public class EditorRunTest extends EditorPartInput implements
 		&& (input.getData().getAssignedTo().length() > 0)) {
 	    txtTester.setText(input.getData().getAssignedTo());
 	} else {
+	    //If none tester was set we use the user name.
 	    if (lastTester.equals("")) {
 		txtTester.setText(System.getProperty("user.name")); //$NON-NLS-1$
 	    } else {
