@@ -46,10 +46,10 @@ public class TSMPropertyTester extends PropertyTester {
     public boolean test(Object receiver, String property, Object[] args,
 	    Object expectedValue) {
 	if (PROPERTY_IS_TESTER.equals(property)) {
-	    return PreferenceManager.instance.getPreferences().getRole() == PreferenceConstants.ROLE_TESTER;
+	    return PreferenceManager.getInstance().getPreferences().getRole() == PreferenceConstants.ROLE_TESTER;
 	}
 	if (PROPERTY_IS_TEST_MANAGER.equals(property)) {
-	    return PreferenceManager.instance.getPreferences().getRole() == PreferenceConstants.ROLE_TEST_MANAGER;
+	    return PreferenceManager.getInstance().getPreferences().getRole() == PreferenceConstants.ROLE_TEST_MANAGER;
 	}
 	if (PROPERTY_IS_SELECTION_TEST_CASE.equals(property)) {
 	    return (SelectionManager.instance.getSelection().getFirstFile() instanceof TSMTestCase);

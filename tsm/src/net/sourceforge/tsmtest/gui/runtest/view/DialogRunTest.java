@@ -42,7 +42,7 @@ public class DialogRunTest extends InputDialog {
     public final static String ID = "net.sourceforge.tsmtest.gui.runtest.view.overviewDialog"; //$NON-NLS-1$
     private Combo status;
     private RichText richTextField;
-    private TestResult rtValue;
+    private TestResult runTestValue;
     private final StatusType prvWorstStatus;
     private final String labelText;
     private Button btnUpdateTime;
@@ -140,19 +140,19 @@ public class DialogRunTest extends InputDialog {
     @Override
     protected void buttonPressed(final int buttonId) {
 	if (buttonId == IDialogConstants.OK_ID) {
-	    rtValue = new TestResult();
+	    runTestValue = new TestResult();
 	    final StatusType sType = StatusType.valueOf(status.getItem(status
 		    .getSelectionIndex()));
-	    rtValue.setDescription(richTextField.getFormattedText());
-	    rtValue.setState(sType);
-	    rtValue.setUpdateTime(btnUpdateTime.getSelection());
+	    runTestValue.setDescription(richTextField.getFormattedText());
+	    runTestValue.setState(sType);
+	    runTestValue.setUpdateTime(btnUpdateTime.getSelection());
 	} else {
-	    rtValue = null;
+	    runTestValue = null;
 	}
 	super.buttonPressed(buttonId);
     }
 
     public TestResult getRunTestValue() {
-	return rtValue;
+	return runTestValue;
     }
 }
