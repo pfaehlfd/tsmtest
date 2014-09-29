@@ -36,7 +36,7 @@ public class CutAction extends Action {
 
     @Override
     public void run() {
-	PasteAction.setClipboard(SelectionManager.instance.getSelection()
+	PasteAction.setClipboard(SelectionManager.getInstance().getSelection()
 		.getAllResources(), false);
     }
 }

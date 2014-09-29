@@ -155,9 +155,9 @@ public class StepSash {
 	return tableManager;
     }
 
-    public void initSteps(final List<TestStepDescriptor> TestStepDescriptors) {
+    public void initSteps(final List<TestStepDescriptor> testStepDescriptors) {
 	final ArrayList<TestStepDescriptor> copy = new ArrayList<TestStepDescriptor>(
-		TestStepDescriptors);
+		testStepDescriptors);
 	copy.add(new TestStepDescriptor());
 
 	tableManager.setContent(copy);

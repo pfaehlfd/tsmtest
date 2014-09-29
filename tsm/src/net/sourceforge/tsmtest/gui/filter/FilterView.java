@@ -52,7 +52,7 @@ public class FilterView extends ViewPart implements DataModelObservable {
     private DateTime dateTimeCreationDate;
     private DateTime dateTimeLastChangedOn;
     private Button buttonNotAssignedTestCases;
-    protected Button buttonNotExecuted;
+    private Button buttonNotExecuted;
     private Button buttonHigh;
     private Button buttonPassed;
     private Button buttonMedium;
@@ -63,9 +63,7 @@ public class FilterView extends ViewPart implements DataModelObservable {
     private Button buttonLow;
     private Button buttonFailed;
     private Label labelCreator;
-    private Group groupSearchMode;
     private Button buttonTestcases;
-    private Button buttonProtocols;
 
     public FilterView() {
 	DataModel.getInstance().register(this);
@@ -80,6 +78,7 @@ public class FilterView extends ViewPart implements DataModelObservable {
     public void createPartControl(final Composite parent) {
 	final Composite container = new Composite(parent, SWT.NONE);
 	container.setLayout(new GridLayout(5, true));
+	Group groupSearchMode;
 
 	groupSearchMode = new Group(container, SWT.NONE);
 	groupSearchMode.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
@@ -101,6 +100,7 @@ public class FilterView extends ViewPart implements DataModelObservable {
 	buttonTestcases.setText(Messages.FilterView_2);
 	buttonTestcases.setSelection(true);
 
+	Button buttonProtocols;
 	buttonProtocols = new Button(groupSearchMode, SWT.RADIO);
 	buttonProtocols.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
 		false, 1, 1));

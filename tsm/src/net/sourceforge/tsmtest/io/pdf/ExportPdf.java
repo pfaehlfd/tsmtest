@@ -1165,7 +1165,7 @@ public class ExportPdf {
      * @param number
      *            The amount of empty lines.
      */
-    public static void addEmptyLine(Paragraph paragraph, int number) {
+    private static void addEmptyLine(Paragraph paragraph, int number) {
 	for (int i = 0; i < number; i++) {
 	    paragraph.add(new Paragraph(" ")); //$NON-NLS-1$
 	}
@@ -1411,7 +1411,7 @@ public class ExportPdf {
 	return null;
     }
 
-    public static void createEntries(Document document, Paragraph chapter,
+    private static void createEntries(Document document, Paragraph chapter,
 	    TSMResource file, FooterOneFile event, IProgressMonitor monitor)
 	    throws MalformedURLException, DocumentException, IOException {
 	IProgressMonitor progressMonitor = startMonitor(monitor, " -> entries", 1);

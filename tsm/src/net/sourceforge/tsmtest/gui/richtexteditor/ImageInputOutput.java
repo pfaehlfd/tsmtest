@@ -36,8 +36,6 @@ public final class ImageInputOutput {
     private final ArrayList<String> tempImagePaths = new ArrayList<String>();
     private final ArrayList<String> tempImageFilenames = new ArrayList<String>();
 
-    private ImageLoader il;
-
     public static ImageInputOutput createHandler(final String[] paths) {
 	return new ImageInputOutput(paths);
     }
@@ -75,7 +73,7 @@ public final class ImageInputOutput {
      * @return the relative path to the workspace root to the new image.
      */
     public void saveImage(final String projectName) throws IOException {
-
+	ImageLoader il;
 	il = new ImageLoader();
 	String absolutePath;
 	String relativePath;

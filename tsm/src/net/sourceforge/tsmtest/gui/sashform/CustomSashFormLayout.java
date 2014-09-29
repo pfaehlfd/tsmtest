@@ -78,9 +78,9 @@ public class CustomSashFormLayout extends Layout {
 	    total += ratios[i];
 	}
 	if (ratios[maxIndex] > 0) {
-	    int sashwidth = sashForm.sashes.length > 0 ? sashForm.SASH_WIDTH
+	    int sashwidth = sashForm.sashes.length > 0 ? sashForm.getSash_Width()
 		    + sashForm.sashes[0].getBorderWidth() * 2
-		    : sashForm.SASH_WIDTH;
+		    : sashForm.getSash_Width();
 	    if (vertical) {
 		height += (int) (total * maxValue / ratios[maxIndex])
 			+ (controlArray.length - 1) * sashwidth;
@@ -181,8 +181,8 @@ public class CustomSashFormLayout extends Layout {
 	    total += ratios[i];
 	}
 
-	int sashwidth = sashes.length > 0 ? sashForm.SASH_WIDTH
-		+ sashes[0].getBorderWidth() * 2 : sashForm.SASH_WIDTH;
+	int sashwidth = sashes.length > 0 ? sashForm.getSash_Width()
+		+ sashes[0].getBorderWidth() * 2 : sashForm.getSash_Width();
 	if (sashForm.getOrientation() == SWT.HORIZONTAL) {
 	    int width = (int) (ratios[0]
 		    * (area.width - sashes.length * sashwidth) / total);

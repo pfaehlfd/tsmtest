@@ -42,11 +42,10 @@ import org.eclipse.swt.widgets.Listener;
  * @author Albert Flaig
  */
 public class CustomSashForm extends Composite {
-
     /**
      * The width of all sashes in the form.
      */
-    protected static int SASH_WIDTH = 3;
+    private static int sashWidth = 3;
 
     private int sashStyle;
     protected CustomComposite[] sashes = new CustomComposite[0];
@@ -163,7 +162,7 @@ public class CustomSashForm extends Composite {
      */
     public int getSashWidth() {
 	checkWidget();
-	return SASH_WIDTH;
+	return sashWidth;
     }
 
     public int getStyle() {
@@ -494,10 +493,10 @@ public class CustomSashForm extends Composite {
      */
     public void setSashWidth(int width) {
 	checkWidget();
-	if (SASH_WIDTH == width){
+	if (sashWidth == width){
 	    return;
 	}
-	SASH_WIDTH = width;
+	sashWidth = width;
 	layout(false);
     }
 
@@ -559,5 +558,13 @@ public class CustomSashForm extends Composite {
 	}
 
 	layout(false);
+    }
+
+    /**
+     * Getter for the width of the sash.
+     * @return The width of the sash as int.
+     */
+    public int getSash_Width() {
+        return sashWidth;
     }
 }

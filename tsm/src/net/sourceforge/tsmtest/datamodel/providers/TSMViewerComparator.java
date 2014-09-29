@@ -42,7 +42,7 @@ public class TSMViewerComparator extends ViewerComparator {
 	if (e1 instanceof Node && e2 instanceof Node) {
 	    final Node node1 = (Node) e1;
 	    final Node node2 = (Node) e2;
-	    if (node1 == node2) {
+	    if (node1.equals(node2)) {
 		return 0;
 	    }
 	    return node1.getNodeName().compareToIgnoreCase(node2.getNodeName());

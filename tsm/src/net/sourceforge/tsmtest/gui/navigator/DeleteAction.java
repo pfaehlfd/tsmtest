@@ -54,7 +54,7 @@ public class DeleteAction extends Action {
 
     @Override
     public void run() {
-	List<TSMResource> filesToDelete = SelectionManager.instance
+	List<TSMResource> filesToDelete = SelectionManager.getInstance()
 		.getSelection().getAllResources();
 	// check if files within a package are selected and remove the files
 	// 1.) What we do here is iterate through every selected file

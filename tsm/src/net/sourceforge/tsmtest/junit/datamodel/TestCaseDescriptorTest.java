@@ -11,12 +11,15 @@
 package net.sourceforge.tsmtest.junit.datamodel;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.PriorityType;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor;
 
@@ -27,6 +30,9 @@ import org.junit.Test;
  *
  */
 public class TestCaseDescriptorTest {
+
+    private static final String MAXIMUM_DURATION = "99:99";
+    private static final String GERMAN_UMLAUTS = "äöüß ÄÖÜß";
 
     /**
      * Test method for {@link net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor#getId()}.
@@ -54,8 +60,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testGetAuthor() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setAuthor("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getAuthor());
+	testTestCaseDescriptor.setAuthor(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getAuthor());
     }
 
     /**
@@ -64,8 +70,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetAuthor() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setAuthor("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getAuthor());
+	testTestCaseDescriptor.setAuthor(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getAuthor());
     }
 
     /**
@@ -74,8 +80,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testGetAssignedTo() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setAssignedTo("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getAssignedTo());
+	testTestCaseDescriptor.setAssignedTo(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getAssignedTo());
     }
 
     /**
@@ -84,8 +90,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetAssignedTo() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setAssignedTo("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getAssignedTo());
+	testTestCaseDescriptor.setAssignedTo(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getAssignedTo());
     }
 
     /**
@@ -117,8 +123,8 @@ public class TestCaseDescriptorTest {
     public final void testGetExpectedDuration() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals("00:00", testTestCaseDescriptor.getExpectedDuration());
-	testTestCaseDescriptor.setExpectedDuration("99:99");
-	assertEquals("99:99", testTestCaseDescriptor.getExpectedDuration());
+	testTestCaseDescriptor.setExpectedDuration(MAXIMUM_DURATION);
+	assertEquals(MAXIMUM_DURATION, testTestCaseDescriptor.getExpectedDuration());
     }
 
     /**
@@ -127,8 +133,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetExpectedDuration() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setExpectedDuration("99:99");
-	assertEquals("99:99", testTestCaseDescriptor.getExpectedDuration());
+	testTestCaseDescriptor.setExpectedDuration(MAXIMUM_DURATION);
+	assertEquals(MAXIMUM_DURATION, testTestCaseDescriptor.getExpectedDuration());
     }
 
     /**
@@ -138,8 +144,8 @@ public class TestCaseDescriptorTest {
     public final void testGetRealDuration() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals("", testTestCaseDescriptor.getRealDuration());
-	testTestCaseDescriptor.setRealDuration("99:99");
-	assertEquals("99:99", testTestCaseDescriptor.getRealDuration());
+	testTestCaseDescriptor.setRealDuration(MAXIMUM_DURATION);
+	assertEquals(MAXIMUM_DURATION, testTestCaseDescriptor.getRealDuration());
     }
 
     /**
@@ -148,8 +154,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetRealDuration() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setRealDuration("99:99");
-	assertEquals("99:99", testTestCaseDescriptor.getRealDuration());
+	testTestCaseDescriptor.setRealDuration(MAXIMUM_DURATION);
+	assertEquals(MAXIMUM_DURATION, testTestCaseDescriptor.getRealDuration());
     }
 
     /**
@@ -159,8 +165,8 @@ public class TestCaseDescriptorTest {
     public final void testGetShortDescription() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals("", testTestCaseDescriptor.getShortDescription());
-	testTestCaseDescriptor.setShortDescription("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getShortDescription());	
+	testTestCaseDescriptor.setShortDescription(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getShortDescription());	
     }
 
     /**
@@ -169,8 +175,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetShortDescription() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setShortDescription("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getShortDescription());
+	testTestCaseDescriptor.setShortDescription(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getShortDescription());
     }
 
     /**
@@ -180,8 +186,8 @@ public class TestCaseDescriptorTest {
     public final void testGetRichTextPrecondition() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals("", testTestCaseDescriptor.getRichTextPrecondition());
-	testTestCaseDescriptor.setRichTextPrecondition("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getRichTextPrecondition());
+	testTestCaseDescriptor.setRichTextPrecondition(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getRichTextPrecondition());
     }
 
     /**
@@ -190,8 +196,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetRichTextPrecondition() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setRichTextPrecondition("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getRichTextPrecondition());
+	testTestCaseDescriptor.setRichTextPrecondition(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getRichTextPrecondition());
     }
 
     /**
@@ -391,8 +397,8 @@ public class TestCaseDescriptorTest {
     public final void testGetRichTextResult() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
 	assertEquals("", testTestCaseDescriptor.getRichTextResult());
-	testTestCaseDescriptor.setRichTextResult("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getRichTextResult());
+	testTestCaseDescriptor.setRichTextResult(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getRichTextResult());
     }
 
     /**
@@ -401,8 +407,8 @@ public class TestCaseDescriptorTest {
     @Test
     public final void testSetRichTextResult() {
 	TestCaseDescriptor testTestCaseDescriptor = new TestCaseDescriptor();
-	testTestCaseDescriptor.setRichTextResult("äöüß ÄÖÜß");
-	assertEquals("äöüß ÄÖÜß", testTestCaseDescriptor.getRichTextResult());
+	testTestCaseDescriptor.setRichTextResult(GERMAN_UMLAUTS);
+	assertEquals(GERMAN_UMLAUTS, testTestCaseDescriptor.getRichTextResult());
     }
 
     /**
@@ -410,7 +416,59 @@ public class TestCaseDescriptorTest {
      */
     @Test
     public final void testEqualsObject() {
-	// TODO
+	TestCaseDescriptor testTestCaseDescriptor1 = new TestCaseDescriptor();
+	TestCaseDescriptor testTestCaseDescriptor2 = new TestCaseDescriptor();
+	testTestCaseDescriptor1.setAssignedTo(GERMAN_UMLAUTS);
+	testTestCaseDescriptor2.setAssignedTo(GERMAN_UMLAUTS);
+	
+	testTestCaseDescriptor1.setAuthor(GERMAN_UMLAUTS);
+	testTestCaseDescriptor2.setAuthor(GERMAN_UMLAUTS);
+	
+	Date testDateCreationDate = new Date();
+	testTestCaseDescriptor1.setCreationDate(testDateCreationDate);
+	testTestCaseDescriptor2.setCreationDate(testDateCreationDate);
+	
+	testTestCaseDescriptor1.setExpectedDuration(MAXIMUM_DURATION);
+	testTestCaseDescriptor2.setExpectedDuration(MAXIMUM_DURATION);
+	
+	Date testDateLastChangedOn = new Date();
+	testTestCaseDescriptor1.setLastChangedOn(testDateLastChangedOn);
+	testTestCaseDescriptor2.setLastChangedOn(testDateLastChangedOn);
+	
+	Date testDateLastExecution = new Date();
+	testTestCaseDescriptor1.setLastExecution(testDateLastExecution);
+	testTestCaseDescriptor2.setLastExecution(testDateLastExecution);
+	
+	testTestCaseDescriptor1.setNumberOfExecutions(Integer.MAX_VALUE);
+	testTestCaseDescriptor2.setNumberOfExecutions(Integer.MAX_VALUE);
+	
+	testTestCaseDescriptor1.setNumberOfFailures(Integer.MAX_VALUE);
+	testTestCaseDescriptor2.setNumberOfFailures(Integer.MAX_VALUE);
+	
+	testTestCaseDescriptor1.setPriority(PriorityType.medium);
+	testTestCaseDescriptor2.setPriority(PriorityType.medium);
+	
+	testTestCaseDescriptor1.setRealDuration(MAXIMUM_DURATION);
+	testTestCaseDescriptor2.setRealDuration(MAXIMUM_DURATION);
+	
+	testTestCaseDescriptor1.setRichTextResult(GERMAN_UMLAUTS);
+	testTestCaseDescriptor2.setRichTextResult(GERMAN_UMLAUTS);
+	
+	testTestCaseDescriptor1.setShortDescription(GERMAN_UMLAUTS);
+	testTestCaseDescriptor2.setShortDescription(GERMAN_UMLAUTS);
+	
+	testTestCaseDescriptor1.setStatus(StatusType.passedWithAnnotation);
+	testTestCaseDescriptor2.setStatus(StatusType.passedWithAnnotation);
+	
+	TestStepDescriptor testTestStepDescriptor = new TestStepDescriptor();
+	testTestStepDescriptor.setExpectedResult(GERMAN_UMLAUTS);
+	testTestStepDescriptor.setRealResult(GERMAN_UMLAUTS);
+	testTestStepDescriptor.setRichTextDescription(GERMAN_UMLAUTS);
+	testTestStepDescriptor.setStatus(StatusType.failed);
+	testTestCaseDescriptor1.addStep(testTestStepDescriptor);
+	testTestCaseDescriptor2.addStep(testTestStepDescriptor);
+	
+	assertTrue(testTestCaseDescriptor1.equals(testTestCaseDescriptor2));
     }
 
     /**

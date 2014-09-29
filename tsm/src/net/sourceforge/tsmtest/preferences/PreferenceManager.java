@@ -74,7 +74,7 @@ public class PreferenceManager {
      * 
      * @param listener
      *            the object which receives preference updates
-     * @usage <code>PreferenceManager.instance.register(this);</code>
+     * @usage <code>PreferenceManager.getInstance().register(this);</code>
      */
     public void register(PreferenceListener listener) {
 	if (listeners.isEmpty()) {
@@ -101,7 +101,7 @@ public class PreferenceManager {
      * 
      * @param listener
      *            the object which receives selection updates
-     * @usage <code>PreferenceManager.instance.unregister(this);</code>
+     * @usage <code>PreferenceManager.getInstance().unregister(this);</code>
      */
     public void unregister(PreferenceListener listener) {
 	listeners.remove((PreferenceListener) listener);

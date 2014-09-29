@@ -27,7 +27,7 @@ public class OpenOverview extends AbstractHandler {
 
     @Override
     public Object execute(ExecutionEvent event) throws ExecutionException {
-	SelectionModel sm = SelectionManager.instance.getSelection();
+	SelectionModel sm = SelectionManager.getInstance().getSelection();
 	return Overview.openGUI(sm);
     }
     

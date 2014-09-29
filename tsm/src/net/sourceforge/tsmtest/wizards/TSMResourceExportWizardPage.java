@@ -78,9 +78,6 @@ public abstract class TSMResourceExportWizardPage extends
 
     private List<Object> selectedTypes = new ArrayList<Object>();
 
-    // widgets
-    private TSMTreeViewer resourceGroup;
-
     // private final static String SELECT_TYPES_TITLE =
     // IDEWorkbenchMessages.WizardTransferPage_selectTypes;
 
@@ -314,7 +311,9 @@ public abstract class TSMResourceExportWizardPage extends
      *            the parent control
      */
     protected final void createResourcesGroup(final Composite parent) {
-
+	// widgets
+	TSMTreeViewer resourceGroup;
+	
 	// create the input element, which has the root resource
 	// as its only child
 	final Collection<TSMProject> input = TSMProject.list();

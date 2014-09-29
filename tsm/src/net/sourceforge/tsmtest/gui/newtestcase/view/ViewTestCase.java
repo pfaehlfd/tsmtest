@@ -97,15 +97,11 @@ public class ViewTestCase extends EditorPartInput implements
     private final String ERROR_DURATION_INVALID = Messages.ViewTestCase_6;
     private String tempErrorMessage;
     private StepSash sashSteps;
-    private Label lblAssignedTo;
     private Text txtAssignedTo;
     private boolean dirty;
-    private Group mainSettings;
-    private Label lblProject;
     private Text txtProj;
     private TSMTestCase input;
     private volatile boolean saving = false;
-    private TSMBreadcrumbViewer viewer;
     private ModifyListener dirtyListen;
 
     public ViewTestCase() {
@@ -142,6 +138,7 @@ public class ViewTestCase extends EditorPartInput implements
 
 	parent.setLayout(new GridLayout(2, false));
 
+	TSMBreadcrumbViewer viewer;
 	viewer = new TSMBreadcrumbViewer(parent, SWT.NONE);
 	viewer.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 2, 1));
 	viewer.setInput(input);
@@ -176,11 +173,12 @@ public class ViewTestCase extends EditorPartInput implements
 	    }
 	};
 
+	Group mainSettings;
 	mainSettings = new Group(parent, SWT.NONE);
-	final GridData gd_mainSettings = new GridData(SWT.FILL, SWT.CENTER,
+	final GridData gridDataMainSettings = new GridData(SWT.FILL, SWT.CENTER,
 		true, false, 2, 1);
-	gd_mainSettings.heightHint = 74;
-	mainSettings.setLayoutData(gd_mainSettings);
+	gridDataMainSettings.heightHint = 74;
+	mainSettings.setLayoutData(gridDataMainSettings);
 	mainSettings.setText(Messages.ViewTestCase_8);
 	mainSettings.setLayout(new GridLayout(8, false));
 
@@ -205,6 +203,7 @@ public class ViewTestCase extends EditorPartInput implements
 	txtName.addModifyListener(dirtyListen);
 	txtName.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 
+	Label lblProject;
 	lblProject = new Label(mainSettings, SWT.NONE);
 	lblProject.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
@@ -262,6 +261,7 @@ public class ViewTestCase extends EditorPartInput implements
 		1, 1));
 	txtCreator.addModifyListener(dirtyListen);
 
+	Label lblAssignedTo;
 	lblAssignedTo = new Label(mainSettings, SWT.NONE);
 	lblAssignedTo.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
@@ -283,44 +283,44 @@ public class ViewTestCase extends EditorPartInput implements
 	txtDuration.setText("00:00"); //$NON-NLS-1$
 	txtDuration.addModifyListener(dirtyListen);
 
-	final GridData gd_Group = new GridData(SWT.FILL, SWT.FILL, true, false,
+	final GridData gridDataGroup = new GridData(SWT.FILL, SWT.FILL, true, false,
 		1, 1);
-	gd_Group.minimumHeight = 200;
+	gridDataGroup.minimumHeight = 200;
 
-	final GridData gd_Group_1 = new GridData(SWT.FILL, SWT.FILL, true,
+	final GridData gridDataGroup11 = new GridData(SWT.FILL, SWT.FILL, true,
 		false, 1, 1);
-	gd_Group_1.minimumHeight = 200;
+	gridDataGroup11.minimumHeight = 200;
 
 	shortDescription = new Group(parent, SWT.NONE);
 	shortDescription.setLayout(new GridLayout(1, false));
-	shortDescription.setLayoutData(gd_Group);
+	shortDescription.setLayoutData(gridDataGroup);
 	shortDescription.setText(Messages.ViewTestCase_22);
 
 	// insert RichTextEditor
 
 	richTextEditShortDes = new RichText(shortDescription, SWT.WRAP
 		| SWT.MULTI | SWT.V_SCROLL);
-	final GridData gd_richTextEditor = new GridData(SWT.FILL, SWT.CENTER,
+	final GridData gridDataRichTextEditor = new GridData(SWT.FILL, SWT.CENTER,
 		true, false, 1, 1);
-	gd_richTextEditor.widthHint = 98;
-	gd_richTextEditor.heightHint = 100;
+	gridDataRichTextEditor.widthHint = 98;
+	gridDataRichTextEditor.heightHint = 100;
 	richTextEditShortDes.addModifyListener(dirtyListen);
-	richTextEditShortDes.setLayoutData(gd_richTextEditor);
+	richTextEditShortDes.setLayoutData(gridDataRichTextEditor);
 
 	preCondition = new Group(parent, SWT.NONE);
 	preCondition.setLayout(new GridLayout(1, false));
-	preCondition.setLayoutData(gd_Group_1);
+	preCondition.setLayoutData(gridDataGroup11);
 	preCondition.setText(Messages.ViewTestCase_23);
 
 	// insert RichTextEditor
 
 	richTextEditPreCon = new RichText(preCondition, SWT.WRAP | SWT.MULTI
 		| SWT.V_SCROLL);
-	final GridData gd_richTextEditorPre = new GridData(SWT.FILL,
+	final GridData gridDataRichTextEditorPre = new GridData(SWT.FILL,
 		SWT.CENTER, true, false, 1, 1);
-	gd_richTextEditorPre.heightHint = 100;
+	gridDataRichTextEditorPre.heightHint = 100;
 	richTextEditPreCon.addModifyListener(dirtyListen);
-	richTextEditPreCon.setLayoutData(gd_richTextEditorPre);
+	richTextEditPreCon.setLayoutData(gridDataRichTextEditorPre);
 
 	sashSteps = new StepSash(parent, dirtyListen, input);
 	sashSteps.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2,

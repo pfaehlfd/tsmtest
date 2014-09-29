@@ -31,12 +31,12 @@ public class RunTestAction extends Action implements SelectionObservable {
 	setImageDescriptor(icon);
 	setHoverImageDescriptor(icon);
 	// setAccelerator(SWT.CTRL | 'T');
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
     }
 
     @Override
     public void run() {
-	final TSMResource res = SelectionManager.instance.getSelection()
+	final TSMResource res = SelectionManager.getInstance().getSelection()
 		.getFirstResource();
 
 	if (res instanceof TSMTestCase) {
@@ -50,7 +50,7 @@ public class RunTestAction extends Action implements SelectionObservable {
 
     @Override
     public void selectionChanged() {
-	final TSMResource res = SelectionManager.instance.getSelection()
+	final TSMResource res = SelectionManager.getInstance().getSelection()
 		.getFirstResource();
 	if (res instanceof TSMTestCase) {
 	    setEnabled(true);

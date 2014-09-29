@@ -133,7 +133,7 @@ public class PdfPage extends ExportWizardPage {
     @SuppressWarnings("unchecked")
     public List<TSMResource> getProtocols() throws CoreException,
 	    NumberFormatException {
-	int exportFiles = getExportFiles();
+	int exportFiles = getTypeOfExportFiles();
 	final List<IResource> list = getSelectedResources();
 	// go through all files and check if test case or protocol. If yes add
 	// it to newList
@@ -232,7 +232,7 @@ public class PdfPage extends ExportWizardPage {
      * Opens the file browse dialog
      */
     private void handleFileBrowse() {
-	if (oneFile()) {
+	if (exportInOneFile()) {
 	    final FileDialog dialog = new FileDialog(getShell(), SWT.SAVE);
 	    final String[] extensions = new String[1];
 	    extensions[0] = "*.pdf"; //$NON-NLS-1$

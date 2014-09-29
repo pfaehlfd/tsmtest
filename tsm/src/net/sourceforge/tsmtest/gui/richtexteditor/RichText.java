@@ -130,7 +130,6 @@ public class RichText extends Composite {
 
     // private ToolBar toolBar;
     private TsmStyledText styledText;
-    private String plainText;
     private final CopyPasteWorker cpworker = CopyPasteWorker.getInstance();
 
     // private ToolItem boldBtn;
@@ -165,7 +164,6 @@ public class RichText extends Composite {
     private TsmStyledTextImage hoverImage = null;
     private int maxCharacters = -1;
     private boolean editText;
-    private Menu menu;
     private MouseAdapter updateStyleListener;
     private MenuItem mntmImage;
     private SelectionAdapter selectionListener;
@@ -603,7 +601,7 @@ public class RichText extends Composite {
      * @return an HTML formatted text
      */
     public String getFormattedText() {
-	plainText = styledText.getText();
+	String plainText = styledText.getText();
 	if (plainText.isEmpty()) {
 	    return "<html><p></p></html>"; //$NON-NLS-1$
 	}
@@ -1012,7 +1010,7 @@ public class RichText extends Composite {
 	});
 
 	styledText.setWordWrap(true);
-
+	Menu menu;
 	menu = new Menu(styledText);
 	styledText.setMenu(menu);
 

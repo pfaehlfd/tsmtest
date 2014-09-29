@@ -45,7 +45,7 @@ public class RunTestStepSash {
     private static final int POSEXP = 2;
     private static final int POSREAL = 3;
     private final boolean loadActualOldExecutionData;
-    TSMTestCase testcase;
+    private TSMTestCase testcase;
 
     /**
      * @param parent
@@ -93,8 +93,8 @@ public class RunTestStepSash {
 	return tableManager;
     }
 
-    public void initSteps(final List<TestStepDescriptor> TestStepDescriptors) {
-	tableManager.setContent(TestStepDescriptors);
+    public void initSteps(final List<TestStepDescriptor> testStepDescriptors) {
+	tableManager.setContent(testStepDescriptors);
     }
 
     private SashManager<TestStepDescriptor>.SashManagerColumn<RichText> createTextColumn(

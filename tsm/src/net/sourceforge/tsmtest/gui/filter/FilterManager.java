@@ -48,7 +48,7 @@ public final class FilterManager {
      * 
      * @param listener
      *            the object which receives preference updates
-     * @usage <code>PreferenceManager.instance.register(this);</code>
+     * @usage <code>PreferenceManager.getInstance().register(this);</code>
      */
     public void register(FilterListener listener) {
 	listeners.add((FilterListener) listener);
@@ -60,7 +60,7 @@ public final class FilterManager {
      * 
      * @param listener
      *            the object which receives selection updates
-     * @usage <code>PreferenceManager.instance.unregister(this);</code>
+     * @usage <code>PreferenceManager.getInstance().unregister(this);</code>
      */
     public void unregister(FilterListener listener) {
 	listeners.remove((FilterListener) listener);

@@ -50,25 +50,19 @@ public final class CopyPasteWorker {
     // the singleton instance
     private static CopyPasteWorker copyPasteWorker;
 
-    // the string which is currently copied
-    private String copiedString;
-
     // saves the start positions of the style ranges to add the paste
     // mouse position later on
     private int[] startRange;
     private Display display;
 
-    // the position where the selection of text starts
-    private int startSelection;
-
     // ArrayList to temporary save the copied pictures
-    ArrayList<TsmStyledTextImage> tempImages = new ArrayList<TsmStyledTextImage>();
+    private ArrayList<TsmStyledTextImage> tempImages = new ArrayList<TsmStyledTextImage>();
 
     // flag to characterize second paste action without coping a new selection
     private boolean thirdCopy = false;
 
     // relative ImageOffset of a selection
-    ArrayList<Integer> relImgOffset;
+    private ArrayList<Integer> relImgOffset;
 
     private CopyPasteWorker() {
 
@@ -108,8 +102,12 @@ public final class CopyPasteWorker {
     public void copyStyledText(final String textToCopy,
 	    final StyleRange[] styles, final int selStart,
 	    final TsmStyledText styledText) {
+	// the string which is currently copied
+	String copiedString;
 	int index = 0;
 
+	// the position where the selection of text starts
+	int startSelection;
 	startSelection = selStart;
 	copiedString = textToCopy;
 	relImgOffset = styledText.getRelativeImageOffsets(textToCopy.length(),

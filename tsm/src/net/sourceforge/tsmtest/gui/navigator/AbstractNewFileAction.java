@@ -37,7 +37,7 @@ public abstract class AbstractNewFileAction extends Action implements
 	setImageDescriptor(img);
 	setHoverImageDescriptor(img);
 	this.viewer = viewer;
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
 	selectionChanged();
     }
 
@@ -47,7 +47,7 @@ public abstract class AbstractNewFileAction extends Action implements
     }
 
     protected void run(final TSMTreeViewer viewer) {
-	final TSMContainer cont = SelectionManager.instance.getSelection()
+	final TSMContainer cont = SelectionManager.getInstance().getSelection()
 		.getFirstContainer();
 	// check for name collisions in this container
 	final String baseNewName = getBaseNewName();
@@ -60,7 +60,7 @@ public abstract class AbstractNewFileAction extends Action implements
 		collision = false;
 	    }
 	    for (final TSMResource child : cont.getChildren()) {
-		if (child.getName().toLowerCase().equals(newName.toLowerCase())) {
+		if (child.getName().equalsIgnoreCase(newName)) {
 		    collision = true;
 		    break;
 		}

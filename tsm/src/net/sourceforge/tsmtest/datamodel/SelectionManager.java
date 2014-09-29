@@ -32,10 +32,10 @@ import org.eclipse.ui.handlers.HandlerUtil;
 
 /**
  * Manages SelectionChanges. <br>
- * Just use <code>SelectionManager.instance.register(this);</code> in the
+ * Just use <code>SelectionManager.getInstance().register(this);</code> in the
  * <code>createPartControl()</code>-Method. <br>
  * and<br>
- * <code>SelectionManager.instance.unregister(this);</code> in the
+ * <code>SelectionManager.getInstance().unregister(this);</code> in the
  * <code>dispose()</code>-Method. Remember to let your ViewPart implement
  * {@link SelectionObservable}.
  * 
@@ -45,7 +45,7 @@ public final class SelectionManager {
     /**
      * Returns the Singleton of this class.
      */
-    public static final SelectionManager instance = new SelectionManager();
+    private static SelectionManager instance;
 
     /**
      * The array of observables to notify when a selection change occurs.
@@ -57,6 +57,17 @@ public final class SelectionManager {
      * exception.
      */
     private final Map<IFile, CoreException> failedResources = new HashMap<IFile, CoreException>();
+    
+    /**
+     * Singleton SelectionManager.
+     * @return the singleton instance of SelectionManager.
+     */
+    public static SelectionManager getInstance() {
+	if (instance == null) {
+	    instance = new SelectionManager();
+	}
+	return instance;
+    }
 
     /**
      * The global selection change listener, which resolves selection changes in
@@ -89,7 +100,7 @@ public final class SelectionManager {
      * 
      * @param listener
      *            The listener to receive selection updates
-     * @usage <code>SelectionManager.instance.register(this);</code>
+     * @usage <code>SelectionManager.getInstance().register(this);</code>
      */
     public void register(final SelectionObservable listener) {
 	observables.add(listener);
@@ -101,7 +112,7 @@ public final class SelectionManager {
      * 
      * @param listener
      *            the listener which receives selection updates
-     * @usage <code>SelectionManager.instance.unregister(this);</code>
+     * @usage <code>SelectionManager.getInstance().unregister(this);</code>
      */
     public void unregister(final SelectionObservable listener) {
 	observables.remove(listener);

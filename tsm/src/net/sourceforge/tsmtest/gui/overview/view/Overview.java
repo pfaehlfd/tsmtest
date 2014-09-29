@@ -64,14 +64,11 @@ public class Overview extends MultiPageEditorPartInput implements
 
     public static final String ID = "net.sourceforge.tsmtest.gui.overview.view.overview"; //$NON-NLS-1$
     private OverviewStepSash sashPage0;
-    private OverviewStepSash sashPage1_revs;
+    private OverviewStepSash sashPage1Revs;
     private ArrayList<TSMTestCase> input = new ArrayList<TSMTestCase>();
     private Label titel;
-    private Composite parent;
     private ArrayList<Integer> revisions;
     private ArrayList<Integer> revisionsSelected;
-    private Button btnAddAll;
-    private Button btnCustom;
 
     /**
      * Constructs a new site
@@ -90,8 +87,8 @@ public class Overview extends MultiPageEditorPartInput implements
     @Override
     public void dispose() {
 	sashPage0.dispose();
-	sashPage1_revs.dispose();
-	SelectionManager.instance.unregister(this);
+	sashPage1Revs.dispose();
+	SelectionManager.getInstance().unregister(this);
 	// super.dispose();
     }
 
@@ -101,7 +98,7 @@ public class Overview extends MultiPageEditorPartInput implements
      */
     @Override
     public void selectionChanged() {
-	final SelectionModel sm = SelectionManager.instance.getSelection();
+	final SelectionModel sm = SelectionManager.getInstance().getSelection();
 	final ArrayList<TSMResource> file = sm.getAllResources();
 	// if only reports are selected the revisions and corresponding
 	// testcases are shown
@@ -284,7 +281,7 @@ public class Overview extends MultiPageEditorPartInput implements
     protected void createPages() {
 	createPage0();
 	createPage1();
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
     }
 
     /**
@@ -292,6 +289,7 @@ public class Overview extends MultiPageEditorPartInput implements
      */
     private void createPage0() {
 	// parent composite
+	Composite parent;
 	parent = new Composite(getContainer(), SWT.NONE);
 	parent.addDisposeListener(new DisposeListener() {
 
@@ -302,7 +300,7 @@ public class Overview extends MultiPageEditorPartInput implements
 	    }
 	});
 	parent.setLayout(new GridLayout(1, false));
-	final SelectionModel sm = SelectionManager.instance.getSelection();
+	final SelectionModel sm = SelectionManager.getInstance().getSelection();
 	final ArrayList<TSMResource> file = sm.getAllResources();
 	// if only reports are selected the revisions and corresponding
 	// testcases are shown
@@ -338,17 +336,17 @@ public class Overview extends MultiPageEditorPartInput implements
 	final Composite topInfo = new Composite(parent, SWT.NONE);
 	topInfo.setLayout(new GridLayout(3, false));
 	// topleft
-	final Composite topInfo_left = new Composite(topInfo, SWT.FILL);
-	topInfo_left.setLayout(new FillLayout(SWT.VERTICAL));
-	titel = new Label(topInfo_left, SWT.FILL);
+	final Composite topInfoLeft = new Composite(topInfo, SWT.FILL);
+	topInfoLeft.setLayout(new FillLayout(SWT.VERTICAL));
+	titel = new Label(topInfoLeft, SWT.FILL);
 	if (file.isEmpty()) {
 	    titel.setText(Messages.Overview_8);
 	} else {
 	    titel.setText(getTitleText(file.get(0)));
 	}
 	// topright
-	final Group topInfo_right = new Group(topInfo, SWT.END);
-	topInfo_right.setLayout(new GridLayout(5, false));
+	final Group topInfoRight = new Group(topInfo, SWT.END);
+	topInfoRight.setLayout(new GridLayout(5, false));
 	// getting all revisions of the inputs reports
 	revisions = new ArrayList<Integer>();
 	for (final TSMTestCase currentTestcase : input) {
@@ -361,7 +359,8 @@ public class Overview extends MultiPageEditorPartInput implements
 	Collections.sort(revisions);
 	Collections.reverse(revisions);
 	// viewing all revisions
-	btnAddAll = new Button(topInfo_right, SWT.PUSH);
+	Button btnAddAll;
+	btnAddAll = new Button(topInfoRight, SWT.PUSH);
 	btnAddAll.setText(Messages.Overview_10);
 	btnAddAll.addSelectionListener(new SelectionListener() {
 	    /**
@@ -385,7 +384,8 @@ public class Overview extends MultiPageEditorPartInput implements
 	});
 
 	// opens dialog to select specific revisions
-	btnCustom = new Button(topInfo_right, SWT.BUTTON1);
+	Button btnCustom;
+	btnCustom = new Button(topInfoRight, SWT.BUTTON1);
 	btnCustom.setText(Messages.Overview_11);
 	btnCustom.addSelectionListener(new SelectionListener() {
 	    /**
@@ -402,7 +402,7 @@ public class Overview extends MultiPageEditorPartInput implements
 		if (dia.open() == Window.OK) {
 		    sashPage0.removeAllColumns();
 		    // add selected
-		    revisionsSelected = dia.revTicks;
+		    revisionsSelected = dia.getRevTicks();
 		    Collections.sort(revisionsSelected);
 		    Collections.reverse(revisionsSelected);
 		    for (final int currentRevision : revisionsSelected) {
@@ -421,8 +421,8 @@ public class Overview extends MultiPageEditorPartInput implements
 	// initialize sashform
 	sashPage0 = new OverviewStepSash(parent);
 	if (onlyRep) {
-	    for (final int revision_column : revs) {
-		sashPage0.addColumn(revision_column + "", null);
+	    for (final int revisionColumn : revs) {
+		sashPage0.addColumn(revisionColumn + "", null);
 	    }
 	}
 	sashPage0.initSteps(input);
@@ -445,7 +445,7 @@ public class Overview extends MultiPageEditorPartInput implements
 	    input = (ArrayList<TSMTestCase>) ((TSMPackage) file).getTestCases();
 	    return (Messages.Overview_5 + file.getName());
 	} else if (file instanceof TSMTestCase) {
-	    input = SelectionManager.instance.getSelection().getTestCases();
+	    input = SelectionManager.getInstance().getSelection().getTestCases();
 	    return (Messages.Overview_6);
 	}
 	return (Messages.Overview_8);
@@ -461,7 +461,7 @@ public class Overview extends MultiPageEditorPartInput implements
 
 	    @Override
 	    public void widgetDisposed(final DisposeEvent e) {
-		sashPage1_revs.getSashManager().dispose();
+		sashPage1Revs.getSashManager().dispose();
 		dispose();
 	    }
 	});
@@ -484,19 +484,19 @@ public class Overview extends MultiPageEditorPartInput implements
 	}
 
 	// Composites for total statistics
-	final Group Statgrp = new Group(parent, SWT.FILL);
-	Statgrp.setLayout(new GridLayout(6, false));
-	final Composite col1 = new Composite(Statgrp, SWT.FILL);
+	final Group statGroup = new Group(parent, SWT.FILL);
+	statGroup.setLayout(new GridLayout(6, false));
+	final Composite col1 = new Composite(statGroup, SWT.FILL);
 	col1.setLayout(new GridLayout());
-	final Composite col2 = new Composite(Statgrp, SWT.FILL);
+	final Composite col2 = new Composite(statGroup, SWT.FILL);
 	col2.setLayout(new GridLayout());
-	final Composite col3 = new Composite(Statgrp, SWT.FILL);
+	final Composite col3 = new Composite(statGroup, SWT.FILL);
 	col3.setLayout(new GridLayout());
-	final Composite col4 = new Composite(Statgrp, SWT.FILL);
+	final Composite col4 = new Composite(statGroup, SWT.FILL);
 	col4.setLayout(new GridLayout());
-	final Composite col5 = new Composite(Statgrp, SWT.FILL);
+	final Composite col5 = new Composite(statGroup, SWT.FILL);
 	col5.setLayout(new GridLayout());
-	final Composite col6 = new Composite(Statgrp, SWT.FILL);
+	final Composite col6 = new Composite(statGroup, SWT.FILL);
 	col6.setLayout(new GridLayout());
 
 	final String[] time = getTimeSpentTotal();
@@ -576,7 +576,7 @@ public class Overview extends MultiPageEditorPartInput implements
 	final Label statLbl = new Label(parent, SWT.LEFT);
 	statLbl.setText(Messages.Overview_14);
 
-	sashPage1_revs = new OverviewStepSash(parent);
+	sashPage1Revs = new OverviewStepSash(parent);
 	Boolean noEst = false;
 	for (final TSMTestCase currentTestcase : TSMTestCase.list()) {
 	    if (currentTestcase.getData().getExpectedDuration().equals("00:00")
@@ -585,7 +585,7 @@ public class Overview extends MultiPageEditorPartInput implements
 		break;
 	    }
 	}
-	initColumnsRevs(sashPage1_revs, noEst);
+	initColumnsRevs(sashPage1Revs, noEst);
 	final ArrayList<String[]> revisionData = new ArrayList<String[]>();
 	final ArrayList<Integer> allRevs = new ArrayList<Integer>();
 	for (final TSMTestCase currentTestcase : TSMTestCase.list()) {
@@ -606,8 +606,8 @@ public class Overview extends MultiPageEditorPartInput implements
 		    getTimeNeeded(currentRevision) };
 	    revisionData.add(data);
 	}
-	sashPage1_revs.initSteps(revisionData);
-	sashPage1_revs.getSashManager().scrollToTop();
+	sashPage1Revs.initSteps(revisionData);
+	sashPage1Revs.getSashManager().scrollToTop();
 	// indexing + pagetitel
 	final int index = addPage(parent);
 	setPageText(index, Messages.Overview_3);

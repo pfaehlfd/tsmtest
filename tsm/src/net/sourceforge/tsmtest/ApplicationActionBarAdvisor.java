@@ -36,22 +36,17 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IAction exportAction;
     private IAction aboutAction;
     private IAction newWizardDropDownAction;
-    private IAction newAction;
     private IAction closeAction;
-    private IAction closeAllSavedAction;
     private IAction closeAllAction;
     private IAction deleteAction;
     private IAction copyAction;
-    private IAction cutAction;
-    private IAction pasteAction;
     private IAction refreshAction;
-    private IAction cutAction_1;
-    private IAction pasteAction_1;
+    private IAction cutAction1;
+    private IAction pasteAction1;
     private IAction saveAsAction;
     private IAction saveAllAction;
     private IAction showViewMenuAction;
     private IAction resetPerspectiveAction;
-    private IAction showViewMenuAction_1;
     private IAction preferencesAction;
     private ManualAction manualAction;
 
@@ -94,12 +89,14 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	newWizardDropDownAction.setText(Messages.ApplicationActionBarAdvisor_0);
 	register(newWizardDropDownAction);
 
+	IAction newAction;
 	newAction = ActionFactory.NEW.create(window);
 	register(newAction);
 
 	closeAction = ActionFactory.CLOSE.create(window);
 	register(closeAction);
 
+	IAction closeAllSavedAction;
 	closeAllSavedAction = ActionFactory.CLOSE_ALL_SAVED.create(window);
 	register(closeAllSavedAction);
 
@@ -112,20 +109,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	copyAction = ActionFactory.COPY.create(window);
 	register(copyAction);
 
+	IAction cutAction;
 	cutAction = ActionFactory.CUT.create(window);
 	register(cutAction);
 
+	IAction pasteAction;
 	pasteAction = ActionFactory.PASTE.create(window);
 	register(pasteAction);
 
 	refreshAction = ActionFactory.REFRESH.create(window);
 	register(refreshAction);
 
-	cutAction_1 = ActionFactory.CUT.create(window);
-	register(cutAction_1);
+	cutAction1 = ActionFactory.CUT.create(window);
+	register(cutAction1);
 
-	pasteAction_1 = ActionFactory.PASTE.create(window);
-	register(pasteAction_1);
+	pasteAction1 = ActionFactory.PASTE.create(window);
+	register(pasteAction1);
 
 	saveAsAction = ActionFactory.SAVE_AS.create(window);
 	register(saveAsAction);
@@ -140,8 +139,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	resetPerspectiveAction = ActionFactory.RESET_PERSPECTIVE.create(window);
 	register(resetPerspectiveAction);
 
-	showViewMenuAction_1 = ActionFactory.SHOW_VIEW_MENU.create(window);
-	register(showViewMenuAction_1);
+	IAction showViewMenuAction1;
+	showViewMenuAction1 = ActionFactory.SHOW_VIEW_MENU.create(window);
+	register(showViewMenuAction1);
 
 	preferencesAction = ActionFactory.PREFERENCES.create(window);
 	register(preferencesAction);
@@ -175,10 +175,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	fileMenu.add(new Separator());
 
 	fileMenu.add(exitAction);
-	editMenu.add(cutAction_1);
+	editMenu.add(cutAction1);
 
 	editMenu.add(copyAction);
-	editMenu.add(pasteAction_1);
+	editMenu.add(pasteAction1);
 	editMenu.add(new Separator());
 	editMenu.add(deleteAction);
 
