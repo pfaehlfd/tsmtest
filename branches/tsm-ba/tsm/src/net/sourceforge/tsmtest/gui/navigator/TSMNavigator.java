@@ -51,7 +51,7 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 		clipboard);
 
 	DataModel.getInstance().register(this);
-	FilterManager.instance.register(this);
+	FilterManager.getInstance().register(this);
     }
 
     @SuppressWarnings("deprecation")

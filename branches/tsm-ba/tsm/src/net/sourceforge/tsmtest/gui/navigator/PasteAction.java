@@ -111,7 +111,7 @@ public class PasteAction extends Action {
 	    filesToCopy.addAll(reportsToAddToFilesToCopy);
 	}
 	// get destination
-	TSMResource destination = SelectionManager.instance.getSelection()
+	TSMResource destination = SelectionManager.getInstance().getSelection()
 		.getFirstResource();
 	if (!(destination instanceof TSMContainer)) {
 	    destination = destination.getParent();

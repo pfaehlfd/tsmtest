@@ -38,7 +38,7 @@ public class TSMNavigatorContextMenu {
 	menuMgr.addMenuListener(new IMenuListener() {
 	    @Override
 	    public void menuAboutToShow(final IMenuManager manager) {
-		final SelectionModel sm = SelectionManager.instance
+		final SelectionModel sm = SelectionManager.getInstance()
 			.processSelection(tsmViewer.getSelection());
 		manager.add(createNewMenu(window, tsmViewer));
 		if (sm != null && !sm.isEmpty()) {

@@ -33,7 +33,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 public class ProjectWizard extends Wizard implements INewWizard, IExecutableExtension {
     private ProjectWizardPage mainPage;
     private IStructuredSelection selection;
-    IConfigurationElement configElement;
+    private IConfigurationElement configElement;
     public final static String id = "net.sourceforge.tsmtest.wizards.new.TSMProjectWizard"; //$NON-NLS-1$
 
     public ProjectWizard() {

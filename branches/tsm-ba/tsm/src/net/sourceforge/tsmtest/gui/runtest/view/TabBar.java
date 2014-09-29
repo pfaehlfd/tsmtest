@@ -43,7 +43,6 @@ import org.eclipse.swt.widgets.Display;
 public class TabBar implements DataModelObservable {
     public final static String ID = "net.sourceforge.tsmtest.gui.runtest.view.tabbar";
     private TSMTestCase testFile;
-    private List<TSMTestCase> allFileList;
     private ScrolledComposite scCases;
     private static final String fileID = "net.sourceforge.tsmtest.gui.runtest.IFile";
     private SelectionAdapter listen;
@@ -74,6 +73,7 @@ public class TabBar implements DataModelObservable {
      *            the TSMTestCase of the testcase
      */
     public void setFile(TSMTestCase testCaseFile) {
+	List<TSMTestCase> allFileList;
 	// Somehow it's under the impression that it is disposed, then we do nothing
 	if (scCases.isDisposed()){
 	    return;

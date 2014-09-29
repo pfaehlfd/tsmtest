@@ -109,11 +109,11 @@ public class OverviewStepSash {
     /**
      * Set the content of the sashform
      * 
-     * @param TSMTestCases
+     * @param tsmTestCases
      *            rows to be displayed
      */
-    public void initSteps(List<TSMTestCase> TSMTestCases) {
-	tableManager.setContent(TSMTestCases);
+    public void initSteps(List<TSMTestCase> tsmTestCases) {
+	tableManager.setContent(tsmTestCases);
     }
 
     /**

@@ -55,28 +55,28 @@ public class SashManager<T> {
     /**
      * Used to control the speed of the mousewheel-listener
      */
-    private static int SCROLLSPEED = 12;
+    private static int scrollspeed = 12;
     private ModifyListener heightListener;
 
     private Composite composite;
     private boolean disposed = false;
 
     /**
-     * Getter for Scrollspeed
+     * Getter for scrollspeed.
      * 
-     * @return scrollspeed
+     * @return The current scrollspeed.
      */
     public static int getScrollSpeed() {
-	return SCROLLSPEED;
+	return scrollspeed;
     }
 
     /**
-     * setter for ScrollSpeed
+     * Setter for scrollspeed.
      * 
-     * @param newSpeed
+     * @param newSpeed The new scrollspeed.
      */
     public synchronized static void setScrollSpeed(int newSpeed) {
-	SCROLLSPEED = newSpeed;
+	scrollspeed = newSpeed;
     }
 
     /**
@@ -113,7 +113,7 @@ public class SashManager<T> {
 	    public void mouseScrolled(final MouseEvent mouseEvent) {
 		ScrolledComposite scrolledComposite = (ScrolledComposite) mouseEvent.getSource();
 		Point point = scrolledComposite.getOrigin();
-		point.y -= mouseEvent.count * SCROLLSPEED;
+		point.y -= mouseEvent.count * scrollspeed;
 		scrolledComposite.setOrigin(point);
 	    }
 	};

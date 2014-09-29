@@ -40,7 +40,7 @@ public class CallRunTest extends AbstractHandler implements SelectionObservable 
 
     public CallRunTest() {
 	setBaseEnabled(false);
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
     }
 
     public void execute(TSMTestCase testCase) {
@@ -56,13 +56,13 @@ public class CallRunTest extends AbstractHandler implements SelectionObservable 
     public Object execute(ExecutionEvent event) throws ExecutionException {
 	TSMTestCase input = null;
 	SelectionModel sm = null;
-	sm = SelectionManager.instance.getSelection();
+	sm = SelectionManager.getInstance().getSelection();
 	if (sm == null) {
 	    throw new ExecutionException(Messages.CallRunTest_1);
 	} else if (sm.getTestCases().size() > 0) {
 	    input = sm.getTestCases().get(0);
 	} else {
-	    ArrayList<TSMTestCase> testCases = SelectionManager.instance
+	    ArrayList<TSMTestCase> testCases = SelectionManager.getInstance()
 		    .getSelection(event).getTestCases();
 	    if (testCases != null && testCases.size() > 0) {
 		input = testCases.get(0);
@@ -79,7 +79,7 @@ public class CallRunTest extends AbstractHandler implements SelectionObservable 
 
     @Override
     public void selectionChanged() {
-	setBaseEnabled(!SelectionManager.instance.getSelection().getTestCases()
+	setBaseEnabled(!SelectionManager.getInstance().getSelection().getTestCases()
 		.isEmpty());
     }
 

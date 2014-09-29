@@ -100,12 +100,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
     private final static String DESELECT_ALL_TITLE = net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_3;
 
     // boolean whether the export should be in one file or not
-    private boolean oneFile = true;
+    private boolean exportInOneFile = true;
 
     /**
      * 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
      */
-    private int export = 0;
+    private int typeOfExportedFiles = 0;
     
     private Text revision;
 
@@ -713,14 +713,14 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	Label label = new Label(options, SWT.LEFT);
 	label.setText(IDEWorkbenchMessages.ExportWizardPage_5);
 
-	final Button oneFile = new Button(options, SWT.RADIO);
-	oneFile.setText(net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_0);
-	oneFile.setSelection(true);
-	oneFile.addSelectionListener(new SelectionListener() {
+	final Button oneFileButton = new Button(options, SWT.RADIO);
+	oneFileButton.setText(net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_0);
+	oneFileButton.setSelection(true);
+	oneFileButton.addSelectionListener(new SelectionListener() {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		if (oneFile.getSelection()) {
+		if (oneFileButton.getSelection()) {
 		    setOneFile(true);
 		} else {
 		    setOneFile(false);
@@ -730,7 +730,7 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		if (oneFile.getSelection()) {
+		if (oneFileButton.getSelection()) {
 		    setOneFile(true);
 		} else {
 		    setOneFile(false);
@@ -747,7 +747,7 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		if (oneFile.getSelection()) {
+		if (oneFileButton.getSelection()) {
 		    setOneFile(true);
 		} else {
 		    setOneFile(false);
@@ -757,7 +757,7 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		if (oneFile.getSelection()) {
+		if (oneFileButton.getSelection()) {
 		    setOneFile(true);
 		} else {
 		    setOneFile(false);
@@ -788,12 +788,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		export = 0;
+		typeOfExportedFiles = 0;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		export = 0;
+		typeOfExportedFiles = 0;
 	    }
 
 	});
@@ -804,12 +804,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		export = 1;
+		typeOfExportedFiles = 1;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		export = 1;
+		typeOfExportedFiles = 1;
 	    }
 
 	});
@@ -820,12 +820,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		export = 2;
+		typeOfExportedFiles = 2;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		export = 2;
+		typeOfExportedFiles = 2;
 	    }
 
 	});
@@ -836,12 +836,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		export = 3;
+		typeOfExportedFiles = 3;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		export = 3;
+		typeOfExportedFiles = 3;
 	    }
 
 	});
@@ -850,23 +850,26 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
     }
 
     /**
-     * @return the boolean if the export should be into one file or not
+     * @return The boolean if the export should be into one file or not
      */
-    public boolean oneFile() {
-	return oneFile;
+    public boolean exportInOneFile() {
+	return exportInOneFile;
     }
 
     /**
-     * @param value
-     * 
-     *            Sets oneFile
+     * Sets whether the export should be in one file or not.
+     * @param exportInOneFile
      */
-    private void setOneFile(final boolean value) {
-	oneFile = value;
+    private void setOneFile(final boolean exportInOneFile) {
+	this.exportInOneFile = exportInOneFile;
     }
 
-    protected int getExportFiles() {
-	return export;
+    /**
+     * Getter for the type of exported files.
+     * @return 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
+     */
+    protected int getTypeOfExportFiles() {
+	return typeOfExportedFiles;
     }
     
     /**

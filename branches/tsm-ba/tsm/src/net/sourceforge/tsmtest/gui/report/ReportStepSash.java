@@ -76,8 +76,8 @@ public class ReportStepSash {
 	return tableManager;
     }
 
-    public void setContent(final List<TestStepDescriptor> TestStepDescriptors) {
-	tableManager.setContent(TestStepDescriptors);
+    public void setContent(final List<TestStepDescriptor> testStepDescriptors) {
+	tableManager.setContent(testStepDescriptors);
     }
 
     private SashManager<TestStepDescriptor>.SashManagerColumn<RichText> createTextColumn(

@@ -72,10 +72,10 @@ public class ViewReport extends MultiPageEditorPartInput implements
     private RichText precondition;
     private Label testCaseStatus;
     private Text testCaseDeprecatedText;
-    private TSMBreadcrumbViewer viewer;
     private Label testCaseDeprecatedLabel;
 
     private void createPage0() {
+	TSMBreadcrumbViewer viewer;
 	final Composite parent = new Composite(getContainer(), SWT.NONE);
 	final int columns = 5;
 	parent.setLayout(new GridLayout(columns, false));

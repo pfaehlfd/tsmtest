@@ -55,7 +55,6 @@ public class NewTestcaseWizardPage extends WizardPage {
     private Text fileText;
 
     private final IStructuredSelection selection;
-    private Label lblpackageproject;
 
     /**
      * Constructor for SampleNewWizardPage.
@@ -74,11 +73,13 @@ public class NewTestcaseWizardPage extends WizardPage {
      */
     @Override
     public void createControl(final Composite parent) {
+	Label lblpackageproject;
 	final Composite container = new Composite(parent, SWT.NULL);
 	final GridLayout layout = new GridLayout();
 	container.setLayout(layout);
 	layout.numColumns = 3;
 	layout.verticalSpacing = 9;
+
 	Label label;
 	lblpackageproject = new Label(container, SWT.NULL);
 	lblpackageproject.setText(Messages.NewTestcaseWizardPage_1);

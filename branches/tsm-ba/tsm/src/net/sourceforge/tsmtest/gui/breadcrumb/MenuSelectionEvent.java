@@ -34,7 +34,7 @@ public class MenuSelectionEvent extends EventObject {
 	/**
 	 * The selection.
 	 */
-	protected ISelection selection;
+	private ISelection selection;
 
 	/**
 	 * Creates a new event for the given source and selection.

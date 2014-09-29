@@ -31,8 +31,8 @@ import org.eclipse.swt.widgets.Shell;
  * 
  */
 public class ToolTipListener implements Listener {
-    Shell tip = null;
-    RichText richTextDesc = null;
+    private Shell tip = null;
+    private RichText richTextDesc = null;
     private String htmlToolTip;
     private Shell displayShell;
     private Point displaySize = new Point(400, 200);

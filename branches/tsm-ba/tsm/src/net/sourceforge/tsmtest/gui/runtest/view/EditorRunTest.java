@@ -103,15 +103,10 @@ public class EditorRunTest extends EditorPartInput implements
     private Composite parent;
     private static String lastRevision = 0 + "";
     private static String lastTester = "";
-    private Button btnDone;
-
     private RunTestStepSash stepSash;
 
     // Whether there is unsaved input
     private boolean dirty;
-
-    // Used for the elapsed time
-    private Thread thread;
     private boolean stopthread;
     private boolean pausethread = false;
     private Calendar startTime = Calendar.getInstance();
@@ -355,9 +350,9 @@ public class EditorRunTest extends EditorPartInput implements
 	txtTime = new Text(cmpFirst, SWT.NONE);
 	txtTime.setEditable(false);
 	txtTime.setText("00:00:00"); //$NON-NLS-1$
-	final GridData gd_txtTime = new GridData(SWT.LEFT, SWT.CENTER, false,
+	final GridData gridDataTxtTime = new GridData(SWT.LEFT, SWT.CENTER, false,
 		false, 1, 1);
-	txtTime.setLayoutData(gd_txtTime);
+	txtTime.setLayoutData(gridDataTxtTime);
 	txtTime.setBackground(white);
 
 	btnTimer = new Button(cmpFirst, SWT.NONE);
@@ -369,21 +364,21 @@ public class EditorRunTest extends EditorPartInput implements
 	});
 	btnTimer.setImage(ResourceManager.getImgPause());
 
-	final GridData gd_button = new GridData(SWT.LEFT, SWT.CENTER, false,
+	final GridData gridDataButton = new GridData(SWT.LEFT, SWT.CENTER, false,
 		false, 1, 1);
-	gd_button.widthHint = 34;
-	btnTimer.setLayoutData(gd_button);
+	gridDataButton.widthHint = 34;
+	btnTimer.setLayoutData(gridDataButton);
 	btnTimer.setImage(ResourceManager.getImgPause());
 
-	final Composite cmpSecond = new Composite(mainSettings, SWT.None);
-	cmpSecond.setLayout(new GridLayout(7, false));
-	cmpSecond
+	final Composite compositeSecond = new Composite(mainSettings, SWT.None);
+	compositeSecond.setLayout(new GridLayout(7, false));
+	compositeSecond
 		.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
-	final Label lbRevision = new Label(cmpSecond, SWT.NONE);
+	final Label lbRevision = new Label(compositeSecond, SWT.NONE);
 	lbRevision.setText(Messages.EditorRunTest_22);
 
-	txtRevision = new Text(cmpSecond, SWT.BORDER);
+	txtRevision = new Text(compositeSecond, SWT.BORDER);
 	txtRevision.setEditable(true);
 	txtRevision.setTextLimit(10);
 	final GridData gdRevision = new GridData(SWT.FILL, SWT.CENTER, false,
@@ -394,35 +389,35 @@ public class EditorRunTest extends EditorPartInput implements
 	txtRevision.addModifyListener(listen);
 	txtRevision.addModifyListener(lastChangedOnListener);
 
-	final Label lblSpace3 = new Label(cmpSecond, SWT.None);
+	final Label lblSpace3 = new Label(compositeSecond, SWT.None);
 	lblSpace3
 		.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
 
-	final Label lbTester = new Label(cmpSecond, SWT.NONE);
+	final Label lbTester = new Label(compositeSecond, SWT.NONE);
 	lbTester.setText(Messages.EditorRunTest_11);
 
-	txtTester = new Text(cmpSecond, SWT.BORDER);
+	txtTester = new Text(compositeSecond, SWT.BORDER);
 	txtTester.setEditable(true);
-	final GridData gdTester = new GridData(SWT.FILL, SWT.CENTER, false,
+	final GridData gridDataTester = new GridData(SWT.FILL, SWT.CENTER, false,
 		false, 2, 1);
-	gdTester.minimumWidth = 180;
-	gdTester.widthHint = 180;
-	txtTester.setLayoutData(gdTester);
+	gridDataTester.minimumWidth = 180;
+	gridDataTester.widthHint = 180;
+	txtTester.setLayoutData(gridDataTester);
 	txtTester.addModifyListener(listen);
 	txtTester.addModifyListener(lastChangedOnListener);
 
-	final GridData gd_Pre = new GridData(SWT.FILL, SWT.CENTER, true, false,
+	final GridData gridDataPre = new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1);
-	gd_Pre.minimumHeight = 100;
-	gd_Pre.heightHint = 100;
-	gd_Pre.minimumWidth = this.parent.getSize().x;
+	gridDataPre.minimumHeight = 100;
+	gridDataPre.heightHint = 100;
+	gridDataPre.minimumWidth = this.parent.getSize().x;
 
-	final Group grpPreCon = new Group(this.parent, SWT.NONE);
-	grpPreCon.setLayout(new GridLayout());
-	grpPreCon.setLayoutData(gd_Pre);
-	grpPreCon.setText(Messages.EditorRunTest_12);
+	final Group groupPreCon = new Group(this.parent, SWT.NONE);
+	groupPreCon.setLayout(new GridLayout());
+	groupPreCon.setLayoutData(gridDataPre);
+	groupPreCon.setText(Messages.EditorRunTest_12);
 
-	richTextPreCon = new RichText(grpPreCon, SWT.V_SCROLL);
+	richTextPreCon = new RichText(groupPreCon, SWT.V_SCROLL);
 	richTextPreCon.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 		true));
 	richTextPreCon.addModifyListener(lastChangedOnListener);
@@ -467,22 +462,23 @@ public class EditorRunTest extends EditorPartInput implements
 		false, 1, 1));
 	btnComponent.setLayout(new GridLayout(1, false));
 
-	final Composite Actions = new Composite(btnComponent, SWT.NONE);
-	Actions.setLayout(new GridLayout(1, false));
-	Actions.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
+	final Composite actions = new Composite(btnComponent, SWT.NONE);
+	actions.setLayout(new GridLayout(1, false));
+	actions.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 		1, 1));
 
-	btnDone = new Button(Actions, SWT.NONE);
+	Button btnDone;
+	btnDone = new Button(actions, SWT.NONE);
 	btnDone.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseDown(final MouseEvent e) {
 		saveTestProtocoll();
 	    }
 	});
-	final GridData gd_btnDone = new GridData(SWT.FILL, SWT.CENTER, false,
+	final GridData gridDataBtnDone = new GridData(SWT.FILL, SWT.CENTER, false,
 		false, 1, 1);
-	gd_btnDone.widthHint = 565;
-	btnDone.setLayoutData(gd_btnDone);
+	gridDataBtnDone.widthHint = 565;
+	btnDone.setLayoutData(gridDataBtnDone);
 	btnDone.setText(Messages.EditorRunTest_18);
 	setFields();
 
@@ -834,6 +830,8 @@ public class EditorRunTest extends EditorPartInput implements
 
     @Override
     protected void initInput(final TSMTestCase input) {
+	// Used for the elapsed time
+	Thread thread;
 	this.input = input;
 
 	setPartName(input.getName());

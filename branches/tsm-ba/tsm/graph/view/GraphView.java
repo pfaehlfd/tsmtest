@@ -83,7 +83,7 @@ public class GraphView extends ViewPart implements SelectionObservable,
 	    }
 
 	});
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
 	DataModel.getInstance().register(this);
     }
 
@@ -92,7 +92,7 @@ public class GraphView extends ViewPart implements SelectionObservable,
     }
     
     public void dispose(){
-	SelectionManager.instance.unregister(this);
+	SelectionManager.getInstance().unregister(this);
 	DataModel.getInstance().unregister(this);
 	super.dispose();
     }
@@ -115,7 +115,7 @@ public class GraphView extends ViewPart implements SelectionObservable,
     @Override
     public void selectionChanged() {
 	List<GraphNode> nodes = viewer.getGraphControl().getNodes();
-	List<TSMResource> selected = SelectionManager.instance.getSelection()
+	List<TSMResource> selected = SelectionManager.getInstance().getSelection()
 		.getAllResources();
 	GraphNode[] toSelect = new GraphNode[selected.size()];
 	int i = 0;

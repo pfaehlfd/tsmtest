@@ -131,7 +131,7 @@ public class PdfWizard extends Wizard implements INewWizard {
      */
     @Override
     public boolean performFinish() {
-	final boolean intoOneFile = page.oneFile();
+	final boolean intoOneFile = page.exportInOneFile();
 	boolean yesToAll = false;
 	boolean noToAll = false;
 	int answer = 0;

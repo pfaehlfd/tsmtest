@@ -31,6 +31,6 @@ public class ShowOverviewAction extends Action {
 
     @Override
     public void run() {
-	Overview.openGUI(SelectionManager.instance.getSelection());
+	Overview.openGUI(SelectionManager.getInstance().getSelection());
     }
 }

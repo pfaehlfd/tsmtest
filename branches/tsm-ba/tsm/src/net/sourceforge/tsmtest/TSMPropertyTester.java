@@ -52,7 +52,7 @@ public class TSMPropertyTester extends PropertyTester {
 	    return PreferenceManager.getInstance().getPreferences().getRole() == PreferenceConstants.ROLE_TEST_MANAGER;
 	}
 	if (PROPERTY_IS_SELECTION_TEST_CASE.equals(property)) {
-	    return (SelectionManager.instance.getSelection().getFirstFile() instanceof TSMTestCase);
+	    return (SelectionManager.getInstance().getSelection().getFirstFile() instanceof TSMTestCase);
 	}
 	return false;
     }
