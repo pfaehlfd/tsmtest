@@ -87,7 +87,7 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 	collapseAllAction.setImageDescriptor(collapseAllIcon);
 	collapseAllAction.setHoverImageDescriptor(collapseAllIcon);
 	final ImageDescriptor expandAllIcon = NavigatorPlugin
-		.getImageDescriptor("icons/full/elcl16/expandeall.gif"); //$NON-NLS-1$
+		.getImageDescriptor("platform:/plugin/org.eclipse.search/icons/full/elcl16/expandall.gif"); //$NON-NLS-1$
 	expandAllAction.setImageDescriptor(expandAllIcon);
 	expandAllAction.setHoverImageDescriptor(expandAllIcon);
 	toolbarManager.add(new NewProjectAction(""));
