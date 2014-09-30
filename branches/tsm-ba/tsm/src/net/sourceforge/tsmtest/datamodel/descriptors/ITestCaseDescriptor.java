@@ -24,6 +24,10 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  */
 public interface ITestCaseDescriptor {
     public long getId();
+    /**
+     * Gets the tester for a test case.
+     * @return The name of the assigned tester.
+     */
     public String getAssignedTo();
     public String getAuthor();
     public Date getCreationDate();

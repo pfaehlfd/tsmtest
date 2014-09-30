@@ -187,11 +187,6 @@ public final class DataModel extends AbstractDataModel implements
 	return cont;
     }
 
-    /**
-     * Returns all values of the projects-map
-     * 
-     * @return projects
-     */
     @Override
     protected Collection<TSMProject> getProjects() {
 	return projects.values();
@@ -864,15 +859,8 @@ public final class DataModel extends AbstractDataModel implements
 		DataModelException.RESOURCE_NOT_FOUND_ERROR);
     }
 
-    /**
-     * Creates a new project, initializing the default data
-     * 
-     * @param name
-     *            name of the new project
-     * @param workingSets
-     *            optional association to a working set
-     * @return the created project
-     * @throws DataModelException
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.AbstractDataModel#createProject(java.lang.String, org.eclipse.ui.IWorkingSet[])
      */
     @Override
     protected TSMProject createProject(final String name,

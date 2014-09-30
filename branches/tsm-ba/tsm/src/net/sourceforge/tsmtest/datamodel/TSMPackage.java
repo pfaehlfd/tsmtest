@@ -34,8 +34,12 @@ public class TSMPackage extends TSMContainer {
 	return DataModel.getInstance().getPackages();
     }
 
+    /**
+     * Getter for the category for TSMViewerComparator.
+     * @return The categories of the TSMPackage.
+     */
     public static int getCategory() {
-	return 3;
+	return DataModelTypes.CATEGORY_TSMPACKAGE;
     }
 
 }

@@ -32,7 +32,6 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class ToolTipListener implements Listener {
     private Shell tip = null;
-    private RichText richTextDesc = null;
     private String htmlToolTip;
     private Shell displayShell;
     private Point displaySize = new Point(400, 200);
@@ -40,6 +39,7 @@ public class ToolTipListener implements Listener {
 
     @Override
     public void handleEvent(final Event event) {
+	RichText richTextDesc = null;
 	/*
 	 * We fall through as the different actions should trigger the same
 	 * response

@@ -44,7 +44,6 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 public class FilterView extends ViewPart implements DataModelObservable {
-
     public static final String ID = "net.sourceforge.tsmtest.gui.filter.Filter"; //$NON-NLS-1$
     private Text textFieldName;
     private Combo textFieldCreator;

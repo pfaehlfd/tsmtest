@@ -33,7 +33,6 @@ import net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor;
  *
  */
 public class TSMReport extends TSMResource {
-
     public final static String INITIAL_CONTENT = "<tsmtestcaseprotocol></tsmtestcaseprotocol>";
     private TestCaseDescriptor data;
 
@@ -43,6 +42,10 @@ public class TSMReport extends TSMResource {
 	this.data = data;
     }
 
+    /**
+     * Gets the TestCaseDescriptor for the TSMReport.
+     * @return The TestCaseDescriptor for the TSMReport.
+     */
     public ITestCaseDescriptor getData() {
 	return data;
     }
@@ -126,6 +129,12 @@ public class TSMReport extends TSMResource {
 	return DataModelTypes.TSM_REPORT_EXTENSION;
     }
 
+    /**
+     * Getter for the default name of a report.
+     * @param testCaseName The name of the test case to which the report belongs.
+     * @param executionDate The execution date of the test case which is stored in the report.
+     * @return The name to be displayed: testCaseName + "_" + executionDate.
+     */
     public static String getDefaultName(final String testCaseName,
 	    final Date executionDate) {
 	final SimpleDateFormat date = new SimpleDateFormat(
@@ -135,10 +144,18 @@ public class TSMReport extends TSMResource {
 	return testCaseName + "_" + sDate;
     }
 
+    /**
+     * Getter for the category for TSMViewerComparator.
+     * @return The categories of the TSMReport.
+     */
     public static int getCategory() {
-	return 2;
+	return DataModelTypes.CATEGORY_TSMREPORT;
     }
 
+    /**
+     * Gets all testers.
+     * @return
+     */
     public static String[] getAllTesters() {
 	final Set<String> list = DataModel.getInstance().getAllTesters();
 	final String[] array = new String[list.size()];

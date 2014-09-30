@@ -43,6 +43,9 @@ public class TSMProject extends TSMContainer {
 	return isFinished;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.TSMResource#getProject()
+     */
     public TSMProject getProject() {
 	return this;
     }
@@ -56,16 +59,30 @@ public class TSMProject extends TSMContainer {
 	// FIXME Should save a meta information that this project is finished
     }
     
+    /**
+     * Creates a TSMProject.
+     * @param name Name of the new project.
+     * @param workingSets Optional association to a working set
+     * @return The created project.
+     * @throws DataModelException
+     */
     public static TSMProject create(String name, IWorkingSet[] workingSets) throws DataModelException {
 	return DataModel.getInstance().createProject(name, workingSets);
     }
     
+    /**
+     * @return A collection of TSMProjects.
+     */
     public static Collection<TSMProject> list() {
 	return DataModel.getInstance().getProjects();
     }
 
+    /**
+     * Getter for the category for TSMViewerComparator.
+     * @return The categories of the TSMProject.
+     */
     public static int getCategory() {
-	return 4;
+	return DataModelTypes.CATEGORY_TSMPROJECT;
     }
     
 //    public TSMPackage findPackage(String path) {
