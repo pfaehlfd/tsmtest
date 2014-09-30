@@ -101,7 +101,7 @@ public class TSMTestCase extends TSMResource {
     public TSMReport createReport(final TestCaseDescriptor newReport)
 	    throws DataModelException {
 	final String name = TSMReport.getDefaultName(getName(),
-		newReport.getLastExecution());
+		newReport.getLastExecution(), newReport.getRevisionNumber());
 	return DataModel.getInstance().createReport(name, newReport, this);
     }
 

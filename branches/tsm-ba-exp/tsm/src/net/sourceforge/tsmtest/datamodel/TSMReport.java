@@ -136,12 +136,12 @@ public class TSMReport extends TSMResource {
      * @return The name to be displayed: testCaseName + "_" + executionDate.
      */
     public static String getDefaultName(final String testCaseName,
-	    final Date executionDate) {
+	    final Date executionDate, final int revisionNumber) {
 	final SimpleDateFormat date = new SimpleDateFormat(
 		"MM-dd-yyyy_HH-mm-ss");
 	final StringBuilder sDate = new StringBuilder(
 		date.format(executionDate));
-	return testCaseName + "_" + sDate;
+	return testCaseName + "_" + sDate + "_" + String.valueOf(revisionNumber);
     }
 
     /**
