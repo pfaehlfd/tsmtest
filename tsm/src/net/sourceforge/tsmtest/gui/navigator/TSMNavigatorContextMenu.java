@@ -28,11 +28,14 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
 
+/**
+ * Creates the context menu in the tsm navigator.
+ * @author Albert Flaig
+ *
+ */
 public class TSMNavigatorContextMenu {
-
     public TSMNavigatorContextMenu(final TSMTreeViewer tsmViewer,
 	    final IWorkbenchWindow window, final Clipboard clipboard) {
-
 	final MenuManager menuMgr = new MenuManager();
 
 	menuMgr.addMenuListener(new IMenuListener() {
@@ -86,21 +89,41 @@ public class TSMNavigatorContextMenu {
 	tsmViewer.getControl().setMenu(menu);
     }
 
+    /**
+     * Determines whether a given selection is a test case.
+     * @param sm Selection to be examined.
+     * @return true if sm is TSMTestCase, false otherwise.
+     */
     private boolean isTestCase(final SelectionModel sm) {
 	return (sm != null && sm.getFirstResource() != null && sm
 		.getFirstResource() instanceof TSMTestCase);
     }
 
+    /**
+     * Determines whether a given selection is a tsm project.
+     * @param sm Selection to be examined.
+     * @return true if sm is TSMProject, fals otherwise.
+     */
     private boolean isProject(final SelectionModel sm) {
 	return (sm != null && sm.getFirstResource() != null && sm
 		.getFirstResource() instanceof TSMProject);
     }
 
+    /**
+     * Determines whether a given selection is a tsm package.
+     * @param sm Selection to be examined.
+     * @return true if sm is TSMPackage, false otherwise.
+     */
     private boolean isPackage(final SelectionModel sm) {
 	return (sm != null && sm.getFirstResource() != null && sm
 		.getFirstResource() instanceof TSMPackage);
     }
 
+    /**
+     * Determines whether a given selection is a tsm report.
+     * @param sm The Selection to be examined.
+     * @return true if sm is TSMReport, false otherwise.
+     */
     private boolean isReport(final SelectionModel sm) {
 	return (sm != null && sm.getFirstResource() != null && sm
 		.getFirstResource() instanceof TSMReport);

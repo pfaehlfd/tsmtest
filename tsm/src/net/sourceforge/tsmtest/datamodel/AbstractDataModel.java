@@ -71,9 +71,24 @@ public abstract class AbstractDataModel {
 
     protected abstract Collection<TSMPackage> getPackages();
 
+    /**
+     * Creates a new project, initializing the default data
+     * 
+     * @param name
+     *            Name of the new project
+     * @param workingSets
+     *            Optional association to a working set
+     * @return the created project
+     * @throws DataModelException
+     */
     protected abstract TSMProject createProject(String name,
 	    IWorkingSet[] workingSets) throws DataModelException;
 
+    /**
+     * Returns all values of the projects-map
+     * 
+     * @return projects
+     */
     protected abstract Collection<TSMProject> getProjects();
 
     protected abstract TSMReport updateTestCaseReport(String name,
@@ -89,6 +104,10 @@ public abstract class AbstractDataModel {
 
     protected abstract TSMTestCase getTestCaseById(long id);
 
+    /**
+     * Gets all testers.
+     * @return A set with all testers.
+     */
     protected abstract Set<String> getAllTesters();
 
     protected abstract Collection<TSMReport> getReports();

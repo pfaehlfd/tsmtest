@@ -42,6 +42,11 @@ public class DataModelTypes {
      * The ID of the contentType of a test case file.
      */
     public static final String CONTENT_TYPE_ID_TESTCASE = "net.sourceforge.tsmtest.contenttype.testcase";
+    //Categories for TSMViewerComparator.
+    static final int CATEGORY_TSMTESTCASE = 1;
+    static final int CATEGORY_TSMREPORT = 2;
+    static final int CATEGORY_TSMPACKAGE = 3;
+    static final int CATEGORY_TSMPROJECT = 4;
 
     /**
      * The ID of the protocol.
@@ -52,6 +57,7 @@ public class DataModelTypes {
 
     public static final String TSM_TEST_CASE_EXTENSION = ".xml";
     public static final String TSM_REPORT_EXTENSION = ".xml";
+    
     /**
      * Global date format for durations and dates of last execution.
      */

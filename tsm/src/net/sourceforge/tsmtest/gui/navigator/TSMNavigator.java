@@ -12,8 +12,8 @@
  *******************************************************************************/ 
 package net.sourceforge.tsmtest.gui.navigator;
 
-import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.AbstractDataModel.DataModelObservable;
+import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.gui.filter.FilterManager;
 import net.sourceforge.tsmtest.gui.filter.FilterManager.FilterListener;
 
@@ -26,7 +26,7 @@ import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.internal.navigator.NavigatorPlugin;
 import org.eclipse.ui.part.ViewPart;
 
@@ -54,17 +54,16 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 	FilterManager.getInstance().register(this);
     }
 
-    @SuppressWarnings("deprecation")
     private void initializeGlobalActions(final Clipboard clipboard) {
 	// add cut and paste support
 	final IActionBars bars = getViewSite().getActionBars();
-	bars.setGlobalActionHandler(IWorkbenchActionConstants.CUT,
+	bars.setGlobalActionHandler(ActionFactory.CUT.getId(), 
 		new CutAction("", getSite().getWorkbenchWindow(), clipboard));
-	bars.setGlobalActionHandler(IWorkbenchActionConstants.COPY,
-		new CopyAction("", getSite().getWorkbenchWindow(), clipboard));
-	bars.setGlobalActionHandler(IWorkbenchActionConstants.PASTE,
+	bars.setGlobalActionHandler(ActionFactory.COPY.getId(), 
+		new CopyAction("",getSite().getWorkbenchWindow(), clipboard));
+	bars.setGlobalActionHandler(ActionFactory.PASTE.getId(), 
 		new PasteAction("", getSite().getWorkbenchWindow(), clipboard));
-	bars.setGlobalActionHandler(IWorkbenchActionConstants.DELETE,
+	bars.setGlobalActionHandler(ActionFactory.DELETE.getId(), 
 		new DeleteAction("", getSite().getWorkbenchWindow()));
     }
 
@@ -100,6 +99,7 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 	Display.getDefault().asyncExec(new Runnable() {
 	    @Override
 	    public void run() {
+		//Get already expanded elements, refresh and expand them again.
 		final Object[] expandedElements = tsmViewer
 			.getExpandedElements();
 		tsmViewer.refresh();
@@ -110,6 +110,7 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
     
     @Override
     public void filterChanged() {
+	//Get already expanded elements, refresh and expand them again.
 	final Object[] expandedElements = tsmViewer
 		.getExpandedElements();
 	tsmViewer.refresh();

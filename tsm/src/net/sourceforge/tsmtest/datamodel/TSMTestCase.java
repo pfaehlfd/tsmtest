@@ -92,6 +92,12 @@ public class TSMTestCase extends TSMResource {
 	return DataModel.getInstance().getReportOfTestCase(getData().getId());
     }
 
+    /**
+     * Creates a new TSMReport that belongs to the TSMTestCase.
+     * @param newReport The TestCaseDescriptor to which the report should belong.
+     * @return The new TSMReport.
+     * @throws DataModelException
+     */
     public TSMReport createReport(final TestCaseDescriptor newReport)
 	    throws DataModelException {
 	final String name = TSMReport.getDefaultName(getName(),
@@ -112,8 +118,12 @@ public class TSMTestCase extends TSMResource {
 	return DataModelTypes.TSM_TEST_CASE_EXTENSION;
     }
 
+    /**
+     * Getter for the category for TSMViewerComparator.
+     * @return The categories of the TSMTestCase.
+     */
     public static int getCategory() {
-	return 1;
+	return DataModelTypes.CATEGORY_TSMTESTCASE;
     }
 
     /**

@@ -124,6 +124,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	this.author = author;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getAssignedTo()
+     */
     @Override
     public String getAssignedTo() {
 	return assignedTo;
