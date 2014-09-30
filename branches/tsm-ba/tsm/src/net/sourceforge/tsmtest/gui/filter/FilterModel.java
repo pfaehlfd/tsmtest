@@ -57,6 +57,8 @@ public final class FilterModel {
     }
 
     private FilterModel() {
+	//Reset the filter at the initialization to ensure that nothing is filtered at start time.
+	reset();
     }
 
     public boolean isUnassigned() {
