@@ -32,11 +32,10 @@ import net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor;
 import net.sourceforge.tsmtest.gui.ResourceManager;
 import net.sourceforge.tsmtest.gui.richtexteditor.RichText;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
 
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.Chapter;
@@ -44,7 +43,6 @@ import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -62,73 +60,16 @@ import com.itextpdf.text.pdf.PdfWriter;
  * 
  */
 public class ExportPdf {
-    // font sizes
-    private static final int STANDARD_FONT_SIZE = 12;
-    private static final int HEADER_FONT_SIZE = 18;
-    private static final int SMALL_FONT_SIZE = 8;
-    // five basic fonts
-    private static Font normalFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.NORMAL);
-    private static Font boldFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD);
-    private static Font italicFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.ITALIC);
-    private static Font underlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.UNDERLINE);
-    private static Font strikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.STRIKETHRU);
-
-    // 2 mixed fonts
-    private static Font boldItalicFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.BOLDITALIC);
-    private static Font boldUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.BOLD | Font.UNDERLINE);
-    private static Font boldStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
-	    | Font.STRIKETHRU);
-    private static Font italicUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.ITALIC | Font.UNDERLINE);
-    private static Font italicStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.ITALIC | Font.STRIKETHRU);
-    private static Font underlineStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.UNDERLINE | Font.STRIKETHRU);
-
-    // 3 mixed fonts
-    private static Font boldItalicUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.BOLD | Font.ITALIC | Font.UNDERLINE);
-    private static Font boldItalicStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.BOLD | Font.ITALIC | Font.STRIKETHRU);
-    private static Font boldUnderlineStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
-	    Font.BOLD | Font.UNDERLINE | Font.STRIKETHRU);
-    private static Font italicUnderlineStrikeFont = new Font(Font.HELVETICA,
-	    STANDARD_FONT_SIZE, Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
-
-    // all fonts
-    private static Font allFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
-	    | Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
-
-    // header font
-    private static Font bigBold = new Font(Font.HELVETICA, HEADER_FONT_SIZE, Font.BOLD);
-
-    // captureFont
-    private static Font smallFont = new Font(Font.HELVETICA, SMALL_FONT_SIZE);
-
     private static boolean bold;
     private static boolean italic;
     private static boolean underline;
     private static boolean strike;
     
-    // margins
-    private static final float LEFT_MARGIN = 25;
-    private static final float RIGHT_MARGIN = 25;
-    private static final float TOP_MARGIN = 25;
-    private static final float BOTTOM_MARGIN = 60;
-    
-    //WIDTH_PERCENTAGE
-    private static final float WIDTH_PERCENTAGE = 100;
-    
-
     private static PdfWriter writer;
 
     private static List<Image> imageList = new ArrayList<Image>();
     private static List<String> nameList = new ArrayList<String>();
-    private static int counterForPics = 1;
+    private static int counterForImages = 1;
 
     private static boolean isTestStep = false;
 
@@ -138,27 +79,30 @@ public class ExportPdf {
     }
 
     /**
-     * @param newList
-     *            the IFile of the exported protocol or test case
-     * @param path
-     *            The path where it should be saved
+     * @param newList The IFile of the exported protocol or test case.
+     * @param path The path where it should be saved.
+     * @param exportType The type of export (one file, multiple files, one test case with all revisions).
+     * @param monitor
      * @throws DocumentException
      * @throws IOException
      */
     public static void print(List<TSMResource> newList, String path,
-	    boolean oneFile, IProgressMonitor monitor)
+	    ExportType exportType, IProgressMonitor monitor)
 	    throws DocumentException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, "document", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, "document", 1);
 	if (!progressMonitor.isCanceled()) {
-	    if (oneFile) {
-		counterForPics = 1;
+	    //Export in one file.
+	    if (exportType == ExportType.ONE_FILE) {
+		counterForImages = 1;
 		Document document = new Document();
 		document.setPageSize(PageSize.A4);
-		document.setMargins(LEFT_MARGIN, RIGHT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN);
+		document.setMargins(FontsToolsConstants.LEFT_MARGIN, FontsToolsConstants.RIGHT_MARGIN, FontsToolsConstants.TOP_MARGIN, FontsToolsConstants.BOTTOM_MARGIN);
 		// reset list
 		imageList = new ArrayList<Image>();
 		nameList = new ArrayList<String>();
 		String fileName;
+
+		//Check for correct filename extension.
 		if (path.endsWith(".pdf")) { //$NON-NLS-1$
 		    fileName = path;
 		} else {
@@ -172,15 +116,17 @@ public class ExportPdf {
 
 		document.open();
 		addContentOneFile(document, newList, footer,
-			getSubMonitor(monitor, 1));
+			FontsToolsConstants.getSubMonitor(monitor, 1));
 		document.close();
-	    } else {
+	    } 
+	    //Export in multiple files.
+	    else if (exportType == ExportType.ONE_FILE){
 		// go through the list and create one document for each entry
 		for (TSMResource currentResource : newList) {
-		    counterForPics = 1;
+		    counterForImages = 1;
 		    Document document = new Document();
 		    document.setPageSize(PageSize.A4);
-		    document.setMargins(LEFT_MARGIN, RIGHT_MARGIN, TOP_MARGIN, BOTTOM_MARGIN);
+		    document.setMargins(FontsToolsConstants.LEFT_MARGIN, FontsToolsConstants.RIGHT_MARGIN, FontsToolsConstants.TOP_MARGIN, FontsToolsConstants.BOTTOM_MARGIN);
 		    // reset list
 		    imageList = new ArrayList<Image>();
 		    nameList = new ArrayList<String>();
@@ -190,6 +136,7 @@ public class ExportPdf {
 
 		    File destinationFolder = new File(path + currentResource.getPath());
 
+		    //If export folder doesn't not exist create it.
 		    if (!destinationFolder.exists()) {
 			if (!destinationFolder.mkdirs()) {
 			    throw new IOException(Messages.ExportPdf_0);
@@ -217,7 +164,7 @@ public class ExportPdf {
 
 		    document.open();
 		    addMetaData(document, currentResource);
-		    addContent(document, currentResource, getSubMonitor(monitor, 1));
+		    addContent(document, currentResource, FontsToolsConstants.getSubMonitor(monitor, 1));
 		    document.close();
 		}
 
@@ -227,7 +174,7 @@ public class ExportPdf {
 	    progressMonitor.done();
 	}
     }
-
+    
     /**
      * This method adds the chapters if all test cases are exported in one file
      * 
@@ -246,18 +193,18 @@ public class ExportPdf {
 	    List<TSMResource> newList, FooterOneFile footer,
 	    IProgressMonitor monitor) throws MalformedURLException,
 	    DocumentException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> content", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> content", 1);
 	int chapterNumber = 1;
 	Chapter chapter = null;
 	// go through all files
 	for (int i = 0; i < newList.size(); i++) {
 	    if (!progressMonitor.isCanceled()) {
 		TSMResource file = newList.get(i);
-		footer.setId(getId(file));
+		footer.setId(FontsToolsConstants.getId(file));
 		// first element has a new chapter
 		if (i == 0) {
 		    Anchor anchor = new Anchor(file.getProject().getName(),
-			    bigBold);
+			    FontsToolsConstants.bigBold);
 		    anchor.setName(file.getProject().getName());
 		    // Second parameter is the number of the chapter
 		    chapter = new Chapter(new Paragraph(anchor), chapterNumber);
@@ -269,7 +216,7 @@ public class ExportPdf {
 
 		    Paragraph entryParagraph = new Paragraph(file.getName());
 		    createEntries(document, entryParagraph, file, footer,
-			    getSubMonitor(monitor, 1));
+			    FontsToolsConstants.getSubMonitor(monitor, 1));
 		    chapter.addSection(entryParagraph);
 		} else {
 		    // if same project it is the same chapter
@@ -278,13 +225,13 @@ public class ExportPdf {
 			chapter.newPage();
 			Paragraph entryParagraph = new Paragraph(file.getName());
 			createEntries(document, entryParagraph, file, footer,
-				getSubMonitor(monitor, 1));
+				FontsToolsConstants.getSubMonitor(monitor, 1));
 			chapter.addSection(entryParagraph);
 		    } else {
 			// Add the old chapter before creating a new one
 			document.add(chapter);
 			Anchor anchor = new Anchor(file.getProject().getName(),
-				bigBold);
+				FontsToolsConstants.bigBold);
 			anchor.setName(file.getProject().getName());
 			// Second parameter is the number of the chapter
 			chapter = new Chapter(new Paragraph(anchor),
@@ -292,7 +239,7 @@ public class ExportPdf {
 			chapterNumber++;
 			Paragraph entryParagraph = new Paragraph(file.getName());
 			createEntries(document, entryParagraph, file, footer,
-				getSubMonitor(monitor, 1));
+				FontsToolsConstants.getSubMonitor(monitor, 1));
 			chapter.addSection(entryParagraph);
 		    }
 		}
@@ -313,8 +260,8 @@ public class ExportPdf {
 		    - document.rightMargin() - document.leftMargin();
 
 	    PdfPTable imageTable = new PdfPTable(1);
-	    imageTable.setWidthPercentage(WIDTH_PERCENTAGE);
-	    Phrase appendix = new Phrase(Messages.ExportPdf_25, bigBold);
+	    imageTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
+	    Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.bigBold);
 	    Paragraph emptyLine = new Paragraph();
 	    addEmptyLine(emptyLine, 2);
 	    appendix.add(emptyLine);
@@ -352,7 +299,7 @@ public class ExportPdf {
 		// empty line
 		appendix.add(emptyLine);
 		appendix.add(new Paragraph(nameList.get(j), //$NON-NLS-1$
-			smallFont));
+			FontsToolsConstants.smallFont));
 		appendix.add(emptyLine);
 		counter++;
 	    }
@@ -395,21 +342,20 @@ public class ExportPdf {
     }
 
     /**
-     * @param document
-     *            The document the content will be added to.
-     * @param file
-     *            The IFile of the protocol or test case
+     * @param document The document the content will be added to.
+     * @param file The IFile of the protocol or test case.
+     * @param monitor The progress monitor.
      * @throws DocumentException
      * @throws IOException
      */
     private static void addContent(Document document, TSMResource file,
 	    IProgressMonitor monitor) throws DocumentException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> " + file.getName(), 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> " + file.getName(), 1);
 	if (!progressMonitor.isCanceled()) {
 	    // protocol
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
-		Anchor anchor = new Anchor(file.getName(), bigBold);
+		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.bigBold);
 		anchor.setName(file.getName());
 
 		// Second parameter is the number of the chapter
@@ -422,14 +368,14 @@ public class ExportPdf {
 		chapter.add(emptyLine);
 
 		// add content
-		createContentTable(chapter, file, getSubMonitor(monitor, 1));
+		createContentTable(chapter, file, FontsToolsConstants.getSubMonitor(monitor, 1));
 
 		PdfPTable shortDescriptionTable = new PdfPTable(1);
-		shortDescriptionTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		shortDescriptionTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase shortDescriptionEntry = new Phrase();
 		Paragraph shortDescription = new Paragraph(
-			Messages.ExportPdf_17, boldFont);
-		Paragraph shortDescriptionLine = new Paragraph("", normalFont); //$NON-NLS-1$
+			Messages.ExportPdf_17, FontsToolsConstants.boldFont);
+		Paragraph shortDescriptionLine = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		addEmptyLine(shortDescriptionLine, 1);
 		shortDescriptionEntry.add(shortDescription);
 		shortDescriptionEntry.add(shortDescriptionLine);
@@ -444,10 +390,10 @@ public class ExportPdf {
 		chapter.add(emptyLine);
 
 		PdfPTable preconditionTable = new PdfPTable(1);
-		preconditionTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		preconditionTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase preconditionEntry = new Phrase();
 		Paragraph precondition = new Paragraph(Messages.ExportPdf_19,
-			boldFont);
+			FontsToolsConstants.boldFont);
 		preconditionEntry.add(precondition);
 		preconditionEntry.add(shortDescriptionLine);
 		parse(preconditionEntry, protocol.getRichTextPrecondition(),
@@ -461,14 +407,14 @@ public class ExportPdf {
 		chapter.add(emptyLine);
 
 		createStepTable(chapter, file, document,
-			getSubMonitor(monitor, 1));
+			FontsToolsConstants.getSubMonitor(monitor, 1));
 		chapter.add(emptyLine);
 
 		PdfPTable finalResultTable = new PdfPTable(1);
-		finalResultTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		finalResultTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase finalResultEntry = new Phrase();
 		Paragraph finalResult = new Paragraph(Messages.ExportPdf_20,
-			boldFont);
+			FontsToolsConstants.boldFont);
 		finalResultEntry.add(finalResult);
 		finalResultEntry.add(shortDescriptionLine);
 		parse(finalResultEntry, protocol.getRichTextResult(), document,
@@ -484,7 +430,7 @@ public class ExportPdf {
 	    // test case
 	    else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
-		Anchor anchor = new Anchor(file.getName(), bigBold);
+		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.bigBold);
 		anchor.setName(file.getName());
 
 		// Second parameter is the number of the chapter
@@ -497,13 +443,13 @@ public class ExportPdf {
 		chapter.add(empyLine);
 
 		// add content
-		createContentTable(chapter, file, getSubMonitor(monitor, 1));
+		createContentTable(chapter, file, FontsToolsConstants.getSubMonitor(monitor, 1));
 
 		PdfPTable shortDescriptionTable = new PdfPTable(1);
-		shortDescriptionTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		shortDescriptionTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase shortDescriptionEntry = new Phrase();
 		Paragraph shortDescription = new Paragraph(
-			Messages.ExportPdf_21, boldFont);
+			Messages.ExportPdf_21, FontsToolsConstants.boldFont);
 		shortDescriptionEntry.add(shortDescription);
 		shortDescriptionEntry.add(empyLine);
 		parse(shortDescriptionEntry, testCase.getShortDescription(),
@@ -517,10 +463,10 @@ public class ExportPdf {
 		chapter.add(empyLine);
 
 		PdfPTable preconditionTable = new PdfPTable(1);
-		preconditionTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		preconditionTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase preconditionEntry = new Phrase();
 		Paragraph precondition = new Paragraph(Messages.ExportPdf_22,
-			boldFont);
+			FontsToolsConstants.boldFont);
 		preconditionEntry.add(precondition);
 		preconditionEntry.add(empyLine);
 		parse(preconditionEntry, testCase.getRichTextPrecondition(),
@@ -534,15 +480,15 @@ public class ExportPdf {
 		chapter.add(empyLine);
 
 		createStepTable(chapter, file, document,
-			getSubMonitor(monitor, 1));
+			FontsToolsConstants.getSubMonitor(monitor, 1));
 		chapter.add(empyLine);
 
 		Paragraph finalResult = new Paragraph(Messages.ExportPdf_23,
-			boldFont);
+			FontsToolsConstants.boldFont);
 		chapter.add(finalResult);
 
 		PdfPTable finalResultTable = new PdfPTable(1);
-		finalResultTable.setWidthPercentage(WIDTH_PERCENTAGE);
+		finalResultTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase line = new Phrase();
 
 		parse(line, "", document, file); //$NON-NLS-1$
@@ -569,8 +515,8 @@ public class ExportPdf {
 			- document.rightMargin() - document.leftMargin();
 
 		PdfPTable imageTable = new PdfPTable(1);
-		imageTable.setWidthPercentage(WIDTH_PERCENTAGE);
-		Phrase appendix = new Phrase(Messages.ExportPdf_25, bigBold);
+		imageTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
+		Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.bigBold);
 		Paragraph emptyLine = new Paragraph();
 		addEmptyLine(emptyLine, 2);
 		appendix.add(emptyLine);
@@ -609,7 +555,7 @@ public class ExportPdf {
 		    // empty line
 		    appendix.add(emptyLine);
 		    appendix.add(new Paragraph(nameList.get(j), //$NON-NLS-1$
-			    smallFont));
+			    FontsToolsConstants.smallFont));
 		    appendix.add(emptyLine);
 		    counter++;
 		}
@@ -627,10 +573,9 @@ public class ExportPdf {
     }
 
     /**
-     * @param section
-     *            The section where the table is in
-     * @param protocol
-     *            The protocol the data comes from
+     * @param section The section where the table is in.
+     * @param file The file the data comes from.
+     * @param monitor
      * @throws DocumentException
      * @throws MalformedURLException
      * @throws IOException
@@ -638,7 +583,7 @@ public class ExportPdf {
     private static void createContentTable(Section section, TSMResource file,
 	    IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> content", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> content", 1);
 	if (!progressMonitor.isCanceled()) {
 	    //date format from the data model.
 	    final SimpleDateFormat dateFormat = DataModelTypes.getDateFormat();
@@ -647,11 +592,11 @@ public class ExportPdf {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		table.setWidths(new float[] { 30, 70 });
 
 		PdfPCell project = new PdfPCell(new Phrase(
-			Messages.ExportPdf_28, boldFont));
+			Messages.ExportPdf_28, FontsToolsConstants.boldFont));
 		project.setBorder(Rectangle.NO_BORDER);
 		table.addCell(project);
 		PdfPCell projectEntry = new PdfPCell(new Phrase(file
@@ -660,7 +605,7 @@ public class ExportPdf {
 		table.addCell(projectEntry);
 
 		PdfPCell pack = new PdfPCell(new Phrase(Messages.ExportPdf_29,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pack.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pack);
 		PdfPCell packageEntry;
@@ -673,13 +618,13 @@ public class ExportPdf {
 		packageEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(packageEntry);
 
-		PdfPCell emptyCell = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell emptyCell = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		emptyCell.setBorder(Rectangle.NO_BORDER);
 		table.addCell(emptyCell);
 		table.addCell(emptyCell);
 
 		PdfPCell priority = new PdfPCell(new Phrase(
-			Messages.ExportPdf_33, boldFont));
+			Messages.ExportPdf_33, FontsToolsConstants.boldFont));
 		priority.setBorder(Rectangle.NO_BORDER);
 		table.addCell(priority);
 		PdfPCell priorityEntry = new PdfPCell(new Phrase(protocol
@@ -688,7 +633,7 @@ public class ExportPdf {
 		table.addCell(priorityEntry);
 
 		PdfPCell revision = new PdfPCell(new Phrase(
-			Messages.ExportPdf_2, boldFont));
+			Messages.ExportPdf_2, FontsToolsConstants.boldFont));
 		revision.setBorder(Rectangle.NO_BORDER);
 		table.addCell(revision);
 		PdfPCell revisionEntry = new PdfPCell(new Phrase(
@@ -697,7 +642,7 @@ public class ExportPdf {
 		table.addCell(revisionEntry);
 
 		PdfPCell expectedDuration = new PdfPCell(new Phrase(
-			Messages.ExportPdf_34, boldFont));
+			Messages.ExportPdf_34, FontsToolsConstants.boldFont));
 		expectedDuration.setBorder(Rectangle.NO_BORDER);
 		table.addCell(expectedDuration);
 		PdfPCell expectedDurationEntry = new PdfPCell(new Phrase(
@@ -706,7 +651,7 @@ public class ExportPdf {
 		table.addCell(expectedDurationEntry);
 
 		PdfPCell realDuration = new PdfPCell(new Phrase(
-			Messages.ExportPdf_35, boldFont));
+			Messages.ExportPdf_35, FontsToolsConstants.boldFont));
 		realDuration.setBorder(Rectangle.NO_BORDER);
 		table.addCell(realDuration);
 
@@ -716,7 +661,7 @@ public class ExportPdf {
 		table.addCell(realDurationEntry);
 
 		PdfPCell creator = new PdfPCell(new Phrase(
-			Messages.ExportPdf_36, boldFont));
+			Messages.ExportPdf_36, FontsToolsConstants.boldFont));
 		creator.setBorder(Rectangle.NO_BORDER);
 		table.addCell(creator);
 		PdfPCell creatorEntry = new PdfPCell(new Phrase(
@@ -724,7 +669,7 @@ public class ExportPdf {
 		creatorEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(creatorEntry);
 
-		PdfPCell tester = new PdfPCell(new Phrase("Tester: ", boldFont));
+		PdfPCell tester = new PdfPCell(new Phrase("Tester: ", FontsToolsConstants.boldFont));
 		tester.setBorder(Rectangle.NO_BORDER);
 		table.addCell(tester);
 		PdfPCell testerEntry = new PdfPCell(new Phrase(
@@ -733,7 +678,7 @@ public class ExportPdf {
 		table.addCell(testerEntry);
 
 		PdfPCell executions = new PdfPCell(new Phrase(
-			Messages.ExportPdf_37, boldFont));
+			Messages.ExportPdf_37, FontsToolsConstants.boldFont));
 		executions.setBorder(Rectangle.NO_BORDER);
 		table.addCell(executions);
 		PdfPCell executionsEntry = new PdfPCell(new Phrase(
@@ -742,7 +687,7 @@ public class ExportPdf {
 		table.addCell(executionsEntry);
 
 		PdfPCell failures = new PdfPCell(new Phrase(
-			Messages.ExportPdf_38, boldFont));
+			Messages.ExportPdf_38, FontsToolsConstants.boldFont));
 		failures.setBorder(Rectangle.NO_BORDER);
 		table.addCell(failures);
 		PdfPCell failuresEntry = new PdfPCell(new Phrase(
@@ -762,17 +707,17 @@ public class ExportPdf {
 		// table.addCell(lastExecutionEntry);
 
 		PdfPCell lastChanged = new PdfPCell(new Phrase(
-			Messages.ExportPdf_40, boldFont));
+			Messages.ExportPdf_40, FontsToolsConstants.boldFont));
 		lastChanged.setBorder(Rectangle.NO_BORDER);
 		table.addCell(lastChanged);
 		PdfPCell lastChangedEntry = new PdfPCell(new Phrase(
 			dateFormat.format(protocol
-				.getLastChangedOn()), normalFont));
+				.getLastChangedOn()), FontsToolsConstants.normalFont));
 		lastChangedEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(lastChangedEntry);
 
 		PdfPCell status = new PdfPCell(new Phrase(
-			Messages.ExportPdf_41, boldFont));
+			Messages.ExportPdf_41, FontsToolsConstants.boldFont));
 		status.setBorder(Rectangle.NO_BORDER);
 		table.addCell(status);
 		if (protocol.getStatus() == DataModelTypes.StatusType.passed) {
@@ -817,14 +762,14 @@ public class ExportPdf {
 		}
 
 		// line
-		PdfPCell line = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell line = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		line.setBorder(Rectangle.BOTTOM);
 		table.addCell(line);
 		PdfPCell line2 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
 		line2.setBorder(Rectangle.BOTTOM);
 		table.addCell(line2);
 
-		PdfPCell line3 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell line3 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		line3.setBorder(Rectangle.TOP);
 		table.addCell(line3);
 		PdfPCell line4 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -838,11 +783,11 @@ public class ExportPdf {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		table.setWidths(new float[] { 30, 70 });
 
 		PdfPCell c1 = new PdfPCell(new Phrase(Messages.ExportPdf_51,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c1.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c1);
 		PdfPCell pdfCell2 = new PdfPCell(new Phrase(file.getProject()
@@ -851,7 +796,7 @@ public class ExportPdf {
 		table.addCell(pdfCell2);
 
 		PdfPCell c3 = new PdfPCell(new Phrase(Messages.ExportPdf_52,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c3.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c3);
 		PdfPCell pdfCell4;
@@ -863,7 +808,7 @@ public class ExportPdf {
 		pdfCell4.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell4);
 
-		PdfPCell pdfCell5 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell pdfCell5 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		pdfCell5.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell5);
 		PdfPCell pdfCell6 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -871,7 +816,7 @@ public class ExportPdf {
 		table.addCell(pdfCell6);
 
 		PdfPCell pdfCell7 = new PdfPCell(new Phrase(Messages.ExportPdf_56,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell7.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell7);
 		PdfPCell pdfCell8 = new PdfPCell(new Phrase(testCase.getPriority()
@@ -880,7 +825,7 @@ public class ExportPdf {
 		table.addCell(pdfCell8);
 
 		PdfPCell pdfCell9 = new PdfPCell(new Phrase(Messages.ExportPdf_57,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell9.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell9);
 		PdfPCell pdfCell10 = new PdfPCell(new Phrase(
@@ -889,7 +834,7 @@ public class ExportPdf {
 		table.addCell(pdfCell10);
 
 		PdfPCell c11 = new PdfPCell(new Phrase(Messages.ExportPdf_58,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c11.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c11);
 		// System.out.println(testCase.getRealDuration());
@@ -898,7 +843,7 @@ public class ExportPdf {
 		table.addCell(pdfCell12);
 
 		PdfPCell pdfCell13 = new PdfPCell(new Phrase(Messages.ExportPdf_60,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell13.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell13);
 		PdfPCell pdfCell14 = new PdfPCell(new Phrase(testCase.getAuthor()));
@@ -906,7 +851,7 @@ public class ExportPdf {
 		table.addCell(pdfCell14);
 
 		PdfPCell c15 = new PdfPCell(new Phrase(Messages.ExportPdf_61,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c15.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c15);
 		PdfPCell pdfCell16 = new PdfPCell(new Phrase(
@@ -915,7 +860,7 @@ public class ExportPdf {
 		table.addCell(pdfCell16);
 
 		PdfPCell pdfCell17 = new PdfPCell(new Phrase(Messages.ExportPdf_62,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell17.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell17);
 		PdfPCell pdfCell18 = new PdfPCell(new Phrase(
@@ -924,7 +869,7 @@ public class ExportPdf {
 		table.addCell(pdfCell18);
 
 		PdfPCell pdfCell19 = new PdfPCell(new Phrase(Messages.ExportPdf_63,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell19.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell19);
 
@@ -941,17 +886,17 @@ public class ExportPdf {
 		table.addCell(pdfCell20);
 
 		PdfPCell pdfCell21 = new PdfPCell(new Phrase(Messages.ExportPdf_65,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell21);
 		PdfPCell pdfCell22 = new PdfPCell(new Phrase(
 			dateFormat.format(testCase
-				.getLastChangedOn()), normalFont));
+				.getLastChangedOn()), FontsToolsConstants.normalFont));
 		pdfCell22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell22);
 
 		PdfPCell pdfCell25 = new PdfPCell(new Phrase(Messages.ExportPdf_66,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		pdfCell25.setBorder(Rectangle.NO_BORDER);
 		table.addCell(pdfCell25);
 		if (testCase.getStatus() == DataModelTypes.StatusType.passed) {
@@ -996,14 +941,14 @@ public class ExportPdf {
 		}
 
 		// line
-		PdfPCell pdfCell27 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell pdfCell27 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		pdfCell27.setBorder(Rectangle.BOTTOM);
 		table.addCell(pdfCell27);
 		PdfPCell pdfCell28 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
 		pdfCell28.setBorder(Rectangle.BOTTOM);
 		table.addCell(pdfCell28);
 
-		PdfPCell pdfCell29 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell pdfCell29 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		pdfCell29.setBorder(Rectangle.TOP);
 		table.addCell(pdfCell29);
 		PdfPCell pdfCell30 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -1019,12 +964,9 @@ public class ExportPdf {
     }
 
     /**
-     * @param section
-     *            The section the table will be added to.
-     * @param protocol
-     *            The protocol the steps come from
-     * @param doc
-     *            The whole document, needed for new page adding
+     * @param section The section the table will be added to.
+     * @param file The file the steps come from.
+     * @param doc The whole document, needed for new page adding.
      * @throws DocumentException
      * @throws MalformedURLException
      * @throws IOException
@@ -1032,32 +974,32 @@ public class ExportPdf {
     private static void createStepTable(Section section, TSMResource file,
 	    Document doc, IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> steps", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> steps", 1);
 	if (!progressMonitor.isCanceled()) {
 	    isTestStep = true;
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 
-		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
+		PdfPCell c1 = new PdfPCell(new Phrase("#", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		float[] columnWidths = new float[] { 2f, 15f, 15f, 15f, 5f };
 		table.setWidths(columnWidths);
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_77, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_77, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_78, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_78, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_79, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_79, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_80, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_80, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
@@ -1107,26 +1049,26 @@ public class ExportPdf {
 	    } else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 
-		PdfPCell pdfCell1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
+		PdfPCell pdfCell1 = new PdfPCell(new Phrase("#", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(pdfCell1);
 		float[] columnWidths = new float[] { 2f, 15f, 15f, 15f, 5f };
 		table.setWidths(columnWidths);
-		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_83, boldFont));
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_83, FontsToolsConstants.boldFont));
 		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(pdfCell1);
 
-		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_84, boldFont));
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_84, FontsToolsConstants.boldFont));
 		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(pdfCell1);
 
-		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_85, boldFont));
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_85, FontsToolsConstants.boldFont));
 		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(pdfCell1);
 
-		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_86, boldFont));
+		pdfCell1 = new PdfPCell(new Phrase(Messages.ExportPdf_86, FontsToolsConstants.boldFont));
 		pdfCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(pdfCell1);
 
@@ -1172,12 +1114,10 @@ public class ExportPdf {
     }
 
     /**
-     * @param phrase
-     *            The phrase the text is in
-     * @param text
-     *            The text to be parsed
-     * @param doc
-     *            The whole document
+     * @param phrase The phrase the text is in.
+     * @param text The text to be parsed.
+     * @param doc The whole document.
+     * @param resource
      * @throws MalformedURLException
      * @throws IOException
      * @throws DocumentException
@@ -1194,60 +1134,60 @@ public class ExportPdf {
 	    }
 
 	    if (currentString.startsWith("html>")) { //$NON-NLS-1$
-		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
+		Paragraph p = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		phrase.add(p);
 	    } else if (currentString.startsWith("p>")) { //$NON-NLS-1$
 		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
-			normalFont);
+			FontsToolsConstants.normalFont);
 		phrase.add(p);
 	    } else if (currentString.startsWith("b>")) { //$NON-NLS-1$
 		bold = true;
 		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("i>")) { //$NON-NLS-1$
 		italic = true;
 		Paragraph p = new Paragraph(currentString.substring(2, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("ins>")) { //$NON-NLS-1$
 		underline = true;
 		Paragraph p = new Paragraph(currentString.substring(4, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("del>")) { //$NON-NLS-1$
 		strike = true;
 		Paragraph p = new Paragraph(currentString.substring(4, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("/html>")) { //$NON-NLS-1$
-		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
+		Paragraph p = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		phrase.add(p);
 	    } else if (currentString.startsWith("/p>")) { //$NON-NLS-1$
 		Paragraph paragraph4 = new Paragraph();
 		addEmptyLine(paragraph4, 1);
-		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
+		Paragraph p = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		phrase.add(paragraph4);
 		phrase.add(p);
 	    } else if (currentString.startsWith("/b>")) { //$NON-NLS-1$
 		bold = false;
 		Paragraph p = new Paragraph(currentString.substring(3, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("/i>")) { //$NON-NLS-1$
 		italic = false;
 		Paragraph p = new Paragraph(currentString.substring(3, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("/ins>")) { //$NON-NLS-1$
 		underline = false;
 		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    } else if (currentString.startsWith("/del>")) { //$NON-NLS-1$
 		strike = false;
 		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()),
-			getFont());
+			FontsToolsConstants.getFont(bold, italic, underline, strike));
 		phrase.add(p);
 	    }
 	    // image
@@ -1334,8 +1274,8 @@ public class ExportPdf {
 		Chunk c = new Chunk(image, 0, 0);
 
 		Anchor anchor = new Anchor(c);
-		anchor.setReference("#" + Integer.toString(counterForPics)); //$NON-NLS-1$
-		anchor.setName("back" + Integer.toString(counterForPics)); //$NON-NLS-1$
+		anchor.setReference("#" + Integer.toString(counterForImages)); //$NON-NLS-1$
+		anchor.setName("back" + Integer.toString(counterForImages)); //$NON-NLS-1$
 		Paragraph p = new Paragraph();
 		p.add(anchor);
 
@@ -1349,9 +1289,9 @@ public class ExportPdf {
 		phrase.add(paragraph3);
 		phrase.add(p);
 		phrase.add(paragraph4);
-		phrase.add(new Paragraph(name, smallFont));
+		phrase.add(new Paragraph(name, FontsToolsConstants.smallFont));
 		phrase.add(paragraph4);
-		counterForPics++;
+		counterForImages++;
 	    } else if (currentString.startsWith("/img>")) { //$NON-NLS-1$
 		Paragraph p = new Paragraph(currentString.substring(5, currentString.length()));
 		phrase.add(p);
@@ -1364,69 +1304,22 @@ public class ExportPdf {
 	}
     }
 
-    /**
-     * @return The font depending on what styles are true
-     */
-    private static Font getFont() {
-	// one font
-	if (!bold && !italic && !underline && !strike) {
-	    return normalFont;
-	} else if (bold && !italic && !underline && !strike) {
-	    return boldFont;
-	} else if (!bold && italic && !underline && !strike) {
-	    return italicFont;
-	} else if (!bold && !italic && underline && !strike) {
-	    return underlineFont;
-	} else if (!bold && !italic && !underline && strike) {
-	    return strikeFont;
-	}
-	// two fonts
-	else if (bold && italic && !underline && !strike) {
-	    return boldItalicFont;
-	} else if (bold && !italic && underline && !strike) {
-	    return boldUnderlineFont;
-	} else if (bold && !italic && !underline && strike) {
-	    return boldStrikeFont;
-	} else if (!bold && italic && underline && !strike) {
-	    return italicUnderlineFont;
-	} else if (!bold && italic && !underline && strike) {
-	    return italicStrikeFont;
-	} else if (!bold && !italic && underline && strike) {
-	    return underlineStrikeFont;
-	}
-	// three fonts
-	else if (bold && italic && underline && !strike) {
-	    return boldItalicUnderlineFont;
-	} else if (bold && italic && !underline && strike) {
-	    return boldItalicStrikeFont;
-	} else if (bold && !italic && underline && strike) {
-	    return boldUnderlineStrikeFont;
-	} else if (!bold && italic && underline && strike) {
-	    return italicUnderlineStrikeFont;
-	}
-	// all fonts
-	else if (bold && italic && underline && strike) {
-	    return allFont;
-	}
-	return null;
-    }
-
     private static void createEntries(Document document, Paragraph chapter,
 	    TSMResource file, FooterOneFile event, IProgressMonitor monitor)
 	    throws MalformedURLException, DocumentException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> entries", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> entries", 1);
 	if (!progressMonitor.isCanceled()) {
 	    // protocol
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		// add content
-		createContentTableOne(chapter, file, getSubMonitor(monitor, 1));
+		createContentTableOne(chapter, file, FontsToolsConstants.getSubMonitor(monitor, 1));
 
 		PdfPTable table = new PdfPTable(1);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph5 = new Phrase();
-		Paragraph p2 = new Paragraph(Messages.ExportPdf_116, boldFont);
-		Paragraph p = new Paragraph("", normalFont); //$NON-NLS-1$
+		Paragraph p2 = new Paragraph(Messages.ExportPdf_116, FontsToolsConstants.boldFont);
+		Paragraph p = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		addEmptyLine(p, 1);
 		paragraph5.add(p2);
 		paragraph5.add(p);
@@ -1442,9 +1335,9 @@ public class ExportPdf {
 		chapter.add(paragraph8);
 
 		PdfPTable table2 = new PdfPTable(1);
-		table2.setWidthPercentage(WIDTH_PERCENTAGE);
+		table2.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph7 = new Phrase();
-		Paragraph p3 = new Paragraph(Messages.ExportPdf_118, boldFont);
+		Paragraph p3 = new Paragraph(Messages.ExportPdf_118, FontsToolsConstants.boldFont);
 		paragraph7.add(p3);
 		paragraph7.add(p);
 		parse(paragraph7, protocol.getRichTextPrecondition(), document,
@@ -1459,15 +1352,15 @@ public class ExportPdf {
 		chapter.add(para);
 
 		createStepTableOne(chapter, file, document,
-			getSubMonitor(monitor, 1));
+			FontsToolsConstants.getSubMonitor(monitor, 1));
 		Paragraph paragraph3 = new Paragraph();
 		addEmptyLine(paragraph3, 1);
 		chapter.add(paragraph3);
 
 		PdfPTable table3 = new PdfPTable(1);
-		table3.setWidthPercentage(WIDTH_PERCENTAGE);
+		table3.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph10 = new Phrase();
-		Paragraph p4 = new Paragraph(Messages.ExportPdf_119, boldFont);
+		Paragraph p4 = new Paragraph(Messages.ExportPdf_119, FontsToolsConstants.boldFont);
 		paragraph10.add(p4);
 		paragraph10.add(p);
 		parse(paragraph10, protocol.getRichTextResult(), document, file);
@@ -1481,12 +1374,12 @@ public class ExportPdf {
 	    else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		// add content
-		createContentTableOne(chapter, file, getSubMonitor(monitor, 1));
+		createContentTableOne(chapter, file, FontsToolsConstants.getSubMonitor(monitor, 1));
 
 		PdfPTable table = new PdfPTable(1);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph5 = new Phrase();
-		Paragraph paragraph2 = new Paragraph(Messages.ExportPdf_120, boldFont);
+		Paragraph paragraph2 = new Paragraph(Messages.ExportPdf_120, FontsToolsConstants.boldFont);
 		paragraph5.add(paragraph2);
 		Paragraph paragraph = new Paragraph();
 		addEmptyLine(paragraph, 1);
@@ -1503,9 +1396,9 @@ public class ExportPdf {
 		chapter.add(paragraph8);
 
 		PdfPTable table2 = new PdfPTable(1);
-		table2.setWidthPercentage(WIDTH_PERCENTAGE);
+		table2.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph7 = new Phrase();
-		Paragraph p3 = new Paragraph(Messages.ExportPdf_121, boldFont);
+		Paragraph p3 = new Paragraph(Messages.ExportPdf_121, FontsToolsConstants.boldFont);
 		paragraph7.add(p3);
 		paragraph7.add(paragraph);
 		parse(paragraph7, testCase.getRichTextPrecondition(), document,
@@ -1520,17 +1413,17 @@ public class ExportPdf {
 		chapter.add(para);
 
 		createStepTableOne(chapter, file, document,
-			getSubMonitor(monitor, 1));
+			FontsToolsConstants.getSubMonitor(monitor, 1));
 		Paragraph paragraph3 = new Paragraph();
 		addEmptyLine(paragraph3, 1);
 		chapter.add(paragraph3);
 
 		Paragraph paragraph9 = new Paragraph(Messages.ExportPdf_122,
-			boldFont);
+			FontsToolsConstants.boldFont);
 		chapter.add(paragraph9);
 
 		PdfPTable table3 = new PdfPTable(1);
-		table3.setWidthPercentage(WIDTH_PERCENTAGE);
+		table3.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		Phrase paragraph10 = new Phrase();
 
 		parse(paragraph10, "", document, file); //$NON-NLS-1$
@@ -1548,10 +1441,9 @@ public class ExportPdf {
     }
 
     /**
-     * @param chapter
-     *            The section where the table is in
-     * @param protocol
-     *            The protocol the data comes from
+     * @param chapter The section where the table is in.
+     * @param file The file the data comes from.
+     * @param monitor
      * @throws DocumentException
      * @throws MalformedURLException
      * @throws IOException
@@ -1559,7 +1451,7 @@ public class ExportPdf {
     private static void createContentTableOne(Paragraph chapter,
 	    TSMResource file, IProgressMonitor monitor)
 	    throws DocumentException, MalformedURLException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> table", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> table", 1);
 	if (!progressMonitor.isCanceled()) {
 	    //dateFormat form the data model.
 	    final SimpleDateFormat dateFormat = DataModelTypes.getDateFormat();
@@ -1568,19 +1460,19 @@ public class ExportPdf {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		table.setWidths(new float[] { 30, 70 });
 
-		PdfPCell c17 = new PdfPCell(new Phrase("ID", smallFont)); //$NON-NLS-1$
+		PdfPCell c17 = new PdfPCell(new Phrase("ID", FontsToolsConstants.smallFont)); //$NON-NLS-1$
 		c17.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c17);
 		PdfPCell c18 = new PdfPCell(new Phrase(String.valueOf(protocol
-			.getId()), smallFont));
+			.getId()), FontsToolsConstants.smallFont));
 		c18.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c18);
 
 		PdfPCell c3 = new PdfPCell(new Phrase(Messages.ExportPdf_124,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c3.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c3);
 		PdfPCell c4;
@@ -1592,14 +1484,14 @@ public class ExportPdf {
 		c4.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c4);
 
-		PdfPCell c5 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c5 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c5.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c5);
 		PdfPCell c6 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
 		c6.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c6);
 		PdfPCell c7 = new PdfPCell(new Phrase(Messages.ExportPdf_128,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c7.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c7);
 		PdfPCell c8 = new PdfPCell(new Phrase(protocol.getPriority()
@@ -1608,7 +1500,7 @@ public class ExportPdf {
 		table.addCell(c8);
 
 		PdfPCell c87 = new PdfPCell(new Phrase(Messages.ExportPdf_3,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c87.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c87);
 		PdfPCell c88 = new PdfPCell(new Phrase(
@@ -1617,7 +1509,7 @@ public class ExportPdf {
 		table.addCell(c88);
 
 		PdfPCell c9 = new PdfPCell(new Phrase(Messages.ExportPdf_129,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c9.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c9);
 		PdfPCell c10 = new PdfPCell(new Phrase(
@@ -1626,7 +1518,7 @@ public class ExportPdf {
 		table.addCell(c10);
 
 		PdfPCell c11 = new PdfPCell(new Phrase(Messages.ExportPdf_130,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c11.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c11);
 
@@ -1636,14 +1528,14 @@ public class ExportPdf {
 		table.addCell(c12);
 
 		PdfPCell c13 = new PdfPCell(new Phrase(Messages.ExportPdf_131,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c13.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c13);
 		PdfPCell c14 = new PdfPCell(new Phrase(protocol.getAuthor()));
 		c14.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c14);
 
-		PdfPCell tester = new PdfPCell(new Phrase("Tester: ", boldFont));
+		PdfPCell tester = new PdfPCell(new Phrase("Tester: ", FontsToolsConstants.boldFont));
 		tester.setBorder(Rectangle.NO_BORDER);
 		table.addCell(tester);
 		PdfPCell testerEntry = new PdfPCell(new Phrase(
@@ -1652,7 +1544,7 @@ public class ExportPdf {
 		table.addCell(testerEntry);
 
 		PdfPCell c15 = new PdfPCell(new Phrase(Messages.ExportPdf_132,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c15.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c15);
 		PdfPCell c16 = new PdfPCell(new Phrase(
@@ -1661,7 +1553,7 @@ public class ExportPdf {
 		table.addCell(c16);
 
 		PdfPCell c27 = new PdfPCell(new Phrase(Messages.ExportPdf_133,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c27.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c27);
 		PdfPCell c28 = new PdfPCell(new Phrase(
@@ -1682,17 +1574,17 @@ public class ExportPdf {
 		// table.addCell(c20);
 
 		PdfPCell c21 = new PdfPCell(new Phrase(Messages.ExportPdf_135,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c21);
 		PdfPCell c22 = new PdfPCell(new Phrase(
 			dateFormat.format(protocol
-				.getLastChangedOn()), normalFont));
+				.getLastChangedOn()), FontsToolsConstants.normalFont));
 		c22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c22);
 
 		PdfPCell c25 = new PdfPCell(new Phrase(Messages.ExportPdf_136,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c25.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c25);
 		if (protocol.getStatus() == DataModelTypes.StatusType.passed) {
@@ -1737,14 +1629,14 @@ public class ExportPdf {
 		}
 
 		// line
-		PdfPCell c37 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c37 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c37.setBorder(Rectangle.BOTTOM);
 		table.addCell(c37);
 		PdfPCell c38 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
 		c38.setBorder(Rectangle.BOTTOM);
 		table.addCell(c38);
 
-		PdfPCell c29 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c29 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c29.setBorder(Rectangle.TOP);
 		table.addCell(c29);
 		PdfPCell c30 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -1758,7 +1650,7 @@ public class ExportPdf {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(2);
 
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		table.setWidths(new float[] { 30, 70 });
 
 		// PdfPCell c1 = new PdfPCell(new Phrase("Name:", boldFont));
@@ -1769,16 +1661,16 @@ public class ExportPdf {
 		// table.addCell(c2);
 
 		PdfPCell c37 = new PdfPCell(new Phrase(Messages.ExportPdf_1,
-			smallFont));
+			FontsToolsConstants.smallFont));
 		c37.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c37);
 		PdfPCell c38 = new PdfPCell(new Phrase(String.valueOf(testCase
-			.getId()), smallFont));
+			.getId()), FontsToolsConstants.smallFont));
 		c38.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c38);
 
 		PdfPCell c3 = new PdfPCell(new Phrase(Messages.ExportPdf_146,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c3.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c3);
 		PdfPCell c4;
@@ -1790,7 +1682,7 @@ public class ExportPdf {
 		c4.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c4);
 
-		PdfPCell c5 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c5 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c5.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c5);
 		PdfPCell c6 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -1798,7 +1690,7 @@ public class ExportPdf {
 		table.addCell(c6);
 
 		PdfPCell c7 = new PdfPCell(new Phrase(Messages.ExportPdf_150,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c7.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c7);
 		PdfPCell c8 = new PdfPCell(new Phrase(testCase.getPriority()
@@ -1807,7 +1699,7 @@ public class ExportPdf {
 		table.addCell(c8);
 
 		PdfPCell c9 = new PdfPCell(new Phrase(Messages.ExportPdf_151,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c9.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c9);
 		PdfPCell c10 = new PdfPCell(new Phrase(
@@ -1816,7 +1708,7 @@ public class ExportPdf {
 		table.addCell(c10);
 
 		PdfPCell c11 = new PdfPCell(new Phrase(Messages.ExportPdf_152,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c11.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c11);
 		// System.out.println(testCase.getRealDuration());
@@ -1825,7 +1717,7 @@ public class ExportPdf {
 		table.addCell(c12);
 
 		PdfPCell c13 = new PdfPCell(new Phrase(Messages.ExportPdf_154,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c13.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c13);
 		PdfPCell c14 = new PdfPCell(new Phrase(testCase.getAuthor()));
@@ -1833,7 +1725,7 @@ public class ExportPdf {
 		table.addCell(c14);
 
 		PdfPCell c15 = new PdfPCell(new Phrase(Messages.ExportPdf_155,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c15.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c15);
 		PdfPCell c16 = new PdfPCell(new Phrase(
@@ -1842,7 +1734,7 @@ public class ExportPdf {
 		table.addCell(c16);
 
 		PdfPCell c17 = new PdfPCell(new Phrase(Messages.ExportPdf_156,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c17.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c17);
 		PdfPCell c18 = new PdfPCell(new Phrase(
@@ -1851,7 +1743,7 @@ public class ExportPdf {
 		table.addCell(c18);
 
 		PdfPCell c19 = new PdfPCell(new Phrase(Messages.ExportPdf_157,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c19.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c19);
 
@@ -1868,17 +1760,17 @@ public class ExportPdf {
 		table.addCell(c20);
 
 		PdfPCell c21 = new PdfPCell(new Phrase(Messages.ExportPdf_159,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c21.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c21);
 		PdfPCell c22 = new PdfPCell(new Phrase(
 			dateFormat.format(testCase
-				.getLastChangedOn()), normalFont));
+				.getLastChangedOn()), FontsToolsConstants.normalFont));
 		c22.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c22);
 
 		PdfPCell c25 = new PdfPCell(new Phrase(Messages.ExportPdf_160,
-			boldFont));
+			FontsToolsConstants.boldFont));
 		c25.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c25);
 		if (testCase.getStatus() == DataModelTypes.StatusType.passed) {
@@ -1923,14 +1815,14 @@ public class ExportPdf {
 		}
 
 		// line
-		PdfPCell c27 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c27 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c27.setBorder(Rectangle.BOTTOM);
 		table.addCell(c27);
 		PdfPCell c28 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
 		c28.setBorder(Rectangle.BOTTOM);
 		table.addCell(c28);
 
-		PdfPCell c29 = new PdfPCell(new Phrase("", boldFont)); //$NON-NLS-1$
+		PdfPCell c29 = new PdfPCell(new Phrase("", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c29.setBorder(Rectangle.TOP);
 		table.addCell(c29);
 		PdfPCell c30 = new PdfPCell(new Phrase("")); //$NON-NLS-1$
@@ -1946,12 +1838,10 @@ public class ExportPdf {
     }
 
     /**
-     * @param chapter
-     *            The section the table will be added to.
-     * @param protocol
-     *            The protocol the steps come from
-     * @param doc
-     *            The whole document, needed for new page adding
+     * @param chapter The section the table will be added to.
+     * @param file The file the steps come from.
+     * @param doc The whole document, needed for new page adding.
+     * @param monitor
      * @throws DocumentException
      * @throws MalformedURLException
      * @throws IOException
@@ -1959,32 +1849,32 @@ public class ExportPdf {
     private static void createStepTableOne(Paragraph chapter, TSMResource file,
 	    Document doc, IProgressMonitor monitor) throws DocumentException,
 	    MalformedURLException, IOException {
-	IProgressMonitor progressMonitor = startMonitor(monitor, " -> steps", 1);
+	IProgressMonitor progressMonitor = FontsToolsConstants.startMonitor(monitor, " -> steps", 1);
 	if (!progressMonitor.isCanceled()) {
 	    isTestStep = true;
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 
-		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
+		PdfPCell c1 = new PdfPCell(new Phrase("#", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		float[] columnWidths = new float[] { 2f, 15f, 15f, 15f, 5f };
 		table.setWidths(columnWidths);
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_171, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_171, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_172, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_172, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_173, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_173, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_174, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_174, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
@@ -2034,26 +1924,26 @@ public class ExportPdf {
 	    } else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
 		PdfPTable table = new PdfPTable(5);
-		table.setWidthPercentage(WIDTH_PERCENTAGE);
+		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 
-		PdfPCell c1 = new PdfPCell(new Phrase("#", boldFont)); //$NON-NLS-1$
+		PdfPCell c1 = new PdfPCell(new Phrase("#", FontsToolsConstants.boldFont)); //$NON-NLS-1$
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 		float[] columnWidths = new float[] { 2f, 15f, 15f, 15f, 5f };
 		table.setWidths(columnWidths);
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_177, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_177, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_178, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_178, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_179, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_179, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
-		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_180, boldFont));
+		c1 = new PdfPCell(new Phrase(Messages.ExportPdf_180, FontsToolsConstants.boldFont));
 		c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 		table.addCell(c1);
 
@@ -2084,55 +1974,5 @@ public class ExportPdf {
 	} else {
 	    progressMonitor.done();
 	}
-    }
-
-    /**
-     * @param r
-     *            the resource you want the id from
-     * @return The d of the resource
-     */
-    private static long getId(TSMResource r) {
-	if (r instanceof TSMReport) {
-	    ITestCaseDescriptor protocol = ((TSMReport) r).getData();
-	    return protocol.getId();
-	} else {
-	    ITestCaseDescriptor testCase = ((TSMTestCase) r).getData();
-	    return testCase.getId();
-	}
-    }
-
-    /**
-     * @param monitor
-     * @param pMainTaskName
-     * @param taskAmount
-     * @return a started monitor
-     */
-    public static IProgressMonitor startMonitor(IProgressMonitor monitor,
-	    String pMainTaskName, int taskAmount) {
-	IProgressMonitor newMonitor = monitor;
-	if (newMonitor == null) {
-	    newMonitor = new NullProgressMonitor();
-	}
-	newMonitor.beginTask(pMainTaskName == null ? "" : pMainTaskName,
-		taskAmount);
-	newMonitor.subTask(" ");
-	return newMonitor;
-    }
-
-    /**
-     * @param monitor
-     * @param taskAmount
-     * @return A sub monitor
-     */
-    public static IProgressMonitor getSubMonitor(IProgressMonitor monitor,
-	    int taskAmount) {
-	if (monitor == null) {
-	    return new NullProgressMonitor();
-	}
-	if (monitor instanceof NullProgressMonitor) {
-	    return monitor;
-	}
-	return new SubProgressMonitor(monitor, taskAmount,
-		SubProgressMonitor.PREPEND_MAIN_LABEL_TO_SUBTASK);
     }
 }

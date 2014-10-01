@@ -21,6 +21,7 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -232,7 +233,7 @@ public class PdfPage extends ExportWizardPage {
      * Opens the file browse dialog
      */
     private void handleFileBrowse() {
-	if (exportInOneFile()) {
+	if (getExportType() == ExportType.ONE_FILE) {
 	    final FileDialog dialog = new FileDialog(getShell(), SWT.SAVE);
 	    final String[] extensions = new String[1];
 	    extensions[0] = "*.pdf"; //$NON-NLS-1$
@@ -244,7 +245,7 @@ public class PdfPage extends ExportWizardPage {
 	    } else {
 		text.setText(path);
 	    }
-	} else {
+	} else if (getExportType() == ExportType.MULTIPLE_FILES){
 
 	    final DirectoryDialog dialog = new DirectoryDialog(getShell());
 	    final String path = dialog.open();
