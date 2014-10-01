@@ -21,6 +21,7 @@ import java.util.Vector;
 
 import net.sourceforge.tsmtest.IDEWorkbenchMessages;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -100,7 +101,8 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
     private final static String DESELECT_ALL_TITLE = net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_3;
 
     // boolean whether the export should be in one file or not
-    private boolean exportInOneFile = true;
+//    private boolean exportInOneFile = true;
+    private ExportType exportType = null;
 
     /**
      * 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
@@ -721,9 +723,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
-		    setOneFile(true);
+		    setExportType(ExportType.ONE_FILE);
 		} else {
-		    setOneFile(false);
+		    setExportType(ExportType.MULTIPLE_FILES);
 		}
 		setErrorMessage(null);
 	    }
@@ -731,9 +733,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
-		    setOneFile(true);
+		    setExportType(ExportType.ONE_FILE);
 		} else {
-		    setOneFile(false);
+		    setExportType(ExportType.MULTIPLE_FILES);
 		}
 		setErrorMessage(null);
 	    }
@@ -748,9 +750,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
-		    setOneFile(true);
+		    setExportType(ExportType.ONE_FILE);
 		} else {
-		    setOneFile(false);
+		    setExportType(ExportType.MULTIPLE_FILES);
 		}
 		setErrorMessage(null);
 	    }
@@ -758,9 +760,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
-		    setOneFile(true);
+		    setExportType(ExportType.ONE_FILE);
 		} else {
-		    setOneFile(false);
+		    setExportType(ExportType.MULTIPLE_FILES);
 		}
 		setErrorMessage(null);
 	    }
@@ -850,18 +852,18 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
     }
 
     /**
-     * @return The boolean if the export should be into one file or not
+     * @return The ExportType that was selected.
      */
-    public boolean exportInOneFile() {
-	return exportInOneFile;
+    public ExportType getExportType() {
+	return exportType;
     }
 
     /**
-     * Sets whether the export should be in one file or not.
-     * @param exportInOneFile
+     * Sets the ExportType
+     * @param exportType
      */
-    private void setOneFile(final boolean exportInOneFile) {
-	this.exportInOneFile = exportInOneFile;
+    private void setExportType(ExportType exportType) {
+	this.exportType = exportType;
     }
 
     /**
