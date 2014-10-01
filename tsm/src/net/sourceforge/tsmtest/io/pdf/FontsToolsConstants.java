@@ -17,6 +17,8 @@ import com.itextpdf.text.Font;
  *
  */
 public final class FontsToolsConstants {
+    private FontsToolsConstants() {
+    }
     //Types of possible exports.
     public static enum ExportType { ONE_FILE, MULTIPLE_FILES, SPECIFIC_REVISIONS }
     // font sizes
@@ -33,38 +35,38 @@ public final class FontsToolsConstants {
 	    Font.STRIKETHRU);
 
     // 2 mixed fonts
-    static final Font boldItalicFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font BOLD_ITALIC_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.BOLDITALIC);
-    static final Font boldUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font BOLD_UNDERLINE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.BOLD | Font.UNDERLINE);
-    static final Font boldStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
+    static final Font BOLD_STRIKE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
 	    | Font.STRIKETHRU);
-    static final Font italicUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font ITALIC_UNDERLINE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.ITALIC | Font.UNDERLINE);
-    static final Font italicStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font ITALIC_STRIKE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.ITALIC | Font.STRIKETHRU);
-    static final Font underlineStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font UNDERLINE_STRIKE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.UNDERLINE | Font.STRIKETHRU);
 
     // 3 mixed fonts
-    static final Font boldItalicUnderlineFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font BOLD_ITALIC_UNDERLINE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.BOLD | Font.ITALIC | Font.UNDERLINE);
-    static final Font boldItalicStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font BOLD_ITALIC_STRIKE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.BOLD | Font.ITALIC | Font.STRIKETHRU);
-    static final Font boldUnderlineStrikeFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
+    static final Font BOLD_UNDERLINE_STRIKE_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE,
 	    Font.BOLD | Font.UNDERLINE | Font.STRIKETHRU);
-    static final Font italicUnderlineStrikeFont = new Font(Font.HELVETICA,
+    static final Font ITALIC_UNDERLINE_STRIKE_FONT = new Font(Font.HELVETICA,
 	    STANDARD_FONT_SIZE, Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
 
     // all fonts
-    static final Font allFont = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
+    static final Font ALL_FONT = new Font(Font.HELVETICA, STANDARD_FONT_SIZE, Font.BOLD
 	    | Font.ITALIC | Font.UNDERLINE | Font.STRIKETHRU);
 
     // header font
-    static final Font bigBold = new Font(Font.HELVETICA, HEADER_FONT_SIZE, Font.BOLD);
+    static final Font BIG_BOLD = new Font(Font.HELVETICA, HEADER_FONT_SIZE, Font.BOLD);
 
     // captureFont
-    static final Font smallFont = new Font(Font.HELVETICA, SMALL_FONT_SIZE);
+    static final Font SMALL_FONT = new Font(Font.HELVETICA, SMALL_FONT_SIZE);
 
     // margins
     static final float LEFT_MARGIN = 25;
@@ -98,31 +100,31 @@ public final class FontsToolsConstants {
 	}
 	// two fonts
 	else if (bold && italic && !underline && !strike) {
-	    return boldItalicFont;
+	    return BOLD_ITALIC_FONT;
 	} else if (bold && !italic && underline && !strike) {
-	    return boldUnderlineFont;
+	    return BOLD_UNDERLINE_FONT;
 	} else if (bold && !italic && !underline && strike) {
-	    return boldStrikeFont;
+	    return BOLD_STRIKE_FONT;
 	} else if (!bold && italic && underline && !strike) {
-	    return italicUnderlineFont;
+	    return ITALIC_UNDERLINE_FONT;
 	} else if (!bold && italic && !underline && strike) {
-	    return italicStrikeFont;
+	    return ITALIC_STRIKE_FONT;
 	} else if (!bold && !italic && underline && strike) {
-	    return underlineStrikeFont;
+	    return UNDERLINE_STRIKE_FONT;
 	}
 	// three fonts
 	else if (bold && italic && underline && !strike) {
-	    return boldItalicUnderlineFont;
+	    return BOLD_ITALIC_UNDERLINE_FONT;
 	} else if (bold && italic && !underline && strike) {
-	    return boldItalicStrikeFont;
+	    return BOLD_ITALIC_STRIKE_FONT;
 	} else if (bold && !italic && underline && strike) {
-	    return boldUnderlineStrikeFont;
+	    return BOLD_UNDERLINE_STRIKE_FONT;
 	} else if (!bold && italic && underline && strike) {
-	    return italicUnderlineStrikeFont;
+	    return ITALIC_UNDERLINE_STRIKE_FONT;
 	}
 	// all fonts
 	else if (bold && italic && underline && strike) {
-	    return allFont;
+	    return ALL_FONT;
 	}
 	return null;
     }

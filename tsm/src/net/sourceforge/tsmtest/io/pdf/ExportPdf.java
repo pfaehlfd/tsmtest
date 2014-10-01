@@ -204,7 +204,7 @@ public class ExportPdf {
 		// first element has a new chapter
 		if (i == 0) {
 		    Anchor anchor = new Anchor(file.getProject().getName(),
-			    FontsToolsConstants.bigBold);
+			    FontsToolsConstants.BIG_BOLD);
 		    anchor.setName(file.getProject().getName());
 		    // Second parameter is the number of the chapter
 		    chapter = new Chapter(new Paragraph(anchor), chapterNumber);
@@ -231,7 +231,7 @@ public class ExportPdf {
 			// Add the old chapter before creating a new one
 			document.add(chapter);
 			Anchor anchor = new Anchor(file.getProject().getName(),
-				FontsToolsConstants.bigBold);
+				FontsToolsConstants.BIG_BOLD);
 			anchor.setName(file.getProject().getName());
 			// Second parameter is the number of the chapter
 			chapter = new Chapter(new Paragraph(anchor),
@@ -261,7 +261,7 @@ public class ExportPdf {
 
 	    PdfPTable imageTable = new PdfPTable(1);
 	    imageTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
-	    Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.bigBold);
+	    Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.BIG_BOLD);
 	    Paragraph emptyLine = new Paragraph();
 	    addEmptyLine(emptyLine, 2);
 	    appendix.add(emptyLine);
@@ -299,7 +299,7 @@ public class ExportPdf {
 		// empty line
 		appendix.add(emptyLine);
 		appendix.add(new Paragraph(nameList.get(j), //$NON-NLS-1$
-			FontsToolsConstants.smallFont));
+			FontsToolsConstants.SMALL_FONT));
 		appendix.add(emptyLine);
 		counter++;
 	    }
@@ -355,7 +355,7 @@ public class ExportPdf {
 	    // protocol
 	    if (file instanceof TSMReport) {
 		ITestCaseDescriptor protocol = ((TSMReport) file).getData();
-		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.bigBold);
+		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.BIG_BOLD);
 		anchor.setName(file.getName());
 
 		// Second parameter is the number of the chapter
@@ -430,7 +430,7 @@ public class ExportPdf {
 	    // test case
 	    else if (file instanceof TSMTestCase) {
 		ITestCaseDescriptor testCase = ((TSMTestCase) file).getData();
-		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.bigBold);
+		Anchor anchor = new Anchor(file.getName(), FontsToolsConstants.BIG_BOLD);
 		anchor.setName(file.getName());
 
 		// Second parameter is the number of the chapter
@@ -516,7 +516,7 @@ public class ExportPdf {
 
 		PdfPTable imageTable = new PdfPTable(1);
 		imageTable.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
-		Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.bigBold);
+		Phrase appendix = new Phrase(Messages.ExportPdf_25, FontsToolsConstants.BIG_BOLD);
 		Paragraph emptyLine = new Paragraph();
 		addEmptyLine(emptyLine, 2);
 		appendix.add(emptyLine);
@@ -555,7 +555,7 @@ public class ExportPdf {
 		    // empty line
 		    appendix.add(emptyLine);
 		    appendix.add(new Paragraph(nameList.get(j), //$NON-NLS-1$
-			    FontsToolsConstants.smallFont));
+			    FontsToolsConstants.SMALL_FONT));
 		    appendix.add(emptyLine);
 		    counter++;
 		}
@@ -1289,7 +1289,7 @@ public class ExportPdf {
 		phrase.add(paragraph3);
 		phrase.add(p);
 		phrase.add(paragraph4);
-		phrase.add(new Paragraph(name, FontsToolsConstants.smallFont));
+		phrase.add(new Paragraph(name, FontsToolsConstants.SMALL_FONT));
 		phrase.add(paragraph4);
 		counterForImages++;
 	    } else if (currentString.startsWith("/img>")) { //$NON-NLS-1$
@@ -1463,11 +1463,11 @@ public class ExportPdf {
 		table.setWidthPercentage(FontsToolsConstants.WIDTH_PERCENTAGE);
 		table.setWidths(new float[] { 30, 70 });
 
-		PdfPCell c17 = new PdfPCell(new Phrase("ID", FontsToolsConstants.smallFont)); //$NON-NLS-1$
+		PdfPCell c17 = new PdfPCell(new Phrase("ID", FontsToolsConstants.SMALL_FONT)); //$NON-NLS-1$
 		c17.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c17);
 		PdfPCell c18 = new PdfPCell(new Phrase(String.valueOf(protocol
-			.getId()), FontsToolsConstants.smallFont));
+			.getId()), FontsToolsConstants.SMALL_FONT));
 		c18.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c18);
 
@@ -1661,11 +1661,11 @@ public class ExportPdf {
 		// table.addCell(c2);
 
 		PdfPCell c37 = new PdfPCell(new Phrase(Messages.ExportPdf_1,
-			FontsToolsConstants.smallFont));
+			FontsToolsConstants.SMALL_FONT));
 		c37.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c37);
 		PdfPCell c38 = new PdfPCell(new Phrase(String.valueOf(testCase
-			.getId()), FontsToolsConstants.smallFont));
+			.getId()), FontsToolsConstants.SMALL_FONT));
 		c38.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c38);
 
