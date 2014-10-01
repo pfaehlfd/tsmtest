@@ -100,8 +100,7 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
     private final static String DESELECT_ALL_TITLE = net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_3;
 
-    // boolean whether the export should be in one file or not
-//    private boolean exportInOneFile = true;
+    // Type of the pdf export.
     private ExportType exportType = null;
 
     /**
