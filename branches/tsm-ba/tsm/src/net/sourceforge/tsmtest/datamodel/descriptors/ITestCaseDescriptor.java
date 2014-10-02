@@ -70,17 +70,17 @@ public interface ITestCaseDescriptor {
      */
     public String getRealDuration();
     /**
-     * Gets the rich text precondition of the test case.
+     * Gets the rich text precondition of the test case as html.
      * @return The precondition of the test case as rich text.
      */
     public String getRichTextPrecondition();
     /**
-     * Gets the rich text result of the test case.
+     * Gets the rich text result of the test case as html.
      * @return The result of the test case as rich text.
      */
     public String getRichTextResult();
     /**
-     * Gets the short description of the test case.
+     * Gets the short description of the test case as html.
      * @return The short description of the test case.
      */
     public String getShortDescription();
