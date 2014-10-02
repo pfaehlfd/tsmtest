@@ -201,7 +201,7 @@ public class TSMHierarchyContentProvider implements ITreeContentProvider {
 	    }
 	    
 	    //Filter for last changed on for a given date.
-	    if (!isSameDay(filterModel.getLastChange(), testCase
+	    if (!isSameDay(filterModel.getLastChangedOn(), testCase
 		    .getData().getLastChangedOn())) {
 		return false;
 	    }
