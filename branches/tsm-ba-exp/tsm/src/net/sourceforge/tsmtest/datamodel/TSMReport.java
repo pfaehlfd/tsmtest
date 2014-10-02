@@ -141,7 +141,7 @@ public class TSMReport extends TSMResource {
 		"MM-dd-yyyy_HH-mm-ss");
 	final StringBuilder sDate = new StringBuilder(
 		date.format(executionDate));
-	return testCaseName + "_" + sDate + "_" + String.valueOf(revisionNumber);
+	return testCaseName + "_" + sDate + " r" + String.valueOf(revisionNumber);
     }
 
     /**
