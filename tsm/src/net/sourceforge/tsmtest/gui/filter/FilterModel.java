@@ -61,54 +61,93 @@ public final class FilterModel {
 	reset();
     }
 
+    /**
+     * @return True if filter for unassigned test cases.
+     */
     public boolean isUnassigned() {
 	return unassigned;
     }
 
+    /**
+     * @return The name to filtered for.
+     */
     public String getName() {
 	return name;
     }
 
+    /**
+     * @return The creator to filter for.
+     */
     public String getCreator() {
 	return creator;
     }
 
+    /**
+     * @return The last execution date to filter for.
+     */
     public Date getLastExecution() {
 	return lastExecution;
     }
 
+    /**
+     * @return The creation time to filter for.
+     */
     public Date getCreationTime() {
 	return creationTime;
     }
 
-    public Date getLastChange() {
+    /**
+     * @return The last changed on date to filter for.
+     */
+    public Date getLastChangedOn() {
 	return lastChange;
     }
 
+    /**
+     * @return True if to filter for high priority.
+     */
     public boolean isPriorityHigh() {
 	return high;
     }
 
+    /**
+     * @return True if to filter for medium priority.
+     */
     public boolean isPriorityMedium() {
 	return medium;
     }
 
+    /**
+     * @return True if to filter for low priority.
+     */
     public boolean isPriorityLow() {
 	return low;
     }
 
+    /**
+     * @return True if to filter for status passed.
+     */
     public boolean isStatusPassed() {
 	return passed;
     }
 
+    /**
+     * @return True if to filter for status passed with annotations.
+     */
     public boolean isStatusPassedWithAnnotation() {
 	return passedWithAnnotation;
     }
 
+    /**
+     * @return True if to filter for status failed.
+     */
     public boolean isStatusFailed() {
 	return failed;
     }
 
+    /**
+     * @return True if to filter for status not executed.
+     */
     public boolean isStatusNotExecuted() {
 	return notExecuted;
     }
@@ -126,8 +165,8 @@ public final class FilterModel {
     }
 
     /**
-     * @param priority
-     * @param checked indicates if given priority is selected.
+     * @param priority Priority to be set.
+     * @param checked Indicates if given priority is selected.
      */
     public void setPriority(PriorityType priority, boolean checked) {	
 	switch (priority) {
@@ -145,22 +184,22 @@ public final class FilterModel {
     }
 
     /**
-     * @param status
-     * @param checked indicates if given status is selected.
+     * @param status Status to be set.
+     * @param selected Indicates if given status is selected.
      */
-    public void setStatus(StatusType status, boolean checked) {
+    public void setStatus(StatusType status, boolean selected) {
 	switch (status) {
 	case passed:
-	    this.passed = checked;
+	    this.passed = selected;
 	    break;
 	case passedWithAnnotation:
-	    this.passedWithAnnotation = checked;
+	    this.passedWithAnnotation = selected;
 	    break;
 	case failed:
-	    this.failed = checked;
+	    this.failed = selected;
 	    break;
 	case notExecuted:
-	    this.notExecuted = checked;
+	    this.notExecuted = selected;
 	    break;
 	}
 	filterManager.invoke();
