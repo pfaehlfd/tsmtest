@@ -116,6 +116,10 @@ public class TSMReport extends TSMResource {
 	return false;
     }
 
+    /**
+    * Gets the corresponding TSMTestCase for the TSMReport.
+    * @return The corresponding TSMTestCase.
+    */
     public TSMTestCase getTestCase() {
 	return DataModel.getInstance().getTestCaseById(data.getId());
     }
