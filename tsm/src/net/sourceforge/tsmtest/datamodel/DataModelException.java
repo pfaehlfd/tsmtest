@@ -108,7 +108,7 @@ public class DataModelException extends Exception {
      * @throws DataModelException
      *             if no name set, if name too long, if no author is set, if no
      *             creation date is set, if short description too long, if name
-     *             contains colons or if t is null
+     *             contains colons or if testCase is null
      */
     public static void verifyTestCase(String name, TestCaseDescriptor testCase)
 	    throws DataModelException {

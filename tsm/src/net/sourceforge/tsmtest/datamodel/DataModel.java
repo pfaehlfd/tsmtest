@@ -770,12 +770,8 @@ public final class DataModel extends AbstractDataModel implements
 	return reports.get(f);
     }
 
-    /**
-     * checks the given resource linking it to the corresponding get-function.
-     * 
-     * @param resource
-     *            IResource to be loaded
-     * @return To TSMResource converted test case / report / package / project
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.AbstractDataModel#convertToTSMResource(java.lang.Object)
      */
     @Override
     public TSMResource convertToTSMResource(final Object resource) {

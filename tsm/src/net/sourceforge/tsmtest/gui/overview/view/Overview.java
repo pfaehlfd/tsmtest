@@ -275,7 +275,7 @@ public class Overview extends MultiPageEditorPartInput implements
     }
 
     /**
-     * creats the pages of the editor and registers the selectionlistener
+     * Creates the pages of the editor and registers the Selectionlistener.
      */
     @Override
     protected void createPages() {
@@ -303,7 +303,7 @@ public class Overview extends MultiPageEditorPartInput implements
 	final SelectionModel sm = SelectionManager.getInstance().getSelection();
 	final ArrayList<TSMResource> file = sm.getAllResources();
 	// if only reports are selected the revisions and corresponding
-	// testcases are shown
+	// test cases are shown
 	Boolean onlyRep = true;
 	for (final TSMResource f : file) {
 	    if (!(f instanceof TSMReport)) {

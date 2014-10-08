@@ -34,13 +34,10 @@ import org.jdom2.Element;
 public class Load {
 
     /**
-     * Loads the Test case data out of the given document
-     * 
-     * @param doc
-     *            The Document of the test case
-     * @param parent
-     * @return a test case
-     */
+     * Loads the Test case data out of the given document.
+     * * @param doc The Document of the test case.
+     * * @return a test case
+     * */
     public static TestCaseDescriptor loadTestCase(Document doc) {
 	Element root = doc.getRootElement();
 

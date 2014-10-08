@@ -40,11 +40,11 @@ public class OverviewStepSash {
     private static final int POSDESC = 0;
     private static final int POSDURATION = 1;
 
-    private Color red;
-    private Color green;
-    private Color yellow;
-    private Color grey;
-    private Color white;
+    private final Color red;
+    private final Color green;
+    private final Color yellow;
+    private final Color grey;
+    private final Color white;
 
     public OverviewStepSash(Composite parent) {
 	tableManager = new SashManager<TSMTestCase>(parent) {
@@ -346,7 +346,7 @@ public class OverviewStepSash {
 	tableManager.removeColumn(revision);
     }
     /**
-     * Removes all columns except the first two
+     * Removes all columns except the first two.
      */
     public void removeAllColumns() {
 	tableManager.removeAllColumns();

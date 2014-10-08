@@ -197,12 +197,12 @@ public class SashManager<T> {
     /**
      * Disposes and removes the column at the specific index
      * 
-     * @param revision
+     * @param index
      *            index to be disposed
      */
-    public void removeColumn(int revision) {
-	columnList.get(revision).dispose();
-	columnList.remove(revision);
+    public void removeColumn(int index) {
+	columnList.get(index).dispose();
+	columnList.remove(index);
     }
 
     /**
@@ -784,6 +784,10 @@ public class SashManager<T> {
 	    wasHeightChanged = change;
 	}
 
+	/**
+	* Renders a row.
+	* @param row The number of the row to be rendered.
+	*/
 	void render(int row) {
 	    if (tcData == null) {
 		if (data == null) {
@@ -804,6 +808,11 @@ public class SashManager<T> {
 	    }
 	}
 
+	/**
+	* Gets the content of a given row.
+	* @param row The row to get the content from.
+	* @return The content of the row.
+	*/
 	void setup() {
 	    tcData = createDefaultData();
 	    ArrayList<Control> tabList = new ArrayList<Control>();
@@ -827,6 +836,10 @@ public class SashManager<T> {
 	    this.data = data;
 	}
 
+	/**
+	* Gets the name of all columns of the SashManager.
+	* @return An array with the name of all columns.
+	*/
 	T getContent(int row) {
 	    for (int index = 0; index < columnList.size(); index++) {
 		SashManagerColumn<? extends Control> column = columnList
@@ -846,6 +859,9 @@ public class SashManager<T> {
 	return headerNames;
     }
 
+    /**
+    * Removes all columns except the first two.
+    */
     public void removeAllColumns() {
 	while (columnList.size() > 2) {
 	    columnList.get(2).dispose();
@@ -853,6 +869,9 @@ public class SashManager<T> {
 	}
     }
 
+    /**
+    * @return True if SashManager is disposed.
+    */
     public boolean isDisposed() {
 	return disposed;
     }

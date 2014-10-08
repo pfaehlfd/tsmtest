@@ -136,7 +136,7 @@ public class ExportPdf {
 
 		    File destinationFolder = new File(path + currentResource.getPath());
 
-		    //If export folder doesn't not exist create it.
+		    //If export folder does not exist create it.
 		    if (!destinationFolder.exists()) {
 			if (!destinationFolder.mkdirs()) {
 			    throw new IOException(Messages.ExportPdf_0);
@@ -1114,6 +1114,7 @@ public class ExportPdf {
     }
 
     /**
+     * Parses the given phrase and replaces special characters and html tags.
      * @param phrase The phrase the text is in.
      * @param text The text to be parsed.
      * @param doc The whole document.
@@ -1129,10 +1130,12 @@ public class ExportPdf {
 	String[] parts = text.split("<"); //$NON-NLS-1$
 
 	for (String currentString : parts) {
+	    //Replace the special characters.
 	    for (String[] replace : RichText.escapes) {
 		currentString = currentString.replace(replace[1], replace[0]);
 	    }
 
+	    //Replace html tags.
 	    if (currentString.startsWith("html>")) { //$NON-NLS-1$
 		Paragraph p = new Paragraph("", FontsToolsConstants.normalFont); //$NON-NLS-1$
 		phrase.add(p);
@@ -1192,7 +1195,6 @@ public class ExportPdf {
 	    }
 	    // image
 	    else if (currentString.startsWith("img")) { //$NON-NLS-1$
-
 		String[] split = currentString.split("\""); //$NON-NLS-1$
 		// split[1] is project + name
 

@@ -46,16 +46,9 @@ public class OverviewDialog extends InputDialog {
     private ArrayList<Integer> revTicks = new ArrayList<Integer>();
 
     /**
-     * Creates a new InputDialog with the needed fields
-     * @param revisionsSelected 
-     * 
-     * @param duration
-     *            The real duration as String
-     * @param name
-     *            of the tester
-     * @param worstStatus
-     *            of the test execution
-     */
+    * @param revisions The available revisions.
+    * @param revisionsSelected Selected revisions.
+    */
     public OverviewDialog(ArrayList<Integer> revisions, ArrayList<Integer> revisionsSelected) {
 
 	super(null, Messages.OverviewDialog_1, null, "", null); //$NON-NLS-2$ //$NON-NLS-1$
