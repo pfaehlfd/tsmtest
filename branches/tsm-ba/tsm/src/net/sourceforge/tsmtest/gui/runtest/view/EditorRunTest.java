@@ -499,6 +499,10 @@ public class EditorRunTest extends EditorPartInput implements
 	super.dispose();
     }
 
+    /**
+    * Checks for invalid inputs and updates the TestCaseDescriptor with new data given by the user.
+    * @return The updated TestCaseDescriptor.
+    */
     private TestCaseDescriptor updateTestCaseDescriptor() {
 	changeTimerState(true);
 
@@ -542,7 +546,7 @@ public class EditorRunTest extends EditorPartInput implements
 		    txtRevision.setText(Math.abs(Long.parseLong(txtRevision
 			    .getText())) + "");
 		}
-	    } else if (Long.parseLong(txtRevision.getText()) > 2147483647) {
+	    } else if (Long.parseLong(txtRevision.getText()) > Integer.MAX_VALUE) {
 		txtRevision.setBackground(red);
 		final MessageDialog diag = new MessageDialog(null,
 			Messages.EditorRunTest_1, null,

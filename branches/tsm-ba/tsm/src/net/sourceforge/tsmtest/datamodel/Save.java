@@ -212,13 +212,10 @@ public class Save {
     }
 
     /**
-     * @param p
-     *            the protocol
-     * @param testCaseID
-     * @param file
-     *            The IFile of the testCase of the protocol
-     * @return true if saving was successful
-     */
+    * @param protocol The protocol.
+    * @param project The project to which it belongs to.
+    * @return true if saving was successful.
+    */
     public synchronized static InputStream saveTestCaseProtocol(
 	    final TestCaseDescriptor p, final String project) {
 	final XMLOutputter outputter = new XMLOutputter(

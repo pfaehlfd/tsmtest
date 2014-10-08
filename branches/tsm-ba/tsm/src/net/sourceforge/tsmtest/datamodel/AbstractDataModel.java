@@ -96,10 +96,11 @@ public abstract class AbstractDataModel {
 	    throws DataModelException;
 
     /**
-     * @param file
-     *            usually an IResource depending on the implementation.
-     * @return
-     */
+    * Checks the given resource and links it to the corresponding get-function.
+    * 
+    * @param resource IResource to be loaded.
+    * @return To TSMResource converted test case / report / package / project.
+    */
     public abstract TSMResource convertToTSMResource(Object file);
 
     protected abstract TSMTestCase getTestCaseById(long id);
