@@ -105,6 +105,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
      * Holds the revision of the tested program
      */
     private int revision = 0;
+    
+    //Holds the version as a free text string.
+    private String versionUnderTest = "";
 
     @Override
     public long getId() {
@@ -399,4 +402,20 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	this.revision = revision;
     }
 
+    /**
+     * Set the version as a free text string.
+     * @param versionText The version text to be set.
+     */
+    public void setVersionText(final String versionText) {
+	this.versionUnderTest = versionText;
+    }
+
+    /**
+     * Gets the free text string for the version.
+     * @return The version as a free text string.
+     */
+    @Override
+    public String getVersion() {
+	return versionUnderTest;
+    }
 }

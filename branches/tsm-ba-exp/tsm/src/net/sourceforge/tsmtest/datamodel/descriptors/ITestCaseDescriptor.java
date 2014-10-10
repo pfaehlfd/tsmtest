@@ -44,4 +44,5 @@ public interface ITestCaseDescriptor {
     public List<TestStepDescriptor> getSteps();
     public Date getLastChangedOn();
     public int getRevisionNumber();
+    public String getVersion();
 }

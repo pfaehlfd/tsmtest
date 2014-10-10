@@ -258,7 +258,7 @@ public class Overview extends MultiPageEditorPartInput implements
     }
 
     @Override
-    protected void getInput(final TSMReport input) {
+    protected void setEditorInput(final TSMReport input) {
 	// input is never getted
     }
 

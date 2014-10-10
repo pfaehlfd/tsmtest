@@ -32,7 +32,6 @@ import org.jdom2.Element;
  * @author Verena Käfer
  */
 public class Load {
-
     /**
      * Loads the Test case data out of the given document.
      * * @param doc The Document of the test case.
@@ -228,6 +227,9 @@ public class Load {
 	    // revision was not a number or non-existent, we keep it as 0
 	}
 	testCaseDescriptor.setRevisionNumber(revision);
+	
+	String version = root.getChildText("version");
+	testCaseDescriptor.setVersionText(version);
 
 	for (Element currentElement : root.getChild("steps").getChildren()) {
 

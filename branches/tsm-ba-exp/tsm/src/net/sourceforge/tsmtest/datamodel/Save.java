@@ -165,6 +165,10 @@ public class Save {
 	final Element revision = new Element("revision");
 	revision.setText(t.getRevisionNumber() + "");
 	rootTestCase.addContent(revision);
+	
+	final Element version = new Element("version");
+	version.setText(t.getVersion());
+	rootTestCase.addContent(version);
 
 	// list of all steps
 	final Element steps = new Element("steps");
@@ -210,64 +214,64 @@ public class Save {
 	}
 	return null;
     }
-
+    
     /**
     * @param protocol The protocol.
     * @param project The project to which it belongs to.
     * @return true if saving was successful.
     */
     public synchronized static InputStream saveTestCaseProtocol(
-	    final TestCaseDescriptor p, final String project) {
+	    final TestCaseDescriptor protocol, final String project) {
 	final XMLOutputter outputter = new XMLOutputter(
 		Format.getPrettyFormat());
 	final Document doc = new Document();
 	final Element rootTestCaseProtocol = new Element("tsmtestcaseprotocol");
 	doc.setRootElement(rootTestCaseProtocol);
 
-	final Attribute id = new Attribute("id", p.getId() + "");
+	final Attribute id = new Attribute("id", protocol.getId() + "");
 	rootTestCaseProtocol.setAttribute(id);
 
 	final Element assignedTo = new Element("assignedTo");
-	assignedTo.setText(p.getAssignedTo());
+	assignedTo.setText(protocol.getAssignedTo());
 	rootTestCaseProtocol.addContent(assignedTo);
 
 	final Element author = new Element("author");
-	author.setText(p.getAuthor());
+	author.setText(protocol.getAuthor());
 	rootTestCaseProtocol.addContent(author);
 
 	final Element expectedDuration = new Element("expectedDuration");
-	expectedDuration.setText(p.getExpectedDuration());
+	expectedDuration.setText(protocol.getExpectedDuration());
 	rootTestCaseProtocol.addContent(expectedDuration);
 
 	final Element realDuration = new Element("realDuration");
-	realDuration.setText(p.getRealDuration());
+	realDuration.setText(protocol.getRealDuration());
 	rootTestCaseProtocol.addContent(realDuration);
 
 	// TODO pictures
 	final Element richTextPrecondition = new Element("richTextPrecondition");
-	richTextPrecondition.setText(p.getRichTextPrecondition());
+	richTextPrecondition.setText(protocol.getRichTextPrecondition());
 	rootTestCaseProtocol.addContent(richTextPrecondition);
 
 	// TODO pictures
 	final Element richTextResult = new Element("richTextResult");
-	richTextResult.setText(p.getRichTextResult());
+	richTextResult.setText(protocol.getRichTextResult());
 	rootTestCaseProtocol.addContent(richTextResult);
 
 	final Element shortDescription = new Element("shortDescription");
-	shortDescription.setText(p.getShortDescription());
+	shortDescription.setText(protocol.getShortDescription());
 	rootTestCaseProtocol.addContent(shortDescription);
 
 	final Element creationDateElement = new Element("creationDate");
-	creationDateElement.setText(p.getCreationDate().getTime() + "");
+	creationDateElement.setText(protocol.getCreationDate().getTime() + "");
 	rootTestCaseProtocol.addContent(creationDateElement);
 
 	StringBuilder lastExecution;
 
-	if (p.getLastExecution() == null) {
+	if (protocol.getLastExecution() == null) {
 	    lastExecution = new StringBuilder("not executed");
 	} else {
 
-	    lastExecution = new StringBuilder(p.getLastExecution().getTime()
+	    lastExecution = new StringBuilder(protocol.getLastExecution().getTime()
 		    + "");
 	}
 
@@ -276,31 +280,35 @@ public class Save {
 	rootTestCaseProtocol.addContent(lastExecutionElement);
 
 	final Element lastChangedOnElement = new Element("lastChangedOn");
-	lastChangedOnElement.setText(p.getLastChangedOn().getTime() + "");
+	lastChangedOnElement.setText(protocol.getLastChangedOn().getTime() + "");
 	rootTestCaseProtocol.addContent(lastChangedOnElement);
 
 	final Element numberOfExecutions = new Element("numberOfExecutions");
-	numberOfExecutions.setText(Integer.toString(p.getNumberOfExecutions()));
+	numberOfExecutions.setText(Integer.toString(protocol.getNumberOfExecutions()));
 	rootTestCaseProtocol.addContent(numberOfExecutions);
 
 	final Element numberOfFailures = new Element("numberOfFailures");
-	numberOfFailures.setText(Integer.toString(p.getNumberOfFailures()));
+	numberOfFailures.setText(Integer.toString(protocol.getNumberOfFailures()));
 	rootTestCaseProtocol.addContent(numberOfFailures);
 
 	final Element priority = new Element("priority");
-	priority.setText(p.getPriority().toString());
+	priority.setText(protocol.getPriority().toString());
 	rootTestCaseProtocol.addContent(priority);
 
 	final Element status = new Element("status");
-	status.setText(p.getStatus().toString());
+	status.setText(protocol.getStatus().toString());
 	rootTestCaseProtocol.addContent(status);
 
 	final Element revision = new Element("revision");
-	revision.setText(p.getRevisionNumber() + "");
+	revision.setText(protocol.getRevisionNumber() + "");
 	rootTestCaseProtocol.addContent(revision);
+	
+	final Element version = new Element("version");
+	version.setText(protocol.getVersion());
+	rootTestCaseProtocol.addContent(version);
 	// list of all steps
 	final Element steps = new Element("steps");
-	for (final TestStepDescriptor step : p.getSteps()) {
+	for (final TestStepDescriptor step : protocol.getSteps()) {
 	    final Element testStep = new Element("TestStep");
 	    // TODO Ids
 	    final Attribute stepID = new Attribute("id", "0");

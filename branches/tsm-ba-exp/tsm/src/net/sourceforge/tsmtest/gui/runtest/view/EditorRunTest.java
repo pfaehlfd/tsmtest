@@ -100,8 +100,10 @@ public class EditorRunTest extends EditorPartInput implements
     private Text txtTestCaseName;
     private Text txtTester;
     private Text txtRevision;
+    private Text txtVersion;
     private Composite parent;
     private static String lastRevision = 0 + "";
+    private static String lastVersion = "";
     private static String lastTester = "";
     private RunTestStepSash stepSash;
 
@@ -387,7 +389,7 @@ public class EditorRunTest extends EditorPartInput implements
 	gdRevision.widthHint = 180;
 	txtRevision.setLayoutData(gdRevision);
 	txtRevision.addModifyListener(listen);
-	txtRevision.addModifyListener(lastChangedOnListener);
+	txtRevision.addModifyListener(lastChangedOnListener);	
 
 	final Label lblSpace3 = new Label(compositeSecond, SWT.None);
 	lblSpace3
@@ -405,6 +407,22 @@ public class EditorRunTest extends EditorPartInput implements
 	txtTester.setLayoutData(gridDataTester);
 	txtTester.addModifyListener(listen);
 	txtTester.addModifyListener(lastChangedOnListener);
+	
+
+
+
+	final Label lbVersion = new Label(compositeSecond, SWT.NONE);
+	lbVersion.setText("Version");
+	
+	final GridData gdVersion = new GridData(SWT.FILL, SWT.CENTER, false,
+		false, 2, 1);
+	txtVersion = new Text(compositeSecond, SWT.BORDER);
+	txtVersion.setEditable(true);
+	gdVersion.minimumWidth = 180;
+	gdVersion.widthHint = 180;
+	txtVersion.setLayoutData(gdVersion);
+	txtVersion.addModifyListener(listen);
+	txtVersion.addModifyListener(lastChangedOnListener);
 
 	final GridData gridDataPre = new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1);
@@ -448,6 +466,7 @@ public class EditorRunTest extends EditorPartInput implements
 			+ input.getData().getRealDuration()
 			+ Messages.EditorRunTest_16 + e.getStackTrace());
 	    }
+	    txtVersion.setText(input.getData().getVersion());
 	} else {
 	    log.debug(Messages.EditorRunTest_17);
 	}
@@ -506,17 +525,17 @@ public class EditorRunTest extends EditorPartInput implements
     private TestCaseDescriptor updateTestCaseDescriptor() {
 	changeTimerState(true);
 
-	final TestCaseDescriptor testCase = input.createDataCopy();
+	final TestCaseDescriptor testCaseDescriptor = input.createDataCopy();
 
 	if (descriptionChanged) {
-	    testCase.setLastChangedOn(new Date());
+	    testCaseDescriptor.setLastChangedOn(new Date());
 	}
 
-	testCase.setRealDuration(txtTime.getText());
+	testCaseDescriptor.setRealDuration(txtTime.getText());
 
-	testCase.setAssignedTo(txtTester.getText());
-	testCase.setRichTextPrecondition(richTextPreCon.getFormattedText());
-	testCase.setSteps(stepSash.getAllSteps());
+	testCaseDescriptor.setAssignedTo(txtTester.getText());
+	testCaseDescriptor.setRichTextPrecondition(richTextPreCon.getFormattedText());
+	testCaseDescriptor.setSteps(stepSash.getAllSteps());
 
 	int revision = 0;
 	try {
@@ -568,9 +587,10 @@ public class EditorRunTest extends EditorPartInput implements
 	    diag.close();
 	    return null;
 	}
-	testCase.setRevisionNumber(revision);
+	testCaseDescriptor.setRevisionNumber(revision);
+	testCaseDescriptor.setVersionText(txtVersion.getText());
 
-	return testCase;
+	return testCaseDescriptor;
     }
 
     @Override
@@ -648,8 +668,13 @@ public class EditorRunTest extends EditorPartInput implements
 	    return;
 	}
 	setLastRevision(revision + "");
+	setLastVersion(txtVersion.getText());
 	setLastTester(txtTester.getText());
 	testCase.setRevisionNumber(revision);
+	
+	//Get version free text string.
+	testCase.setVersionText(txtVersion.getText());
+	
 
 	// Getting the final description for the run
 	final DialogRunTest dialog = new DialogRunTest(txtTime.getText(),
@@ -780,6 +805,7 @@ public class EditorRunTest extends EditorPartInput implements
 	}
 
 	txtRevision.setText(getLastRevision());
+	txtVersion.setText(getLastVersion());
 
 	setDirty(false);
 	descriptionChanged = false;
@@ -905,9 +931,17 @@ public class EditorRunTest extends EditorPartInput implements
     public String getLastRevision() {
 	return lastRevision;
     }
+    
+    public String getLastVersion() {
+	return lastVersion;
+    }
 
     public void setLastRevision(final String lastRevision) {
 	EditorRunTest.lastRevision = lastRevision;
+    }
+    
+    public void setLastVersion (final String lastVersion) {
+	EditorRunTest.lastVersion = lastVersion;
     }
 
 }
