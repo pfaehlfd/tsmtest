@@ -22,6 +22,7 @@ import java.util.Vector;
 import net.sourceforge.tsmtest.IDEWorkbenchMessages;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportedFilesType;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -102,12 +103,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
     // Type of the pdf export.
     private ExportType exportType = null;
-
-    /**
-     * 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
-     */
-    private int typeOfExportedFiles = 0;
     
+    //Typoe of exported files.
+    private ExportedFilesType typeOfExportedFiles = ExportedFilesType.ALL_FILES;
     private Text revision;
 
     /**
@@ -125,6 +123,8 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    final IStructuredSelection selection) {
 	super(pageName);
 	initialResourceSelection = selection;
+	//Preset export into one file otherwise the file browse dialog does not react.
+	setExportType(ExportType.ONE_FILE);
     }
 
     /**
@@ -718,7 +718,6 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	oneFileButton.setText(net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_0);
 	oneFileButton.setSelection(true);
 	oneFileButton.addSelectionListener(new SelectionListener() {
-
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
@@ -789,12 +788,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 0;
+		typeOfExportedFiles = ExportedFilesType.ALL_FILES;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 0;
+		typeOfExportedFiles = ExportedFilesType.ALL_FILES;
 	    }
 
 	});
@@ -805,12 +804,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 1;
+		typeOfExportedFiles = ExportedFilesType.TEST_CASES;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 1;
+		typeOfExportedFiles = ExportedFilesType.TEST_CASES;
 	    }
 
 	});
@@ -821,12 +820,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 2;
+		typeOfExportedFiles = ExportedFilesType.PROTOCOLS;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 2;
+		typeOfExportedFiles = ExportedFilesType.PROTOCOLS;
 	    }
 
 	});
@@ -834,17 +833,15 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	final Button exportRevisionProtocols = new Button(exportGroup, SWT.RADIO);
 	exportRevisionProtocols.setText(IDEWorkbenchMessages.ExportWizardPage_10);
 	exportRevisionProtocols.addSelectionListener(new SelectionListener() {
-
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 3;
+		typeOfExportedFiles = ExportedFilesType.REVISIONS;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 3;
+		typeOfExportedFiles = ExportedFilesType.REVISIONS;
 	    }
-
 	});
 	
 	revision = new Text(exportGroup, SWT.BORDER);
@@ -867,9 +864,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
     /**
      * Getter for the type of exported files.
-     * @return 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
+     * @return The type of files that should be exported.
      */
-    protected int getTypeOfExportFiles() {
+    protected ExportedFilesType getTypeOfExportFiles() {
 	return typeOfExportedFiles;
     }
     

@@ -19,8 +19,18 @@ import com.itextpdf.text.Font;
 public final class FontsToolsConstants {
     private FontsToolsConstants() {
     }
-    //Types of possible exports.
+    /**
+     * Types of possible exports.
+     *
+     */
     public static enum ExportType { ONE_FILE, MULTIPLE_FILES, SPECIFIC_REVISIONS }
+
+    /**
+     * Types of files to export.
+     *
+     */
+    public static enum ExportedFilesType { ALL_FILES, TEST_CASES, PROTOCOLS, REVISIONS }
+
     // font sizes
     private static final int STANDARD_FONT_SIZE = 12;
     private static final int HEADER_FONT_SIZE = 18;

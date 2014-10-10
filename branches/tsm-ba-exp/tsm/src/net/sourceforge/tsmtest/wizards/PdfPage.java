@@ -22,6 +22,7 @@ import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportedFilesType;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
@@ -51,7 +52,6 @@ public class PdfPage extends ExportWizardPage {
 	setTitle(Messages.PdfPage_1);
 	setDescription(Messages.PdfPage_2);
 	setPageComplete(false);
-
     }
 
     /*
@@ -132,9 +132,9 @@ public class PdfPage extends ExportWizardPage {
      * @throws CoreException
      */
     @SuppressWarnings("unchecked")
-    public List<TSMResource> getProtocols() throws CoreException,
+    public List<TSMResource> getExportList() throws CoreException,
 	    NumberFormatException {
-	int exportFiles = getTypeOfExportFiles();
+	ExportedFilesType exportFiles = getTypeOfExportFiles();
 	final List<IResource> list = getSelectedResources();
 	// go through all files and check if test case or protocol. If yes add
 	// it to newList
@@ -144,7 +144,7 @@ public class PdfPage extends ExportWizardPage {
 	    if (currentRessource instanceof IFile) {
 		// currentRessource is protocol or test case
 		// all files
-		if (exportFiles == 0) {
+		if (exportFiles == ExportedFilesType.ALL_FILES) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -164,7 +164,7 @@ public class PdfPage extends ExportWizardPage {
 		    }
 
 		    // only test cases
-		} else if (exportFiles == 1) {
+		} else if (exportFiles == ExportedFilesType.TEST_CASES) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -179,7 +179,7 @@ public class PdfPage extends ExportWizardPage {
 		    }
 
 		    // only protocols
-		} else if (exportFiles == 2) {
+		} else if (exportFiles == ExportedFilesType.PROTOCOLS) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -198,19 +198,61 @@ public class PdfPage extends ExportWizardPage {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
 			    String revisionText = getRevision();
-			    if (((IFile) currentRessource)
+			    
+			    //Parse revisions
+			    int revisionFrom;
+			    int revisionTo;
+			    int revisionList[] = null;
+			    
+			    
+			    //Revision range was entered.
+			    if (revisionText.contains("-")) {
+				String[] revisionRange = revisionText.split("-");
+				revisionFrom = Integer.valueOf(revisionRange[0]);
+				revisionTo = Integer.valueOf(revisionRange[1]);
+				
+				revisionList = new int[revisionTo+1];
+				
+				//"Calculate" all revisions between start and end.
+				for (int current = revisionFrom; current <= revisionTo; current++) {
+				    revisionList[current] = current;
+				}
+			    } 
+			    //Specific revisions was entered.
+			    else if (revisionText.contains(",")) {
+				String[] revisionsSplitted = revisionText.split(",");
+				revisionList = new int[revisionsSplitted.length];
+
+				//Convert array of strings into an array of ints.
+				for (int i = 0; i < revisionsSplitted.length; i++) {
+				    revisionList[i] = Integer.valueOf(revisionsSplitted[i]);
+				    }
+				}
+			    //A single revision was entered.
+			    else {
+				revisionList = new int[1];
+				//Convert the single revision into an int.
+				//If it is an invalid input catch the exception.
+				try {
+				    revisionList[0] =  Integer.valueOf(revisionText);
+				} catch (NumberFormatException e) {
+				    //Do nothing. PdfWizard.performFinish() already displays
+				    //an adequate error message on the GUI.
+				}
+			    }
+			    for (int currentRevision : revisionList) {
+				if (((IFile) currentRessource)
 				    .getContentDescription()
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_PROTOCOL)) {
-				TSMResource res = DataModel.getInstance()
+				    TSMResource res = DataModel.getInstance()
 					.convertToTSMResource(currentRessource);
-				TSMReport report = (TSMReport) res;
-				TestCaseDescriptor tcd = report
-					.createDataCopy();
-				if (String.valueOf(tcd.getRevisionNumber())
-					.equals(revisionText)) {
-				    newList.add((IFile) currentRessource);
+				    TSMReport report = (TSMReport) res;
+				    TestCaseDescriptor tcd = report.createDataCopy();
+				    if (tcd.getRevisionNumber() == currentRevision) {
+					newList.add((IFile) currentRessource);
+					}
 				}
 			    }
 			}
@@ -256,6 +298,5 @@ public class PdfPage extends ExportWizardPage {
 	    }
 	}
 	setErrorMessage(null);
-
     }
 }

@@ -138,7 +138,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 	int answer = 0;
 
 	try {
-	    if (page.getProtocols().isEmpty()) {
+	    if (page.getExportList().isEmpty()) {
 		page.setErrorMessage(Messages.PdfWizard_1);
 		return false;
 	    }
@@ -149,7 +149,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 	
 	final List<TSMResource> newList;
 	try {
-	    newList = page.getProtocols();
+	    newList = page.getExportList();
 	} catch (CoreException e1) {
 	    page.setErrorMessage(e1.getLocalizedMessage());
 	    return false;
