@@ -52,10 +52,17 @@ public class DataModelTypes {
      * The ID of the protocol.
      */
     public static final String CONTENT_TYPE_ID_PROTOCOL = "net.sourceforge.tsmtest.contenttype.testcaseprotocol";
-
+    /**
+     * The project nature for Eclipse.
+     */
     public static final String TSM_NATURE = "net.sourceforge.tsmtest.datamodel.TSMNature";
-
+    /**
+     * The file name extension for test cases.
+     */
     public static final String TSM_TEST_CASE_EXTENSION = ".xml";
+    /**
+     * The file name extension for reports.
+     */
     public static final String TSM_REPORT_EXTENSION = ".xml";
     
     /**
@@ -64,6 +71,9 @@ public class DataModelTypes {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 	    "yyyy-MM-dd, HH:mm:ss");
 
+    /**
+     * Folder name for the images.
+     */
     public static final String imageFolderName = "images";
     
     /**
