@@ -256,30 +256,6 @@ public class EditorRunTest extends EditorPartInput implements
 		1, 1));
 	cmpFirst.setLayout(new GridLayout(11, false));
 
-	final Button btnEditTest = new Button(cmpFirst, SWT.NONE);
-	btnEditTest.addSelectionListener(new SelectionAdapter() {
-	    @Override
-	    public void widgetSelected(final SelectionEvent e) {
-		final Display d = txtTestCaseName.getDisplay();
-		closeEditor(true);
-
-		d.asyncExec(new Runnable() {
-		    @Override
-		    public void run() {
-			try {
-			    ViewTestCase.openGUI(input);
-			} catch (final PartInitException e) {
-			    log.error(e.getMessage());
-			    for (final StackTraceElement st : e.getStackTrace()) {
-				log.error(st.toString());
-			    }
-			}
-		    }
-		});
-	    }
-	});
-	btnEditTest.setText(Messages.EditorRunTest_4);
-
 	final Button btnNewTest = new Button(cmpFirst, SWT.NONE);
 	btnNewTest.addSelectionListener(new SelectionAdapter() {
 	    @Override
