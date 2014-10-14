@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Eclipse-ExtensibleAPI: true
 Bundle-ManifestVersion: 2
-Bundle-Name: Tsm
+Bundle-Name: %Bundle-Name
 Bundle-SymbolicName: net.sourceforge.tsmtest;singleton:=true
-Bundle-Version: 1.5.1
+Bundle-Version: 1.5.2
 Bundle-Activator: net.sourceforge.tsmtest.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -32,4 +32,4 @@ Import-Package: org.eclipse.core.expressions,
  org.eclipse.swt,
  org.eclipse.swt.custom,
  org.eclipse.ui.forms 
-Bundle-Vendor: Testsuite-Management Team
+Bundle-Vendor: %Bundle-Vendor
