@@ -137,7 +137,7 @@ public class TSMReport extends TSMResource {
      * Getter for the default name of a report.
      * @param testCaseName The name of the test case to which the report belongs.
      * @param executionDate The execution date of the test case which is stored in the report.
-     * @return The name to be displayed: testCaseName + "_" + executionDate.
+     * @return The name to be saved: testCaseName + "_" + executionDate.
      */
     public static String getDefaultName(final String testCaseName,
 	    final Date executionDate, final int revisionNumber) {
@@ -145,7 +145,7 @@ public class TSMReport extends TSMResource {
 		"MM-dd-yyyy_HH-mm-ss");
 	final StringBuilder sDate = new StringBuilder(
 		date.format(executionDate));
-	return testCaseName + "_" + sDate + " r" + String.valueOf(revisionNumber);
+	return testCaseName + "_" + sDate;
     }
 
     /**
@@ -173,6 +173,13 @@ public class TSMReport extends TSMResource {
 
     public static TSMReport find(final ITestCaseDescriptor data) {
 	return DataModel.getInstance().getReportByData(data);
+    }
+    
+    /**
+     * @return The name to be displayed: testCaseName + "_" + executionDate + " r" + revisionNumber.
+     */
+    public String getName() {
+	return super.getName() + " r" + String.valueOf(data.getRevisionNumber());
     }
 
 }
