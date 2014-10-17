@@ -229,6 +229,11 @@ public class Load {
 	testCaseDescriptor.setRevisionNumber(revision);
 	
 	String version = root.getChildText("version");
+	//#HANDLE_OLD_TSMRESOURCES_BEFORE_1.5.2
+	//When opening old TSMResources that don't have this field we set an empty string.
+	if (version == null) {
+	    version = "";
+	}
 	testCaseDescriptor.setVersionText(version);
 
 	for (Element currentElement : root.getChild("steps").getChildren()) {
