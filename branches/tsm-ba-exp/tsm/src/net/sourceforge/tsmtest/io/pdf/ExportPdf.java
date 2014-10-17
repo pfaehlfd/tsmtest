@@ -1623,6 +1623,7 @@ public class ExportPdf {
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else {
+		    //If the protocol has the status "not executed" we don't add any image.
 		    Paragraph paragraph = new Paragraph(""); //$NON-NLS-1$
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);

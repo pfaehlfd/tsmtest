@@ -13,13 +13,17 @@
 package net.sourceforge.tsmtest.wizards;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.PriorityType;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
+import net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
 import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportedFilesType;
@@ -134,17 +138,17 @@ public class PdfPage extends ExportWizardPage {
     @SuppressWarnings("unchecked")
     public List<TSMResource> getExportList() throws CoreException,
 	    NumberFormatException {
-	ExportedFilesType exportFiles = getTypeOfExportFiles();
+	ExportedFilesType exportFilesType = getTypeOfExportFiles();
 	final List<IResource> list = getSelectedResources();
 	// go through all files and check if test case or protocol. If yes add
 	// it to newList
-	List<IFile> newList = new ArrayList<IFile>();
+	List<IFile> exportList = new ArrayList<IFile>();
 	for (final IResource currentRessource : list) {
 	    // currentRessource is IFile
 	    if (currentRessource instanceof IFile) {
 		// currentRessource is protocol or test case
 		// all files
-		if (exportFiles == ExportedFilesType.ALL_FILES) {
+		if (exportFilesType == ExportedFilesType.ALL_FILES) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -158,13 +162,13 @@ public class PdfPage extends ExportWizardPage {
 					    .getContentType()
 					    .getId()
 					    .equals(DataModelTypes.CONTENT_TYPE_ID_TESTCASE)) {
-				newList.add((IFile) currentRessource);
+				exportList.add((IFile) currentRessource);
 			    }
 			}
 		    }
 
 		    // only test cases
-		} else if (exportFiles == ExportedFilesType.TEST_CASES) {
+		} else if (exportFilesType == ExportedFilesType.TEST_CASES) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -173,13 +177,13 @@ public class PdfPage extends ExportWizardPage {
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_TESTCASE)) {
-				newList.add((IFile) currentRessource);
+				exportList.add((IFile) currentRessource);
 			    }
 			}
 		    }
 
 		    // only protocols
-		} else if (exportFiles == ExportedFilesType.PROTOCOLS) {
+		} else if (exportFilesType == ExportedFilesType.PROTOCOLS) {
 		    if (((IFile) currentRessource).getContentDescription() != null) {
 			if (((IFile) currentRessource).getContentDescription()
 				.getContentType() != null) {
@@ -188,7 +192,7 @@ public class PdfPage extends ExportWizardPage {
 				    .getContentType()
 				    .getId()
 				    .equals(DataModelTypes.CONTENT_TYPE_ID_PROTOCOL)) {
-				newList.add((IFile) currentRessource);
+				exportList.add((IFile) currentRessource);
 			    }
 			}
 		    }
@@ -251,7 +255,7 @@ public class PdfPage extends ExportWizardPage {
 				    TSMReport report = (TSMReport) res;
 				    TestCaseDescriptor tcd = report.createDataCopy();
 				    if (tcd.getRevisionNumber() == currentRevision) {
-					newList.add((IFile) currentRessource);
+					exportList.add((IFile) currentRessource);
 					}
 				}
 			    }
@@ -261,8 +265,74 @@ public class PdfPage extends ExportWizardPage {
 	    }
 	}
 	final List<TSMResource> tsmList = new ArrayList<TSMResource>();
-	for (final IFile res : newList) {
-	    tsmList.add(DataModel.getInstance().convertToTSMResource(res));
+	
+	//Remove every report that does match the filter.
+	for (final IFile res : exportList) {
+	    TSMResource tsmResource = DataModel.getInstance().convertToTSMResource(res);
+	    //Only remove when it is a report and the filter is enabled.
+	    if (tsmResource instanceof TSMReport && ExportFilter.getFilterEnabled()) {
+		//Get the report.
+		ITestCaseDescriptor currentReport  = ((TSMReport) tsmResource).getData();
+		
+		/**
+		 * Properties of the current report like status and priority.
+		 * @see ExportFilter.filterBitSet
+		 */
+		BitSet currentReportBitSet = new BitSet();
+		StatusType currentReportStatusType = currentReport.getStatus();
+		PriorityType currentReportPriorityType = currentReport.getPriority();
+		
+		//Read status types.
+		if (currentReportStatusType == StatusType.passed) {
+		    currentReportBitSet.set(0);
+		} 
+		if (currentReportStatusType == StatusType.passedWithAnnotation) {
+		    currentReportBitSet.set(1);
+		}
+		if (currentReportStatusType == StatusType.failed) {
+		    currentReportBitSet.set(2);
+		}
+		if (currentReportStatusType == StatusType.notExecuted) {
+		    currentReportBitSet.set(3);
+		}
+
+		//Read priorities.
+		if (currentReportPriorityType == PriorityType.low) {
+		    currentReportBitSet.set(4);
+		}
+		if (currentReportPriorityType == PriorityType.medium) {
+		    currentReportBitSet.set(5);
+		}
+		if (currentReportPriorityType == PriorityType.high) {
+		    currentReportBitSet.set(6);
+		}
+		
+		boolean exportCurrentReport = false;
+		for (int index = currentReportBitSet.nextSetBit(0); index >= 0; index = currentReportBitSet.nextSetBit(index+1)) {
+		    //First four bits represent the status.
+		    if (index <= 3) {
+			 if (ExportFilter.getFilterBitSet().get(index)) {
+			     exportCurrentReport = true;
+			 } else {
+			     exportCurrentReport = false;
+			 }
+		     } 
+		    //Last three bits represent the priorities
+		    else if (index > 3) {
+			//Only export if we already have the right status.
+			 if (ExportFilter.getFilterBitSet().get(index) && exportCurrentReport) {
+			     exportCurrentReport = true;
+			 } else {
+			     exportCurrentReport = false;
+			 }
+		     }
+		 }
+		
+		//Only export if all tests are passed.
+		if (exportCurrentReport) {
+		    tsmList.add(tsmResource);
+		}
+	    }
 	}
 	return tsmList;
     }
