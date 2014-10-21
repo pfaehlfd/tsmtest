@@ -120,7 +120,7 @@ public class ExportPdf {
 		document.close();
 	    } 
 	    //Export in multiple files.
-	    else if (exportType == ExportType.ONE_FILE){
+	    else if (exportType == ExportType.MULTIPLE_FILES){
 		// go through the list and create one document for each entry
 		for (TSMResource currentResource : newList) {
 		    counterForImages = 1;
