@@ -332,6 +332,11 @@ public class PdfPage extends ExportWizardPage {
 		if (exportCurrentReport) {
 		    tsmList.add(tsmResource);
 		}
+	    } 
+	    //If we don't have a protocol or filter is not enabled export everything that was select
+	    //(and not previously removed due to restriction on revision numbers).
+	    else {
+		tsmList.add(tsmResource);
 	    }
 	}
 	return tsmList;
