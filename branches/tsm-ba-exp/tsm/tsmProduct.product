@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="TSM" uid="TSM" id="net.sourceforge.tsmtest.TSM" application="net.sourceforge.tsmtest.application" version="1.5.1" useFeatures="false" includeLaunchers="true">
+<product name="TSM" uid="TSM" id="net.sourceforge.tsmtest.TSM" application="net.sourceforge.tsmtest.application" version="1.5.2" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/iconTSM.png"/>
       <text>
-         Testsuite-Management Version 1.5.1
+         Testsuite-Management Version 1.5.2
 Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.
 
 https://sourceforge.net/projects/tsmtest/
@@ -27,12 +27,14 @@ https://sourceforge.net/projects/tsmtest/
 
    <windowImages i32="icons/icon32.png"/>
 
+
    <launcher>
       <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
+
 
    <vm>
    </vm>

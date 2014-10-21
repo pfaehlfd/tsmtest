@@ -613,7 +613,7 @@
       </property>
       <property
             name="aboutText"
-            value="Testsuite-Management Version 1.5.1&#x0A;Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.&#x0A;&#x0A;https://sourceforge.net/projects/tsmtest/">
+            value="Testsuite-Management Version 1.5.2&#x0A;Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.&#x0A;&#x0A;https://sourceforge.net/projects/tsmtest/">
       </property>
    </product>
 </extension>
