@@ -640,6 +640,15 @@ public class ExportPdf {
 			protocol.getRevisionNumber() + ""));
 		revisionEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(revisionEntry);
+		
+		PdfPCell version = new PdfPCell(new Phrase(
+			"Version: ", FontsToolsConstants.boldFont));
+		version.setBorder(Rectangle.NO_BORDER);
+		table.addCell(version);
+		PdfPCell versionEntry = new PdfPCell(new Phrase(
+			protocol.getVersion() + ""));
+		versionEntry.setBorder(Rectangle.NO_BORDER);
+		table.addCell(versionEntry);
 
 		PdfPCell expectedDuration = new PdfPCell(new Phrase(
 			Messages.ExportPdf_34, FontsToolsConstants.boldFont));
@@ -1509,6 +1518,14 @@ public class ExportPdf {
 			protocol.getRevisionNumber() + ""));
 		c88.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c88);
+		
+		PdfPCell c89 = new PdfPCell(new Phrase("Version:",
+			FontsToolsConstants.boldFont));
+		c89.setBorder(Rectangle.NO_BORDER);
+		table.addCell(c89);
+		PdfPCell c90 = new PdfPCell(new Phrase(protocol.getVersion() + ""));
+		c90.setBorder(Rectangle.NO_BORDER);
+		table.addCell(c90);
 
 		PdfPCell c9 = new PdfPCell(new Phrase(Messages.ExportPdf_129,
 			FontsToolsConstants.boldFont));
