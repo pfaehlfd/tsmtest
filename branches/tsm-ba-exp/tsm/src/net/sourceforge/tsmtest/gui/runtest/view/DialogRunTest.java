@@ -16,6 +16,7 @@ package net.sourceforge.tsmtest.gui.runtest.view;
 import java.util.Calendar;
 
 import net.sourceforge.tsmtest.Messages;
+import net.sourceforge.tsmtest.datamodel.DataModelException;
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.gui.richtexteditor.RichText;
@@ -23,12 +24,16 @@ import net.sourceforge.tsmtest.gui.runtest.model.TestResult;
 
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 
 /**
@@ -47,6 +52,8 @@ public class DialogRunTest extends InputDialog {
     private final String labelText;
     private Button btnUpdateTime;
     private final String projectName;
+    private Text duration;
+    private String newDuration = ""; //$NON-NLS-1$
 
     /**
      * Creates a new InputDialog with the needed fields
@@ -58,12 +65,13 @@ public class DialogRunTest extends InputDialog {
      * @param worstStatus
      *            of the test execution
      */
-    public DialogRunTest(final String duration, final String name,
+    public DialogRunTest(final Text duration, final String name,
 	    final StatusType worstStatus, final String projectName) {
 	super(null, Messages.DialogRunTest_1, null, "", null); //$NON-NLS-1$
 	labelText = Messages.DialogRunTest_3 + name + Messages.DialogRunTest_4
 		+ Calendar.getInstance().getTime().toString()
-		+ Messages.DialogRunTest_5 + duration;
+		+ Messages.DialogRunTest_5 + duration.getText();
+	this.duration = duration;
 	prvWorstStatus = worstStatus;
 	this.projectName = projectName;
 	// We want a bigger window than the default size
@@ -110,6 +118,16 @@ public class DialogRunTest extends InputDialog {
 	label.setText(labelText);
 	label.moveBelow(status);
 
+	final Text durationField = new Text(comp, SWT.RIGHT);
+	durationField.setText(duration.getText());
+	newDuration = durationField.getText();
+	durationField.addModifyListener(new ModifyListener() {
+	    @Override
+	    public void modifyText(ModifyEvent e) {
+		newDuration = durationField.getText();
+	    }
+	});
+
 	richTextField = new RichText(comp, SWT.WRAP | SWT.MULTI | SWT.V_SCROLL);
 	richTextField.setProjectName(projectName);
 	richTextField.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
@@ -139,13 +157,24 @@ public class DialogRunTest extends InputDialog {
 
     @Override
     protected void buttonPressed(final int buttonId) {
+	String[] buttonName = { "OK" }; //$NON-NLS-1$
 	if (buttonId == IDialogConstants.OK_ID) {
 	    runTestValue = new TestResult();
 	    final StatusType sType = StatusType.valueOf(status.getItem(status
 		    .getSelectionIndex()));
 	    runTestValue.setDescription(richTextField.getFormattedText());
-	    runTestValue.setState(sType);
+	    runTestValue.setStatus(sType);
 	    runTestValue.setUpdateTime(btnUpdateTime.getSelection());
+	    try {
+		DataModelException.verifyDuration(newDuration);
+	    } catch (DataModelException e) {
+		final MessageDialog diag = new MessageDialog(null,
+			Messages.DialogRunTest_0, null,
+			e.getMessage(), 0, buttonName, 0);
+		diag.open();
+		return;
+	    }
+	    runTestValue.setDuration(newDuration);
 	} else {
 	    runTestValue = null;
 	}
