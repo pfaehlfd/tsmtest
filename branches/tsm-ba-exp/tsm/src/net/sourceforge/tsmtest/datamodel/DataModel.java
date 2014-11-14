@@ -37,6 +37,8 @@ import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.TSMImageContentFilter;
 import net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
+import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
+import net.sourceforge.tsmtest.io.vcs.svn.SubversionWrapper;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IContainer;
@@ -139,6 +141,10 @@ public final class DataModel extends AbstractDataModel implements
 	    if (project.isOpen()) {
 		try {
 		    if (project.hasNature(DataModelTypes.TSM_NATURE)) {
+			if (VCSSettings.subversionSupportEnabled()) {
+			    project.getLocation().toString();
+			    SubversionWrapper.update(project.getLocation().toString());
+			}
 			final TSMProject tsmProject = new TSMProject(
 				stripExtension(project.getName()));
 			put(project, tsmProject);
@@ -543,6 +549,10 @@ public final class DataModel extends AbstractDataModel implements
 	final TSMPackage tsmPackage = new TSMPackage(
 		stripExtension(folder.getName()), parent);
 	put(folder, tsmPackage);
+	if (VCSSettings.subversionSupportEnabled()) {
+	    SubversionWrapper.addForCommit(folder.getLocation().toString());
+	    SubversionWrapper.commit(folder.getLocation().toString());
+	}
 	return tsmPackage;
     }
 
@@ -927,6 +937,9 @@ public final class DataModel extends AbstractDataModel implements
 	    final TSMTestCase tsmTestCase = new TSMTestCase(name, container,
 		    testCase);
 	    put(newFile, tsmTestCase);
+	    if (VCSSettings.subversionSupportEnabled()) {
+		SubversionWrapper.addForCommit(newFile.getLocation().toString());
+	    }
 	    return tsmTestCase;
 	} catch (final CoreException e) {
 	    log.error(Messages.DataModel_16 + e.getMessage());
@@ -969,6 +982,13 @@ public final class DataModel extends AbstractDataModel implements
 	    final TSMReport tsmTestCaseProtocol = new TSMReport(name,
 		    findContainer(iContainer), newTestCaseProtocol);
 	    put(newFile, tsmTestCaseProtocol);
+
+	    //Use subversion
+	    if (VCSSettings.subversionSupportEnabled()) {
+		    SubversionWrapper.addForCommit(newFile.getLocation().toString());
+		    SubversionWrapper.addForCommit(getResource(testCase).getLocation().toString());
+	    }
+	    
 	    return tsmTestCaseProtocol;
 	} catch (final CoreException e) {
 	    throw new DataModelException(
@@ -1050,6 +1070,24 @@ public final class DataModel extends AbstractDataModel implements
 		    testCase.getName());
 	    file.setContents(source, true, true, null);
 	    testCase.setData(data);
+	    
+	    final IProject[] projects = ResourcesPlugin.getWorkspace().getRoot()
+			.getProjects();
+		for (final IProject project : projects) {
+		    if (project.isOpen()) {
+			try {
+			    if (project.hasNature(DataModelTypes.TSM_NATURE)) {
+				//Use subversion.
+				if (VCSSettings.subversionSupportEnabled()) {
+				    SubversionWrapper.commit(project.getLocation().toString());
+				}
+			    }
+			} catch (final CoreException e) {
+			    // Dont do anything
+			}
+		    }
+		}
+	    
 	    // removeResource(file);
 	    // put(file, testCase);
 	    return testCase;
@@ -1083,6 +1121,7 @@ public final class DataModel extends AbstractDataModel implements
 	    newFolder.create(true, true, null);
 	    final TSMPackage tsmPackage = new TSMPackage(name, container);
 	    put(newFolder, tsmPackage);
+	    
 	    return tsmPackage;
 	} catch (final CoreException e) {
 	    log.error(Messages.DataModel_27 + e.getMessage());
@@ -1288,6 +1327,11 @@ public final class DataModel extends AbstractDataModel implements
 	    throws DataModelException {
 	try {
 	    getResource(tsmResource).delete(true, null);
+	    //Use subversion.
+	    if (VCSSettings.subversionSupportEnabled()) {
+		SubversionWrapper.delete(getResource(tsmResource).getLocation().toString());
+		SubversionWrapper.commit(getResource(tsmResource).getLocation().toString());
+	    }
 	} catch (final CoreException e) {
 	    throw new DataModelException(e);
 	}

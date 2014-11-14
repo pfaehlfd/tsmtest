@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
+import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
+import net.sourceforge.tsmtest.io.vcs.svn.SubversionWrapper;
+import net.sourceforge.tsmtest.Activator;
 
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -87,6 +91,10 @@ public final class ImageInputOutput {
 		    .getLocation().toString()
 		    + relativePath;
 	    il.save(absolutePath, SWT.IMAGE_PNG);
+	    if (VCSSettings.subversionSupportEnabled()) {
+		SubversionWrapper.addForCommit(absolutePath);
+		SubversionWrapper.commit(absolutePath);
+	    }
 	    tempImagePaths.add(absolutePath);
 	    tempImageFilenames.add(filename);
 
@@ -106,6 +114,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_JPEG);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		} else if (imagePaths[i].endsWith(".png")) {
@@ -118,6 +128,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_PNG);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		} else if (imagePaths[i].endsWith(".gif")) {
@@ -130,6 +142,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_GIF);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		}
