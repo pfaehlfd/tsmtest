@@ -302,7 +302,7 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	for (int i = 0; i < steps.size(); i++) {
 	    final TestStepDescriptor testStep = steps.get(i);
 	    hashCode += testStep.getExpectedResult().hashCode();
-	    hashCode += testStep.getRichTextDescription().hashCode();
+	    hashCode += testStep.getActionRichText().hashCode();
 	}
 	return hashCode;
     }
@@ -367,8 +367,8 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 		    testStep2.getExpectedResult())) {
 		return false;
 	    }
-	    if (!testStep.getRichTextDescription().equals(
-		    testStep2.getRichTextDescription())) {
+	    if (!testStep.getActionRichText().equals(
+		    testStep2.getActionRichText())) {
 		return false;
 	    }
 	}

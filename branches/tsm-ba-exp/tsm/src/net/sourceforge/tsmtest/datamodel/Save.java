@@ -186,7 +186,7 @@ public class Save {
 	    // TODO pictures, boolean
 	    final Element richTextDescription = new Element(
 		    "richTextDescription");
-	    richTextDescription.setText(step.getRichTextDescription());
+	    richTextDescription.setText(step.getActionRichText());
 	    testStep.addContent(richTextDescription);
 
 	    final Element stepStatus = new Element("stepStatus");
@@ -325,7 +325,7 @@ public class Save {
 	    // TODO pictures, boolean
 	    final Element richTextDescription = new Element(
 		    "richTextDescription");
-	    richTextDescription.setText(step.getRichTextDescription());
+	    richTextDescription.setText(step.getActionRichText());
 	    testStep.addContent(richTextDescription);
 
 	    final Element stepStatus = new Element("stepStatus");

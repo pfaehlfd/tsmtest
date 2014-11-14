@@ -402,7 +402,7 @@ public class ViewTestCase extends EditorPartInput implements
 		.iterator(); iterator.hasNext();) {
 	    final TestStepDescriptor s = iterator.next();
 	    final String strExp = s.getExpectedResult();
-	    final String strDes = s.getRichTextDescription();
+	    final String strDes = s.getActionRichText();
 	    if (((strDes.equals("<html><p></p></html>") || strDes.isEmpty()) && (strExp
 		    .equals("<html><p></p></html>") || strExp.isEmpty()))) {
 		iterator.remove();

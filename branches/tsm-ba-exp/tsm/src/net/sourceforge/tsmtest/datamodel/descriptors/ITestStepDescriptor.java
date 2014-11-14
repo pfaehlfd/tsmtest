@@ -28,7 +28,7 @@ public interface ITestStepDescriptor {
     /**
      * @return The rich text description of the test step.
      */
-    public String getRichTextDescription();
+    public String getActionRichText();
     /**
      * @return The status of the test step.
      */

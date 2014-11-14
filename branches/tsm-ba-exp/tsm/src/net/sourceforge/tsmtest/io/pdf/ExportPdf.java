@@ -1019,7 +1019,7 @@ public class ExportPdf {
 		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
@@ -1088,7 +1088,7 @@ public class ExportPdf {
 		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
@@ -1905,7 +1905,7 @@ public class ExportPdf {
 		for (TestStepDescriptor s : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, s.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, s.getExpectedResult(), doc, file);
@@ -1974,7 +1974,7 @@ public class ExportPdf {
 		for (TestStepDescriptor s : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, s.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, s.getExpectedResult(), doc, file);

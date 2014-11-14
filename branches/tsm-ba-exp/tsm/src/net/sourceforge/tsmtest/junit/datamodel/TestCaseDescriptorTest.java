@@ -463,7 +463,7 @@ public class TestCaseDescriptorTest {
 	TestStepDescriptor testTestStepDescriptor = new TestStepDescriptor();
 	testTestStepDescriptor.setExpectedResult(GERMAN_UMLAUTS);
 	testTestStepDescriptor.setRealResult(GERMAN_UMLAUTS);
-	testTestStepDescriptor.setRichTextDescription(GERMAN_UMLAUTS);
+	testTestStepDescriptor.setActionRichText(GERMAN_UMLAUTS);
 	testTestStepDescriptor.setStatus(StatusType.failed);
 	testTestCaseDescriptor1.addStep(testTestStepDescriptor);
 	testTestCaseDescriptor2.addStep(testTestStepDescriptor);

@@ -108,8 +108,8 @@ public class TSMReport extends TSMResource {
 		    testStep2.getExpectedResult())) {
 		return true;
 	    }
-	    if (!testStep.getRichTextDescription().equals(
-		    testStep2.getRichTextDescription())) {
+	    if (!testStep.getActionRichText().equals(
+		    testStep2.getActionRichText())) {
 		return true;
 	    }
 	}

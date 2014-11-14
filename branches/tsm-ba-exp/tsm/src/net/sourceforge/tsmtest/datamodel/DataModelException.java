@@ -259,11 +259,11 @@ public class DataModelException extends Exception {
 	    throws DataModelException {
 	if (testStep == null) {
 	    throw new DataModelException(DataModelException.TESTCASEOBJECT_NULL);
-	} else if (testStep.getRichTextDescription() == null) {
+	} else if (testStep.getActionRichText() == null) {
 	    throw new DataModelException(
 		    DataModelException.RICHTEXTDESCRIPTION_NULL);
 	}
-	if (testStep.getRichTextDescription().length() > 500) {
+	if (testStep.getActionRichText().length() > 500) {
 	    throw new DataModelException(
 		    DataModelException.RICHTEXTDESCRIPTION_TOO_LONG);
 	}

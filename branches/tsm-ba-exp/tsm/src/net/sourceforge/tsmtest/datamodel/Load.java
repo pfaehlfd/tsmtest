@@ -111,7 +111,7 @@ public class Load {
 
 	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(currentElement
+	    addTestStep.setActionRichText(currentElement
 		    .getChildText("richTextDescription"));
 
 	    String statusText = currentElement.getChildText("stepStatus");
@@ -244,7 +244,7 @@ public class Load {
 
 	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(currentElement
+	    addTestStep.setActionRichText(currentElement
 		    .getChildText("richTextDescription"));
 
 	    String statusText = currentElement.getChildText("stepStatus");

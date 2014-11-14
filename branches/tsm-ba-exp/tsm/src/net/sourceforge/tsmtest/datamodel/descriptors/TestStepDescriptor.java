@@ -39,14 +39,14 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
     /* (non-Javadoc)
      * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getAction()
      */
-    public String getRichTextDescription() {
+    public String getActionRichText() {
 	return richTextDescription;
     }
 
     /**
      * @param action The action as a rich text that the tester should execute.
      */
-    public void setRichTextDescription(String action) {
+    public void setActionRichText(String action) {
 	this.richTextDescription = action;
     }
 
