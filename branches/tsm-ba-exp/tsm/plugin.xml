@@ -143,14 +143,14 @@
          </command>
       </menuContribution>
    </extension>-->
-   <!-- <extension
+   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="net.sourceforge.tsmtest.preferences.PreferencePage"
             id="tsm.preferences.PreferencePage"
             name="TSM Preferences">
       </page>
-   </extension> !-->
+   </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
