@@ -169,7 +169,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	      }
 	  }
 	};
-	showFilterAction.setChecked(true);
+	showFilterAction.setChecked(false);
 	
 	//Toggle button to show and hide the quick view.
 	showQuickviewAction = new Action(Messages.ApplicationActionBarAdvisor_9, IAction.AS_CHECK_BOX) {
@@ -187,7 +187,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	      }
 	  }
 	};
-	showQuickviewAction.setChecked(true);
+	showQuickviewAction.setChecked(false);
 	
 
 	IAction showViewMenuAction1;
