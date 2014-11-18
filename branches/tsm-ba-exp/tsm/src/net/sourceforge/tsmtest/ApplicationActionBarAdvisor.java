@@ -12,6 +12,10 @@
  *******************************************************************************/
 package net.sourceforge.tsmtest;
 
+import net.sourceforge.tsmtest.gui.filter.FilterView;
+import net.sourceforge.tsmtest.gui.quickview.view.Quickview;
+
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
@@ -21,7 +25,10 @@ import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.swt.SWT;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -53,6 +60,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private IAction showViewMenuAction;
     private IAction resetPerspectiveAction;
     private IAction preferencesAction;
+    private IAction showFilterAction;
+    private IAction showQuickviewAction;
     private ManualAction manualAction;
 
     // Actions - important to allocate these only in makeActions, and then use
@@ -143,6 +152,43 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
 	resetPerspectiveAction = ActionFactory.RESET_PERSPECTIVE.create(window);
 	register(resetPerspectiveAction);
+	
+	//Toggle button to show and hide the filter view.
+	showFilterAction = new Action("Filter", IAction.AS_CHECK_BOX) {
+	  @Override
+	  public void run() {
+	      IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	      if (showFilterAction.isChecked()) {
+		  try {
+		    page.showView(FilterView.ID);
+		} catch (PartInitException e) {
+		    e.printStackTrace();
+		}
+	      } else {
+		  page.hideView(page.findView(FilterView.ID));
+	      }
+	  }
+	};
+	showFilterAction.setChecked(true);
+	
+	//Toggle button to show and hide the quick view.
+	showQuickviewAction = new Action("Quick view", IAction.AS_CHECK_BOX) {
+	  @Override
+	  public void run() {
+	      IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+	      if (showQuickviewAction.isChecked()) {
+		  try {
+		    page.showView(Quickview.ID);
+		} catch (PartInitException e) {
+		    e.printStackTrace();
+		}
+	      } else {
+		  page.hideView(page.findView(Quickview.ID));
+	      }
+	  }
+	};
+	showQuickviewAction.setChecked(true);
+	
 
 	IAction showViewMenuAction1;
 	showViewMenuAction1 = ActionFactory.SHOW_VIEW_MENU.create(window);
@@ -191,6 +237,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	windowMenu.add(new Separator());
 	windowMenu.add(resetPerspectiveAction);
 	windowMenu.add(new Separator());
+	windowMenu.add(showFilterAction);
+	windowMenu.add(showQuickviewAction);
+	windowMenu.add(new Separator());
 	windowMenu.add(preferencesAction);
 
 	helpMenu.add(manualAction);
@@ -209,5 +258,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
 	coolBar.add(new ToolBarContributionItem(toolbar, "main"));
 	toolbar.add(saveAction);
+	toolbar.add(showFilterAction);
+	toolbar.add(showQuickviewAction);
     }
 }
