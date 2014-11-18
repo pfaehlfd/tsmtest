@@ -154,7 +154,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	register(resetPerspectiveAction);
 	
 	//Toggle button to show and hide the filter view.
-	showFilterAction = new Action("Filter", IAction.AS_CHECK_BOX) {
+	showFilterAction = new Action(Messages.ApplicationActionBarAdvisor_7, IAction.AS_CHECK_BOX) {
 	  @Override
 	  public void run() {
 	      IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -172,7 +172,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	showFilterAction.setChecked(true);
 	
 	//Toggle button to show and hide the quick view.
-	showQuickviewAction = new Action("Quick view", IAction.AS_CHECK_BOX) {
+	showQuickviewAction = new Action(Messages.ApplicationActionBarAdvisor_9, IAction.AS_CHECK_BOX) {
 	  @Override
 	  public void run() {
 	      IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -201,13 +201,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     protected void fillMenuBar(IMenuManager menuBar) {
 	MenuManager fileMenu = new MenuManager(
-		Messages.ApplicationActionBarAdvisor_2, "fileTSM"); //$NON-NLS-2$ //$NON-NLS-1$
+		Messages.ApplicationActionBarAdvisor_2, "fileTSM"); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$
 	MenuManager editMenu = new MenuManager(
-		Messages.ApplicationActionBarAdvisor_4, "edit"); //$NON-NLS-2$ //$NON-NLS-1$
+		Messages.ApplicationActionBarAdvisor_4, "edit"); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$
 	MenuManager windowMenu = new MenuManager(
-		Messages.ApplicationActionBarAdvisor_6, "window"); //$NON-NLS-2$ //$NON-NLS-1$
+		Messages.ApplicationActionBarAdvisor_6, "window"); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$
 	MenuManager helpMenu = new MenuManager(
-		Messages.ApplicationActionBarAdvisor_8, "helpTSM"); //$NON-NLS-2$ //$NON-NLS-1$
+		Messages.ApplicationActionBarAdvisor_8, "helpTSM"); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$
 	fileMenu.add(newWizardDropDownAction);
 	fileMenu.add(new Separator());
 	fileMenu.add(closeAction);
@@ -256,7 +256,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
      */
     protected void fillCoolBar(ICoolBarManager coolBar) {
 	IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-	coolBar.add(new ToolBarContributionItem(toolbar, "main"));
+	coolBar.add(new ToolBarContributionItem(toolbar, "main")); //$NON-NLS-1$
 	toolbar.add(saveAction);
 	toolbar.add(showFilterAction);
 	toolbar.add(showQuickviewAction);
