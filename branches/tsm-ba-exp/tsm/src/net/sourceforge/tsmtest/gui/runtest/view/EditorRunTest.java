@@ -17,6 +17,7 @@ package net.sourceforge.tsmtest.gui.runtest.view;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -103,7 +104,7 @@ public class EditorRunTest extends EditorPartInput implements
     private Text txtRevision;
     private Text txtVersion;
     private Composite parent;
-    private static String lastRevision = 0 + "";
+    private static int lastRevision = 0;
     private static String lastVersion = "";
     private static String lastTester = "";
     private RunTestStepSash stepSash;
@@ -338,7 +339,23 @@ public class EditorRunTest extends EditorPartInput implements
 	gdRevision.widthHint = 180;
 	txtRevision.setLayoutData(gdRevision);
 	txtRevision.addModifyListener(listen);
-	txtRevision.addModifyListener(lastChangedOnListener);	
+	txtRevision.addModifyListener(lastChangedOnListener);
+	
+	//Get the highest revision number for the test case that is executed and 
+	//set it as a good default value.
+	Collection<TSMReport> reports = input.getReports();
+	if (!reports.isEmpty()) {
+	    int highestRevisionNumber = 0;
+	    for (TSMReport currentReport : input.getReports()) {
+		int currentRevisionNumber = currentReport.getData().getRevisionNumber();
+		if (currentRevisionNumber > highestRevisionNumber) {
+		    highestRevisionNumber = currentRevisionNumber;
+		}
+	    }
+	    //Set the highest revision.
+	    txtRevision.setText(String.valueOf(highestRevisionNumber));
+	}
+	
 
 	final Label lblSpace3 = new Label(compositeSecond, SWT.None);
 	lblSpace3
@@ -625,7 +642,7 @@ public class EditorRunTest extends EditorPartInput implements
 	} catch (final NumberFormatException e) {
 	    return;
 	}
-	setLastRevision(revision + "");
+	setLastRevision(revision);
 	setLastVersion(txtVersion.getText());
 	setLastTester(txtTester.getText());
 	testCase.setRevisionNumber(revision);
@@ -769,7 +786,11 @@ public class EditorRunTest extends EditorPartInput implements
 	    }
 	}
 
-	txtRevision.setText(getLastRevision());
+	//Only set last used revision if we haven't already loaded the 
+	//highest revision number from the reports.
+	if (getLastRevision() != 0) {
+	    txtRevision.setText(String.valueOf(getLastRevision()));
+	}
 	txtVersion.setText(getLastVersion());
 
 	setDirty(false);
@@ -896,7 +917,7 @@ public class EditorRunTest extends EditorPartInput implements
     /**
      * @return The last used revision.
      */
-    public String getLastRevision() {
+    public int getLastRevision() {
 	return lastRevision;
     }
     
@@ -910,7 +931,7 @@ public class EditorRunTest extends EditorPartInput implements
     /**
      * @param lastRevision The last used revision.
      */
-    public void setLastRevision(final String lastRevision) {
+    public void setLastRevision(final int lastRevision) {
 	EditorRunTest.lastRevision = lastRevision;
     }
     

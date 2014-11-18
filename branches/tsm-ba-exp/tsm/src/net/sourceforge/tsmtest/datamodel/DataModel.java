@@ -239,19 +239,16 @@ public final class DataModel extends AbstractDataModel implements
     }
 
     /**
-     * returns protocols associated with the test case id returns new Hashset if
-     * no protocols were found
-     * 
-     * @param id
-     * @return reports
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.AbstractDataModel#getReportOfTestCase(long)
      */
     @Override
     protected Collection<TSMReport> getReportOfTestCase(final long id) {
-	final Collection<TSMReport> report = testCaseIdToReports.get(id);
-	if (report == null) {
+	final Collection<TSMReport> reports = testCaseIdToReports.get(id);
+	if (reports == null) {
 	    return new HashSet<TSMReport>();
 	} else {
-	    return report;
+	    return reports;
 	}
     }
 

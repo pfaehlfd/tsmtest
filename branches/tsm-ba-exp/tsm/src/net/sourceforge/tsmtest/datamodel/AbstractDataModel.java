@@ -122,6 +122,11 @@ public abstract class AbstractDataModel {
 	    TSMTestCase tsmTestCase, TestCaseDescriptor data)
 	    throws DataModelException;
 
+    /**
+     * @param id The id of the test case which reports should be retrieved.
+     * @return A collection containing all reports that belong to the test case.
+     *  If no protocols were found a new HashSet is returned.
+     */
     protected abstract Collection<TSMReport> getReportOfTestCase(long id);
 
     protected abstract TSMReport createReport(String name,

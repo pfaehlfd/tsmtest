@@ -42,7 +42,17 @@ public interface ITestCaseDescriptor {
     public String getShortDescription();
     public StatusType getStatus();
     public List<TestStepDescriptor> getSteps();
+    /**
+     * @return The date when the test case was last changed.
+     */
     public Date getLastChangedOn();
+    /**
+     * @return The revision of the system under test.
+     */
     public int getRevisionNumber();
+    /**
+     * Gets the free text string for the version.
+     * @return The version as a free text string.
+     */
     public String getVersion();
 }

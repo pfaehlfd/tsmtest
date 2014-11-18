@@ -259,6 +259,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	this.richTextResult = richTextResult;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
 	final TestCaseDescriptor clone = (TestCaseDescriptor) super.clone();
@@ -284,6 +287,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	}
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
 	int hashCode = getClass().getName().hashCode();
@@ -307,6 +313,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return hashCode;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object other) {
 	// Check all attributes
@@ -375,17 +384,23 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return true;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getLastChangedOn()
+     */
     @Override
     public Date getLastChangedOn() {
 	return lastChangedOn;
     }
 
+    /**
+     * @param lastChangedOn The date on which the test case was changed last time.
+     */
     public void setLastChangedOn(final Date lastChangedOn) {
 	this.lastChangedOn = lastChangedOn;
     }
 
-    /**
-     * returns the revision of the tested program
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getRevisionNumber()
      */
     @Override
     public int getRevisionNumber() {
@@ -393,10 +408,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
     }
 
     /**
-     * sets the revision of the tested program
+     * Dets the revision of the system under test.
      * 
-     * @param revision
-     *            version of the tested program
+     * @param revision of the system under test.
      */
     public void setRevisionNumber(final int revision) {
 	this.revision = revision;
@@ -410,9 +424,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	this.versionUnderTest = versionText;
     }
 
-    /**
-     * Gets the free text string for the version.
-     * @return The version as a free text string.
+
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getVersion()
      */
     @Override
     public String getVersion() {
