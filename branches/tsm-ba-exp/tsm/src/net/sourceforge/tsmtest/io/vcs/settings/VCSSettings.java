@@ -6,7 +6,7 @@ package net.sourceforge.tsmtest.io.vcs.settings;
 import java.io.File;
 
 import net.sourceforge.tsmtest.Activator;
-import net.sourceforge.tsmtest.preferences.PreferencePage;
+import net.sourceforge.tsmtest.preferences.PreferenceConstants;
 
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -34,7 +34,7 @@ public class VCSSettings {
      */
     public static boolean subversionSupportEnabled() {
 	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-	String subversionPath = store.getString(PreferencePage.FIELD_SUBVERSION_PATH);
+	String subversionPath = store.getString(PreferenceConstants.FIELD_SUBVERSION_PATH);
 	
 	//Check if path is valid.
 	if (checkInstallationPath(subversionPath) == VCS_INSTALL_STATUS.OK) {
@@ -49,7 +49,7 @@ public class VCSSettings {
      */
     public static String getSubversionPath() {
 	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-	String subversionPath = store.getString(PreferencePage.FIELD_SUBVERSION_PATH);
+	String subversionPath = store.getString(PreferenceConstants.FIELD_SUBVERSION_PATH);
 	return subversionPath;
     }
 

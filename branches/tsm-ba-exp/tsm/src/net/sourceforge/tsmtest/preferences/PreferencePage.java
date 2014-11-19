@@ -37,8 +37,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 
 public class PreferencePage extends FieldEditorPreferencePage implements
 	IWorkbenchPreferencePage {
-    public static final String FIELD_SUBVERSION_SUPPORT = "subversionSupport";
-    public static final String FIELD_SUBVERSION_PATH = "subversionPath";
+   
     FileFieldEditor subversionPathEditor;
     BooleanFieldEditor subversionSupportBooleanFieldEditor;
 
@@ -55,17 +54,18 @@ public class PreferencePage extends FieldEditorPreferencePage implements
      */
     protected void createFieldEditors() {
 	subversionSupportBooleanFieldEditor = new BooleanFieldEditor
-		(FIELD_SUBVERSION_SUPPORT, "Enable Subversion support", BooleanFieldEditor.DEFAULT, getFieldEditorParent());
-	addField(subversionSupportBooleanFieldEditor);
+		(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, "Enable Subversion support", BooleanFieldEditor.DEFAULT, getFieldEditorParent());
+	
 
 	subversionPathEditor = new FileFieldEditor("SubversionPathEditor", "Subversion client executable: ", true, 
 		FileFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent());
 	subversionPathEditor.setStringValue(VCSSettings.getSubversionPath());
 
-	Boolean enabled = subversionSupportBooleanFieldEditor.getBooleanValue();
-	subversionPathEditor.setEnabled(true, getFieldEditorParent());
+	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
+	subversionPathEditor.setEnabled(store.getBoolean(PreferenceConstants.FIELD_SUBVERSION_SUPPORT), getFieldEditorParent());
 	subversionPathEditor.setPreferenceStore(Activator.getDefault().getPreferenceStore());
 
+	addField(subversionSupportBooleanFieldEditor);
     	addField(subversionPathEditor);
     	initializeDefaultPreferences();
     }
@@ -92,16 +92,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements
      */
     public void initializeDefaultPreferences() {
 	IPreferenceStore store = getPreferenceStore();
-	store.setDefault(FIELD_SUBVERSION_SUPPORT, "/usr/bin/svn");
-	store.setValue(FIELD_SUBVERSION_SUPPORT, "/usr/bin/svn");
-    }
-
-    /**
-     * FIXME
-     */
-    private void initializeValues() {
-	IPreferenceStore store = getPreferenceStore();
-	subversionPathEditor.setStringValue(store.getString(FIELD_SUBVERSION_SUPPORT));
+	store.setDefault(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, false);
+	store.setDefault(PreferenceConstants.FIELD_SUBVERSION_PATH, "/usr/bin/svn");
+	subversionPathEditor.setStringValue("/usr/bin/svn");
     }
 
     /**
@@ -109,15 +102,8 @@ public class PreferencePage extends FieldEditorPreferencePage implements
      */
     private void storeValues() {
 	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-	store.setValue(FIELD_SUBVERSION_PATH, subversionPathEditor.getStringValue());
-    }
-
-    /**
-     * FIXME
-     */
-    private void initializeDefaults() {
-//	IPreferenceStore store = getPreferenceStore();
-	subversionPathEditor.setStringValue("/usr/bin/xx");
+	store.setValue(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, subversionSupportBooleanFieldEditor.getBooleanValue());
+	store.setValue(PreferenceConstants.FIELD_SUBVERSION_PATH, subversionPathEditor.getStringValue());
     }
 
     /* (non-Javadoc)
@@ -156,6 +142,14 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	super.propertyChange(event);
     }
 
+    @Override
+    public void performDefaults() {
+	initializeDefaultPreferences();
+	subversionPathEditor.loadDefault();
+	subversionSupportBooleanFieldEditor.loadDefault();
+	super.performDefaults();
+    }
+    
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
      */
