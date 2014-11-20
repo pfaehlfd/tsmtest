@@ -1,6 +1,13 @@
-/**
- * This class holds the settings for version control systems like paths to executable and environment settings.
- */
+/*******************************************************************************
+ * Copyright (c) 2014 Tobias Hirning.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: 
+ * 	Tobias Hirning - initial version
+ *******************************************************************************/
 package net.sourceforge.tsmtest.io.vcs.settings;
 
 import java.io.File;
@@ -12,7 +19,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 
 /**
  * @author Tobias Hirning
- *
+ * This class holds the settings for version control systems like paths to executable and environment settings.
  */
 public class VCSSettings {
     public static enum VCS_INSTALL_STATUS {OK, NO_PATH, NO_FILE, NOT_EXECUTABLE};

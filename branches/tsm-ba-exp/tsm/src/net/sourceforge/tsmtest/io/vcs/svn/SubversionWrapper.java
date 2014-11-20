@@ -1,11 +1,16 @@
-/**
- * This class provides version control support for the workspace using Subversion from the command line.
- */
+/*******************************************************************************
+ * Copyright (c) 2014 Tobias Hirning.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors: 
+ * 	Tobias Hirning - initial version
+ *******************************************************************************/
 package net.sourceforge.tsmtest.io.vcs.svn;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
@@ -14,7 +19,7 @@ import org.apache.log4j.Logger;
 
 /**
  * @author Tobias Hirning
- *
+ * This class provides version control support for the workspace using Subversion from the command line.
  */
 public class SubversionWrapper {
     private static final Logger log = Logger.getLogger(SubversionWrapper.class);
@@ -191,12 +196,6 @@ public class SubversionWrapper {
 	    ProcessBuilder processBuilder = new ProcessBuilder(VCSSettings.getSubversionPath(), "delete", path);
 	    Process process = processBuilder.start();
 	    process.waitFor();
-	    
-	    String line;
-	    BufferedReader is = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-	    while ((line = is.readLine()) != null)
-	      System.out.println(line);
 
 	    //If return value is not equal than 0 the svn client has reported an error.
 	    if (process.exitValue() != 0) {
