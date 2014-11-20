@@ -46,7 +46,8 @@
             category="tsm.category"
             class="net.sourceforge.tsmtest.gui.filter.FilterView"
             id="net.sourceforge.tsmtest.gui.filter.Filter"
-            name="%filter.name">
+            name="%filter.name"
+            restorable="true">
       </view>
       
       <!--
