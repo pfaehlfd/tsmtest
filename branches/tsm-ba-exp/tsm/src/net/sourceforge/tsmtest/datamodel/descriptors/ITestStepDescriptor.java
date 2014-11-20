@@ -32,5 +32,9 @@ public interface ITestStepDescriptor {
     /**
      * @return The status of the test step.
      */
+    /**
+     * Gets the status of the test step.
+     * @return The status of the test step.
+     */
     public StatusType getStatus();
 }

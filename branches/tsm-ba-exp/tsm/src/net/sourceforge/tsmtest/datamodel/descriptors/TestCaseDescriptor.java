@@ -123,6 +123,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return author;
     }
 
+    /**
+     * Sets the author of the test case.
+     * @param author The author name to be set.
+     */
     public void setAuthor(final String author) {
 	this.author = author;
     }
@@ -135,6 +139,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return assignedTo;
     }
 
+    /**
+     * Sets the assigned to of the test case.
+     * @param assignedTo The assigned to name to be set.
+     */
     public void setAssignedTo(final String assignedTo) {
 	this.assignedTo = assignedTo;
     }
@@ -144,6 +152,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return priority;
     }
 
+    /**
+     * Sets the priority of the test case.
+     * @param priority The priority to be set.
+     */
     public void setPriority(final PriorityType priority) {
 	this.priority = priority;
     }
@@ -153,6 +165,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return expectedDuration;
     }
 
+    /**
+     * Sets the expected duration of the test case.
+     * @param expectedDuration The expected duration to be set.
+     */
     public void setExpectedDuration(final String expectedDuration) {
 	this.expectedDuration = expectedDuration;
     }
@@ -162,6 +178,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return realDuration;
     }
 
+    /**
+     * Sets the real duration of the test case.
+     * @param realDuration The real duration to be set.
+     */
     public void setRealDuration(final String realDuration) {
 	this.realDuration = realDuration;
     }
@@ -171,6 +191,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return shortDescription;
     }
 
+    /**
+     * Sets the short description of the test case.
+     * @param shortDescription The short description to be set.
+     */
     public void setShortDescription(final String shortDescription) {
 	this.shortDescription = shortDescription;
     }
@@ -180,6 +204,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return richTextPrecondition;
     }
 
+    /**
+     * Sets the rich text precondition of the test case.
+     * @param richTextPrecondition The rich text precondition to be set.
+     */
     public void setRichTextPrecondition(final String richTextPrecondition) {
 	this.richTextPrecondition = richTextPrecondition;
     }
@@ -189,6 +217,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return steps;
     }
 
+    /**
+     * Adds a test step to the test case.
+     * @param step The test step to be added to the test case.
+     */
     public void addStep(final TestStepDescriptor step) {
 	steps.add(step);
     }
@@ -202,10 +234,17 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return numberOfExecutions;
     }
 
+    /**
+     * Sets the number of executions of the test case.
+     * @param numberOfExecutions The number of executions to be set.
+     */
     public void setNumberOfExecutions(final int numberOfExecutions) {
 	this.numberOfExecutions = numberOfExecutions;
     }
 
+    /**
+     * Increases the number of executions of the test case.
+     */
     public void increaseNumberOfExecutions() {
 	numberOfExecutions++;
     }
@@ -215,10 +254,17 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return numberOfFailures;
     }
 
+    /**
+     * Sets the number of failures of the test case.
+     * @param numberOfFailures The number of failures to be set.
+     */
     public void setNumberOfFailures(final int numberOfFailures) {
 	this.numberOfFailures = numberOfFailures;
     }
 
+    /**
+     * Increases the number of failures of the test case.
+     */
     public void increaseNumberOfFailures() {
 	numberOfFailures++;
     }
@@ -228,6 +274,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return lastExecution;
     }
 
+    /**
+     * Sets the last execution on date of the test case.
+     * @param lastExecution The last execution date to be set.
+     */
     public void setLastExecution(final Date lastExecution) {
 	this.lastExecution = lastExecution;
     }
@@ -237,6 +287,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return status;
     }
 
+    /**
+     * Sets the status of the test case.
+     * @param status The status to be set.
+     */
     public void setStatus(final StatusType status) {
 	this.status = status;
     }
@@ -246,6 +300,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return creationDate;
     }
 
+    /**
+     * Sets the creation date of the test case.
+     * @param creationDate The creation date to be set.
+     */
     public void setCreationDate(final Date creationDate) {
 	this.creationDate = creationDate;
     }
@@ -255,6 +313,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return richTextResult;
     }
 
+    /**
+     * Sets the rich text result of the test case.
+     * @param richTextResult The rich text result to be set.
+     */
     public void setRichTextResult(final String richTextResult) {
 	this.richTextResult = richTextResult;
     }
