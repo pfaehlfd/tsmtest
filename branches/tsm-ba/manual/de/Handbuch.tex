@@ -19,7 +19,7 @@
 \title{{\Huge Benutzerhandbuch} \linebreak \linebreak
 \includegraphics[width= 35px]{BilderHandbuch/icon32.png} \\
 \textbf{Testsuite-Management}
-\linebreak \linebreak Handbuch für die Version 1.5.1}
+\linebreak \linebreak Handbuch für die Version 1.5.2}
 \usepackage[space,extendedchars]{grffile}
 \begin{document}
 
@@ -34,7 +34,7 @@ Wir freuen uns, dass Sie sich für Testsuite-Management (TSM) entschieden haben.
 TSM wurde im Rahmen eines Studienprojekts von Studenten der Universität Stuttgart im Bachelor-Studiengang Softwaretechnik entwickelt.
 
 \section{Einleitung}
-Dieses Handbuch ermöglicht Ihnen den Einstieg in die Verwendung des Eclipse-Plugins TSM und der alleinstehenden Programmversion in der Version 1.5.1.
+Dieses Handbuch ermöglicht Ihnen den Einstieg in die Verwendung des Eclipse-Plugins TSM und der alleinstehenden Programmversion in der Version 1.5.2.
 Es erklärt Ihnen die Installation und die Benutzung.\\
 
 
@@ -58,7 +58,7 @@ Sie benötigen:
 
 \subsubsection{Installationsschritte}
 \begin{enumerate}
- \item Entpacken Sie die "`tsmProduct-v1.5.1.0.zip"'-Datei.
+ \item Entpacken Sie die "`tsmProduct-v1.5.1.2.zip"'-Datei.
  \item Führen Sie die ausführbare eclipse-Datei aus.
 \end{enumerate}
 
@@ -84,7 +84,7 @@ Sie benötigen für die Installation der Update-Site:
  \item Klicken Sie in Eclipse auf \textit{Help}, \textit{Install New Software...}
  \item Klicken Sie im sich öffnenden Dialog auf \textit{Add...}.
  \item Klicken sie auf \textit{Archive...}
- \item Wählen Sie die "`tsmUpdateSite-v1.5.1.1.zip"'.
+ \item Wählen Sie die "`tsmUpdateSite-v1.5.2.zip"'.
  \item Selektieren Sie \textit{TSM} und dann \textit{tsmFeature}.
  \item Stellen Sie sicher, dass die Option \textit{Contact all update sites during install to find required software} deaktiviert ist.
  \item Klicken Sie auf \textit{Next} und folgen Sie den Anweisungen des Assistenten.
@@ -92,7 +92,7 @@ Sie benötigen für die Installation der Update-Site:
 \end{enumerate}
 
 \subsubsection{Fehlermeldung}
-Wir bitten Sie, uns Fehler, die Sie finden mittels des Bug-Tracking-Werkzeugs Sourceforges unter \\ \href{https://sourceforge.net/p/tsmtest/tickets/}
+Wir bitten Sie, uns Fehler, die Sie finden mittels des Bug-Tracking-Werkzeuges Sourceforges unter \\ \href{https://sourceforge.net/p/tsmtest/tickets/}
 {https://sourceforge.net/p/tsmtest/tickets/} mitzuteilen.
 
 \section{Benutzung des TSM-Navigators}
@@ -733,13 +733,11 @@ Auf der rechten Seite finden Sie die \texttt{TSM-Schnellansicht}.
 \centering
 \includegraphics[width= 320px]{BilderHandbuch/Quickview/Quickview.png}
 \caption{Verschiedene Ansichten}
-\label{fig:Breadcrumb}
+\label{fig:Quickview}
 \end{figure}
 
 Die Schnellansicht zeigt den Status des jeweiligen selektierten Objekts an.\\
-In Abbildung \ref{fig:Projekt} sehen Sie die Schnellansicht eines beispielhaften Projekts, \texttt{Type} zeigt, was selektiert ist.
-In Abbildung \ref{fig:Paket} sehen Sie die Schnellansicht eines beispielhaften Pakets und in Abbildung \ref{fig:Testfalls} sehen Sie die Schnellansicht eines beispielhaften Testfalls.
-
+In Abbildung \ref{fig:Quickview} sehen Sie links die Schnellansicht eines beispielhaften Testfall, in der Mitte ein beispielhaftes Protokoll und rechts ein beispielhaftes Paket.
 
 \newpage
 \subsection{PDF-Export}
@@ -809,7 +807,7 @@ Per \textit{refactor} $ \rightarrow $ \textit{rename} kann ein Name mit mehr als
 Auch wird dort nicht auf die unter Windows im Dateinamen verbotenen Zeichen überprüft.
 Dies geschieht erst, nachdem der Testfall erneut zum Bearbeiten geöffnet wurde. Daher wird empfohlen auf die gewählten Zeichen und die Länge der Namen zu achten.
 
-\subsection*{Schleierhaftes Verhalten bei Cut/Copy\&Paste von Bildern}
+\subsection*{Unklares Verhalten bei Auschneiden/Kopieren und Einfügen von Bildern}
 In einigen Fällen wird beim Kopieren und Wiedereinfügen von Bildern der Text in Form von HTML eingefügt.
 
 \subsection*{Einfügen von Bildern einer vorherigen Sitzung funktioniert nicht}
@@ -820,7 +818,7 @@ Manuell ist es relativ langsam. Außerdem kann man nicht nach rechts scrollen we
 
 \subsection*{Tastenkürzel unter Linux bei der RCP-Version}
 Bei manchen Systemkonfigurationen werden Tastenkürzel ohne aktiviert, ohne dass die Strg-Taste gedrückt wurde oder gedrückt gehalten wird.
-Dies hat zur Folge dass z.\,B. ein bloßes Drücken von "N" den Assistenten öffnet.
+Dies hat zur Folge dass z.\,B. ein bloßes Drücken von "`N"' den Assistenten öffnet.
 
 \subsection*{Kaufmannsund in Dateinamen nicht möglich}
 Bilder, deren Dateiname oder Pfad ein Kaufmannsund (\&) enthält können nicht eingefügt und angezeigt werden.
@@ -837,10 +835,10 @@ Sind bereits andere Testfälle oder Protokolle offen, so kann es vorkommen dass 
 Um das Problem zu beheben sollten alle offenen Testfälle oder Protokolle geschlossen werden.
 
 \subsection*{Unklare Fehlermeldung beim Export von nicht vorhandener Revision}
-Exportiert man eine Revision die nicht vorhanden ist, erscheint eine unklare Fehlermeldung: "Sie haben keine Datei zum Exportieren ausgewählt."
+Exportiert man eine Revision die nicht vorhanden ist, erscheint eine unklare Fehlermeldung: "`Sie haben keine Datei zum Exportieren ausgewählt."'
 
-\subsection*{Beim Export-Abbruch wird ein PDF erstellt}
-Der Abbruch-Button beim Export ist ohne Funktion, die PDF wird trotzdem erstellt.
+\subsection*{Beim Export-Abbruch wird eine PDF-Datei erstellt}
+Der Abbruch-Button beim Export ist ohne Funktion, die PDF-Datei wird trotzdem erstellt.
 
 \subsection*{Felder mit Informationen in oberer Leiste werden teilweise im Protokoll abgeschnitten}
 Im Protokoll werden Informationen in oberer Leiste werden teilweise abgeschnitten.
@@ -858,7 +856,7 @@ Der TSM-Navigator kann nicht alle Tastenkürzel die im Project Explorer vorhande
 \subsection*{Quickview: Name des Testfalls skaliert nicht mit Fensterbreite}
 Ist der Name eines Projekts/Pakets oder Testfall zu lang wird er nicht vollständig in der Schnellansicht angezeigt.
 
-\subsection*{About-Dialog: Feld "Provider" ist leer}
+\subsection*{About-Dialog: Feld "`Provider"' ist leer}
 Geht man über \texttt{Help} - \texttt{About Eclipse Platform} in TSM hinein, so ist das Feld Provider noch leer.
 
 \subsection*{Ein Bild im Vorschaufenster verschieben}
@@ -910,6 +908,18 @@ Ist das Bild zu klein wird ein Obj-Symbol gezeichnet.
  \item Installation aktualisiert.
  \item Kapitel Overview hinzugefügt.
 \end{itemize}
+
+\subsection*{0.4 -- 24.09.2014}
+\begin{itemize}
+ \item Anpassung an Version 1.5.1.
+ \item Rechtschreibfehler korrigiert und aufgeräumt.
+\end{itemize}
+
+\subsection*{0.5 -- 20.11.2014}
+\begin{itemize}
+ \item Anpassung an Version 1.5.2.
+\end{itemize}
+
  
 \end{document}
 
