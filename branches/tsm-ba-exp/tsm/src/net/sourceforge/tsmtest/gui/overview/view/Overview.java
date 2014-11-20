@@ -870,7 +870,7 @@ public class Overview extends MultiPageEditorPartInput implements SelectionObser
      * @param rev The revision number for which the the last report should be retrieved.
      * @return The last report for the given revision for the given test case.
      */
-    protected TSMReport getCurrentReport(final TSMTestCase testcase, final int rev) {
+    private TSMReport getCurrentReport(final TSMTestCase testcase, final int rev) {
 	// getting all reports
 	final Collection<TSMReport> reportsForTestcase = testcase.getReports();
 	
