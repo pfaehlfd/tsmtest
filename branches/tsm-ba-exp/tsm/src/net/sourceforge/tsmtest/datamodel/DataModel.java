@@ -849,6 +849,12 @@ public final class DataModel extends AbstractDataModel implements
 		// IResource is really needed
 		res = ResourcesPlugin.getWorkspace().getRoot().findMember(path);
 		put(res, tsmResource);
+
+		//Subversion support
+		if (VCSSettings.subversionSupportEnabled()) {
+		    SubversionWrapper.addForCommit(res.getLocation().toString());
+		    SubversionWrapper.commit(res.getLocation().toString());
+		}
 		return res;
 	    } catch (final CoreException e) {
 		log.error(Messages.DataModel_9 + e.getMessage());
@@ -892,6 +898,12 @@ public final class DataModel extends AbstractDataModel implements
 	    // set IProject attribute
 	    final TSMProject tsmProject = new TSMProject(project.getName());
 	    put(project, tsmProject);
+	    //Subversion support
+	    if (VCSSettings.subversionSupportEnabled()) {
+		SubversionWrapper.addForCommit(project.getLocation().toString());
+		SubversionWrapper.commit(project.getLocation().toString());
+	    }
+	    
 	    return tsmProject;
 	} catch (final CoreException e) {
 	    log.error(Messages.DataModel_12 + e.getMessage());
@@ -936,6 +948,7 @@ public final class DataModel extends AbstractDataModel implements
 	    put(newFile, tsmTestCase);
 	    if (VCSSettings.subversionSupportEnabled()) {
 		SubversionWrapper.addForCommit(newFile.getLocation().toString());
+		SubversionWrapper.commit(newFile.getLocation().toString());
 	    }
 	    return tsmTestCase;
 	} catch (final CoreException e) {
@@ -1323,11 +1336,24 @@ public final class DataModel extends AbstractDataModel implements
     protected void delete(final TSMResource tsmResource)
 	    throws DataModelException {
 	try {
-	    getResource(tsmResource).delete(true, null);
-	    //Use subversion.
-	    if (VCSSettings.subversionSupportEnabled()) {
-		SubversionWrapper.delete(getResource(tsmResource).getLocation().toString());
-		SubversionWrapper.commit(getResource(tsmResource).getLocation().toString());
+	    //For TSMProject we need the corresponding IProject to get the location.
+	    if (tsmResource instanceof TSMProject) {
+		IProject iProject = (IProject)DataModel.getInstance().getIProjectForTSMProject((TSMProject)tsmResource);
+		//Use subversion.
+		if (VCSSettings.subversionSupportEnabled()) {
+		    SubversionWrapper.updateWorkspace();
+		    SubversionWrapper.delete(iProject.getLocation().toString());
+		    SubversionWrapper.commit(iProject.getLocation().toString());
+		    getResource(tsmResource).delete(true, null);
+		}
+	    } else {
+		getResource(tsmResource).delete(true, null);
+		//Use subversion.
+		if (VCSSettings.subversionSupportEnabled()) {
+		    SubversionWrapper.updateWorkspace();
+		    SubversionWrapper.delete(getResource(tsmResource).getLocation().toString());
+		    SubversionWrapper.commit(getResource(tsmResource).getLocation().toString());
+		}
 	    }
 	} catch (final CoreException e) {
 	    throw new DataModelException(e);
@@ -1342,5 +1368,17 @@ public final class DataModel extends AbstractDataModel implements
 	} else {
 	    ResourcesPlugin.getWorkspace().removeResourceChangeListener(this);
 	}
+    }
+    
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.AbstractDataModel#getIProjectForTSMProject(net.sourceforge.tsmtest.datamodel.TSMProject)
+     */
+    public IProject getIProjectForTSMProject (TSMProject project) {
+	for (IProject currentProject : projects.keySet()) {
+	    if (currentProject.getName().equals(project.getName())) {
+		return (IProject)currentProject;
+	    }
+	}
+	return null;
     }
 }

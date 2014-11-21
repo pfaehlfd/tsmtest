@@ -16,6 +16,7 @@ import java.util.List;
 import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.resources.ResourcesPlugin;
 
 /**
  * @author Tobias Hirning
@@ -139,6 +140,32 @@ public class SubversionWrapper {
 
 	    if (process.exitValue() != 0) {
 		log.debug(updateResource + " could not be updated.");
+		return false;
+	    }
+	} catch (IOException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InterruptedException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
+	return true;
+    }
+    
+    /**
+     * Updates the whole workspace using "svn update".
+     * @return The return code of the svn command.
+     */
+    public static final boolean updateWorkspace() {
+	//Build the command: svn update <workspace>
+	ProcessBuilder processBuilder = new ProcessBuilder(VCSSettings.getSubversionPath(), "update", 
+		ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
+	try {
+	    Process process = processBuilder.start();
+	    process.waitFor();
+
+	    if (process.exitValue() != 0) {
+		log.debug("Workspace could not be updated.");
 		return false;
 	    }
 	} catch (IOException e) {
