@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 
 /**
  * An Editor to execute a TestCaseObject
@@ -69,8 +70,8 @@ public class DialogRunTest extends InputDialog {
 	    final StatusType worstStatus, final String projectName) {
 	super(null, Messages.DialogRunTest_1, null, "", null); //$NON-NLS-1$
 	labelText = Messages.DialogRunTest_3 + name + Messages.DialogRunTest_4
-		+ Calendar.getInstance().getTime().toString()
-		+ Messages.DialogRunTest_5 + duration.getText();
+		+ Calendar.getInstance().getTime().toString() + 
+		Messages.DialogRunTest_5;
 	this.duration = duration;
 	prvWorstStatus = worstStatus;
 	this.projectName = projectName;
@@ -102,6 +103,12 @@ public class DialogRunTest extends InputDialog {
 	gd.minimumHeight = 375;
 	gd.minimumWidth = 700;
 	comp.setLayoutData(gd);
+	
+	GridLayout gridLayout = new GridLayout();
+	//We need three column: Status, data, duration.
+	gridLayout.numColumns = 3;
+	comp.setLayout(gridLayout);
+
 	// Used for getting rid of the excess space at the top
 	final Control[] children = comp.getChildren();
 
