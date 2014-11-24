@@ -1,0 +1,45 @@
+!SESSION 2014-10-17 14:42:25.540 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_67
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-10-17 14:42:27.490
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-10-20 10:17:55.549 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_67
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-10-20 10:17:57.151
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-10-20 15:54:53.630 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_67
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-10-20 15:54:55.048
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-10-21 09:58:59.407 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_67
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-10-21 09:59:00.996
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-10-22 09:14:54.706 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_67
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=de_DE
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-10-22 09:14:56.527
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

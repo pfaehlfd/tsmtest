@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="47">
+  <assignedTo>Verena</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es ist ein Projekt P1 angelegt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1325459280000</creationDate>
+  <lastExecution>1361201737995</lastExecution>
+  <lastChangedOn>1361201738404</lastChangedOn>
+  <numberOfExecutions>7</numberOfExecutions>
+  <numberOfFailures>3</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es erschein ein Dialog, ob wirklich gelöscht werden soll&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;1. Mache einen Rechtsklick auf P1 im Explorer. Wähle im Menü löschen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;es wird nichts gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;wähle abbrechen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt wurde gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Wähle erneut löschen und wähle nicht, dass das Projekt von der Festplatte gelöscht werden soll&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt erscheint wieder&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Mache eibnen Schritt rückgängig&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt wird gelöscht und kann nicht wiederhergestellt werden&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche erneut und wähle diesmal von der Festplatte löschen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

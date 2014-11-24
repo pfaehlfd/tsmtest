@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="16">
+  <assignedTo>Verena</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:02:35</expectedDuration>
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt zwei Pakete. In einem liegt ein Testfall mit einem Protokoll&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360168757950</creationDate>
+  <lastExecution>1361197492560</lastExecution>
+  <lastChangedOn>1361197493015</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
+  <numberOfFailures>2</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket mitsamt Inhalt wird verschoben&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere das volle Paket. Verschiebe es per cut und paste Tastendruck in das andere Paket&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket mitsamt Inhalt wird kopiert&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere es erneut und kopiere es per copy und paste Tastendruck in das Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

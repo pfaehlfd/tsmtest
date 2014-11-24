@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="17">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:08:32</expectedDuration>
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt zwei Projekte. Beide enthalten zwei Testfälle und jeweils zwei Protokolle&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360168130423</creationDate>
+  <lastExecution>1413553894481</lastExecution>
+  <lastChangedOn>1413553894520</lastChangedOn>
+  <numberOfExecutions>11</numberOfExecutions>
+  <numberOfFailures>3</numberOfFailures>
+  <priority>medium</priority>
+  <status>failed</status>
+  <revision>55</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt eine Warnung ob wirklich gelöscht werden solll. Das übrige Protokoll bleibt stehen, das erste Projket wird komplett gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Das einzelne Protocol wird ebenfalls gelöscht.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere ein Projekt. Markiere im anderen Projekt einen Testfall und eines der zugehörigen Protokolle. Nun die selektierten Dateien löschen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>failed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

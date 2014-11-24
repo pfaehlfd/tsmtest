@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="52">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:03:17</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Projekt und ein Paket darin&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1327705680000</creationDate>
+  <lastExecution>1413901397992</lastExecution>
+  <lastChangedOn>1413794519221</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>59</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Im Workspace wurde eine entsprechenden xml-Datei angelegt, alle Werte sind korrekt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Erstelle einen neuen Testfall in einem Projekt und speichere ihn&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Im Workspace gibt es eine zugehörige korrekt xml-Datei&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Erstelle einen neuen Testfall in einem Paket&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Im Workspace gibt es eine zugehörige korrekte xml-Datei, die dsa Testfallprotokoll enthält.&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Führe den Testfall aus.&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="32">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:01:18</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es ist ein Projekt P1 angelegt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1325459280000</creationDate>
+  <lastExecution>1413550663162</lastExecution>
+  <lastChangedOn>1413550661356</lastChangedOn>
+  <numberOfExecutions>7</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passedWithAnnotation</status>
+  <revision>55</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich ein new-package-wizard im Explorer. Im Navigator wird direkt ein Package erstellt, der Name kann direkt geändert werden&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Schreibfehler im Kontextmenü￙ Bindestriche fehlen.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;1. Mache einen Rechtsklick auf P1 im Explorer. &lt;/p&gt;&lt;p&gt;Wähle im Dialog TSM-Paket&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passedWithAnnotation</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

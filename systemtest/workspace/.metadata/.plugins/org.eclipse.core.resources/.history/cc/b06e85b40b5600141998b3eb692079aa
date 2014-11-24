@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="44">
+  <assignedTo>Verena</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es ist ein Paket P4 angelegt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1325459280000</creationDate>
+  <lastExecution>1361201069825</lastExecution>
+  <lastChangedOn>1361201070247</lastChangedOn>
+  <numberOfExecutions>7</numberOfExecutions>
+  <numberOfFailures>3</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt ein Dialog, ob wirklich gelöscht werden soll&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Selektiere P4 und drücke die ￐Entfernen￐-Taste&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket wird gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Bestätige&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

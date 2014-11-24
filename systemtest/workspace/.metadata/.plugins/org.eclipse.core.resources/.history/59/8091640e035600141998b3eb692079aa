@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="13">
+  <assignedTo>Verena</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:02:45</expectedDuration>
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Projekt, einen Testfall und ein Protokoll&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360168346661</creationDate>
+  <lastExecution>1361197250024</lastExecution>
+  <lastChangedOn>1361197250453</lastChangedOn>
+  <numberOfExecutions>11</numberOfExecutions>
+  <numberOfFailures>3</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es erscheint ein Wizard, in dem man neue Projekte etc anlegen kann&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Drücke strg + n&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Package wird erstellt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Erstelle ein Package&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Der Testfall wird vom Projekt ins Paket verschoben&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere den Testfall und drücke strg + x. Markiere das Paket und drücke strg + v&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Der Testfall wird ins Projekt kopiert&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere erneut den Testfall und drücke strg + c. Markiere das Projekt und drücke strg +v&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es wird ein Index angehängt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Prüfe, ob bei gleichem Namen ein Index angehängt wird&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Protokoll wird gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere das Protokoll. Drücke die entfernen-Taste&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Sie werden gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche ebenso den Testfall und das Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

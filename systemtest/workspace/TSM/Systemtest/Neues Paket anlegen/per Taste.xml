@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="34">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es ist ein Projekt P1 angelegt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1325459280000</creationDate>
+  <lastExecution>1413878793172</lastExecution>
+  <lastChangedOn>1413878793271</lastChangedOn>
+  <numberOfExecutions>8</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>59</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;es öffnet sich ein new-package-wizard&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;1. Selektiere P1 und drücke ￐STRG + N￐&lt;/p&gt;&lt;p&gt;Wähle im Dialog TSM-Package&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

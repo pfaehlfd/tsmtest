@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="43">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es ist ein Paket P3 angelegt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1325459280000</creationDate>
+  <lastExecution>1413885022236</lastExecution>
+  <lastChangedOn>1413885022324</lastChangedOn>
+  <numberOfExecutions>9</numberOfExecutions>
+  <numberOfFailures>2</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>59</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt ein Dialog, ob wirklich gelösch werden soll&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Selektiere P3 und Wähle im Menü ￐Bearbeiten -  löschen￐&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket mitsamt Unterpaketen wurde gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Bestätige&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

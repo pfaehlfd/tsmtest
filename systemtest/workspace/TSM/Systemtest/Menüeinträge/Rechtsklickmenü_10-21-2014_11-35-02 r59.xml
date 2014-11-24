@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="10">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:00:04</expectedDuration>
+  <realDuration>00:00:26</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360070240701</creationDate>
+  <lastExecution>1413884102898</lastExecution>
+  <lastChangedOn>1413554587472</lastChangedOn>
+  <numberOfExecutions>12</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>59</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es gibt u.A. die Punkte ￐neu -￸ TSM Projekt￐, ￐Neu -￸ TSM Paket￐, ￐Neu -￸ TSM Testfall￐ ausschneiden, kopieren, umbenennen, aktualisieren, Import, Export, Übersicht anzeigen, Testfall ausführen &lt;b&gt;im Navigator&lt;/b&gt;&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Mache einen Rechtsklick&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>
