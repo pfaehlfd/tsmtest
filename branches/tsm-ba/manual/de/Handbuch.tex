@@ -794,6 +794,67 @@ Zur Übersicht kommen Sie, wenn Sie einen Rechtsklick auf einen Testfall/Paket o
 Die Zahl in Klammern sind dabei die Anzahl an Testfällen, die zu dieser Revision ein Protokoll haben.
 Sollte die Übersicht trotz einer vorhandenen Selektion nichts anzeigen, so selektieren Sie etwas anderes und dann erneut Ihre gewünschte Selektion.
 
+\section{Anbindung an Subversion}
+Ab Version 1.5.2 ist es möglich, die TSM-Daten mittels des Versionsverwaltungssystems Subversion zu archivieren.
+
+\subsection{Hintergrund}
+Wird TSM entpackt und direkt gestartet, so sind die Daten (Projekte, Pakete, Testfälle und Testfallprotokolle) lokal auf dem System des Anwenders gespeichert.
+Sie sind -- wie alle andere Dateien -- nicht vor versehentlicher Löschung geschützt und geben nur in sehr beschränktem Umfang Informationen zu vorhergegangenen Änderungen.
+Ein Versionsverwaltungssystem bietet hier Abhilfe, da versehentlich gelöschte Daten leichter wiederhergestellt werden können und sich Änderungen leicht nachvollziehen lassen.
+TSM nutzt Subversion vor allem zur Archivierung und Unterstützung beim verteilten Testen.
+
+\subsection{Voraussetzungen}
+Um in TSM die Anbindung an Subversion zu aktivieren benötigen Sie:
+\begin{itemize}
+ \item Subversion-Kommandozeilenprogramm
+ \item Schreibzugriff auf ein Repository
+\end{itemize}
+
+\subsection{Einschränkungen}
+Sie können nur das Subversion-Kommandozeilenprogramm und kein graphisches Werkzeug nutzen.
+
+\subsection{Einrichtung}
+Bevor Sie die Subversion-Anbindung nutzen können, muss diese erstmalig eingerichtet werden.
+
+\subsubsection{Vorbereiten des eines frischen Workspaces}
+\begin{itemize}
+ \item Checken Sie außerhalb von TSM einen leeren Ordner aus dem Repository als Arbeitskopie mit dem Namen "`workspace"' aus.
+ \item Kopieren Sie diesen Ordner in das tsm-Verzeichnis.
+ \item Starten Sie nun TSM und gehen Sie auf \textit{Fenster}, \textit{Benutzvorgaben} und dann \textit{TSM Preferences}.
+ \item Setzen Sie den Haken bei \textit{Subversion-Support einschalten}.
+ \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \textit{OK}.
+ \item Beenden Sie TSM nun.
+ \item Stellen Sie den den versteckten Ordner "`.metadata"' im "`workspace"'-Verzeichnis unter Versionskontrolle und committen Sie die Änderungen.
+ \item Die Einrichtung ist abgeschlossen und Sie können TSM nun wie gewohnt nutzen. Es kann jedoch erforderlich sein, dass Sie Ihr Subversion-Passwort eingeben müssen 
+ (siehe hierzu \ref{subsec:EmpfohleneEinstellungenSVN} \nameref{subsec:EmpfohleneEinstellungenSVN}).
+\end{itemize}
+
+\subsubsection{Übernahme eines bestehenden Workspaces}
+\begin{itemize}
+ \item Stellen Sie den Ordner "`workspace"' (inklusive des verstecken Ordners "`.metadata"') im tsm-Verzeichnis unter Versionskontrolle und committen Sie die Änderungen.
+ \item Starten Sie nun TSM und gehen Sie auf \textit{Fenster}, \textit{Benutzvorgaben} und dann \textit{TSM Preferences}.
+ \item Setzen Sie den Haken bei \textit{Subversion-Support einschalten}.
+ \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \textit{OK}.
+ \item Die Einrichtung ist abgeschlossen und Sie können TSM nun wie gewohnt nutzen. Es kann jedoch erforderlich sein, dass Sie Ihr Subversion-Passwort eingeben müssen 
+ (siehe hierzu \ref{subsec:EmpfohleneEinstellungenSVN} \nameref{subsec:EmpfohleneEinstellungenSVN}).
+\end{itemize}
+
+
+\subsection{Empfohlene Einstellungen} \label{subsec:EmpfohleneEinstellungenSVN}
+\subsubsection{Separates Repository}
+Ist die Subversion-Anbindung in TSM aktiviert, so committet TSM vollautomatisch jede wichtige Änderung (z.\,B. Bearbeitung und Ausführung eines Testfalls) in das Repository.
+Da dies meist durch einzelne Commits geschieht, wird die Revisionsanzahl im verwendeten Repository schnell steigen.
+Technisch ist dagegen nichts einzuwenden, es kann für Sie aber sinnvoller sein, ein separates Repository zu verwenden.
+So verlieren Sie in Ihrem Entwicklungsrepository nicht so leicht den Überblick.
+
+\subsubsection{Hinterlegung von Zugangsdaten}
+Je nach Einstellung Ihres Repositorys benötigen Sie zum Zugriff darauf einen Benutzernamen und ein Passwort.
+Da TSM häufig Zugriff auf das Repository benötigt ist die Hinterlegung der Zugangsdaten angezeigt.
+Je nach Art Ihres Subversion-Kommandozeilenprogramms geschieht dies auf unterschiedliche Art und Weise.
+Details dazu entnehmen Sie bitte der Dokumentation des jeweiligen Programms.
+Für das offizielle Subversion-Kommandozeilenprogramm sei an dieser Stelle auf dessen Dokumentation verwiesen: \\
+\url{http://svnbook.red-bean.com/de/1.7/svn.serverconfig.netmodel.html#svn.serverconfig.netmodel.credcache}
+
 
 \section{Bekannte Probleme}
 Die Probleme sind von schwerwiegend nach unproblematisch sortiert.\\
