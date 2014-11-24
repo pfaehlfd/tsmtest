@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="2">
+  <assignedTo>Verena</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;TSM ist installiert&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1327532880000</creationDate>
+  <lastExecution>1361195376990</lastExecution>
+  <lastChangedOn>1361195377698</lastChangedOn>
+  <numberOfExecutions>6</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>notExecuted</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die Perspektive ist verschwunden und die Menüeinträge sind weg.&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Nicht durchgeführt, da Product-Version&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Deinstalliere TSM&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>notExecuted</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

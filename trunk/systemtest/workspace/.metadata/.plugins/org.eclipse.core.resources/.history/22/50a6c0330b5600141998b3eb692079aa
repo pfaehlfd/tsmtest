@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcase id="41">
+  <assignedTo>Verena</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:08:25</expectedDuration>
+  <realDuration>00:00:00</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt mehrere Testfälle und dazugehörige Protokolle&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360075686656</creationDate>
+  <lastExecution>1361200114335</lastExecution>
+  <lastChangedOn>1361200114725</lastChangedOn>
+  <numberOfExecutions>11</numberOfExecutions>
+  <numberOfFailures>3</numberOfFailures>
+  <priority>medium</priority>
+  <status>passedWithAnnotation</status>
+  <revision>1767</revision>
+  <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich die Übersicht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Mache einen Rechtsklick auf einen Testfall und wähle show overview&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden alle vorhandenen Revisionen des Testfalls hinzugefügt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert. Verwaiste Protokolle werden nicht berücksichtigt.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Klicke auf alle hinzufügen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passedWithAnnotation</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die selektierten Revisionen angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Klicke auf auswählen und selektiere einzelne Revisionen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die angezeigten Statistiken sind korrekt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert. Verwaiste Protokolle werden nicht berücksichtigt.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Wechsle zum Tab Statistiken&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passedWithAnnotation</stepStatus>
+    </TestStep>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es wird eine Meldung gezeigt, dass keine Revisionen vorhanden sind. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Funktioniert.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Öffne einen noch nie ausgeführten Testfall. Klicke auf auswählen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcase>

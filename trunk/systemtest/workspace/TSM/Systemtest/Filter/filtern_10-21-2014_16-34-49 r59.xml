@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="1">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:08:48</expectedDuration>
+  <realDuration>00:07:15</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt mehrere Testfälle und Protokolle&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360075243902</creationDate>
+  <lastExecution>1413902089299</lastExecution>
+  <lastChangedOn>1413795978628</lastChangedOn>
+  <numberOfExecutions>12</numberOfExecutions>
+  <numberOfFailures>7</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>59</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden jeweils nur die Testfälle mit den jeweiligen Prioritäten angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Wähle im Filter nacheinander die Prioritäten. Kombiniere sie auch&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die entsprechenden Testfälle angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filere nach einem Namen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die entsprechenden Fälle angezeigt. Jeder Ersteller ist nur einmal vorhanden&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach einem Ersteller&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die korrekten Fälle angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach Ausführung, erstelldatum und Änderung&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden wieder alle Testfälle angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Hebe die Auswahl auf&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Priorität wird ausgegraut, Status eingeblendet&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Wähle Protokolle&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die korrekten Protokolle angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach Status&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die richtigen Protokolle angezeigt.&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach Name, Tester und Erstelldatum&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es werden wieder alle Protokolle angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Hebe die Auswahl auf&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

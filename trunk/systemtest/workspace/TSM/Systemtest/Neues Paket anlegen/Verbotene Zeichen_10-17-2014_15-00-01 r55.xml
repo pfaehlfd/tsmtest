@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="35">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:01:24</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Projekt P1&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1327014600000</creationDate>
+  <lastExecution>1413550801975</lastExecution>
+  <lastChangedOn>1413550800377</lastChangedOn>
+  <numberOfExecutions>7</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passedWithAnnotation</status>
+  <revision>55</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es sollte jeweils eine Fehlermeldung kommen&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Die Fehlermeldung erscheint nur im Assistenten. Im Navigator wird der Standardname genommen.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;1. Lege ein neues Paket an. Gib nacheinander einzeln im Namen die Zeichen ￹, ￸, ￰, ￐, ￙, |, ￱, _, * und / ein und klicke auf finish&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passedWithAnnotation</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>
