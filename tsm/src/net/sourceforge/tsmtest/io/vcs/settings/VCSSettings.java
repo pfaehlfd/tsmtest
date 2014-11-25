@@ -21,7 +21,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @author Tobias Hirning
  * This class holds the settings for version control systems like paths to executable and environment settings.
  */
-public class VCSSettings {
+public final class VCSSettings {
     public static enum VCS_INSTALL_STATUS {OK, NO_PATH, NO_FILE, NOT_EXECUTABLE};
     private VCSSettings() {
     }

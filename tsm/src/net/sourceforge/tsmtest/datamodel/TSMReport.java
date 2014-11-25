@@ -179,7 +179,7 @@ public class TSMReport extends TSMResource {
      * @return The name to be displayed: testCaseName + "_" + executionDate + " r" + revisionNumber.
      */
     public String getName() {
-	return super.getName() + " r" + String.valueOf(data.getRevisionNumber());
+	return super.getName() + " r" + data.getRevisionNumber();
     }
 
 }

@@ -41,17 +41,13 @@ import net.sourceforge.tsmtest.gui.newtestcase.view.ViewTestCaseExceptionDialog;
 import net.sourceforge.tsmtest.gui.report.ViewReport;
 import net.sourceforge.tsmtest.gui.richtexteditor.RichText;
 import net.sourceforge.tsmtest.gui.runtest.model.TestResult;
-import net.sourceforge.tsmtest.wizards.NewTestcaseWizard;
 
 import org.apache.log4j.Logger;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;

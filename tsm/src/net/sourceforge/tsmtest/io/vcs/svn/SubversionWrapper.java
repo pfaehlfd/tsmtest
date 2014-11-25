@@ -22,7 +22,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
  * @author Tobias Hirning
  * This class provides version control support for the workspace using Subversion from the command line.
  */
-public class SubversionWrapper {
+public final class SubversionWrapper {
     private static final Logger log = Logger.getLogger(SubversionWrapper.class);
     private SubversionWrapper() {
     }

@@ -1086,11 +1086,10 @@ public final class DataModel extends AbstractDataModel implements
 		for (final IProject project : projects) {
 		    if (project.isOpen()) {
 			try {
-			    if (project.hasNature(DataModelTypes.TSM_NATURE)) {
-				//Use subversion.
-				if (VCSSettings.isSubversionSupportEnabled()) {
-				    SubversionWrapper.commit(project.getLocation().toString());
-				}
+			    //Use subversion.
+			    if (project.hasNature(DataModelTypes.TSM_NATURE) &&
+				    VCSSettings.isSubversionSupportEnabled()) {
+				SubversionWrapper.commit(project.getLocation().toString());
 			    }
 			} catch (final CoreException e) {
 			    // Dont do anything
