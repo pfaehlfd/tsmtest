@@ -17,10 +17,8 @@ import java.util.ArrayList;
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
 import net.sourceforge.tsmtest.io.vcs.svn.SubversionWrapper;
-import net.sourceforge.tsmtest.Activator;
 
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
