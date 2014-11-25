@@ -76,7 +76,6 @@ import org.xml.sax.SAXException;
  */
 public class ViewTestCase extends EditorPartInput implements
 	DataModelObservable {
-
     public static final String ID = "net.sourceforge.tsmtest.gui.newtestcase.view.viewtestcase"; //$NON-NLS-1$
     private Text txtName;
     private Text txtPackage;
@@ -121,15 +120,14 @@ public class ViewTestCase extends EditorPartInput implements
 	     */
 	    @Override
 	    public void widgetDisposed(final DisposeEvent e) {
-		final Job j = new Job("Saving images") {
+		final Job job = new Job("Saving images") {
 		    @Override
 		    protected IStatus run(final IProgressMonitor monitor) {
 			// TODO: add Method for images
 			return Status.OK_STATUS;
 		    }
-
 		};
-		j.schedule();
+		job.schedule();
 	    }
 
 	});
@@ -181,17 +179,6 @@ public class ViewTestCase extends EditorPartInput implements
 	mainSettings.setLayoutData(gridDataMainSettings);
 	mainSettings.setText(Messages.ViewTestCase_8);
 	mainSettings.setLayout(new GridLayout(8, false));
-
-	// lblId = new Label(mainSettings, SWT.NONE);
-	// lblId.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
-	// 1, 1));
-	// lblId.setText(Messages.ViewTestCase_9);
-	//
-	// txtID = new Text(mainSettings, SWT.BORDER);
-	// txtID.setEditable(false);
-	// txtID.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
-	// 1,
-	// 1));
 
 	final CLabel lblName = new CLabel(mainSettings, SWT.NONE);
 	lblName.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false, 1,
@@ -415,7 +402,7 @@ public class ViewTestCase extends EditorPartInput implements
 		.iterator(); iterator.hasNext();) {
 	    final TestStepDescriptor s = iterator.next();
 	    final String strExp = s.getExpectedResult();
-	    final String strDes = s.getRichTextDescription();
+	    final String strDes = s.getActionRichText();
 	    if (((strDes.equals("<html><p></p></html>") || strDes.isEmpty()) && (strExp
 		    .equals("<html><p></p></html>") || strExp.isEmpty()))) {
 		iterator.remove();
@@ -450,14 +437,14 @@ public class ViewTestCase extends EditorPartInput implements
 	    final TestCaseDescriptor testCaseData) {
 	boolean isValid = true;
 
-	resetFields();
+	resetFieldBackgrounds();
 	if (name.trim().equals("")) {
 	    isValid = false;
-	    nameEmpty();
+	    errorMessageNameEmpty();
 	}
 	if (name.matches(".*[<>?|\".:_\\*/].*") || name.matches(".*\\\\.*")) {
 	    isValid = false;
-	    nameNotValid();
+	    errorMessageNameNotValid();
 	}
 
 	if (testCaseData.getExpectedDuration().length() > 0) {
@@ -480,22 +467,9 @@ public class ViewTestCase extends EditorPartInput implements
 		}
 	    } catch (final ParseException e) {
 		isValid = false;
-		durationNotValid();
+		errorMessageDurationNotValid();
 	    }
 	}
-
-	// final Pattern pattern = Pattern.compile("<.*?>");
-	// final Matcher matcher = pattern.matcher(testCaseData
-	// .getShortDescription());
-	// int overhead = 0;
-	// while (matcher.find()) {
-	// overhead += matcher.group().length();
-	// }
-	// if (ishtmlEmpty(testCase.getRichTextPrecondition()).equals("")) {
-	// isValid = false;
-	// testcaseInterface.preConditionNotValid();
-	// }
-
 	return isValid;
     }
 
@@ -517,7 +491,7 @@ public class ViewTestCase extends EditorPartInput implements
     /**
      * Sets the error message if the name is not valid.
      */
-    public void nameNotValid() {
+    public void errorMessageNameNotValid() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_CHAR;
     }
@@ -525,7 +499,7 @@ public class ViewTestCase extends EditorPartInput implements
     /**
      * Sets the error message if the duration is not valid.
      */
-    public void durationNotValid() {
+    public void errorMessageDurationNotValid() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_INVALID;
     }
@@ -533,12 +507,15 @@ public class ViewTestCase extends EditorPartInput implements
     /**
      * Sets the error message if the duration field is empty.
      */
-    public void durationEmpty() {
+    public void errorMessageDurationEmpty() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_EMPTY;
     }
 
-    public void resetFields() {
+    /**
+     * Reset background color of the gui input fields.
+     */
+    public void resetFieldBackgrounds() {
 	tempErrorMessage = "";
 	preCondition.setBackground(backgroundColorGroupField);
 	txtName.setBackground(backgroundColorTextfield);
@@ -550,7 +527,7 @@ public class ViewTestCase extends EditorPartInput implements
     /**
      * Sets the error message if the name field is empty.
      */
-    public void nameEmpty() {
+    public void errorMessageNameEmpty() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_EMPTY;
     }

@@ -76,16 +76,27 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 		tsmViewer.collapseAll();
 	    }
 	};
+	final Action expandAllAction = new Action() {
+	    @Override
+	    public void run() {
+		tsmViewer.expandAll();
+	    }
+	};
 	final ImageDescriptor collapseAllIcon = NavigatorPlugin
 		.getImageDescriptor("icons/full/elcl16/collapseall.gif"); //$NON-NLS-1$
 	collapseAllAction.setImageDescriptor(collapseAllIcon);
 	collapseAllAction.setHoverImageDescriptor(collapseAllIcon);
+	final ImageDescriptor expandAllIcon = NavigatorPlugin
+		.getImageDescriptor("platform:/plugin/org.eclipse.search/icons/full/elcl16/expandall.gif"); //$NON-NLS-1$
+	expandAllAction.setImageDescriptor(expandAllIcon);
+	expandAllAction.setHoverImageDescriptor(expandAllIcon);
 	toolbarManager.add(new NewProjectAction(""));
 	toolbarManager.add(new NewPackageAction("", tsmViewer));
 	toolbarManager.add(new NewTestCaseAction("", tsmViewer));
 	toolbarManager.add(new Separator());
 	toolbarManager.add(new RunTestAction(""));
 	toolbarManager.add(new Separator());
+	toolbarManager.add(expandAllAction);
 	toolbarManager.add(collapseAllAction);
     }
 

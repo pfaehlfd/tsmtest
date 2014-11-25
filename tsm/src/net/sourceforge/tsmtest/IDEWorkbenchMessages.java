@@ -55,6 +55,18 @@ public final class IDEWorkbenchMessages extends NLS {
     public static String ResourceGroup_nameExists;
     public static String ResourceGroup_noProject;
     public static String ResourceGroup_pathOccupied;
+    public static String ExportWizardPage_btnCheckButton_text;
+    public static String ExportWizardPage_group_text;
+    public static String ExportWizardPage_btnPassed;
+    public static String ExportWizardPage_btnPassedWithAnnotations_text;
+    public static String ExportWizardPage_btnFailed_text;
+    public static String ExportWizardPage_btnNotExecuted_text;
+    public static String ExportWizardPage_btnLow_text;
+    public static String ExportWizardPage_btnMedium_text;
+    public static String ExportWizardPage_btnHigh_text;
+    public static String ExportWizardPage_lblStatus;
+    public static String ExportWizardPage_lblPriority;
+    public static String ExportWizardPage_btnAdvancedMode_text;
 
     static {
 	// initialize resource bundle

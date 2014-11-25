@@ -375,11 +375,11 @@ public class JustusImport {
 	    final TestStepDescriptor step = new TestStepDescriptor();
 
 	    if (currentElement.getChildText("actions") != null) {
-		step.setRichTextDescription("<html><p>" //$NON-NLS-1$
+		step.setActionRichText("<html><p>" //$NON-NLS-1$
 			+ replaceCharacters(currentElement
 				.getChildText("actions")) + "</p></html>"); //$NON-NLS-1$ //$NON-NLS-2$
 	    } else {
-		step.setRichTextDescription("<html><p></p></html>"); //$NON-NLS-1$ 
+		step.setActionRichText("<html><p></p></html>"); //$NON-NLS-1$ 
 	    }
 
 	    if (currentElement.getChildText("post") != null) {
@@ -545,11 +545,11 @@ public class JustusImport {
 		    final TestStepDescriptor step = new TestStepDescriptor();
 
 		    if (currentElement.getChildText("actions") != null) {
-			step.setRichTextDescription("<html><p>" //$NON-NLS-1$
+			step.setActionRichText("<html><p>" //$NON-NLS-1$
 				+ replaceCharacters(currentElement
 					.getChildText("actions")) + "</p></html>"); //$NON-NLS-1$ //$NON-NLS-2$
 		    } else {
-			step.setRichTextDescription("<html><p></p></html>"); //$NON-NLS-1$ 
+			step.setActionRichText("<html><p></p></html>"); //$NON-NLS-1$ 
 		    }
 
 		    if (currentElement.getChildText("post") != null) {
@@ -561,7 +561,7 @@ public class JustusImport {
 			step.setExpectedResult("<html><p></p></html>"); //$NON-NLS-1$
 		    }
 		    // step is only added if it is not empty
-		    if (!(step.getRichTextDescription().equals(
+		    if (!(step.getActionRichText().equals(
 			    "<html><p></p></html>") && step.getExpectedResult()
 			    .equals("<html><p></p></html>"))) {
 			testCase.addStep(step);

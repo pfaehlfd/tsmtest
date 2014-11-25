@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import net.sourceforge.tsmtest.Messages;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
 import net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor;
@@ -177,7 +178,7 @@ public class OverviewStepSash {
 		    return;
 		}
 		// Need only the latest report of each revision
-		TSMReport[] reports = getOnlyLastReport(data);
+		TSMReport[] reports = getLastReportAllRevisions(data);
 		ITestCaseDescriptor tcdata = data.getData();
 		// First position is name
 		if (column == POSDESC) {
@@ -189,6 +190,20 @@ public class OverviewStepSash {
 			lastChanged = Messages.OverviewStepSash_3;
 		    }
 		    widget.setToolTipText(lastChanged);
+
+		    //Set the background color of the first cell according to the status of the last execution.
+		    //Status notExecuted is ignored on purpose.
+		    StatusType testCaseStatus = tcdata.getStatus();
+		    if (testCaseStatus == StatusType.passed) {
+			widget.setBackground(green);
+		    } else if (testCaseStatus == StatusType.passedWithAnnotation) {
+			widget.setBackground(yellow);
+		    } else if (testCaseStatus == StatusType.failed) {
+			widget.setBackground(red);
+		    } else if (testCaseStatus == StatusType.notExecuted) {
+			widget.setBackground(grey);
+		    }
+
 		    // Second position is estimated time
 		} else if (column == POSDURATION) {
 		    widget.setText(tcdata.getExpectedDuration() + " h");
@@ -267,7 +282,7 @@ public class OverviewStepSash {
      * @return Array of reports with the latest report of each revision ordered
      *         from top to down
      */
-    protected TSMReport[] getOnlyLastReport(TSMTestCase testcase) {
+    private TSMReport[] getLastReportAllRevisions(TSMTestCase testcase) {
 	// Getting all revisions + 2 "-1" at the beginning to equal columns
 	ArrayList<Integer> revisions = getRevisions(testcase.getReports());
 	// Getting all reports
@@ -300,7 +315,7 @@ public class OverviewStepSash {
      * @return ArrayList<Integer>
      * 		List of revisions
      */
-    public ArrayList<Integer> getRevisions(Collection<TSMReport> reports) {
+    private ArrayList<Integer> getRevisions(Collection<TSMReport> reports) {
 	ArrayList<Integer> revisions = new ArrayList<Integer>();
 	// for column name / est
 	revisions.add(-1);
@@ -325,7 +340,7 @@ public class OverviewStepSash {
      * @return ArrayList<String>
      * 			List of columnnames
      */
-    public ArrayList<String> getColumnNames() {
+    private ArrayList<String> getColumnNames() {
 	return tableManager.getColumnListNames();
     }
 

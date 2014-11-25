@@ -18,20 +18,20 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  */
 public interface ITestStepDescriptor {
     /**
-     * Gets the expected result of the test step as html.
-     * @return The expected result of the test step.
+     * @return The action as a rich text that the tester should execute.
      */
     public String getExpectedResult();
     /**
-     * Gets the real result of the test step as html.
-     * @return The real result of the test step.
+     * @return The real result that was entered by the tester during the execution.
      */
     public String getRealResult();
     /**
-     * Gets the rich text description of the test step as html.
-     * @return The description of the test step as rich text.
+     * @return The rich text description of the test step.
      */
-    public String getRichTextDescription();
+    public String getActionRichText();
+    /**
+     * @return The status of the test step.
+     */
     /**
      * Gets the status of the test step.
      * @return The status of the test step.

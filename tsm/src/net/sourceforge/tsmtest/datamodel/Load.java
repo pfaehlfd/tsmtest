@@ -32,7 +32,6 @@ import org.jdom2.Element;
  * @author Verena Käfer
  */
 public class Load {
-
     /**
      * Loads the Test case data out of the given document.
      * * @param doc The Document of the test case.
@@ -112,7 +111,7 @@ public class Load {
 
 	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(currentElement
+	    addTestStep.setActionRichText(currentElement
 		    .getChildText("richTextDescription"));
 
 	    String statusText = currentElement.getChildText("stepStatus");
@@ -228,6 +227,14 @@ public class Load {
 	    // revision was not a number or non-existent, we keep it as 0
 	}
 	testCaseDescriptor.setRevisionNumber(revision);
+	
+	String version = root.getChildText("version");
+	//#HANDLE_OLD_TSMRESOURCES_BEFORE_1.5.2
+	//When opening old TSMResources that don't have this field we set an empty string.
+	if (version == null) {
+	    version = "";
+	}
+	testCaseDescriptor.setVersionText(version);
 
 	for (Element currentElement : root.getChild("steps").getChildren()) {
 
@@ -237,7 +244,7 @@ public class Load {
 
 	    addTestStep.setRealResult(currentElement.getChildText("realResult"));
 
-	    addTestStep.setRichTextDescription(currentElement
+	    addTestStep.setActionRichText(currentElement
 		    .getChildText("richTextDescription"));
 
 	    String statusText = currentElement.getChildText("stepStatus");

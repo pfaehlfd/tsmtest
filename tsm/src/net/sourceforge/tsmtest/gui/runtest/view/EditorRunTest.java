@@ -17,6 +17,7 @@ package net.sourceforge.tsmtest.gui.runtest.view;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -25,18 +26,17 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.SWTUtils;
+import net.sourceforge.tsmtest.datamodel.AbstractDataModel.DataModelObservable;
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.datamodel.EditorPartInput;
 import net.sourceforge.tsmtest.datamodel.ResourceEditorInput;
 import net.sourceforge.tsmtest.datamodel.TSMReport;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
-import net.sourceforge.tsmtest.datamodel.AbstractDataModel.DataModelObservable;
-import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor;
 import net.sourceforge.tsmtest.gui.ResourceManager;
-import net.sourceforge.tsmtest.gui.newtestcase.view.ViewTestCase;
 import net.sourceforge.tsmtest.gui.newtestcase.view.ViewTestCaseExceptionDialog;
 import net.sourceforge.tsmtest.gui.report.ViewReport;
 import net.sourceforge.tsmtest.gui.richtexteditor.RichText;
@@ -89,6 +89,8 @@ import org.xml.sax.SAXException;
  */
 public class EditorRunTest extends EditorPartInput implements
 	DataModelObservable {
+	public EditorRunTest() {
+	}
 
     public static final String ID = "net.sourceforge.tsmtest.gui.runtest.view.editorruntest"; //$NON-NLS-1$
     private static final String INITTIME = "00:00:00"; //$NON-NLS-1$
@@ -96,12 +98,14 @@ public class EditorRunTest extends EditorPartInput implements
     private TSMTestCase input;
 
     private RichText richTextPreCon;
-    private Text txtTime;
+    protected static Text txtTime;
     private Text txtTestCaseName;
     private Text txtTester;
     private Text txtRevision;
+    private Text txtVersion;
     private Composite parent;
-    private static String lastRevision = 0 + "";
+    private static int lastRevision = 0;
+    private static String lastVersion = "";
     private static String lastTester = "";
     private RunTestStepSash stepSash;
 
@@ -196,7 +200,6 @@ public class EditorRunTest extends EditorPartInput implements
 	this.parent.setLayout(new GridLayout(1, false));
 
 	parent.addDisposeListener(new DisposeListener() {
-
 	    /*
 	     * Detach a non-ui thread to extract and save the images
 	     */
@@ -234,15 +237,6 @@ public class EditorRunTest extends EditorPartInput implements
 		descriptionChanged = true;
 	    }
 	};
-	// Apparently the tabbar is not to be used anymore
-	// TabBar tb = new TabBar(parent, SWT.BORDER);
-	// tb.addListener(new SelectionAdapter() {
-	// @Override
-	// public void widgetSelected(SelectionEvent e) {
-	// changeTimerState(true);
-	// }
-	// });
-	// tb.setFile(input);
 
 	final Group mainSettings = new Group(this.parent, SWT.CENTER);
 	mainSettings.setLayout(new GridLayout(1, true));
@@ -254,56 +248,14 @@ public class EditorRunTest extends EditorPartInput implements
 		1, 1));
 	cmpFirst.setLayout(new GridLayout(11, false));
 
-	final Button btnEditTest = new Button(cmpFirst, SWT.NONE);
-	btnEditTest.addSelectionListener(new SelectionAdapter() {
-	    @Override
-	    public void widgetSelected(final SelectionEvent e) {
-		final Display d = txtTestCaseName.getDisplay();
-		closeEditor(true);
-
-		d.asyncExec(new Runnable() {
-		    @Override
-		    public void run() {
-			try {
-			    ViewTestCase.openGUI(input);
-			} catch (final PartInitException e) {
-			    log.error(e.getMessage());
-			    for (final StackTraceElement st : e.getStackTrace()) {
-				log.error(st.toString());
-			    }
-			}
-		    }
-		});
-	    }
-	});
-	btnEditTest.setText(Messages.EditorRunTest_4);
-
-	final Button btnNewTest = new Button(cmpFirst, SWT.NONE);
-	btnNewTest.addSelectionListener(new SelectionAdapter() {
-	    @Override
-	    public void widgetSelected(final SelectionEvent e) {
-		try {
-		    final IStructuredSelection iss = new StructuredSelection(
-			    input.getParent());
-		    NewTestcaseWizard.open(iss);
-		} catch (final CoreException e1) {
-		    log.error(Messages.EditorRunTest_5);
-		    log.error(e1.getMessage());
-		    for (final StackTraceElement st : e1.getStackTrace()) {
-			log.error(st.toString());
-		    }
-
-		}
-	    }
-	});
-	btnNewTest.setText(Messages.EditorRunTest_6);
-	final Label lblSpace1 = new Label(cmpFirst, SWT.FILL);
-	lblSpace1
-		.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-
+	final Label lblTestCaseName = new Label(cmpFirst, SWT.NONE);
+	lblTestCaseName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
+		false, 1, 1));
+	lblTestCaseName.setText("Name:");
+	
 	txtTestCaseName = new Text(cmpFirst, SWT.READ_ONLY);
-	txtTestCaseName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, true,
-		false, 3, 1));
+	txtTestCaseName.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false,
+		false, 1, 1));
 	Font font = txtTestCaseName.getFont();
 	int height = 16;
 	int style = 0;
@@ -388,6 +340,22 @@ public class EditorRunTest extends EditorPartInput implements
 	txtRevision.setLayoutData(gdRevision);
 	txtRevision.addModifyListener(listen);
 	txtRevision.addModifyListener(lastChangedOnListener);
+	
+	//Get the highest revision number for the test case that is executed and 
+	//set it as a good default value.
+	Collection<TSMReport> reports = input.getReports();
+	if (!reports.isEmpty()) {
+	    int highestRevisionNumber = 0;
+	    for (TSMReport currentReport : input.getReports()) {
+		int currentRevisionNumber = currentReport.getData().getRevisionNumber();
+		if (currentRevisionNumber > highestRevisionNumber) {
+		    highestRevisionNumber = currentRevisionNumber;
+		}
+	    }
+	    //Set the highest revision.
+	    txtRevision.setText(String.valueOf(highestRevisionNumber));
+	}
+	
 
 	final Label lblSpace3 = new Label(compositeSecond, SWT.None);
 	lblSpace3
@@ -405,6 +373,19 @@ public class EditorRunTest extends EditorPartInput implements
 	txtTester.setLayoutData(gridDataTester);
 	txtTester.addModifyListener(listen);
 	txtTester.addModifyListener(lastChangedOnListener);
+
+	final Label lbVersion = new Label(compositeSecond, SWT.NONE);
+	lbVersion.setText("Version:");
+	
+	final GridData gdVersion = new GridData(SWT.FILL, SWT.CENTER, false,
+		false, 2, 1);
+	txtVersion = new Text(compositeSecond, SWT.BORDER);
+	txtVersion.setEditable(true);
+	gdVersion.minimumWidth = 180;
+	gdVersion.widthHint = 180;
+	txtVersion.setLayoutData(gdVersion);
+	txtVersion.addModifyListener(listen);
+	txtVersion.addModifyListener(lastChangedOnListener);
 
 	final GridData gridDataPre = new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1);
@@ -448,6 +429,7 @@ public class EditorRunTest extends EditorPartInput implements
 			+ input.getData().getRealDuration()
 			+ Messages.EditorRunTest_16 + e.getStackTrace());
 	    }
+	    txtVersion.setText(input.getData().getVersion());
 	} else {
 	    log.debug(Messages.EditorRunTest_17);
 	}
@@ -472,7 +454,7 @@ public class EditorRunTest extends EditorPartInput implements
 	btnDone.addMouseListener(new MouseAdapter() {
 	    @Override
 	    public void mouseDown(final MouseEvent e) {
-		saveTestProtocoll();
+		saveTestProtocol();
 	    }
 	});
 	final GridData gridDataBtnDone = new GridData(SWT.FILL, SWT.CENTER, false,
@@ -506,20 +488,21 @@ public class EditorRunTest extends EditorPartInput implements
     private TestCaseDescriptor updateTestCaseDescriptor() {
 	changeTimerState(true);
 
-	final TestCaseDescriptor testCase = input.createDataCopy();
+	final TestCaseDescriptor testCaseDescriptor = input.createDataCopy();
 
 	if (descriptionChanged) {
-	    testCase.setLastChangedOn(new Date());
+	    testCaseDescriptor.setLastChangedOn(new Date());
 	}
 
-	testCase.setRealDuration(txtTime.getText());
+	testCaseDescriptor.setRealDuration(txtTime.getText());
 
-	testCase.setAssignedTo(txtTester.getText());
-	testCase.setRichTextPrecondition(richTextPreCon.getFormattedText());
-	testCase.setSteps(stepSash.getAllSteps());
+	testCaseDescriptor.setAssignedTo(txtTester.getText());
+	testCaseDescriptor.setRichTextPrecondition(richTextPreCon.getFormattedText());
+	testCaseDescriptor.setSteps(stepSash.getAllSteps());
 
 	int revision = 0;
 	try {
+	    //Check if revision field is empty.
 	    if (txtRevision.getText().isEmpty()) {
 		txtRevision.setBackground(red);
 		final MessageDialog diag = new MessageDialog(null,
@@ -529,7 +512,9 @@ public class EditorRunTest extends EditorPartInput implements
 		diag.open();
 		diag.close();
 		return null;
-	    } else if (Long.parseLong(txtRevision.getText()) == 0) {
+	    }
+	    //Check if revision is 0 and if so, present a dialog to ask if the use of "0" is intended by the user.
+	    else if (Long.parseLong(txtRevision.getText()) == 0) {
 		final MessageBox messageBox = new MessageBox(parent.getShell(),
 			SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 		messageBox.setMessage(Messages.EditorRunTest_14);
@@ -537,7 +522,10 @@ public class EditorRunTest extends EditorPartInput implements
 		if (messageBox.open() == SWT.NO) {
 		    return null;
 		}
-	    } else if (Long.parseLong(txtRevision.getText()) < 0) {
+	    } 
+	    //Check if revision is less than 0 and if so, present a dialog to ask the user if the absolute value 
+	    //of the number should be used.
+	    else if (Long.parseLong(txtRevision.getText()) < 0) {
 		final MessageBox messageBox = new MessageBox(parent.getShell(),
 			SWT.ICON_QUESTION | SWT.YES | SWT.NO);
 		messageBox.setMessage(Messages.EditorRunTest_10);
@@ -546,7 +534,11 @@ public class EditorRunTest extends EditorPartInput implements
 		    txtRevision.setText(Math.abs(Long.parseLong(txtRevision
 			    .getText())) + "");
 		}
-	    } else if (Long.parseLong(txtRevision.getText()) > Integer.MAX_VALUE) {
+	    } 
+	    //Check if revision number is greater than the maximum value of an Integer and display an error message.
+	    //Parse with Long.parseLong() because Integer.parseInt() would throw a java.lang.NumberFormatException when
+	    //using values greater than Integer.MAX_VALUE.
+	    else if (Long.parseLong(txtRevision.getText()) > Integer.MAX_VALUE) {
 		txtRevision.setBackground(red);
 		final MessageDialog diag = new MessageDialog(null,
 			Messages.EditorRunTest_1, null,
@@ -568,9 +560,10 @@ public class EditorRunTest extends EditorPartInput implements
 	    diag.close();
 	    return null;
 	}
-	testCase.setRevisionNumber(revision);
+	testCaseDescriptor.setRevisionNumber(revision);
+	testCaseDescriptor.setVersionText(txtVersion.getText());
 
-	return testCase;
+	return testCaseDescriptor;
     }
 
     @Override
@@ -601,41 +594,43 @@ public class EditorRunTest extends EditorPartInput implements
 	changeTimerState(false);
     }
 
-    private void saveTestProtocoll() {
-
+    /**
+     * Saves the execution data into a protocol which is created and afterwards displayed.
+     */
+    private void saveTestProtocol() {
 	final TestCaseDescriptor testCase = updateTestCaseDescriptor();
 	if (testCase == null) {
 	    return;
 	}
 	// getting the worst status
 	StatusType worstStatus = StatusType.passed;
-	for (final TestStepDescriptor ts : testCase.getSteps()) {
-	    final StatusType sType = ts.getStatus();
+	for (final TestStepDescriptor testStepDescriptor : testCase.getSteps()) {
+	    final StatusType testStepDescriptorStatusType = testStepDescriptor.getStatus();
 	    if (worstStatus == StatusType.failed) {
 		break;
 	    } else if (worstStatus == StatusType.passed) {
-		switch (sType) {
+		switch (testStepDescriptorStatusType) {
 		case passed:
 		    break;
 		default:
-		    worstStatus = sType;
+		    worstStatus = testStepDescriptorStatusType;
 		}
 	    } else if (worstStatus == StatusType.passedWithAnnotation) {
-		switch (sType) {
+		switch (testStepDescriptorStatusType) {
 		case passed:
 		case passedWithAnnotation:
 		    break;
 		default:
-		    worstStatus = sType;
+		    worstStatus = testStepDescriptorStatusType;
 		}
 	    } else if (worstStatus == StatusType.notExecuted) {
-		switch (sType) {
+		switch (testStepDescriptorStatusType) {
 		case passed:
 		case passedWithAnnotation:
 		case notExecuted:
 		    break;
 		default:
-		    worstStatus = sType;
+		    worstStatus = testStepDescriptorStatusType;
 		}
 	    }
 	}
@@ -647,22 +642,34 @@ public class EditorRunTest extends EditorPartInput implements
 	} catch (final NumberFormatException e) {
 	    return;
 	}
-	setLastRevision(revision + "");
+	setLastRevision(revision);
+	setLastVersion(txtVersion.getText());
 	setLastTester(txtTester.getText());
 	testCase.setRevisionNumber(revision);
+	
+	//Get version free text string.
+	testCase.setVersionText(txtVersion.getText());
+	
 
 	// Getting the final description for the run
-	final DialogRunTest dialog = new DialogRunTest(txtTime.getText(),
+	final DialogRunTest dialog = new DialogRunTest(txtTime,
 		txtTester.getText(), worstStatus, input.getProject().getName());
 	StatusType caseStatus;
 
 	if (dialog.open() == Window.OK) {
 	    final TestResult testResult = dialog.getRunTestValue();
 	    testCase.setRichTextResult(testResult.getDescription());
-	    caseStatus = testResult.getState();
+	    caseStatus = testResult.getStatus();
+
+	    //Update real duration of test case.
+	    testCase.setRealDuration(testResult.getDuration());
+
+	    //If the user has chosen to use the actual execution time as estimated time
+	    //for the test case, we update the duration of the test case.
 	    if (testResult.isUpdateTime()) {
 		testCase.setExpectedDuration(testCase.getRealDuration());
 	    }
+	    
 	    testCase.setStatus(caseStatus);
 	} else {
 	    changeTimerState(false);
@@ -686,7 +693,6 @@ public class EditorRunTest extends EditorPartInput implements
 	    setDirty(false);
 	    closeEditor(true);
 	    ViewReport.openGUI(report);
-
 	} catch (final DataModelException e) {
 	    log.error(e.getMessage());
 	    for (final StackTraceElement st : e.getStackTrace()) {
@@ -698,9 +704,11 @@ public class EditorRunTest extends EditorPartInput implements
 		log.error(st.toString());
 	    }
 	}
-
     }
 
+    /**
+     * @param tester The name of the last tester.
+     */
     private void setLastTester(final String tester) {
 	lastTester = tester;
     }
@@ -740,7 +748,6 @@ public class EditorRunTest extends EditorPartInput implements
      * @see EditorRunTest.setSteps()
      */
     private void setFields() {
-
 	if (input.getData().getRichTextPrecondition() != null) {
 	    try {
 		richTextPreCon.setFormattedText(input.getData()
@@ -779,7 +786,12 @@ public class EditorRunTest extends EditorPartInput implements
 	    }
 	}
 
-	txtRevision.setText(getLastRevision());
+	//Only set last used revision if we haven't already loaded the 
+	//highest revision number from the reports.
+	if (getLastRevision() != 0) {
+	    txtRevision.setText(String.valueOf(getLastRevision()));
+	}
+	txtVersion.setText(getLastVersion());
 
 	setDirty(false);
 	descriptionChanged = false;
@@ -902,12 +914,32 @@ public class EditorRunTest extends EditorPartInput implements
 	}
     }
 
-    public String getLastRevision() {
+    /**
+     * @return The last used revision.
+     */
+    public int getLastRevision() {
 	return lastRevision;
     }
+    
+    /**
+     * @return The last used version identifier.
+     */
+    public String getLastVersion() {
+	return lastVersion;
+    }
 
-    public void setLastRevision(final String lastRevision) {
+    /**
+     * @param lastRevision The last used revision.
+     */
+    public void setLastRevision(final int lastRevision) {
 	EditorRunTest.lastRevision = lastRevision;
+    }
+    
+    /**
+     * @param lastVersion The last used version identifier.
+     */
+    public void setLastVersion (final String lastVersion) {
+	EditorRunTest.lastVersion = lastVersion;
     }
 
 }

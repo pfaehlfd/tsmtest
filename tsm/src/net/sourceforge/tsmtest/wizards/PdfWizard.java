@@ -136,9 +136,12 @@ public class PdfWizard extends Wizard implements INewWizard {
 	boolean yesToAll = false;
 	boolean noToAll = false;
 	int answer = 0;
+	
+	List<TSMResource> exportList;
 
 	try {
-	    if (page.getProtocols().isEmpty()) {
+	    exportList = page.getExportList();
+	    if (exportList.isEmpty()) {
 		page.setErrorMessage(Messages.PdfWizard_1);
 		return false;
 	    }
@@ -148,12 +151,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 	}
 	
 	final List<TSMResource> newList;
-	try {
-	    newList = page.getProtocols();
-	} catch (CoreException e1) {
-	    page.setErrorMessage(e1.getLocalizedMessage());
-	    return false;
-	}
+	newList = exportList;
 
 	// check if path is valid
 	if (page.getPath().equals("")) { //$NON-NLS-1$

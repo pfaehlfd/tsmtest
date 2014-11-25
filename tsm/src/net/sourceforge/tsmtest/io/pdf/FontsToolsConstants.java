@@ -1,3 +1,13 @@
+ /*******************************************************************************
+ * Copyright (c) 2012-2014 Tobias Hirning.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Tobias Hirning - initial version
+ *******************************************************************************/
 package net.sourceforge.tsmtest.io.pdf;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -19,8 +29,18 @@ import com.itextpdf.text.Font;
 public final class FontsToolsConstants {
     private FontsToolsConstants() {
     }
-    //Types of possible exports.
+    /**
+     * Types of possible exports.
+     *
+     */
     public static enum ExportType { ONE_FILE, MULTIPLE_FILES, SPECIFIC_REVISIONS }
+
+    /**
+     * Types of files to export.
+     *
+     */
+    public static enum ExportedFilesType { ALL_FILES, TEST_CASES, PROTOCOLS, REVISIONS }
+
     // font sizes
     private static final int STANDARD_FONT_SIZE = 12;
     private static final int HEADER_FONT_SIZE = 18;

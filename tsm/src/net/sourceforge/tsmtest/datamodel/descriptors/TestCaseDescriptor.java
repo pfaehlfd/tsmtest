@@ -105,6 +105,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
      * Holds the revision of the tested program
      */
     private int revision = 0;
+    
+    //Holds the version as a free text string.
+    private String versionUnderTest = "";
 
     @Override
     public long getId() {
@@ -318,6 +321,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	this.richTextResult = richTextResult;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
 	final TestCaseDescriptor clone = (TestCaseDescriptor) super.clone();
@@ -343,6 +349,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	}
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
 	int hashCode = getClass().getName().hashCode();
@@ -361,11 +370,14 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	for (int i = 0; i < steps.size(); i++) {
 	    final TestStepDescriptor testStep = steps.get(i);
 	    hashCode += testStep.getExpectedResult().hashCode();
-	    hashCode += testStep.getRichTextDescription().hashCode();
+	    hashCode += testStep.getActionRichText().hashCode();
 	}
 	return hashCode;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object other) {
 	// Check all attributes
@@ -426,19 +438,25 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 		    testStep2.getExpectedResult())) {
 		return false;
 	    }
-	    if (!testStep.getRichTextDescription().equals(
-		    testStep2.getRichTextDescription())) {
+	    if (!testStep.getActionRichText().equals(
+		    testStep2.getActionRichText())) {
 		return false;
 	    }
 	}
 	return true;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getLastChangedOn()
+     */
     @Override
     public Date getLastChangedOn() {
 	return lastChangedOn;
     }
 
+    /**
+     * @param lastChangedOn The date on which the test case was changed last time.
+     */
     public void setLastChangedOn(final Date lastChangedOn) {
 	this.lastChangedOn = lastChangedOn;
     }
@@ -452,11 +470,28 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
     }
 
     /**
-     * Sets the revision of the tested program
-     * @param revision The revision of the system under test.
+     * Dets the revision of the system under test.
+     * 
+     * @param revision of the system under test.
      */
     public void setRevisionNumber(final int revision) {
 	this.revision = revision;
     }
 
+    /**
+     * Set the version as a free text string.
+     * @param versionText The version text to be set.
+     */
+    public void setVersionText(final String versionText) {
+	this.versionUnderTest = versionText;
+    }
+
+
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getVersion()
+     */
+    @Override
+    public String getVersion() {
+	return versionUnderTest;
+    }
 }

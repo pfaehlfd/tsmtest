@@ -22,6 +22,7 @@ import java.util.Vector;
 import net.sourceforge.tsmtest.IDEWorkbenchMessages;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportedFilesType;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -52,7 +53,7 @@ import org.eclipse.ui.dialogs.WizardDataTransferPage;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.internal.ide.DialogUtil;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.ui.internal.ide.dialogs.ResourceTreeAndListGroup;
+import org.eclipse.ui.ide.dialogs.ResourceTreeAndListGroup;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 
@@ -102,13 +103,18 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
     // Type of the pdf export.
     private ExportType exportType = null;
-
-    /**
-     * 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
-     */
-    private int typeOfExportedFiles = 0;
     
+    //Type of exported files.
+    private ExportedFilesType typeOfExportedFiles = ExportedFilesType.ALL_FILES;
+    /**
+     * Text field for the revision.
+     */
     private Text revision;
+    
+    /**
+     * Group for the advanced mode options.
+     */
+    private Group exportFilterStatusPriorityGroup;
 
     /**
      * Creates an export wizard page. If the current resource selection is not
@@ -125,6 +131,15 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	    final IStructuredSelection selection) {
 	super(pageName);
 	initialResourceSelection = selection;
+	//Preset export into one file otherwise the file browse dialog does not react.
+	setExportType(ExportType.ONE_FILE);
+	//Preset the export filter to the same values that we use initial in the gui.
+	ExportFilter.setExportPassed(true);
+	ExportFilter.setExportPassedWithAnnotations(true);
+	ExportFilter.setExportFailed(true);
+	ExportFilter.setExportLow(true);
+	ExportFilter.setExportMedium(true);
+	ExportFilter.setExportHigh(true);
     }
 
     /**
@@ -165,9 +180,7 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	((GridLayout) parent.getLayout()).numColumns++;
 
 	final Button button = new Button(parent, SWT.PUSH);
-
-	final GridData buttonData = new GridData(GridData.FILL_HORIZONTAL);
-	button.setLayoutData(buttonData);
+	button.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 	button.setData(Integer.valueOf(id));
 	button.setText(label);
@@ -245,6 +258,8 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	deselectButton.addSelectionListener(listener);
 	deselectButton.setFont(font);
 	setButtonLayoutData(deselectButton);
+	new Label(buttonComposite, SWT.NONE);
+	new Label(buttonComposite, SWT.NONE);
 
     }
 
@@ -699,6 +714,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
      */
     @Override
     protected void createOptionsGroupButtons(final Group parent) {
+    	GridData gd_parent = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
+    	gd_parent.heightHint = 516;
+    	parent.setLayoutData(gd_parent);
 	// top level group
 	final Group options = new Group(parent, SWT.RADIO);
 	options.setFont(parent.getFont());
@@ -718,7 +736,6 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	oneFileButton.setText(net.sourceforge.tsmtest.IDEWorkbenchMessages.ExportWizardPage_0);
 	oneFileButton.setSelection(true);
 	oneFileButton.addSelectionListener(new SelectionListener() {
-
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		if (oneFileButton.getSelection()) {
@@ -773,11 +790,13 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	exportGroup.setFont(parent.getFont());
 
 	final GridLayout layout2 = new GridLayout();
-	layout2.numColumns = 1;
 	layout2.makeColumnsEqualWidth = true;
 	exportGroup.setLayout(layout2);
-	exportGroup.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL
-		| GridData.HORIZONTAL_ALIGN_FILL));
+	GridData gd_exportGroup = new GridData(GridData.VERTICAL_ALIGN_FILL
+		| GridData.HORIZONTAL_ALIGN_FILL);
+	gd_exportGroup.grabExcessVerticalSpace = true;
+	gd_exportGroup.heightHint = 479;
+	exportGroup.setLayoutData(gd_exportGroup);
 
 	Label label2 = new Label(exportGroup, SWT.LEFT);
 	label2.setText(IDEWorkbenchMessages.ExportWizardPage_6);
@@ -789,12 +808,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 0;
+		typeOfExportedFiles = ExportedFilesType.ALL_FILES;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 0;
+		typeOfExportedFiles = ExportedFilesType.ALL_FILES;
 	    }
 
 	});
@@ -805,12 +824,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 1;
+		typeOfExportedFiles = ExportedFilesType.TEST_CASES;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 1;
+		typeOfExportedFiles = ExportedFilesType.TEST_CASES;
 	    }
 
 	});
@@ -821,12 +840,12 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 2;
+		typeOfExportedFiles = ExportedFilesType.PROTOCOLS;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 2;
+		typeOfExportedFiles = ExportedFilesType.PROTOCOLS;
 	    }
 
 	});
@@ -834,20 +853,165 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 	final Button exportRevisionProtocols = new Button(exportGroup, SWT.RADIO);
 	exportRevisionProtocols.setText(IDEWorkbenchMessages.ExportWizardPage_10);
 	exportRevisionProtocols.addSelectionListener(new SelectionListener() {
-
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 3;
+		typeOfExportedFiles = ExportedFilesType.REVISIONS;
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
-		typeOfExportedFiles = 3;
+		typeOfExportedFiles = ExportedFilesType.REVISIONS;
 	    }
-
 	});
 	
 	revision = new Text(exportGroup, SWT.BORDER);
+	
+	
+	//Button for advanced mode.
+	Button btnAdvancedMode = new Button(exportGroup, SWT.CHECK);
+	btnAdvancedMode.setText(IDEWorkbenchMessages.ExportWizardPage_btnAdvancedMode_text);
+	
+	exportFilterStatusPriorityGroup = new Group(exportGroup, SWT.NONE);
+	//Preset advanced mode disabled.
+	exportFilterStatusPriorityGroup.setVisible(false);
+	
+	//Enable or disable advanced mode.
+	btnAdvancedMode.addSelectionListener(new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+		    //Toggle visibility state.
+		    if (exportFilterStatusPriorityGroup.isVisible()) {
+			exportFilterStatusPriorityGroup.setVisible(false);
+			ExportFilter.setFilterEnabled(false);
+		    } else {
+			exportFilterStatusPriorityGroup.setVisible(true);
+			ExportFilter.setFilterEnabled(true);
+		    }
+		}
+	});
+	
+	GridData gd_exportFilterStatusPriorityGroup = new GridData(SWT.LEFT, SWT.CENTER, false, true, 1, 1);
+	gd_exportFilterStatusPriorityGroup.widthHint = 565;
+	gd_exportFilterStatusPriorityGroup.heightHint = 262;
+	exportFilterStatusPriorityGroup.setLayoutData(gd_exportFilterStatusPriorityGroup);
+	exportFilterStatusPriorityGroup.setText(IDEWorkbenchMessages.ExportWizardPage_group_text);
+	
+	final Button btnPassed = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnPassed.setSelection(true);
+	btnPassed.addSelectionListener(new SelectionAdapter() {
+		@Override
+		public void widgetSelected(SelectionEvent e) {
+		    if (btnPassed.getSelection()) {
+			ExportFilter.setExportPassed(true);
+		    } else {
+			ExportFilter.setExportPassed(false);
+		    }
+		}
+	});
+	btnPassed.setBounds(62, 28, 215, 26);
+	btnPassed.setText(IDEWorkbenchMessages.ExportWizardPage_btnPassed);
+	
+	final Button btnPassedWithAnnotations = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnPassedWithAnnotations.setSelection(true);
+	btnPassedWithAnnotations.setText(IDEWorkbenchMessages.ExportWizardPage_btnPassedWithAnnotations_text);
+	btnPassedWithAnnotations.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnPassedWithAnnotations.getSelection()) {
+		    ExportFilter.setExportPassedWithAnnotations(true);
+		} else {
+		    ExportFilter.setExportPassedWithAnnotations(false);
+		}
+	    }
+	});
+	btnPassedWithAnnotations.setBounds(62, 60, 223, 26);
+	
+	final Button btnFailed = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnFailed.setSelection(true);
+	btnFailed.setText(IDEWorkbenchMessages.ExportWizardPage_btnFailed_text);
+	btnFailed.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnFailed.getSelection()) {
+		    ExportFilter.setExportFailed(true);
+		} else {
+		    ExportFilter.setExportFailed(false);
+		}
+	    }
+	});
+	btnFailed.setBounds(62, 92, 180, 26);
+	
+	final Button btnNotExecuted = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnNotExecuted.setSelection(true);
+	btnNotExecuted.setText(IDEWorkbenchMessages.ExportWizardPage_btnNotExecuted_text);
+	btnNotExecuted.setSize(196, 20);
+	btnNotExecuted.setLocation(62, 124);
+	btnNotExecuted.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnNotExecuted.getSelection()) {
+		    ExportFilter.setExportNotExecuted(true);
+		} else {
+		    ExportFilter.setExportNotExecuted(false);
+		}
+	    }
+	});
+	
+	final Button btnLow = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnLow.setSelection(true);
+	btnLow.setText(IDEWorkbenchMessages.ExportWizardPage_btnLow_text);
+	btnLow.setSize(107, 20);
+	btnLow.setLocation(452, 28);
+	btnLow.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnLow.getSelection()) {
+		    ExportFilter.setExportLow(true);
+		} else {
+		    ExportFilter.setExportLow(false);
+		}
+	    }
+	});
+	
+	final Button btnMedium = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnMedium.setSelection(true);
+	btnMedium.setText(IDEWorkbenchMessages.ExportWizardPage_btnMedium_text);
+	btnMedium.setSize(107, 20);
+	btnMedium.setLocation(452, 55);
+	btnMedium.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnMedium.getSelection()) {
+		    ExportFilter.setExportMedium(true);
+		} else {
+		    ExportFilter.setExportMedium(false);
+		}
+	    }
+	});
+	
+	final Button btnHigh = new Button(exportFilterStatusPriorityGroup, SWT.CHECK);
+	btnHigh.setSelection(true);
+	btnHigh.setText(IDEWorkbenchMessages.ExportWizardPage_btnHigh_text);
+	btnHigh.setSize(107, 20);
+	btnHigh.setLocation(452, 80);
+	btnHigh.addSelectionListener(new SelectionAdapter() {
+	    @Override
+	    public void widgetSelected(SelectionEvent e) {
+		if (btnHigh.getSelection()) {
+		    ExportFilter.setExportHigh(true);
+		} else {
+		    ExportFilter.setExportHigh(false);
+		}
+	    }
+	});
+	
+	Label lblStatus = new Label(exportFilterStatusPriorityGroup, SWT.NONE);
+	lblStatus.setBounds(10, 28, 57, 15);
+	lblStatus.setText(IDEWorkbenchMessages.ExportWizardPage_lblStatus);
+	
+	Label lblPriority = new Label(exportFilterStatusPriorityGroup, SWT.NONE);
+	lblPriority.setBounds(389, 28, 57, 15);
+	lblPriority.setText(IDEWorkbenchMessages.ExportWizardPage_lblPriority);	
     }
 
     /**
@@ -867,9 +1031,9 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
 
     /**
      * Getter for the type of exported files.
-     * @return 0 = all files, 1 = test cases, 2 = protocols, 3 = revision
+     * @return The type of files that should be exported.
      */
-    protected int getTypeOfExportFiles() {
+    protected ExportedFilesType getTypeOfExportFiles() {
 	return typeOfExportedFiles;
     }
     
@@ -879,7 +1043,6 @@ public abstract class ExportWizardPage extends WizardDataTransferPage {
     public String getRevision(){
 	return revision.getText();
     }
-
 }
 
 // sRead more:

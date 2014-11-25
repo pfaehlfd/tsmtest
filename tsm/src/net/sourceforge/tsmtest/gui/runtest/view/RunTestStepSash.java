@@ -129,7 +129,7 @@ public class RunTestStepSash {
 		try {
 		    switch (column) {
 		    case POSDESC:
-			String description = testStepDescriptor.getRichTextDescription();
+			String description = testStepDescriptor.getActionRichText();
 			if (description.length() < 13) {
 			    description = "<html></html>"; //$NON-NLS-1$
 			}
@@ -189,7 +189,7 @@ public class RunTestStepSash {
 		    final int row, final int column) {
 		switch (column) {
 		case POSDESC:
-		    testStepDescriptor.setRichTextDescription(control.getFormattedText());
+		    testStepDescriptor.setActionRichText(control.getFormattedText());
 		    break;
 		case POSEXP:
 		    testStepDescriptor.setExpectedResult(control.getFormattedText());

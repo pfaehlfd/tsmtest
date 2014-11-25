@@ -95,13 +95,16 @@ public interface ITestCaseDescriptor {
      */
     public List<TestStepDescriptor> getSteps();
     /**
-     * Get the date last changed on of the test case..
-     * @return The last changed on date of the test case.
+     * @return The date when the test case was last changed.
      */
     public Date getLastChangedOn();
     /**
-     * Gets the revision number of the test case.
-     * @return The revision number of the test case.
+     * @return The revision of the system under test.
      */
     public int getRevisionNumber();
+    /**
+     * Gets the free text string for the version.
+     * @return The version as a free text string.
+     */
+    public String getVersion();
 }

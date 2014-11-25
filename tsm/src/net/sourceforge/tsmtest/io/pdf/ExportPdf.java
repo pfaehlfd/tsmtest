@@ -120,7 +120,7 @@ public class ExportPdf {
 		document.close();
 	    } 
 	    //Export in multiple files.
-	    else if (exportType == ExportType.ONE_FILE){
+	    else if (exportType == ExportType.MULTIPLE_FILES){
 		// go through the list and create one document for each entry
 		for (TSMResource currentResource : newList) {
 		    counterForImages = 1;
@@ -640,6 +640,15 @@ public class ExportPdf {
 			protocol.getRevisionNumber() + ""));
 		revisionEntry.setBorder(Rectangle.NO_BORDER);
 		table.addCell(revisionEntry);
+		
+		PdfPCell version = new PdfPCell(new Phrase(
+			"Version: ", FontsToolsConstants.boldFont));
+		version.setBorder(Rectangle.NO_BORDER);
+		table.addCell(version);
+		PdfPCell versionEntry = new PdfPCell(new Phrase(
+			protocol.getVersion() + ""));
+		versionEntry.setBorder(Rectangle.NO_BORDER);
+		table.addCell(versionEntry);
 
 		PdfPCell expectedDuration = new PdfPCell(new Phrase(
 			Messages.ExportPdf_34, FontsToolsConstants.boldFont));
@@ -1010,7 +1019,7 @@ public class ExportPdf {
 		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
@@ -1079,7 +1088,7 @@ public class ExportPdf {
 		for (TestStepDescriptor currentTestStepDescriptor : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, currentTestStepDescriptor.getRichTextDescription(), doc, file);
+		    parse(paragraph5, currentTestStepDescriptor.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, currentTestStepDescriptor.getExpectedResult(), doc, file);
@@ -1509,6 +1518,14 @@ public class ExportPdf {
 			protocol.getRevisionNumber() + ""));
 		c88.setBorder(Rectangle.NO_BORDER);
 		table.addCell(c88);
+		
+		PdfPCell c89 = new PdfPCell(new Phrase("Version:",
+			FontsToolsConstants.boldFont));
+		c89.setBorder(Rectangle.NO_BORDER);
+		table.addCell(c89);
+		PdfPCell c90 = new PdfPCell(new Phrase(protocol.getVersion() + ""));
+		c90.setBorder(Rectangle.NO_BORDER);
+		table.addCell(c90);
 
 		PdfPCell c9 = new PdfPCell(new Phrase(Messages.ExportPdf_129,
 			FontsToolsConstants.boldFont));
@@ -1623,6 +1640,7 @@ public class ExportPdf {
 		    cell.setHorizontalAlignment(Rectangle.ALIGN_BOTTOM);
 		    table.addCell(cell);
 		} else {
+		    //If the protocol has the status "not executed" we don't add any image.
 		    Paragraph paragraph = new Paragraph(""); //$NON-NLS-1$
 		    PdfPCell cell = new PdfPCell(paragraph);
 		    cell.setBorder(Rectangle.NO_BORDER);
@@ -1887,7 +1905,7 @@ public class ExportPdf {
 		for (TestStepDescriptor s : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, s.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, s.getExpectedResult(), doc, file);
@@ -1956,7 +1974,7 @@ public class ExportPdf {
 		for (TestStepDescriptor s : steps) {
 		    table.addCell(Integer.toString(counter));
 		    Phrase paragraph5 = new Phrase();
-		    parse(paragraph5, s.getRichTextDescription(), doc, file);
+		    parse(paragraph5, s.getActionRichText(), doc, file);
 		    table.addCell(paragraph5);
 		    Phrase paragraph6 = new Phrase();
 		    parse(paragraph6, s.getExpectedResult(), doc, file);

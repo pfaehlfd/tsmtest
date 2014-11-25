@@ -58,7 +58,6 @@ import org.xml.sax.SAXException;
  */
 public class ViewReport extends MultiPageEditorPartInput implements
 	DataModelObservable {
-
     public static final String ID = "net.sourceforge.tsmtest.gui.report"; //$NON-NLS-1$
     private RichText browserFinalResult;
     private ReportStepSash tableManager;
@@ -66,6 +65,7 @@ public class ViewReport extends MultiPageEditorPartInput implements
     private Text testCaseLabel;
     private Text executedLabel;
     private Text revisionLabel;
+    private Text versionLabel;
     private Text durationLabel;
     private Text executorLabel;
     private RichText shortDescription;
@@ -161,6 +161,15 @@ public class ViewReport extends MultiPageEditorPartInput implements
 	revisionLabel.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true,
 		false, 1, 1));
 	revisionLabel.setEditable(false);
+	
+	site = new Composite(parent, SWT.NONE);
+	site.setLayout(new GridLayout(2, false));
+	site.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 1, 1));
+	new Label(site, SWT.NONE).setText("Version:");
+	versionLabel = new Text(site, SWT.BACKGROUND);
+	versionLabel.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true,
+		false, 1, 1));
+	versionLabel.setEditable(false);
 
 	site = new Composite(parent, SWT.NONE);
 	site.setLayout(new GridLayout(2, false));
@@ -303,6 +312,7 @@ public class ViewReport extends MultiPageEditorPartInput implements
 	executorLabel.setText(input.getData().getAssignedTo());
 	durationLabel.setText(input.getData().getRealDuration());
 	revisionLabel.setText(input.getData().getRevisionNumber() + "");
+	versionLabel.setText(input.getData().getVersion());
 	if (input.getData().getLastExecution() == null) {
 	    executedLabel.setText(Messages.ViewReport_22);
 	} else {
@@ -366,7 +376,7 @@ public class ViewReport extends MultiPageEditorPartInput implements
     }
 
     @Override
-    protected void getInput(final TSMReport input) {
+    protected void setEditorInput(final TSMReport input) {
 	this.input = input;
     }
 

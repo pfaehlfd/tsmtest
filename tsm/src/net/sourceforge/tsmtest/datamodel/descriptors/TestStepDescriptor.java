@@ -19,7 +19,6 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  *
  */
 public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
-
     /**
      * Holds the description of the tesnewContentt step as a rich text in html
      * format.
@@ -37,19 +36,18 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
      * Holds the current status of the newContenttest step.
      */
     private StatusType status = StatusType.notExecuted;
-
     /* (non-Javadoc)
-     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getRichTextDescription()
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getAction()
      */
-    public String getRichTextDescription() {
+    public String getActionRichText() {
 	return richTextDescription;
     }
 
     /**
-     * @param richTextDescription
+     * @param action The action as a rich text that the tester should execute.
      */
-    public void setRichTextDescription(String richTextDescription) {
-	this.richTextDescription = richTextDescription;
+    public void setActionRichText(String action) {
+	this.richTextDescription = action;
     }
 
     /* (non-Javadoc)
@@ -60,8 +58,7 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
     }
 
     /**
-     * Sets the expected result for the test step as html.
-     * @param expectedResult The expected result to be set.
+     * @param expectedResult The action as a rich text that the tester should execute.
      */
     public void setExpectedResult(String expectedResult) {
 	this.expectedResult = expectedResult;
@@ -75,8 +72,7 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
     }
 
     /**
-     * Sets the real result of the test step as html.
-     * @param realResult The real result to be set.
+     * @param realResult The real result that was entered by the tester during the execution.
      */
     public void setRealResult(String realResult) {
 	this.realResult = realResult;
@@ -90,8 +86,7 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
     }
 
     /**
-     * Sets the status of the test step.
-     * @param status The status to be set.
+     * @param status The status of the test step.
      */
     public void setStatus(StatusType status) {
 	this.status = status;

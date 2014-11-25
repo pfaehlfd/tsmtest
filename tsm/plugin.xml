@@ -38,7 +38,7 @@
             class="net.sourceforge.tsmtest.gui.navigator.TSMNavigator"
             icon="icons/iconTSM.png"
             id="net.sourceforge.tsmtest.gui.navigator.TSMNavigator"
-            name="TSM Navigator">
+            name="%view.name.0">
       </view>
       
       <view
@@ -46,7 +46,8 @@
             category="tsm.category"
             class="net.sourceforge.tsmtest.gui.filter.FilterView"
             id="net.sourceforge.tsmtest.gui.filter.Filter"
-            name="%filter.name">
+            name="%filter.name"
+            restorable="true">
       </view>
       
       <!--
@@ -143,14 +144,14 @@
          </command>
       </menuContribution>
    </extension>-->
-   <!-- <extension
+   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="net.sourceforge.tsmtest.preferences.PreferencePage"
             id="tsm.preferences.PreferencePage"
             name="TSM Preferences">
       </page>
-   </extension> !-->
+   </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
@@ -376,7 +377,7 @@
             class="net.sourceforge.tsmtest.wizards.JustusImportWizard"
             id="Justus file"
             icon="icons/iconTSM.png"
-            name="Justus file"> 
+            name="%wizard.name.3"> 
          <selection class="org.eclipse.core.resources.IFile"/> 
       </wizard> 
    </extension>
@@ -541,9 +542,9 @@
  <commonFilter
        activeByDefault="true"
        class="net.sourceforge.tsmtest.TSMImageContentFilter"
-       description="Hides the images-Folder in which TSM images are saved."
+       description="%commonFilter.description"
        id="net.sourceforge.tsmtest.imageFilter"
-       name="Hide TSM images"
+       name="%commonFilter.name"
        visibleInUI="true">
  </commonFilter>
 </extension>
@@ -560,7 +561,7 @@
    <command
          defaultHandler="net.sourceforge.tsmtest.gui.overview.handler.OpenOverview"
          id="net.sourceforge.tsmtest.gui.overview.view.openoverview"
-         name="Open Overview">
+         name="%command.name">
    </command>
 </extension>
 <extension
@@ -613,7 +614,7 @@
       </property>
       <property
             name="aboutText"
-            value="Testsuite-Management Version 1.5.1&#x0A;Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.&#x0A;&#x0A;https://sourceforge.net/projects/tsmtest/">
+            value="Testsuite-Management Version 1.5.2&#x0A;Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.&#x0A;&#x0A;https://sourceforge.net/projects/tsmtest/">
       </property>
    </product>
 </extension>
@@ -624,7 +625,7 @@
          locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
       <command
             commandId="net.sourceforge.tsmtest.gui.overview.view.openoverview"
-            label="Open Overview"
+            label="%command.label.3"
             style="push">
       </command>
    </menuContribution>
@@ -633,9 +634,9 @@
          point="org.eclipse.ui.commands">
       <command
             defaultHandler="net.sourceforge.tsmtest.gui.help.Help"
-            description="Opens the guide for TSM"
+            description="%command.description"
             id="net.sourceforge.tsmtest.gui.help"
-            name="TSM help">
+            name="%command.name.0">
          <defaultHandler
                class="net.sourceforge.tsmtest.gui.help.Help">
             <parameter
