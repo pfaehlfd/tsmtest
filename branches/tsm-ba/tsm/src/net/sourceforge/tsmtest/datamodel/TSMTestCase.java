@@ -88,6 +88,10 @@ public class TSMTestCase extends TSMResource {
 	return update(getName(), data);
     }
 
+    /**
+     * @return A collection containing all reports that belong to the test case.
+     *  If no protocols were found a new HashSet is returned.
+     */
     public Collection<TSMReport> getReports() {
 	return DataModel.getInstance().getReportOfTestCase(getData().getId());
     }
@@ -101,7 +105,7 @@ public class TSMTestCase extends TSMResource {
     public TSMReport createReport(final TestCaseDescriptor newReport)
 	    throws DataModelException {
 	final String name = TSMReport.getDefaultName(getName(),
-		newReport.getLastExecution());
+		newReport.getLastExecution(), newReport.getRevisionNumber());
 	return DataModel.getInstance().createReport(name, newReport, this);
     }
 

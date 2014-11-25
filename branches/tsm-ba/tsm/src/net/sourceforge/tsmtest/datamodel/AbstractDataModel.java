@@ -21,6 +21,7 @@ import java.util.Set;
 import net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.ui.IWorkingSet;
 
 /**
@@ -122,6 +123,11 @@ public abstract class AbstractDataModel {
 	    TSMTestCase tsmTestCase, TestCaseDescriptor data)
 	    throws DataModelException;
 
+    /**
+     * @param id The id of the test case which reports should be retrieved.
+     * @return A collection containing all reports that belong to the test case.
+     *  If no protocols were found a new HashSet is returned.
+     */
     protected abstract Collection<TSMReport> getReportOfTestCase(long id);
 
     protected abstract TSMReport createReport(String name,
@@ -146,4 +152,12 @@ public abstract class AbstractDataModel {
 	    throws DataModelException;
 
     public abstract void unregister(DataModelObservable listener);
+
+    /**
+     * Gets the IProject for a given TSMProject.
+     * This is needed to get the location of the project for version control systems.
+     * @param project The project for which to get the IProject for.
+     * @return The corresponding IProject of the TSMProject.
+     */
+    public abstract IProject getIProjectForTSMProject(TSMProject project);
 }

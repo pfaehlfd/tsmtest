@@ -61,7 +61,7 @@ public class TestCaseTest {
 	    TestStepDescriptor testStepDescriptor = new TestStepDescriptor();
 	    testStepDescriptor.setExpectedResult("äöüß ÄÖÜ");
 	    testStepDescriptor.setRealResult("äöüß ÄÖÜ");
-	    testStepDescriptor.setRichTextDescription("äöüß ÄÖÜ");
+	    testStepDescriptor.setActionRichText("äöüß ÄÖÜ");
 	    testStepDescriptor
 		    .setStatus(DataModelTypes.StatusType.passedWithAnnotation);
 	    TestStepDescriptor testStepDescriptor2 = new TestStepDescriptor();
@@ -104,19 +104,19 @@ public class TestCaseTest {
 	    TestStepDescriptor getTestStep = testList2.get(0);
 	    assertEquals("äöüß ÄÖÜ", getTestStep.getExpectedResult());
 	    assertEquals("äöüß ÄÖÜ", getTestStep.getRealResult());
-	    assertEquals("äöüß ÄÖÜ", getTestStep.getRichTextDescription());
+	    assertEquals("äöüß ÄÖÜ", getTestStep.getActionRichText());
 	    assertEquals(DataModelTypes.StatusType.passedWithAnnotation, getTestStep.getStatus());
 	    
 	    TestStepDescriptor getTestStep2 = testList2.get(1);
 	    assertEquals("", getTestStep2.getExpectedResult());
 	    assertEquals("", getTestStep2.getRealResult());
-	    assertEquals("", getTestStep2.getRichTextDescription());
+	    assertEquals("", getTestStep2.getActionRichText());
 	    assertEquals(DataModelTypes.StatusType.notExecuted, getTestStep2.getStatus());
 	    
 	    TestStepDescriptor getTestStep3 = testList2.get(2);
 	    assertEquals("", getTestStep3.getExpectedResult());
 	    assertEquals("", getTestStep3.getRealResult());
-	    assertEquals("", getTestStep3.getRichTextDescription());
+	    assertEquals("", getTestStep3.getActionRichText());
 	    assertEquals(DataModelTypes.StatusType.notExecuted, getTestStep3.getStatus());
 	    
 

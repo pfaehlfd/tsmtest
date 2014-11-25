@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="TSM" uid="TSM" id="net.sourceforge.tsmtest.TSM" application="net.sourceforge.tsmtest.application" version="1.5.1" useFeatures="false" includeLaunchers="true">
+<product name="TSM" uid="TSM" id="net.sourceforge.tsmtest.TSM" application="net.sourceforge.tsmtest.application" version="1.5.2" useFeatures="false" includeLaunchers="true">
 
    <aboutInfo>
-      <image path="/net.sourceforge.tsmtest/icons/iconTSM.png"/>
+      <image path="icons/iconTSM.png"/>
       <text>
-         Testsuite-Management Version 1.5.1
+         Testsuite-Management Version 1.5.2
 Authors: Albert Flaig, Daniel Hertl, Tobias Hirning, Verena Käfer, Wolfgang Kraus, Florian Krüger, Jenny Krüwald and Bernhard Wetzel.
 
 https://sourceforge.net/projects/tsmtest/
@@ -17,12 +17,16 @@ https://sourceforge.net/projects/tsmtest/
    </configIni>
 
    <launcherArgs>
-      <programArgs>-consoleLog</programArgs>
-      <vmArgs>-Dosgi.requiredJavaVersion=1.5 -Dhelp.lucene.tokenizer=standard -XX:MaxPermSize=256m -Xms40m -Xmx512m -Dosgi.nls.warnings=ignore -Dnl=de</vmArgs>
-      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
+      <programArgs>-consoleLog
+      </programArgs>
+      <vmArgs>-Dosgi.requiredJavaVersion=1.5 -Dhelp.lucene.tokenizer=standard -XX:MaxPermSize=256m -Xms40m -Xmx512m -Dosgi.nls.warnings=ignore -Dnl=de
+      </vmArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
    </launcherArgs>
 
-   <windowImages i32="/net.sourceforge.tsmtest/icons/icon32.png"/>
+   <windowImages i32="icons/icon32.png"/>
+
 
    <launcher>
       <solaris/>
@@ -41,6 +45,7 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="javax.inject"/>
       <plugin id="javax.servlet"/>
       <plugin id="javax.xml"/>
+      <plugin id="net.sourceforge.tsmtest"/>
       <plugin id="org.apache.batik.css"/>
       <plugin id="org.apache.batik.util"/>
       <plugin id="org.apache.batik.util.gui"/>
@@ -67,8 +72,13 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.core.filesystem"/>
       <plugin id="org.eclipse.core.filesystem.aix.ppc" fragment="true"/>
       <plugin id="org.eclipse.core.filesystem.aix.ppc.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.core.filesystem.hpux.ia64_32" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.aix.ppc64" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.hpux.ia64" fragment="true"/>
       <plugin id="org.eclipse.core.filesystem.hpux.ia64_32.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.java7" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.linux.ppc" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.linux.ppc64" fragment="true"/>
+      <plugin id="org.eclipse.core.filesystem.linux.ppc64le" fragment="true"/>
       <plugin id="org.eclipse.core.filesystem.linux.x86" fragment="true"/>
       <plugin id="org.eclipse.core.filesystem.linux.x86.nl_de" fragment="true"/>
       <plugin id="org.eclipse.core.filesystem.linux.x86_64" fragment="true"/>
@@ -87,15 +97,16 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.core.resources"/>
       <plugin id="org.eclipse.core.resources.nl_de" fragment="true"/>
       <plugin id="org.eclipse.core.resources.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.core.resources.win32.x86_64" fragment="true"/>
       <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility.auth"/>
       <plugin id="org.eclipse.core.runtime.compatibility.registry" fragment="true"/>
       <plugin id="org.eclipse.core.runtime.nl_de" fragment="true"/>
       <plugin id="org.eclipse.core.variables"/>
       <plugin id="org.eclipse.core.variables.nl_de" fragment="true"/>
       <plugin id="org.eclipse.debug.core"/>
+      <plugin id="org.eclipse.debug.core.nl_de" fragment="true"/>
       <plugin id="org.eclipse.debug.ui"/>
-      <plugin id="org.eclipse.draw2d"/>
+      <plugin id="org.eclipse.debug.ui.nl_de" fragment="true"/>
       <plugin id="org.eclipse.e4.core.commands"/>
       <plugin id="org.eclipse.e4.core.commands.nl_de" fragment="true"/>
       <plugin id="org.eclipse.e4.core.contexts"/>
@@ -135,35 +146,65 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.e4.ui.workbench3"/>
       <plugin id="org.eclipse.e4.ui.workbench3.nl_de" fragment="true"/>
       <plugin id="org.eclipse.emf.common"/>
+      <plugin id="org.eclipse.emf.common.nl_de" fragment="true"/>
       <plugin id="org.eclipse.emf.ecore"/>
       <plugin id="org.eclipse.emf.ecore.change"/>
+      <plugin id="org.eclipse.emf.ecore.change.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.emf.ecore.nl_de" fragment="true"/>
       <plugin id="org.eclipse.emf.ecore.xmi"/>
+      <plugin id="org.eclipse.emf.ecore.xmi.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.app"/>
+      <plugin id="org.eclipse.equinox.app.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.equinox.bidi"/>
+      <plugin id="org.eclipse.equinox.bidi.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.common"/>
+      <plugin id="org.eclipse.equinox.common.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.ds"/>
+      <plugin id="org.eclipse.equinox.ds.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.event"/>
+      <plugin id="org.eclipse.equinox.event.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.p2.core"/>
+      <plugin id="org.eclipse.equinox.p2.core.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.p2.engine"/>
+      <plugin id="org.eclipse.equinox.p2.engine.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.p2.metadata"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.p2.metadata.repository"/>
+      <plugin id="org.eclipse.equinox.p2.metadata.repository.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.p2.repository"/>
+      <plugin id="org.eclipse.equinox.p2.repository.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.preferences"/>
+      <plugin id="org.eclipse.equinox.preferences.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.equinox.region" fragment="true"/>
       <plugin id="org.eclipse.equinox.registry"/>
+      <plugin id="org.eclipse.equinox.registry.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.security"/>
       <plugin id="org.eclipse.equinox.security.macosx" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.macosx.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.security.win32.x86" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86.nl_de" fragment="true"/>
       <plugin id="org.eclipse.equinox.security.win32.x86_64" fragment="true"/>
+      <plugin id="org.eclipse.equinox.security.win32.x86_64.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.equinox.transforms.hook" fragment="true"/>
       <plugin id="org.eclipse.equinox.util"/>
+      <plugin id="org.eclipse.equinox.util.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.equinox.weaving.hook" fragment="true"/>
       <plugin id="org.eclipse.help"/>
       <plugin id="org.eclipse.help.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.apt" fragment="true"/>
       <plugin id="org.eclipse.jdt.compiler.tool" fragment="true"/>
       <plugin id="org.eclipse.jdt.core"/>
       <plugin id="org.eclipse.jdt.core.manipulation"/>
+      <plugin id="org.eclipse.jdt.core.manipulation.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jdt.core.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jdt.debug"/>
+      <plugin id="org.eclipse.jdt.debug.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jdt.launching"/>
+      <plugin id="org.eclipse.jdt.launching.macosx.nl_de" fragment="true"/>
+      <plugin id="org.eclipse.jdt.launching.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jdt.ui"/>
+      <plugin id="org.eclipse.jdt.ui.nl_de" fragment="true"/>
       <plugin id="org.eclipse.jface"/>
       <plugin id="org.eclipse.jface.databinding"/>
       <plugin id="org.eclipse.jface.databinding.nl_de" fragment="true"/>
@@ -175,35 +216,23 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.ltk.ui.refactoring"/>
       <plugin id="org.eclipse.ltk.ui.refactoring.nl_de" fragment="true"/>
       <plugin id="org.eclipse.osgi"/>
+      <plugin id="org.eclipse.osgi.compatibility.plugins" fragment="true"/>
+      <plugin id="org.eclipse.osgi.compatibility.state" fragment="true"/>
       <plugin id="org.eclipse.osgi.nl_de" fragment="true"/>
       <plugin id="org.eclipse.osgi.services"/>
       <plugin id="org.eclipse.osgi.services.nl_de" fragment="true"/>
       <plugin id="org.eclipse.search"/>
+      <plugin id="org.eclipse.search.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt"/>
+      <plugin id="org.eclipse.swt.carbon.macosx.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx.x86_64" fragment="true"/>
       <plugin id="org.eclipse.swt.cocoa.macosx.x86_64.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.aix.ppc" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.aix.ppc.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.aix.ppc64" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.aix.ppc64.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.hpux.ia64_32" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.hpux.ia64_32.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.ppc64" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.ppc64.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.s390" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.s390.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.s390x" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.linux.s390x.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86" fragment="true"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86_64" fragment="true"/>
       <plugin id="org.eclipse.swt.gtk.linux.x86_64.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.solaris.sparc" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.solaris.sparc.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.solaris.x86" fragment="true"/>
-      <plugin id="org.eclipse.swt.gtk.solaris.x86.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.nl_de" fragment="true"/>
       <plugin id="org.eclipse.swt.win32.win32.x86" fragment="true"/>
       <plugin id="org.eclipse.swt.win32.win32.x86.nl_de" fragment="true"/>
@@ -215,10 +244,11 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.team.ui.nl_de" fragment="true"/>
       <plugin id="org.eclipse.text"/>
       <plugin id="org.eclipse.text.nl_de" fragment="true"/>
-      <plugin id="net.sourceforge.tsmtest"/>
       <plugin id="org.eclipse.ui"/>
+      <plugin id="org.eclipse.ui.cocoa" fragment="true"/>
       <plugin id="org.eclipse.ui.cocoa.nl_de" fragment="true"/>
       <plugin id="org.eclipse.ui.console"/>
+      <plugin id="org.eclipse.ui.console.nl_de" fragment="true"/>
       <plugin id="org.eclipse.ui.editors"/>
       <plugin id="org.eclipse.ui.editors.nl_de" fragment="true"/>
       <plugin id="org.eclipse.ui.forms"/>
@@ -240,21 +270,13 @@ https://sourceforge.net/projects/tsmtest/
       <plugin id="org.eclipse.ui.workbench.nl_de" fragment="true"/>
       <plugin id="org.eclipse.ui.workbench.texteditor"/>
       <plugin id="org.eclipse.ui.workbench.texteditor.nl_de" fragment="true"/>
-      <plugin id="org.eclipse.zest.core"/>
-      <plugin id="org.eclipse.zest.jface"/>
-      <plugin id="org.eclipse.zest.layouts"/>
       <plugin id="org.hamcrest.core"/>
       <plugin id="org.junit"/>
       <plugin id="org.w3c.css.sac"/>
+      <plugin id="org.w3c.dom.events"/>
       <plugin id="org.w3c.dom.smil"/>
       <plugin id="org.w3c.dom.svg"/>
    </plugins>
 
-   <configurations>
-      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
-      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
-      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="1" />
-      <plugin id="org.eclipse.osgi" autoStart="true" startLevel="-1" />
-   </configurations>
 
 </product>

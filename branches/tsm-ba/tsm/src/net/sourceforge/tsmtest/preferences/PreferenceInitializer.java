@@ -23,7 +23,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * @author Albert Flaig
  */
 public class PreferenceInitializer extends AbstractPreferenceInitializer {
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -32,7 +31,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 	public void initializeDefaultPreferences() {
 		IPreferenceStore store = Activator.getDefault().getPreferenceStore();
 		store.setDefault(PreferenceConstants.P_CHOICE, "choice2");
-
+		store.setDefault(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, false);
+		store.setDefault(PreferenceConstants.FIELD_SUBVERSION_PATH, "/usr/bin/svn");
 	}
-
 }
