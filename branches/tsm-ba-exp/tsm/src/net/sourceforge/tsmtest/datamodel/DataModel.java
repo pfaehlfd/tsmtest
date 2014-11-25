@@ -141,7 +141,7 @@ public final class DataModel extends AbstractDataModel implements
 	    if (project.isOpen()) {
 		try {
 		    if (project.hasNature(DataModelTypes.TSM_NATURE)) {
-			if (VCSSettings.subversionSupportEnabled()) {
+			if (VCSSettings.isSubversionSupportEnabled()) {
 			    project.getLocation().toString();
 			    SubversionWrapper.update(project.getLocation().toString());
 			}
@@ -546,7 +546,7 @@ public final class DataModel extends AbstractDataModel implements
 	final TSMPackage tsmPackage = new TSMPackage(
 		stripExtension(folder.getName()), parent);
 	put(folder, tsmPackage);
-	if (VCSSettings.subversionSupportEnabled()) {
+	if (VCSSettings.isSubversionSupportEnabled()) {
 	    SubversionWrapper.addForCommit(folder.getLocation().toString());
 	    SubversionWrapper.commit(folder.getLocation().toString());
 	}
@@ -851,7 +851,7 @@ public final class DataModel extends AbstractDataModel implements
 		put(res, tsmResource);
 
 		//Subversion support
-		if (VCSSettings.subversionSupportEnabled()) {
+		if (VCSSettings.isSubversionSupportEnabled()) {
 		    SubversionWrapper.addForCommit(res.getLocation().toString());
 		    SubversionWrapper.commit(res.getLocation().toString());
 		}
@@ -899,7 +899,7 @@ public final class DataModel extends AbstractDataModel implements
 	    final TSMProject tsmProject = new TSMProject(project.getName());
 	    put(project, tsmProject);
 	    //Subversion support
-	    if (VCSSettings.subversionSupportEnabled()) {
+	    if (VCSSettings.isSubversionSupportEnabled()) {
 		SubversionWrapper.addForCommit(project.getLocation().toString());
 		SubversionWrapper.commit(project.getLocation().toString());
 	    }
@@ -946,7 +946,7 @@ public final class DataModel extends AbstractDataModel implements
 	    final TSMTestCase tsmTestCase = new TSMTestCase(name, container,
 		    testCase);
 	    put(newFile, tsmTestCase);
-	    if (VCSSettings.subversionSupportEnabled()) {
+	    if (VCSSettings.isSubversionSupportEnabled()) {
 		SubversionWrapper.addForCommit(newFile.getLocation().toString());
 		SubversionWrapper.commit(newFile.getLocation().toString());
 	    }
@@ -994,7 +994,7 @@ public final class DataModel extends AbstractDataModel implements
 	    put(newFile, tsmTestCaseProtocol);
 
 	    //Use subversion
-	    if (VCSSettings.subversionSupportEnabled()) {
+	    if (VCSSettings.isSubversionSupportEnabled()) {
 		    SubversionWrapper.addForCommit(newFile.getLocation().toString());
 		    SubversionWrapper.addForCommit(getResource(testCase).getLocation().toString());
 	    }
@@ -1088,7 +1088,7 @@ public final class DataModel extends AbstractDataModel implements
 			try {
 			    if (project.hasNature(DataModelTypes.TSM_NATURE)) {
 				//Use subversion.
-				if (VCSSettings.subversionSupportEnabled()) {
+				if (VCSSettings.isSubversionSupportEnabled()) {
 				    SubversionWrapper.commit(project.getLocation().toString());
 				}
 			    }
@@ -1340,7 +1340,7 @@ public final class DataModel extends AbstractDataModel implements
 	    if (tsmResource instanceof TSMProject) {
 		IProject iProject = (IProject)DataModel.getInstance().getIProjectForTSMProject((TSMProject)tsmResource);
 		//Use subversion.
-		if (VCSSettings.subversionSupportEnabled()) {
+		if (VCSSettings.isSubversionSupportEnabled()) {
 		    SubversionWrapper.updateWorkspace();
 		    SubversionWrapper.delete(iProject.getLocation().toString());
 		    SubversionWrapper.commit(iProject.getLocation().toString());
@@ -1349,7 +1349,7 @@ public final class DataModel extends AbstractDataModel implements
 	    } else {
 		getResource(tsmResource).delete(true, null);
 		//Use subversion.
-		if (VCSSettings.subversionSupportEnabled()) {
+		if (VCSSettings.isSubversionSupportEnabled()) {
 		    SubversionWrapper.updateWorkspace();
 		    SubversionWrapper.delete(getResource(tsmResource).getLocation().toString());
 		    SubversionWrapper.commit(getResource(tsmResource).getLocation().toString());

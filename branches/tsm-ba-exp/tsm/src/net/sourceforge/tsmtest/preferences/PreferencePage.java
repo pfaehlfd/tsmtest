@@ -55,7 +55,8 @@ public class PreferencePage extends FieldEditorPreferencePage implements
     protected void createFieldEditors() {
 	subversionSupportBooleanFieldEditor = new BooleanFieldEditor
 		(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, "Enable Subversion support", BooleanFieldEditor.DEFAULT, getFieldEditorParent());
-	
+	subversionSupportBooleanFieldEditor.setPreferenceStore(Activator.getDefault().getPreferenceStore());
+	subversionSupportBooleanFieldEditor.load();
 
 	subversionPathEditor = new FileFieldEditor("SubversionPathEditor", "Subversion client executable: ", true, 
 		FileFieldEditor.VALIDATE_ON_KEY_STROKE, getFieldEditorParent());
@@ -67,7 +68,6 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 
 	addField(subversionSupportBooleanFieldEditor);
     	addField(subversionPathEditor);
-    	initializeDefaultPreferences();
     }
 
     /*
@@ -83,18 +83,9 @@ public class PreferencePage extends FieldEditorPreferencePage implements
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.PreferencePage#doGetPreferenceStore()
      */
+    @Override
     protected IPreferenceStore doGetPreferenceStore() {
 	return Activator.getDefault().getPreferenceStore();
-    }
-
-    /**
-     * Resets to default values when the "Default" button is clicked.
-     */
-    public void initializeDefaultPreferences() {
-	IPreferenceStore store = getPreferenceStore();
-	store.setDefault(PreferenceConstants.FIELD_SUBVERSION_SUPPORT, false);
-	store.setDefault(PreferenceConstants.FIELD_SUBVERSION_PATH, "/usr/bin/svn");
-	subversionPathEditor.setStringValue("/usr/bin/svn");
     }
 
     /**
@@ -109,19 +100,27 @@ public class PreferencePage extends FieldEditorPreferencePage implements
     /* (non-Javadoc)
      * @see org.eclipse.jface.preference.FieldEditorPreferencePage#checkState()
      */
+    @Override
     protected void checkState() {
 	super.checkState();
 	VCS_INSTALL_STATUS vcsStatus = VCSSettings.checkInstallationPath(subversionPathEditor.getStringValue());
-	if (vcsStatus == VCS_INSTALL_STATUS.NO_FILE) {
-	    setErrorMessage("No file");
-	    setValid(false);
-	} else if (vcsStatus == VCS_INSTALL_STATUS.NO_PATH) {
-	    setErrorMessage("No path");
-	    setValid(false);
-	} else if (vcsStatus == VCS_INSTALL_STATUS.NOT_EXECUTABLE) {
-	    setErrorMessage("Not executable");
-	    setValid(false);
-	} else if (vcsStatus == VCS_INSTALL_STATUS.OK) {
+	Boolean subversionSupport = subversionSupportBooleanFieldEditor.getBooleanValue();
+	//Set error messages if subversion support is enabled and subversion path is invalid.
+	if (subversionSupport) {
+	    if (vcsStatus == VCS_INSTALL_STATUS.NO_FILE) {
+		setErrorMessage("No file");
+		setValid(false);
+	    } else if (vcsStatus == VCS_INSTALL_STATUS.NO_PATH) {
+		setErrorMessage("No path");
+		setValid(false);
+	    } else if (vcsStatus == VCS_INSTALL_STATUS.NOT_EXECUTABLE) {
+		setErrorMessage("Not executable");
+		setValid(false);
+	    } else if (vcsStatus == VCS_INSTALL_STATUS.OK) {
+		setErrorMessage(null);
+		setValid(true);
+	    }
+	} else {
 	    setErrorMessage(null);
 	    setValid(true);
 	}
@@ -142,9 +141,11 @@ public class PreferencePage extends FieldEditorPreferencePage implements
 	super.propertyChange(event);
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performDefaults()
+     */
     @Override
     public void performDefaults() {
-	initializeDefaultPreferences();
 	subversionPathEditor.loadDefault();
 	subversionSupportBooleanFieldEditor.loadDefault();
 	super.performDefaults();

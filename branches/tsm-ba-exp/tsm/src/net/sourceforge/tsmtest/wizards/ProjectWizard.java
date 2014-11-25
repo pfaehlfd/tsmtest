@@ -73,7 +73,7 @@ public class ProjectWizard extends Wizard implements INewWizard, IExecutableExte
 	    }
 	    project.createPackage(DataModelTypes.imageFolderName);
 	    //Subversion support
-	    if (VCSSettings.subversionSupportEnabled()) {
+	    if (VCSSettings.isSubversionSupportEnabled()) {
 		IProject iProject = (IProject)DataModel.getInstance().getIProjectForTSMProject(project);
 		SubversionWrapper.addForCommit(iProject.getLocation().toString() + "/" + DataModelTypes.imageFolderName);
 		SubversionWrapper.commit(iProject.getLocation().toString() + "/" + DataModelTypes.imageFolderName);

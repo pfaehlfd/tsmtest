@@ -29,35 +29,22 @@ public class VCSSettings {
     /**
      * @return True if the subversion path points to an available and executable file. False otherwise.
      */
-    public static boolean isSubversionInstalled() {
-	if (checkSubversionInstallation() == VCS_INSTALL_STATUS.OK) {
-	    return true;
-	}
-	return false;
+    public static boolean isSubversionInstalledCorrectly() {
+	return (checkSubversionInstallation() == VCS_INSTALL_STATUS.OK);
     }
     
     /**
      * @return true if user activated subversion support, false otherwise.
      */
-    public static boolean subversionSupportEnabled() {
-	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-	String subversionPath = store.getString(PreferenceConstants.FIELD_SUBVERSION_PATH);
-	
-	//Check if path is valid.
-	if (checkInstallationPath(subversionPath) == VCS_INSTALL_STATUS.OK) {
-	    return true;
-	} else {
-	    return false;
-	}
+    public static boolean isSubversionSupportEnabled() {
+	return Activator.getDefault().getPreferenceStore().getBoolean(PreferenceConstants.FIELD_SUBVERSION_SUPPORT);
     }
     
     /**
      * @return The absolute path to the svn client executable as it is stored in the preference store.
      */
     public static String getSubversionPath() {
-	IPreferenceStore store = Activator.getDefault().getPreferenceStore();
-	String subversionPath = store.getString(PreferenceConstants.FIELD_SUBVERSION_PATH);
-	return subversionPath;
+	return Activator.getDefault().getPreferenceStore().getString(PreferenceConstants.FIELD_SUBVERSION_PATH);
     }
 
     /**

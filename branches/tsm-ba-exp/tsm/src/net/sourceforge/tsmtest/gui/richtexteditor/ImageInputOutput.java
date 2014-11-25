@@ -91,7 +91,7 @@ public final class ImageInputOutput {
 		    .getLocation().toString()
 		    + relativePath;
 	    il.save(absolutePath, SWT.IMAGE_PNG);
-	    if (VCSSettings.subversionSupportEnabled()) {
+	    if (VCSSettings.isSubversionSupportEnabled()) {
 		SubversionWrapper.addForCommit(absolutePath);
 		SubversionWrapper.commit(absolutePath);
 	    }
