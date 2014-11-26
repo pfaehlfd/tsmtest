@@ -8,20 +8,20 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1413885022236</lastExecution>
-  <lastChangedOn>1413885022324</lastChangedOn>
-  <numberOfExecutions>9</numberOfExecutions>
+  <lastExecution>1416993258267</lastExecution>
+  <lastChangedOn>1416993258366</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
   <numberOfFailures>2</numberOfFailures>
   <priority>medium</priority>
-  <status>passed</status>
-  <revision>59</revision>
+  <status>passedWithAnnotation</status>
+  <revision>97</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt ein Dialog, ob wirklich gelösch werden soll&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Der Dialog erscheint nur, wenn das Paket nicht leer ist.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Selektiere P3 und Wähle im Menü ￐Bearbeiten -  löschen￐&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>passedWithAnnotation</stepStatus>
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket mitsamt Unterpaketen wurde gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>

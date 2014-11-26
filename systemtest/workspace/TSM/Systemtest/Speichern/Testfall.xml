@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1327705680000</creationDate>
-  <lastExecution>1413901142285</lastExecution>
-  <lastChangedOn>1413901142443</lastChangedOn>
-  <numberOfExecutions>8</numberOfExecutions>
+  <lastExecution>1417008371290</lastExecution>
+  <lastChangedOn>1417008371450</lastChangedOn>
+  <numberOfExecutions>9</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>59</revision>
-  <version>1.5.2</version>
+  <revision>97</revision>
+  <version />
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Im Workspace wurde eine entsprechenden xml-Datei angelegt, alle Werte sind korrekt&lt;/p&gt;&lt;/html&gt;</expectedResult>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="46">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:00</expectedDuration>
+  <realDuration>00:04:33</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Projekt&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360080369548</creationDate>
+  <lastExecution>1416997884515</lastExecution>
+  <lastChangedOn>1416997883313</lastChangedOn>
+  <numberOfExecutions>13</numberOfExecutions>
+  <numberOfFailures>1</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>97</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich ein Wizard&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Mache einen Rechtsklick auf das Projekt und wähle Import Justus Datei&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt ein Fortschrittsbalken. Die Testfälle werden importiert. Auf unterster Ebene gibt es immer einen Testfall mit mehreren Testschritten. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Wähle Sequenz als Testfall importieren und importiere die Justus Datei aus dem Repository. &lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die Testfälle werden importiert.  Jeder Testfall enthält einen Testschritt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Importiere nun einen Testfall als Testfall&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

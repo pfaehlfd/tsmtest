@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="14">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:00:28</expectedDuration>
+  <realDuration>00:01:40</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt zwei Projekte mit Testfällen und Protokollen&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360167686524</creationDate>
+  <lastExecution>1416999303470</lastExecution>
+  <lastChangedOn>1413881915648</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
+  <numberOfFailures>2</numberOfFailures>
+  <priority>medium</priority>
+  <status>failed</status>
+  <revision>97</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt wird gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Das Projekt kann nicht gelöscht werden.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche das erste Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>failed</stepStatus>
+    </TestStep>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt bleibt stehen. Der Testfall und die Protokolle werden gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche aus dem zweiten Projekt einen Testfall mit Protokollen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

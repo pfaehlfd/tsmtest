@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1413900873610</lastExecution>
-  <lastChangedOn>1413900873744</lastChangedOn>
-  <numberOfExecutions>8</numberOfExecutions>
+  <lastExecution>1417008923834</lastExecution>
+  <lastChangedOn>1417008923999</lastChangedOn>
+  <numberOfExecutions>9</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>59</revision>
-  <version>1.5.2</version>
+  <revision>97</revision>
+  <version />
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;In einem Tab öffnet sich der Testfall. Der Timer läuft. Alle Kreise sind grau.  &lt;/p&gt;&lt;/html&gt;</expectedResult>
