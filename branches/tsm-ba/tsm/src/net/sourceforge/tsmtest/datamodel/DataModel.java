@@ -1343,8 +1343,8 @@ public final class DataModel extends AbstractDataModel implements
 		    SubversionWrapper.updateWorkspace();
 		    SubversionWrapper.delete(iProject.getLocation().toString());
 		    SubversionWrapper.commit(iProject.getLocation().toString());
-		    getResource(tsmResource).delete(true, null);
 		}
+		getResource(tsmResource).delete(true, null);
 	    } else {
 		getResource(tsmResource).delete(true, null);
 		//Use subversion.
