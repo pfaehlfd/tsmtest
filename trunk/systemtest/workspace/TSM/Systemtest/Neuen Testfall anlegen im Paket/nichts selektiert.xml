@@ -8,13 +8,13 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360072201315</creationDate>
-  <lastExecution>1413880606573</lastExecution>
-  <lastChangedOn>1413880606709</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
+  <lastExecution>1416992652801</lastExecution>
+  <lastChangedOn>1416992652940</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>2</numberOfFailures>
   <priority>medium</priority>
   <status>passedWithAnnotation</status>
-  <revision>59</revision>
+  <revision>97</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
@@ -25,7 +25,7 @@
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;es werden alle vorhandenen Resourcen bis auf den Images-Ordner angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;Der images-Ordner wird angezeigt.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Der ￐images￐-Order wird angezeigt.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Klicke auf durchsuchen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passedWithAnnotation</stepStatus>
     </TestStep>

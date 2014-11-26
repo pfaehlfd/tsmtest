@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="5">
+  <assignedTo>Tobias</assignedTo>
+  <author>Verena</author>
+  <expectedDuration />
+  <realDuration>00:02:26</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Testfallprotokoll&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;Es soll geprüft werden,  ob die richtogen Daten für die Protokoll-Datei geladen werden. &lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1327705680000</creationDate>
+  <lastExecution>1417007744060</lastExecution>
+  <lastChangedOn>1413901460793</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
+  <numberOfFailures>0</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>97</revision>
+  <version />
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die Daten der neusten Protokoll-Datei stimmen mit den geladenen Daten überein&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt; Öffne ein Testfallprotokoll&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

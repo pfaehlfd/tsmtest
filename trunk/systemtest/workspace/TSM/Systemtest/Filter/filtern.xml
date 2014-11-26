@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360075243902</creationDate>
-  <lastExecution>1413902089299</lastExecution>
-  <lastChangedOn>1413902089404</lastChangedOn>
-  <numberOfExecutions>12</numberOfExecutions>
+  <lastExecution>1417005921720</lastExecution>
+  <lastChangedOn>1417005921897</lastChangedOn>
+  <numberOfExecutions>13</numberOfExecutions>
   <numberOfFailures>7</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>59</revision>
-  <version>1.5.2</version>
+  <revision>97</revision>
+  <version />
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es werden jeweils nur die Testfälle mit den jeweiligen Prioritäten angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>

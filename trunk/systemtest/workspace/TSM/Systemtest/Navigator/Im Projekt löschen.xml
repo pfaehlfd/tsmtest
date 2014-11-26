@@ -8,20 +8,20 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360167686524</creationDate>
-  <lastExecution>1413881915489</lastExecution>
-  <lastChangedOn>1413881915648</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
-  <numberOfFailures>1</numberOfFailures>
+  <lastExecution>1416999303470</lastExecution>
+  <lastChangedOn>1416999303608</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
+  <numberOfFailures>2</numberOfFailures>
   <priority>medium</priority>
-  <status>passed</status>
-  <revision>59</revision>
+  <status>failed</status>
+  <revision>97</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt wird gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Das Projekt kann nicht gelöscht werden.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche das erste Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>failed</stepStatus>
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt bleibt stehen. Der Testfall und die Protokolle werden gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>

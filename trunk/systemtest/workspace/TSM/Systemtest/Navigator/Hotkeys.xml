@@ -8,13 +8,13 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360168346661</creationDate>
-  <lastExecution>1413881841296</lastExecution>
-  <lastChangedOn>1413881841441</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
-  <numberOfFailures>3</numberOfFailures>
+  <lastExecution>1416998926599</lastExecution>
+  <lastChangedOn>1416998926710</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
+  <numberOfFailures>4</numberOfFailures>
   <priority>medium</priority>
-  <status>passed</status>
-  <revision>59</revision>
+  <status>failed</status>
+  <revision>97</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
@@ -55,9 +55,9 @@
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Sie werden gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Projekt lässt sich nicht löschen.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche ebenso den Testfall und das Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>failed</stepStatus>
     </TestStep>
   </steps>
 </tsmtestcase>

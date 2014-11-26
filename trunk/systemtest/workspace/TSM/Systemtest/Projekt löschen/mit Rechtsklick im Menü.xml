@@ -8,26 +8,26 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1413898357031</lastExecution>
-  <lastChangedOn>1413898357142</lastChangedOn>
-  <numberOfExecutions>8</numberOfExecutions>
-  <numberOfFailures>0</numberOfFailures>
+  <lastExecution>1416993395176</lastExecution>
+  <lastChangedOn>1416993395293</lastChangedOn>
+  <numberOfExecutions>9</numberOfExecutions>
+  <numberOfFailures>1</numberOfFailures>
   <priority>medium</priority>
-  <status>passed</status>
-  <revision>59</revision>
+  <status>failed</status>
+  <revision>97</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt ein Dialog, ob wirklich gelösch werden soll&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Das Projekt wurde nicht gelöscht.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Selektiere P3 und Wähle im Menü ￐Bearbeiten - Projekt löschen￐&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>failed</stepStatus>
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das Projekt mitsamt Unterpaketen wurde gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Bestätige&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>notExecuted</stepStatus>
     </TestStep>
   </steps>
 </tsmtestcase>
