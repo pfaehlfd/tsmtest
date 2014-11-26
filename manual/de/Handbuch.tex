@@ -812,6 +812,8 @@ Um in TSM die Anbindung an Subversion zu aktivieren benötigen Sie:
 
 \subsection{Einschränkungen}
 Sie können nur das Subversion-Kommandozeilenprogramm und kein graphisches Werkzeug nutzen.
+Je nach dem wie gut Ihre Verbindung zu Ihrem Repository ist, kann es dazu kommen, dass TSM einige Sekunden "`hängt"'.
+Dies ist beispielsweise beim Beenden einer Testfallausführung oder beim Speichern eines Testfalls der Fall.
 
 \subsection{Einrichtung}
 Bevor Sie die Subversion-Anbindung nutzen können, muss diese erstmalig eingerichtet werden.
@@ -820,9 +822,9 @@ Bevor Sie die Subversion-Anbindung nutzen können, muss diese erstmalig eingeric
 \begin{itemize}
  \item Checken Sie außerhalb von TSM einen leeren Ordner aus dem Repository als Arbeitskopie mit dem Namen "`workspace"' aus.
  \item Kopieren Sie diesen Ordner in das tsm-Verzeichnis.
- \item Starten Sie nun TSM und gehen Sie auf \textit{Fenster}, \textit{Benutzvorgaben} und dann \textit{TSM Preferences}.
- \item Setzen Sie den Haken bei \textit{Subversion-Support einschalten}.
- \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \textit{OK}.
+ \item Starten Sie nun TSM und gehen Sie auf \texttt{Fenster}, \texttt{Benutzvorgaben} und dann \texttt{TSM Preferences}.
+ \item Setzen Sie den Haken bei \texttt{Subversion-Support einschalten}.
+ \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \texttt{OK}.
  \item Beenden Sie TSM nun.
  \item Stellen Sie den den versteckten Ordner "`.metadata"' im "`workspace"'-Verzeichnis unter Versionskontrolle und committen Sie die Änderungen.
  \item Die Einrichtung ist abgeschlossen und Sie können TSM nun wie gewohnt nutzen. Es kann jedoch erforderlich sein, dass Sie Ihr Subversion-Passwort eingeben müssen 
@@ -832,9 +834,9 @@ Bevor Sie die Subversion-Anbindung nutzen können, muss diese erstmalig eingeric
 \subsubsection{Übernahme eines bestehenden Workspaces}
 \begin{itemize}
  \item Stellen Sie den Ordner "`workspace"' (inklusive des verstecken Ordners "`.metadata"') im tsm-Verzeichnis unter Versionskontrolle und committen Sie die Änderungen.
- \item Starten Sie nun TSM und gehen Sie auf \textit{Fenster}, \textit{Benutzvorgaben} und dann \textit{TSM Preferences}.
- \item Setzen Sie den Haken bei \textit{Subversion-Support einschalten}.
- \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \textit{OK}.
+ \item Starten Sie nun TSM und gehen Sie auf \texttt{Fenster}, \texttt{Benutzvorgaben} und dann \texttt{TSM Preferences}.
+ \item Setzen Sie den Haken bei \texttt{Subversion-Support einschalten}.
+ \item Geben Sie abschließend den Pfad zum Subversion-Kommandozeilenprogramm ein und bestätigen Sie mit \texttt{OK}.
  \item Die Einrichtung ist abgeschlossen und Sie können TSM nun wie gewohnt nutzen. Es kann jedoch erforderlich sein, dass Sie Ihr Subversion-Passwort eingeben müssen 
  (siehe hierzu \ref{subsec:EmpfohleneEinstellungenSVN} \nameref{subsec:EmpfohleneEinstellungenSVN}).
 \end{itemize}
