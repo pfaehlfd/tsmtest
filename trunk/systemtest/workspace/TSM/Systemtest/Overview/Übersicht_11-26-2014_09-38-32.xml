@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tsmtestcase id="41">
+<tsmtestcaseprotocol id="41">
   <assignedTo>Tobias</assignedTo>
   <author>verena</author>
   <expectedDuration>00:08:25</expectedDuration>
-  <realDuration>00:00:00</realDuration>
+  <realDuration>00:03:28</realDuration>
   <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt mehrere Testfälle und dazugehörige Protokolle&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360075686656</creationDate>
   <lastExecution>1416991112649</lastExecution>
-  <lastChangedOn>1416991117425</lastChangedOn>
+  <lastChangedOn>1416991111538</lastChangedOn>
   <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>3</numberOfFailures>
   <priority>medium</priority>
@@ -17,35 +17,35 @@
   <revision>97</revision>
   <version>1.5.2</version>
   <steps>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich die Übersicht&lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Mache einen Rechtsklick auf einen Testfall und wähle show overview&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Es werden alle vorhandenen Revisionen des Testfalls hinzugefügt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Klicke auf alle hinzufügen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die selektierten Revisionen angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Klicke auf auswählen und selektiere einzelne Revisionen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Die angezeigten Statistiken sind korrekt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Wechsle zum Tab Statistiken&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Es wird eine Meldung gezeigt, dass keine Revisionen vorhanden sind. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Öffne einen noch nie ausgeführten Testfall. Klicke auf auswählen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
   </steps>
-</tsmtestcase>
+</tsmtestcaseprotocol>
