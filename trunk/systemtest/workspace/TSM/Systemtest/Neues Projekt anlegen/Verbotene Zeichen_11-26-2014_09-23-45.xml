@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tsmtestcase id="40">
+<tsmtestcaseprotocol id="40">
   <assignedTo>Tobias</assignedTo>
   <author>Verena</author>
   <expectedDuration />
-  <realDuration>00:00:00</realDuration>
+  <realDuration>00:00:43</realDuration>
   <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt ein Projekt P1&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1327014600000</creationDate>
   <lastExecution>1416990225001</lastExecution>
-  <lastChangedOn>1416990230938</lastChangedOn>
+  <lastChangedOn>1413878579427</lastChangedOn>
   <numberOfExecutions>12</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
@@ -17,11 +17,11 @@
   <revision>97</revision>
   <version />
   <steps>
-    <TestStep>
+    <TestStep id="0">
       <expectedResult>&lt;html&gt;&lt;p&gt;Es sollte jeweils eine Fehlermeldung kommen&lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;1. Lege ein neues Projekt an. Gib nacheinander einzeln im Namen die Zeichen ￹, ￸, ￰, ￐, ￙, |, ￱, _, * und / ein und klicke auf finish&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
   </steps>
-</tsmtestcase>
+</tsmtestcaseprotocol>
