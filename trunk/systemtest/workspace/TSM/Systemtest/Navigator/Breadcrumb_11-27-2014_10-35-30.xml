@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsmtestcaseprotocol id="11">
+  <assignedTo>Tobias</assignedTo>
+  <author>verena</author>
+  <expectedDuration>00:00:32</expectedDuration>
+  <realDuration>00:01:54</realDuration>
+  <richTextPrecondition>&lt;html&gt;&lt;p&gt;Es gibt einen Testfall und Protokolle&lt;/p&gt;&lt;/html&gt;</richTextPrecondition>
+  <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
+  <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
+  <creationDate>1360170275430</creationDate>
+  <lastExecution>1417080930242</lastExecution>
+  <lastChangedOn>1416998716163</lastChangedOn>
+  <numberOfExecutions>15</numberOfExecutions>
+  <numberOfFailures>1</numberOfFailures>
+  <priority>medium</priority>
+  <status>passed</status>
+  <revision>121</revision>
+  <version>1.5.2</version>
+  <steps>
+    <TestStep id="0">
+      <expectedResult>&lt;html&gt;&lt;p&gt;Es lässt sich problemlos überall hin wechseln. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Teste, ob der (Breadcrumb) Navigator in der obersten Zeile funktioniert.&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
+  </steps>
+</tsmtestcaseprotocol>

@@ -8,15 +8,21 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360075243902</creationDate>
-  <lastExecution>1417005921720</lastExecution>
-  <lastChangedOn>1417005921897</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
+  <lastExecution>1417094775358</lastExecution>
+  <lastChangedOn>1417094775604</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>7</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
+    <TestStep>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die Filteransicht ist sichtbar.&lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Aktiviere den Filter mit einem Klick auf die ￐Filter￐-Schaltfläche in der Werkzeugleiste. Bei Bedarf verschiebe die Filteransicht mittels Ziehen-und-Fallenlassen an den unteren Bildschirmrand.&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <stepStatus>passed</stepStatus>
+    </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es werden jeweils nur die Testfälle mit den jeweiligen Prioritäten angezeigt. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
@@ -38,7 +44,7 @@
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es werden nur die korrekten Fälle angezeigt&lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
-      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach Ausführung, erstelldatum und Änderung&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Filtere nach Ausführung, Erstelldatum und Änderung&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
     <TestStep>

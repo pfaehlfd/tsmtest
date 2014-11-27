@@ -8,13 +8,13 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360078504565</creationDate>
-  <lastExecution>1416997196641</lastExecution>
-  <lastChangedOn>1416997196775</lastChangedOn>
-  <numberOfExecutions>16</numberOfExecutions>
+  <lastExecution>1417085126945</lastExecution>
+  <lastChangedOn>1417085127252</lastChangedOn>
+  <numberOfExecutions>17</numberOfExecutions>
   <numberOfFailures>6</numberOfFailures>
   <priority>medium</priority>
-  <status>passed</status>
-  <revision>97</revision>
+  <status>passedWithAnnotation</status>
+  <revision>121</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
@@ -37,14 +37,14 @@
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Der Export wird abgebrochen&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Der Export lief zu schnell, so dass er nicht abgebrochen werden konnte.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Breche den Prozess ab&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passed</stepStatus>
+      <stepStatus>passedWithAnnotation</stepStatus>
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das PDF wurde vollständig erstellt. Jedes Projekt hat ein eigenes Kapitel. Die Bilder sind im Anhang. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
-      <richTextDescription>&lt;html&gt;&lt;p&gt;Exportiere erneut, breche diesmal nicht ab&lt;/p&gt;&lt;/html&gt;</richTextDescription>
+      <richTextDescription>&lt;html&gt;&lt;p&gt;Exportiere erneut, brich diesmal nicht ab&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
     </TestStep>
     <TestStep>

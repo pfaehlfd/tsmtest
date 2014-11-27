@@ -8,13 +8,13 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360168757950</creationDate>
-  <lastExecution>1417001141214</lastExecution>
-  <lastChangedOn>1417001141332</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
+  <lastExecution>1417082657597</lastExecution>
+  <lastChangedOn>1417082657906</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>2</numberOfFailures>
   <priority>medium</priority>
-  <status>passedWithAnnotation</status>
-  <revision>97</revision>
+  <status>passed</status>
+  <revision>121</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
@@ -25,9 +25,9 @@
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Das Paket mitsamt Inhalt wird kopiert&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;Für den Testfall im zweiten Unterpaket wird das Protokoll nun doppelt angezeigt. Im Workspace gibt es weiterhin nur eine Protokolldatei.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere es erneut und kopiere es per copy und paste Tastendruck in das Projekt&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>passedWithAnnotation</stepStatus>
+      <stepStatus>passed</stepStatus>
     </TestStep>
   </steps>
 </tsmtestcase>

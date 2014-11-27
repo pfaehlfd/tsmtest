@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;Es soll geprüft werden,  ob die richtogen Daten für die Protokoll-Datei geladen werden. &lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1327705680000</creationDate>
-  <lastExecution>1417007744060</lastExecution>
-  <lastChangedOn>1417007744196</lastChangedOn>
-  <numberOfExecutions>10</numberOfExecutions>
+  <lastExecution>1417093270796</lastExecution>
+  <lastChangedOn>1417093271031</lastChangedOn>
+  <numberOfExecutions>11</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Die Daten der neusten Protokoll-Datei stimmen mit den geladenen Daten überein&lt;/p&gt;&lt;/html&gt;</expectedResult>

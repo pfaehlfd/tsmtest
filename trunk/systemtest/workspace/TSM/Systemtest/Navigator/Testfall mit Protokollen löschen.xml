@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;﻿&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360080663094</creationDate>
-  <lastExecution>1417007239393</lastExecution>
-  <lastChangedOn>1417007239549</lastChangedOn>
-  <numberOfExecutions>14</numberOfExecutions>
+  <lastExecution>1417082907882</lastExecution>
+  <lastChangedOn>1417082908147</lastChangedOn>
+  <numberOfExecutions>15</numberOfExecutions>
   <numberOfFailures>6</numberOfFailures>
   <priority>medium</priority>
   <status>passedWithAnnotation</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt eine Abfrage, ob die Protokolle mitgelöscht werden sollen&lt;/p&gt;&lt;/html&gt;</expectedResult>
@@ -37,7 +37,7 @@
     </TestStep>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Der Testfall wird gelöscht, die Protkolle werden an einen default-Testfall gehängt&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;Wenn es sich um den letzten Testfall im Projekt handelt, werden die Protokolle ebenfalls gelöscht. Ist noch ein anderer Testfall vorhanden, so werden die Testfallprotokolle an das Projekt angehängt.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;Sofern dies der letzte Testfall ist, werden die Protokolle mitgelöscht und nicht an das Projekt oder einen default-Testfall angehängt.&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Lösche den zweiten ohne Protokolle&lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passedWithAnnotation</stepStatus>
     </TestStep>

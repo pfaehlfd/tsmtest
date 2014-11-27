@@ -8,13 +8,13 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1416991598396</lastExecution>
-  <lastChangedOn>1416991604869</lastChangedOn>
-  <numberOfExecutions>9</numberOfExecutions>
+  <lastExecution>1417078957261</lastExecution>
+  <lastChangedOn>1417078957652</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
+  <revision>121</revision>
   <version>1.5.2</version>
   <steps>
     <TestStep>
@@ -72,7 +72,7 @@
       <stepStatus>passed</stepStatus>
     </TestStep>
     <TestStep>
-      <expectedResult>&lt;html&gt;&lt;p&gt;Diue Änderung setzt den Testfall auf dirty. Nach dem Speichern verschwindet das Zeichen. &lt;/p&gt;&lt;/html&gt;</expectedResult>
+      <expectedResult>&lt;html&gt;&lt;p&gt;Die Änderung setzt den Testfall auf dirty. Nach dem Speichern verschwindet das Zeichen. &lt;/p&gt;&lt;/html&gt;</expectedResult>
       <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Ändere an jedem Feld etwas. Speichere jeweils vorher. &lt;/p&gt;&lt;/html&gt;</richTextDescription>
       <stepStatus>passed</stepStatus>
