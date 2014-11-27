@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1327705680000</creationDate>
-  <lastExecution>1417008062299</lastExecution>
-  <lastChangedOn>1417008062436</lastChangedOn>
-  <numberOfExecutions>9</numberOfExecutions>
+  <lastExecution>1417093335866</lastExecution>
+  <lastChangedOn>1417093336222</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Die Daten in der zugehörigen xml-Datei entsprechen den geladenen Daten&lt;/p&gt;&lt;/html&gt;</expectedResult>

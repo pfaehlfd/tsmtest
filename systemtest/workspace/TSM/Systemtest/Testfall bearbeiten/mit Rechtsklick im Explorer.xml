@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1417009006230</lastExecution>
-  <lastChangedOn>1417009006372</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
+  <lastExecution>1417093155037</lastExecution>
+  <lastChangedOn>1417093155255</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>2</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich ein neuer Tab&lt;/p&gt;&lt;/html&gt;</expectedResult>

@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1416990144609</lastExecution>
-  <lastChangedOn>1416990150388</lastChangedOn>
-  <numberOfExecutions>10</numberOfExecutions>
+  <lastExecution>1417078536184</lastExecution>
+  <lastChangedOn>1417078536544</lastChangedOn>
+  <numberOfExecutions>11</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich ein neues-Projekt-Wizard&lt;/p&gt;&lt;/html&gt;</expectedResult>

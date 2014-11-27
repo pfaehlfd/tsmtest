@@ -8,20 +8,20 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1360168130423</creationDate>
-  <lastExecution>1417007072301</lastExecution>
-  <lastChangedOn>1417007072484</lastChangedOn>
-  <numberOfExecutions>13</numberOfExecutions>
+  <lastExecution>1417082808754</lastExecution>
+  <lastChangedOn>1417082809013</lastChangedOn>
+  <numberOfExecutions>14</numberOfExecutions>
   <numberOfFailures>5</numberOfFailures>
   <priority>medium</priority>
-  <status>failed</status>
-  <revision>97</revision>
-  <version />
+  <status>passed</status>
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es kommt eine Warnung ob wirklich gelöscht werden solll. Das übrige Protokoll bleibt stehen, das erste Projket wird komplett gelöscht&lt;/p&gt;&lt;/html&gt;</expectedResult>
-      <realResult>&lt;html&gt;&lt;p&gt;Projekt wird nicht gelöscht.&lt;/p&gt;&lt;/html&gt;</realResult>
+      <realResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</realResult>
       <richTextDescription>&lt;html&gt;&lt;p&gt;Markiere ein Projekt. Markiere im anderen Projekt einen Testfall und eines der zugehörigen Protokolle. Nun die selektierten Dateien löschen&lt;/p&gt;&lt;/html&gt;</richTextDescription>
-      <stepStatus>failed</stepStatus>
+      <stepStatus>passed</stepStatus>
     </TestStep>
   </steps>
 </tsmtestcase>

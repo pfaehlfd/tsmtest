@@ -8,14 +8,14 @@
   <richTextResult>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</richTextResult>
   <shortDescription>&lt;html&gt;&lt;p&gt;&lt;/p&gt;&lt;/html&gt;</shortDescription>
   <creationDate>1325459280000</creationDate>
-  <lastExecution>1416990357296</lastExecution>
-  <lastChangedOn>1416990363093</lastChangedOn>
-  <numberOfExecutions>9</numberOfExecutions>
+  <lastExecution>1417078647937</lastExecution>
+  <lastChangedOn>1417078648257</lastChangedOn>
+  <numberOfExecutions>10</numberOfExecutions>
   <numberOfFailures>0</numberOfFailures>
   <priority>medium</priority>
   <status>passed</status>
-  <revision>97</revision>
-  <version />
+  <revision>121</revision>
+  <version>1.5.2</version>
   <steps>
     <TestStep>
       <expectedResult>&lt;html&gt;&lt;p&gt;Es öffnet sich ein new-package-wizard im Explorer. Im Navigator wird direkt ein Package erstellt, der Name kann direkt geändert werden&lt;/p&gt;&lt;/html&gt;</expectedResult>

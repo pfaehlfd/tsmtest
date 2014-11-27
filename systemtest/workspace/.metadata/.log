@@ -61,3 +61,21 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64 -consoleLog
 
 !ENTRY org.eclipse.core.resources 2 10035 2014-11-26 13:09:47.756
 !MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-11-27 09:49:09.983 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-11-27 09:49:12.642
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!SESSION 2014-11-27 09:51:01.105 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.7.0_10
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=de_DE
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.core.resources 2 10035 2014-11-27 09:51:02.310
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.

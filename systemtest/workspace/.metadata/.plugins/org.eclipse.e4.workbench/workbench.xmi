@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_BIjmcVXlEeS6bsHDVWMH6g" elementId="org.eclipse.e4.legacy.ide.application" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_BIjmclXlEeS6bsHDVWMH6g" bindingContexts="_BIkNhFXlEeS6bsHDVWMH6g">
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_BIjmclXlEeS6bsHDVWMH6g" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_BT9lMFXlEeS6bsHDVWMH6g" x="1919" y="2" width="1904" height="1074">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_BIjmclXlEeS6bsHDVWMH6g" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_BT9lMFXlEeS6bsHDVWMH6g" x="-1875" y="-88" width="1904" height="1074">
     <tags>topLevel</tags>
+    <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_BT9lMFXlEeS6bsHDVWMH6g" selectedElement="_BT9lMVXlEeS6bsHDVWMH6g" horizontal="true">
       <children xsi:type="advanced:PerspectiveStack" xmi:id="_BT9lMVXlEeS6bsHDVWMH6g" containerData="7500" selectedElement="_BVpAMFXlEeS6bsHDVWMH6g">
         <children xsi:type="advanced:Perspective" xmi:id="_BVpAMFXlEeS6bsHDVWMH6g" elementId="net.sourceforge.tsmtest.perspective" selectedElement="_BVpAMVXlEeS6bsHDVWMH6g" label="TSM" iconURI="platform:/plugin/net.sourceforge.tsmtest/icons/iconTSM.png">
@@ -54,7 +55,7 @@
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_BVeoIFXlEeS6bsHDVWMH6g" elementId="net.sourceforge.tsmtest.gui.navigator.TSMNavigator" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="TSM-Navigator" iconURI="platform:/plugin/net.sourceforge.tsmtest/icons/iconTSM.png" tooltip="" closeable="true">
-      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view/>"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:TSM</tags>
       <tags>activeOnClose</tags>
@@ -97,19 +98,19 @@
     <trimBars xmi:id="_BUJycFXlEeS6bsHDVWMH6g" elementId="org.eclipse.ui.main.toolbar">
       <children xsi:type="menu:ToolBar" xmi:id="_BV6tAFXlEeS6bsHDVWMH6g" elementId="org.eclipse.search.searchActionSet">
         <tags>Draggable</tags>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7xTYHVlEeSnOJ-yPr886g" elementId="Search"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7xTYXVlEeSnOJ-yPr886g" elementId="org.eclipse.search.OpenSearchDialogPage"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSosYHYSEeSNmIeGlEjIhw" elementId="Search"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSpTcHYSEeSNmIeGlEjIhw" elementId="org.eclipse.search.OpenSearchDialogPage"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_BWZ1MFXlEeS6bsHDVWMH6g" elementId="org.eclipse.ui.edit.text.actionSet.annotationNavigation">
         <tags>Draggable</tags>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7xTYnVlEeSnOJ-yPr886g" elementId="history.group"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7xTY3VlEeSnOJ-yPr886g" elementId="org.eclipse.ui.edit.text.gotoNextAnnotation"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7xTZHVlEeSnOJ-yPr886g" elementId="org.eclipse.ui.edit.text.gotoPreviousAnnotation"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSpTcXYSEeSNmIeGlEjIhw" elementId="history.group"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSpTcnYSEeSNmIeGlEjIhw" elementId="org.eclipse.ui.edit.text.gotoNextAnnotation"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSpTc3YSEeSNmIeGlEjIhw" elementId="org.eclipse.ui.edit.text.gotoPreviousAnnotation"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_BWgi4FXlEeS6bsHDVWMH6g" elementId="org.eclipse.ui.edit.text.actionSet.navigation">
         <tags>Draggable</tags>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7x6cHVlEeSnOJ-yPr886g" elementId="history.group"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H7x6cXVlEeSnOJ-yPr886g" elementId="org.eclipse.ui.edit.text.gotoLastEditPosition"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSpTdHYSEeSNmIeGlEjIhw" elementId="history.group"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hSp6gHYSEeSNmIeGlEjIhw" elementId="org.eclipse.ui.edit.text.gotoLastEditPosition"/>
       </children>
       <children xsi:type="menu:ToolControl" xmi:id="_Ba-zMFXlEeS6bsHDVWMH6g" elementId="PerspectiveSpacer" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
         <tags>stretch</tags>
@@ -126,9 +127,9 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_H6PpYHVlEeSnOJ-yPr886g" elementId="main">
         <tags>Draggable</tags>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H6RekHVlEeSnOJ-yPr886g" elementId="save"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H6RekXVlEeSnOJ-yPr886g"/>
-        <children xsi:type="menu:OpaqueToolItem" xmi:id="_H6ReknVlEeSnOJ-yPr886g"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hRuGYHYSEeSNmIeGlEjIhw" elementId="save"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hRutcHYSEeSNmIeGlEjIhw"/>
+        <children xsi:type="menu:OpaqueToolItem" xmi:id="_hRutcXYSEeSNmIeGlEjIhw"/>
       </children>
     </trimBars>
     <trimBars xmi:id="_BbzSkVXlEeS6bsHDVWMH6g" elementId="org.eclipse.ui.trim.status" side="Bottom">
@@ -170,6 +171,7 @@
     <bindings xmi:id="_BKTS4lXlEeS6bsHDVWMH6g" keySequence="ALT+PAGE_UP" command="_BJTNUFXlEeS6bsHDVWMH6g"/>
     <bindings xmi:id="_BKUhAFXlEeS6bsHDVWMH6g" keySequence="ALT+PAGE_DOWN" command="_BJNtzlXlEeS6bsHDVWMH6g"/>
     <bindings xmi:id="_BKVvIVXlEeS6bsHDVWMH6g" keySequence="SHIFT+INSERT" command="_BJPi8VXlEeS6bsHDVWMH6g"/>
+    <bindings xmi:id="_Q4hqYXYSEeSfp_4dGrUqnA" keySequence="CTRL+Y" command="_BJPi9VXlEeS6bsHDVWMH6g"/>
   </bindingTables>
   <bindingTables xmi:id="_BJ9UoFXlEeS6bsHDVWMH6g" elementId="org.eclipse.ui.textEditorScope" bindingContext="_BJYs4VXlEeS6bsHDVWMH6g">
     <bindings xmi:id="_BKDbQFXlEeS6bsHDVWMH6g" keySequence="CTRL+SHIFT+J" command="_BJOU1lXlEeS6bsHDVWMH6g"/>
@@ -388,6 +390,9 @@
   </bindingTables>
   <bindingTables xmi:id="_HsEqg3VlEeSnOJ-yPr886g" elementId="org.eclipse.debug.ui.console" bindingContext="_Hq4XsnVlEeSnOJ-yPr886g">
     <bindings xmi:id="_HsEqhHVlEeSnOJ-yPr886g" keySequence="CTRL+D" command="_HqsxknVlEeSnOJ-yPr886g"/>
+    <bindings xmi:id="_Q4hqYnYSEeSfp_4dGrUqnA" keySequence="CTRL+Z" command="_HqsxknVlEeSnOJ-yPr886g">
+      <tags>platform:win32</tags>
+    </bindings>
   </bindingTables>
   <bindingTables xmi:id="_Hww9QXVlEeSnOJ-yPr886g" bindingContext="_Hww9QHVlEeSnOJ-yPr886g"/>
   <bindingTables xmi:id="_HwyLYXVlEeSnOJ-yPr886g" bindingContext="_HwyLYHVlEeSnOJ-yPr886g"/>
