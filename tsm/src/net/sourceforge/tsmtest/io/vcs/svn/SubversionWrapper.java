@@ -32,7 +32,7 @@ public final class SubversionWrapper {
      * @param path The path to check.
      * @return True, if under version control. False otherwise.
      */
-    public static final boolean isUnderVersionControl (String path) {
+    public static boolean isUnderVersionControl (String path) {
 	try {
 	    //Build the command: svn info <path>
 	    ProcessBuilder processBuilder = new ProcessBuilder(VCSSettings.getSubversionPath(), "info", path);
@@ -58,7 +58,7 @@ public final class SubversionWrapper {
      * @param path The path of the file or directory to commit.
      * @return The return code of the svn command.
      */
-    public static final int commit(String path) {
+    public static int commit(String path) {
 	try {
 	    //Build the command: svn commit <path> -mAuto commit of report.
 	    //Don't put a space between the "-m" and the commit message and don't enclose it by quotation marks
@@ -88,7 +88,7 @@ public final class SubversionWrapper {
      * @param fileList The list of files to commit.
      * @return The return code of the svn command.
      */
-    public static final int commitMultipleFiles(List<String> fileList) {
+    public static int commitMultipleFiles(List<String> fileList) {
 	//Build the command: svn commit -m "Auto commit of multiple files." <fileList>
 	fileList.add(0, VCSSettings.getSubversionPath());
 	fileList.add(1, "commit");
@@ -131,7 +131,7 @@ public final class SubversionWrapper {
      * @param updateResource The resource to update.
      * @return The return code of the svn command.
      */
-    public static final boolean update(String updateResource) {
+    public static boolean update(String updateResource) {
 	//Build the command: svn update updateResource
 	ProcessBuilder processBuilder = new ProcessBuilder(VCSSettings.getSubversionPath(), "update", updateResource);
 	try {
@@ -156,7 +156,7 @@ public final class SubversionWrapper {
      * Updates the whole workspace using "svn update".
      * @return The return code of the svn command.
      */
-    public static final boolean updateWorkspace() {
+    public static boolean updateWorkspace() {
 	//Build the command: svn update <workspace>
 	ProcessBuilder processBuilder = new ProcessBuilder(VCSSettings.getSubversionPath(), "update", 
 		ResourcesPlugin.getWorkspace().getRoot().getLocation().toString());
@@ -184,7 +184,7 @@ public final class SubversionWrapper {
      * @return 0 if no error occurred or if path is already under version control,
      * -1 if an IOException occurred, -2 if a InterruptedException occurred, otherwise the return value of the svn command.
      */
-    public static final int addForCommit(String path) {
+    public static int addForCommit(String path) {
 	//Check if path is already under version control.
 	if (isUnderVersionControl(path)) {
 	    return 0;
@@ -214,7 +214,7 @@ public final class SubversionWrapper {
 	}
     }
     
-    public static final int delete(String path) {
+    public static int delete(String path) {
 	//Check if path is under version control. If not we can not execute "svn delete".
 	if (!isUnderVersionControl(path)) {
 	    return -3;
