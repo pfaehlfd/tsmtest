@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.SelectionManager.SelectionException;
 
 import org.eclipse.core.resources.IContainer;
@@ -54,7 +55,6 @@ public class NewTestcaseWizardPage extends WizardPage {
     private Text fileText;
 
     private final IStructuredSelection selection;
-    private Label lblpackageproject;
 
     /**
      * Constructor for SampleNewWizardPage.
@@ -73,11 +73,13 @@ public class NewTestcaseWizardPage extends WizardPage {
      */
     @Override
     public void createControl(final Composite parent) {
+	Label lblpackageproject;
 	final Composite container = new Composite(parent, SWT.NULL);
 	final GridLayout layout = new GridLayout();
 	container.setLayout(layout);
 	layout.numColumns = 3;
 	layout.verticalSpacing = 9;
+
 	Label label;
 	lblpackageproject = new Label(container, SWT.NULL);
 	lblpackageproject.setText(Messages.NewTestcaseWizardPage_1);
@@ -137,7 +139,7 @@ public class NewTestcaseWizardPage extends WizardPage {
 	if (container != null) {
 	    containerText.setText(container.getFullPath().toString());
 	}
-	fileText.setTextLimit(200);
+	fileText.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 	// fileText.setText("testcase");
 	fileText.setFocus();
     }

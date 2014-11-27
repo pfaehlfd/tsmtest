@@ -76,8 +76,8 @@ public class ReportStepSash {
 	return tableManager;
     }
 
-    public void setContent(final List<TestStepDescriptor> TestStepDescriptors) {
-	tableManager.setContent(TestStepDescriptors);
+    public void setContent(final List<TestStepDescriptor> testStepDescriptors) {
+	tableManager.setContent(testStepDescriptors);
     }
 
     private SashManager<TestStepDescriptor>.SashManagerColumn<RichText> createTextColumn(
@@ -102,7 +102,7 @@ public class ReportStepSash {
 		try {
 		    switch (column) {
 		    case POSDESC:
-			String desc = data.getRichTextDescription();
+			String desc = data.getActionRichText();
 			if (desc.length() < 13) {
 			    desc = "<html></html>"; //$NON-NLS-1$
 			}
@@ -153,7 +153,7 @@ public class ReportStepSash {
 		    final int row, final int column) {
 		switch (column) {
 		case POSDESC:
-		    data.setRichTextDescription(control.getFormattedText());
+		    data.setActionRichText(control.getFormattedText());
 		    break;
 		case POSEXP:
 		    data.setExpectedResult(control.getFormattedText());

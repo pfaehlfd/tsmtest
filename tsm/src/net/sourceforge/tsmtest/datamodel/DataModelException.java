@@ -39,6 +39,8 @@ public class DataModelException extends Exception {
     public static final String NUMBEROFFAILURES_NULL = Messages.DataModelException_11;
     public static final String PRIORITY_NULL = Messages.DataModelException_12;
     public static final String REALDURATION_NULL = Messages.DataModelException_13;
+    public static final String REAL_DURATION_NOT_VALID = Messages.DataModelException_38;
+    public static final String REAL_DURATION_EMPTY  = Messages.DataModelException_39;
     public static final String RICHTEXTPRECONDITION_NULL = Messages.DataModelException_14;
     public static final String RICHTEXTRESULT_NULL = Messages.DataModelException_15;
     public static final String SHORTDESCRIPTION_NULL = Messages.DataModelException_16;
@@ -108,7 +110,7 @@ public class DataModelException extends Exception {
      * @throws DataModelException
      *             if no name set, if name too long, if no author is set, if no
      *             creation date is set, if short description too long, if name
-     *             contains colons or if t is null
+     *             contains colons or if testCase is null
      */
     public static void verifyTestCase(String name, TestCaseDescriptor testCase)
 	    throws DataModelException {
@@ -116,7 +118,7 @@ public class DataModelException extends Exception {
 	    throw new DataModelException(DataModelException.TESTCASEOBJECT_NULL);
 	} else if (name == null || name.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (name.length() > 200) {
+	} else if (name.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (testCase.getAuthor() == null) {
 	    throw new DataModelException(DataModelException.AUTHOR_NULL_EMPTY);
@@ -166,7 +168,7 @@ public class DataModelException extends Exception {
 	    throw new DataModelException(DataModelException.PROJECTOBJECT_NULL);
 	} else if (packageName == null || packageName.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (packageName.length() > 200) {
+	} else if (packageName.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (packageName.contains("<")) { //$NON-NLS-1$
 	    throw new DataModelException(
@@ -213,7 +215,7 @@ public class DataModelException extends Exception {
 	}
 	if (projectName == null || projectName.isEmpty()) {
 	    throw new DataModelException(DataModelException.NAME_NULL_EMPTY);
-	} else if (projectName.length() > 200) {
+	} else if (projectName.length() > DataModelTypes.NAME_MAX_LENGTH) {
 	    throw new DataModelException(DataModelException.NAME_TOO_LONG);
 	} else if (projectName.contains("<")) { //$NON-NLS-1$
 	    throw new DataModelException(
@@ -257,11 +259,11 @@ public class DataModelException extends Exception {
 	    throws DataModelException {
 	if (testStep == null) {
 	    throw new DataModelException(DataModelException.TESTCASEOBJECT_NULL);
-	} else if (testStep.getRichTextDescription() == null) {
+	} else if (testStep.getActionRichText() == null) {
 	    throw new DataModelException(
 		    DataModelException.RICHTEXTDESCRIPTION_NULL);
 	}
-	if (testStep.getRichTextDescription().length() > 500) {
+	if (testStep.getActionRichText().length() > 500) {
 	    throw new DataModelException(
 		    DataModelException.RICHTEXTDESCRIPTION_TOO_LONG);
 	}
@@ -318,6 +320,45 @@ public class DataModelException extends Exception {
 	} else if (name.contains("*")) { //$NON-NLS-1$
 	    throw new DataModelException(
 		    DataModelException.NAME_CONTAINS_WRONG_CHARACTER);
+	}
+    }
+
+    /**
+     * Verifies that a given duration is between 00:00:00 and 23:59:59.
+     * @param duration Duration to check.
+     * @throws DataModelException If duration is not null, empty or not valid (hh:mm:ss format).
+     */
+    public static void verifyDuration(String duration) throws DataModelException {
+	if (duration == null) {
+	    throw new DataModelException(DataModelException.REALDURATION_NULL);
+	}
+	if (duration.isEmpty()) {
+	    throw new DataModelException(DataModelException.REAL_DURATION_EMPTY);
+	}
+	//Split duration into hours, minutes and seconds.
+	final String[] splittedDuration = duration.split(":"); //$NON-NLS-1$
+
+	//Duration needs to have three fields.
+	if (splittedDuration.length == 3) {
+	    //Hours
+	    if (splittedDuration[0].matches("\\b0?([0-9]|1[0-9]|2[0-3])\\b")) {
+		//Minutes
+		if (splittedDuration[1].matches("\\b0?([0-9]|[1-5][0-9])\\b")) {
+		    //Seconds
+		    if (splittedDuration[2].matches("\\b0?([0-9]|[1-5][0-9])\\b")) {
+			//Everything was fine, so we can return.
+			return;
+		    } else {
+			throw new DataModelException(DataModelException.REAL_DURATION_NOT_VALID);
+		    }
+		} else {
+		    throw new DataModelException(DataModelException.REAL_DURATION_NOT_VALID);
+		}
+	    } else {
+		throw new DataModelException(DataModelException.REAL_DURATION_NOT_VALID);
+	    }
+	} else {
+	    throw new DataModelException(DataModelException.REAL_DURATION_NOT_VALID);
 	}
     }
 }

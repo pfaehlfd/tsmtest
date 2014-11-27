@@ -37,6 +37,9 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
 		return net.sourceforge.tsmtest.Perspective.ID;
 	} 
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
+	 */
 	public void initialize(IWorkbenchConfigurer configurer) {
 	    super.initialize(configurer);
 	    IDE.registerAdapters();

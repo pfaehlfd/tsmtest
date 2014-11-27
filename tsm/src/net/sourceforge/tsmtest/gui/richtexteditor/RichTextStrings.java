@@ -23,40 +23,40 @@ public class RichTextStrings {
     /**
      * Bold tooltip text
      */
-    public static String boldBtn_tooltipText = Messages.RichTextStrings_0;
+    public static final String BOLD_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_0;
     
     /**
      * Italic tooltip text
      */
-    public static String italicBtn_tooltipText = Messages.RichTextStrings_1;
+    public static final String ITALIC_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_1;
     
     /**
      * Underline tooltip text
      */
-    public static String underlineBtn_tooltipText = Messages.RichTextStrings_2;
+    public static final String UNDERLINE_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_2;
     
     /**
      * Strike Through tooltip text
      */
-    public static String strikeThroughBtn_tooltipText = Messages.RichTextStrings_3;
+    public static final String STRIKE_THROUGH_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_3;
     
     /**
      * Cut tooltip text
      */
-    public static String cutBtn_tooltipText = Messages.RichTextStrings_4;
+    public static final String CUT_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_4;
     
     /**
      * Copy tooltip text
      */
-    public static String copyBtn_tooltipText = Messages.RichTextStrings_5;
+    public static final String COPY_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_5;
     
     /**
      * Paste tooltip text
      */
-    public static String pasteBtn_tooltipText = Messages.RichTextStrings_6;
+    public static final String PASTE_BUTTON_TOOLTIPTEXT = Messages.RichTextStrings_6;
     
     /**
-     * Erase tooltip text
+     * Eraser tooltip text
      */
-    public static String eraserBtn_tooltipText = Messages.RichTextStrings_7;
+    public static final String ERASER_TOOLTIPTEXT = Messages.RichTextStrings_7;
 }

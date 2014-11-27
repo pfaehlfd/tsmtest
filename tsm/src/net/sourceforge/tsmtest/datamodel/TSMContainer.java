@@ -20,6 +20,7 @@ import java.util.List;
 import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
 
 /**
+ * TSMContainer can be implemented as TSMPackage or as TSMProject.
  * @author Albert Flaig
  *
  */

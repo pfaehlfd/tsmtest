@@ -59,22 +59,20 @@ import org.eclipse.ui.PlatformUI;
  * @author Bernhard Wetzel
  *
  */
-public class Overview extends MultiPageEditorPartInput implements
-	SelectionObservable {
-
+public class Overview extends MultiPageEditorPartInput implements SelectionObservable {
     public static final String ID = "net.sourceforge.tsmtest.gui.overview.view.overview"; //$NON-NLS-1$
     private OverviewStepSash sashPage0;
-    private OverviewStepSash sashPage1_revs;
-    private ArrayList<TSMTestCase> input = new ArrayList<TSMTestCase>();
-    private Label titel;
-    private Composite parent;
+    private OverviewStepSash sashPage1Revs;
+    private ArrayList<TSMTestCase> testCaseList = new ArrayList<TSMTestCase>();
+    private Label title;
     private ArrayList<Integer> revisions;
     private ArrayList<Integer> revisionsSelected;
-    private Button btnAddAll;
-    private Button btnCustom;
 
     /**
      * Constructs a new site
+     */
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.MultiPageEditorPartInput#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
      */
     @Override
     public void init(final IEditorSite site, final IEditorInput input)
@@ -87,11 +85,14 @@ public class Overview extends MultiPageEditorPartInput implements
     /**
      * Disposes the sashform and unregisters from SelectionListener
      */
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.part.MultiPageEditorPart#dispose()
+     */
     @Override
     public void dispose() {
 	sashPage0.dispose();
-	sashPage1_revs.dispose();
-	SelectionManager.instance.unregister(this);
+	sashPage1Revs.dispose();
+	SelectionManager.getInstance().unregister(this);
 	// super.dispose();
     }
 
@@ -99,47 +100,50 @@ public class Overview extends MultiPageEditorPartInput implements
      * Reacts on a changed selection in the package explorer and sets new
      * content in the sashform
      */
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.SelectionManager.SelectionObservable#selectionChanged()
+     */
     @Override
     public void selectionChanged() {
-	final SelectionModel sm = SelectionManager.instance.getSelection();
-	final ArrayList<TSMResource> file = sm.getAllResources();
+	final SelectionModel sm = SelectionManager.getInstance().getSelection();
+	final ArrayList<TSMResource> tsmResourceList = sm.getAllResources();
 	// if only reports are selected the revisions and corresponding
-	// testcases are shown
-	Boolean onlyRep = true;
-	for (final TSMResource f : file) {
-	    if (!(f instanceof TSMReport)) {
-		onlyRep = false;
+	// test cases are shown
+	Boolean onlyReport = true;
+	for (final TSMResource currentResource : tsmResourceList) {
+	    if (!(currentResource instanceof TSMReport)) {
+		onlyReport = false;
 		break;
 	    }
 	}
-	input.clear();
-	if (onlyRep) {
-	    for (final TSMResource f : file) {
-		final int rev = ((TSMReport) f).getData().getRevisionNumber();
+	testCaseList.clear();
+	if (onlyReport) {
+	    for (final TSMResource currentResource : tsmResourceList) {
+		final int revision = ((TSMReport) currentResource).getData().getRevisionNumber();
 		sashPage0.removeAllColumns();
-		sashPage0.addColumn(rev + "", null);
-		final TSMTestCase tc = ((TSMReport) f).getTestCase();
-		if (!(input.contains(tc))) {
-		    input.add(tc);
+		sashPage0.addColumn(revision + "", null);
+		final TSMTestCase testCase = ((TSMReport) currentResource).getTestCase();
+		if (!(testCaseList.contains(testCase))) {
+		    testCaseList.add(testCase);
 		}
 	    }
 	} else {
 	    // all selected resources and there children are scanned for
-	    // testcases
-	    for (final TSMResource res : file) {
-		for (final TSMResource tc : getChildrens(res)) {
-		    if (!(input.contains(tc))) {
-			input.add((TSMTestCase) tc);
+	    // test cases
+	    for (final TSMResource currentResource : tsmResourceList) {
+		for (final TSMResource tsmResource : getChildrens(currentResource)) {
+		    if (!(testCaseList.contains(tsmResource))) {
+			testCaseList.add((TSMTestCase) tsmResource);
 		    }
 		}
 	    }
 	}
-	// list of revisions of the testcases reports
+	// list of revisions of the test case reports
 	revisions.clear();
-	for (final TSMTestCase tc : input) {
-	    for (final TSMReport rep : tc.getReports()) {
-		if (!(revisions.contains(rep.getData().getRevisionNumber()))) {
-		    revisions.add(rep.getData().getRevisionNumber());
+	for (final TSMTestCase currentTestCase : testCaseList) {
+	    for (final TSMReport currentReport : currentTestCase.getReports()) {
+		if (!(revisions.contains(currentReport.getData().getRevisionNumber()))) {
+		    revisions.add(currentReport.getData().getRevisionNumber());
 		}
 	    }
 	}
@@ -147,59 +151,55 @@ public class Overview extends MultiPageEditorPartInput implements
 	Collections.sort(revisions);
 	Collections.reverse(revisions);
 	// setting the title of the sashform
-	titel.setText(Messages.Overview_9);
-	if (input.size() == 1) {
-	    titel.setText(getTitleText(input.get(0)));
-	    sashPage0.initSteps(input);
+	title.setText(Messages.Overview_9);
+	if (testCaseList.size() == 1) {
+	    title.setText(getTitleText(testCaseList.get(0)));
+	    sashPage0.initSteps(testCaseList);
 	} else {
-	    titel.setText(Messages.Overview_8);
-	    titel.update();
-	    if (!(input.isEmpty())) {
-		sashPage0.initSteps(input);
+	    title.setText(Messages.Overview_8);
+	    title.update();
+	    if (!(testCaseList.isEmpty())) {
+		sashPage0.initSteps(testCaseList);
 	    }
 	}
     }
 
     /**
-     * returns the childrens and childrens children (aso) from the given file
+     * Gets all children recursively for a given resource.
      * 
-     * @param file
-     * @return
+     * @param tsmResource The TSMResource to get the children recursively from.
+     * @return A list containing all child test cases.
      */
-    private ArrayList<TSMTestCase> getChildrens(final TSMResource file) {
-	final ArrayList<TSMTestCase> tcs = new ArrayList<TSMTestCase>();
+    private ArrayList<TSMTestCase> getChildrens(final TSMResource tsmResource) {
+	final ArrayList<TSMTestCase> testCaseList = new ArrayList<TSMTestCase>();
 	// check packages if project
-	if (file instanceof TSMProject) {
-	    final List<TSMResource> res = ((TSMProject) file).getChildren();
-	    for (final TSMResource currentRessource : res) {
+	if (tsmResource instanceof TSMProject) {
+	    final List<TSMResource> tsmResourceList = ((TSMProject) tsmResource).getChildren();
+	    for (final TSMResource currentRessource : tsmResourceList) {
 		if (currentRessource instanceof TSMPackage) {
-		    tcs.addAll(getChildrens(currentRessource));
-		} else {
-		    if (currentRessource instanceof TSMTestCase) {
-			tcs.add((TSMTestCase) currentRessource);
-		    }
+		    testCaseList.addAll(getChildrens(currentRessource));
+		} else if (currentRessource instanceof TSMTestCase) {
+		    testCaseList.add((TSMTestCase) currentRessource);
 		}
 	    }
-	    return tcs;
+	    return testCaseList;
 	    // check subpackages if package
-	} else if (file instanceof TSMPackage) {
-	    final List<TSMResource> res = ((TSMPackage) file).getChildren();
+	} else if (tsmResource instanceof TSMPackage) {
+	    final List<TSMResource> res = ((TSMPackage) tsmResource).getChildren();
 	    for (final TSMResource currentRessource : res) {
 		if (currentRessource instanceof TSMPackage) {
-		    tcs.addAll(getChildrens(currentRessource));
-		} else {
-		    if (currentRessource instanceof TSMTestCase) {
-			tcs.add((TSMTestCase) currentRessource);
-		    }
+		    testCaseList.addAll(getChildrens(currentRessource));
+		} else if (currentRessource instanceof TSMTestCase) {
+		    testCaseList.add((TSMTestCase) currentRessource);
 		}
 	    }
-	    return tcs;
+	    return testCaseList;
 	    // add testcase
-	} else if (file instanceof TSMTestCase) {
-	    tcs.add((TSMTestCase) file);
-	    return tcs;
+	} else if (tsmResource instanceof TSMTestCase) {
+	    testCaseList.add((TSMTestCase) tsmResource);
+	    return testCaseList;
 	}
-	return tcs;
+	return testCaseList;
     }
 
     @Override
@@ -261,7 +261,7 @@ public class Overview extends MultiPageEditorPartInput implements
     }
 
     @Override
-    protected void getInput(final TSMReport input) {
+    protected void setEditorInput(final TSMReport input) {
 	// input is never getted
     }
 
@@ -278,23 +278,23 @@ public class Overview extends MultiPageEditorPartInput implements
     }
 
     /**
-     * creats the pages of the editor and registers the selectionlistener
+     * Creates the pages of the editor and registers the Selectionlistener.
      */
     @Override
     protected void createPages() {
 	createPage0();
 	createPage1();
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
     }
 
     /**
-     * Creates the overviewpage with the sashform
+     * Creates the overviewpage with the sashform.
      */
     private void createPage0() {
 	// parent composite
+	Composite parent;
 	parent = new Composite(getContainer(), SWT.NONE);
 	parent.addDisposeListener(new DisposeListener() {
-
 	    @Override
 	    public void widgetDisposed(final DisposeEvent e) {
 		sashPage0.getSashManager().dispose();
@@ -302,34 +302,34 @@ public class Overview extends MultiPageEditorPartInput implements
 	    }
 	});
 	parent.setLayout(new GridLayout(1, false));
-	final SelectionModel sm = SelectionManager.instance.getSelection();
-	final ArrayList<TSMResource> file = sm.getAllResources();
+	final SelectionModel sm = SelectionManager.getInstance().getSelection();
+	final ArrayList<TSMResource> tsmResourceList = sm.getAllResources();
 	// if only reports are selected the revisions and corresponding
-	// testcases are shown
+	// test cases are shown
 	Boolean onlyRep = true;
-	for (final TSMResource f : file) {
-	    if (!(f instanceof TSMReport)) {
+	for (final TSMResource currentResource : tsmResourceList) {
+	    if (!(currentResource instanceof TSMReport)) {
 		onlyRep = false;
 		break;
 	    }
 	}
-	input.clear();
+	testCaseList.clear();
 	final ArrayList<Integer> revs = new ArrayList<Integer>();
 	if (onlyRep) {
-	    for (final TSMResource f : file) {
+	    for (final TSMResource f : tsmResourceList) {
 		revs.add(((TSMReport) f).getData().getRevisionNumber());
 		final TSMTestCase tc = ((TSMReport) f).getTestCase();
-		if (!(input.contains(tc))) {
-		    input.add(tc);
+		if (!(testCaseList.contains(tc))) {
+		    testCaseList.add(tc);
 		}
 	    }
 	} else {
 	    // all selected resources and there children are scanned for
 	    // testcases
-	    for (final TSMResource currentRessource : file) {
+	    for (final TSMResource currentRessource : tsmResourceList) {
 		for (final TSMResource currentTestcase : getChildrens(currentRessource)) {
-		    if (!(input.contains(currentTestcase))) {
-			input.add((TSMTestCase) currentTestcase);
+		    if (!(testCaseList.contains(currentTestcase))) {
+			testCaseList.add((TSMTestCase) currentTestcase);
 		    }
 		}
 	    }
@@ -338,20 +338,20 @@ public class Overview extends MultiPageEditorPartInput implements
 	final Composite topInfo = new Composite(parent, SWT.NONE);
 	topInfo.setLayout(new GridLayout(3, false));
 	// topleft
-	final Composite topInfo_left = new Composite(topInfo, SWT.FILL);
-	topInfo_left.setLayout(new FillLayout(SWT.VERTICAL));
-	titel = new Label(topInfo_left, SWT.FILL);
-	if (file.isEmpty()) {
-	    titel.setText(Messages.Overview_8);
+	final Composite topInfoLeft = new Composite(topInfo, SWT.FILL);
+	topInfoLeft.setLayout(new FillLayout(SWT.VERTICAL));
+	title = new Label(topInfoLeft, SWT.FILL);
+	if (tsmResourceList.isEmpty()) {
+	    title.setText(Messages.Overview_8);
 	} else {
-	    titel.setText(getTitleText(file.get(0)));
+	    title.setText(getTitleText(tsmResourceList.get(0)));
 	}
 	// topright
-	final Group topInfo_right = new Group(topInfo, SWT.END);
-	topInfo_right.setLayout(new GridLayout(5, false));
+	final Group topInfoRight = new Group(topInfo, SWT.END);
+	topInfoRight.setLayout(new GridLayout(5, false));
 	// getting all revisions of the inputs reports
 	revisions = new ArrayList<Integer>();
-	for (final TSMTestCase currentTestcase : input) {
+	for (final TSMTestCase currentTestcase : testCaseList) {
 	    for (final TSMReport currentReport : currentTestcase.getReports()) {
 		if (!(revisions.contains(currentReport.getData().getRevisionNumber()))) {
 		    revisions.add(currentReport.getData().getRevisionNumber());
@@ -361,7 +361,8 @@ public class Overview extends MultiPageEditorPartInput implements
 	Collections.sort(revisions);
 	Collections.reverse(revisions);
 	// viewing all revisions
-	btnAddAll = new Button(topInfo_right, SWT.PUSH);
+	Button btnAddAll;
+	btnAddAll = new Button(topInfoRight, SWT.PUSH);
 	btnAddAll.setText(Messages.Overview_10);
 	btnAddAll.addSelectionListener(new SelectionListener() {
 	    /**
@@ -374,18 +375,18 @@ public class Overview extends MultiPageEditorPartInput implements
 		    sashPage0.addColumn(currentRevision + "", null);
 		}
 		revisionsSelected = revisions;
-		sashPage0.initSteps(input);
+		sashPage0.initSteps(testCaseList);
 	    }
 
 	    @Override
 	    public void widgetDefaultSelected(final SelectionEvent e) {
 		// do nothing
-
 	    }
 	});
 
 	// opens dialog to select specific revisions
-	btnCustom = new Button(topInfo_right, SWT.BUTTON1);
+	Button btnCustom;
+	btnCustom = new Button(topInfoRight, SWT.BUTTON1);
 	btnCustom.setText(Messages.Overview_11);
 	btnCustom.addSelectionListener(new SelectionListener() {
 	    /**
@@ -396,19 +397,19 @@ public class Overview extends MultiPageEditorPartInput implements
 		if (revisionsSelected == null) {
 		    revisionsSelected = new ArrayList<Integer>();
 		}
-		final OverviewDialog dia = new OverviewDialog(
+		final OverviewDialog dialog = new OverviewDialog(
 			new ArrayList<Integer>(revisions),
 			new ArrayList<Integer>(revisionsSelected));
-		if (dia.open() == Window.OK) {
+		if (dialog.open() == Window.OK) {
 		    sashPage0.removeAllColumns();
 		    // add selected
-		    revisionsSelected = dia.revTicks;
+		    revisionsSelected = dialog.getRevTicks();
 		    Collections.sort(revisionsSelected);
 		    Collections.reverse(revisionsSelected);
 		    for (final int currentRevision : revisionsSelected) {
 			sashPage0.addColumn(currentRevision + "", null);
 		    }
-		    sashPage0.initSteps(input);
+		    sashPage0.initSteps(testCaseList);
 		}
 	    }
 
@@ -421,11 +422,11 @@ public class Overview extends MultiPageEditorPartInput implements
 	// initialize sashform
 	sashPage0 = new OverviewStepSash(parent);
 	if (onlyRep) {
-	    for (final int revision_column : revs) {
-		sashPage0.addColumn(revision_column + "", null);
+	    for (final int revisionColumn : revs) {
+		sashPage0.addColumn(revisionColumn + "", null);
 	    }
 	}
-	sashPage0.initSteps(input);
+	sashPage0.initSteps(testCaseList);
 	final int index = addPage(parent);
 	setPageText(index, Messages.Overview_2);
     }
@@ -433,19 +434,18 @@ public class Overview extends MultiPageEditorPartInput implements
     /**
      * Returns the text that will be display in the title
      * 
-     * @param file
-     *            file the titletext depends on
-     * @return String new text of the title
+     * @param tsmResource The TSMResource the title text depends on.
+     * @return The text of the title.
      */
-    private String getTitleText(final TSMResource file) {
-	if (file instanceof TSMProject) {
-	    input = (ArrayList<TSMTestCase>) ((TSMProject) file).getTestCases();
-	    return (Messages.Overview_4 + file.getName());
-	} else if (file instanceof TSMPackage) {
-	    input = (ArrayList<TSMTestCase>) ((TSMPackage) file).getTestCases();
-	    return (Messages.Overview_5 + file.getName());
-	} else if (file instanceof TSMTestCase) {
-	    input = SelectionManager.instance.getSelection().getTestCases();
+    private String getTitleText(final TSMResource tsmResource) {
+	if (tsmResource instanceof TSMProject) {
+	    testCaseList = (ArrayList<TSMTestCase>) ((TSMProject) tsmResource).getTestCases();
+	    return (Messages.Overview_4 + tsmResource.getName());
+	} else if (tsmResource instanceof TSMPackage) {
+	    testCaseList = (ArrayList<TSMTestCase>) ((TSMPackage) tsmResource).getTestCases();
+	    return (Messages.Overview_5 + tsmResource.getName());
+	} else if (tsmResource instanceof TSMTestCase) {
+	    testCaseList = SelectionManager.getInstance().getSelection().getTestCases();
 	    return (Messages.Overview_6);
 	}
 	return (Messages.Overview_8);
@@ -461,7 +461,7 @@ public class Overview extends MultiPageEditorPartInput implements
 
 	    @Override
 	    public void widgetDisposed(final DisposeEvent e) {
-		sashPage1_revs.getSashManager().dispose();
+		sashPage1Revs.getSashManager().dispose();
 		dispose();
 	    }
 	});
@@ -484,19 +484,19 @@ public class Overview extends MultiPageEditorPartInput implements
 	}
 
 	// Composites for total statistics
-	final Group Statgrp = new Group(parent, SWT.FILL);
-	Statgrp.setLayout(new GridLayout(6, false));
-	final Composite col1 = new Composite(Statgrp, SWT.FILL);
+	final Group statGroup = new Group(parent, SWT.FILL);
+	statGroup.setLayout(new GridLayout(6, false));
+	final Composite col1 = new Composite(statGroup, SWT.FILL);
 	col1.setLayout(new GridLayout());
-	final Composite col2 = new Composite(Statgrp, SWT.FILL);
+	final Composite col2 = new Composite(statGroup, SWT.FILL);
 	col2.setLayout(new GridLayout());
-	final Composite col3 = new Composite(Statgrp, SWT.FILL);
+	final Composite col3 = new Composite(statGroup, SWT.FILL);
 	col3.setLayout(new GridLayout());
-	final Composite col4 = new Composite(Statgrp, SWT.FILL);
+	final Composite col4 = new Composite(statGroup, SWT.FILL);
 	col4.setLayout(new GridLayout());
-	final Composite col5 = new Composite(Statgrp, SWT.FILL);
+	final Composite col5 = new Composite(statGroup, SWT.FILL);
 	col5.setLayout(new GridLayout());
-	final Composite col6 = new Composite(Statgrp, SWT.FILL);
+	final Composite col6 = new Composite(statGroup, SWT.FILL);
 	col6.setLayout(new GridLayout());
 
 	final String[] time = getTimeSpentTotal();
@@ -576,16 +576,16 @@ public class Overview extends MultiPageEditorPartInput implements
 	final Label statLbl = new Label(parent, SWT.LEFT);
 	statLbl.setText(Messages.Overview_14);
 
-	sashPage1_revs = new OverviewStepSash(parent);
-	Boolean noEst = false;
+	sashPage1Revs = new OverviewStepSash(parent);
+	Boolean estimatedDurationAvailable = true;
 	for (final TSMTestCase currentTestcase : TSMTestCase.list()) {
 	    if (currentTestcase.getData().getExpectedDuration().equals("00:00")
 		    || currentTestcase.getData().getExpectedDuration().equals("")) {
-		noEst = true;
+		estimatedDurationAvailable = false;
 		break;
 	    }
 	}
-	initColumnsRevs(sashPage1_revs, noEst);
+	initColumnsRevs(sashPage1Revs, estimatedDurationAvailable);
 	final ArrayList<String[]> revisionData = new ArrayList<String[]>();
 	final ArrayList<Integer> allRevs = new ArrayList<Integer>();
 	for (final TSMTestCase currentTestcase : TSMTestCase.list()) {
@@ -606,19 +606,23 @@ public class Overview extends MultiPageEditorPartInput implements
 		    getTimeNeeded(currentRevision) };
 	    revisionData.add(data);
 	}
-	sashPage1_revs.initSteps(revisionData);
-	sashPage1_revs.getSashManager().scrollToTop();
+	sashPage1Revs.initSteps(revisionData);
+	sashPage1Revs.getSashManager().scrollToTop();
 	// indexing + pagetitel
 	final int index = addPage(parent);
 	setPageText(index, Messages.Overview_3);
     }
 
-    private String getTimeNeeded(final int rev) {
+    /**
+     * @param revision The revision to get the time for.
+     * @return
+     */
+    private String getTimeNeeded(final int revision) {
 	final Collection<TSMTestCase> testcases = TSMTestCase.list();
 	int hours = 0;
 	int minutes = 0;
 	for (final TSMTestCase currentTestcase : testcases) {
-	    if (getCurrentReport(currentTestcase, rev) == null) {
+	    if (getCurrentReport(currentTestcase, revision) == null) {
 		final String[] duration = currentTestcase.getData().getExpectedDuration()
 			.split(":");
 		if (duration.length > 1) {
@@ -638,6 +642,12 @@ public class Overview extends MultiPageEditorPartInput implements
 	return buildTime(hours, minutes, 0);
     }
 
+    /**
+     * @param hours
+     * @param minutes
+     * @param seconds
+     * @return The time as a string of the format "hh:mm:ss".
+     */
     private String buildTime(final int hours, final int minutes,
 	    final int seconds) {
 	String returnString = hours + ":";
@@ -655,15 +665,19 @@ public class Overview extends MultiPageEditorPartInput implements
 	return returnString;
     }
 
-    private String getTimeSpent(final int rev) {
+    /**
+     * @param revision The revision to get the time for.
+     * @return
+     */
+    private String getTimeSpent(final int revision) {
 	final Collection<TSMTestCase> testcases = TSMTestCase.list();
 	int hours = 0;
 	int minutes = 0;
 	int seconds = 0;
-	for (final TSMTestCase tc : testcases) {
-	    final Collection<TSMReport> reports = tc.getReports();
+	for (final TSMTestCase currentTestCase : testcases) {
+	    final Collection<TSMReport> reports = currentTestCase.getReports();
 	    for (final TSMReport currentReport : reports) {
-		if (currentReport.getData().getRevisionNumber() == rev) {
+		if (currentReport.getData().getRevisionNumber() == revision) {
 		    final String duration = currentReport.getData().getRealDuration();
 		    if (duration.length() > 5) {
 			hours += Integer.parseInt(duration.substring(0,
@@ -824,14 +838,22 @@ public class Overview extends MultiPageEditorPartInput implements
 	return counterPas + "/" + counter;
     }
 
-    private void initColumnsRevs(final OverviewStepSash sash, final Boolean star) {
+    /**
+     * @param sash
+     * @param estimatedDurationAvailable Whether the test case had an estimated duration
+     * (a duration that is different from "00:00").
+     */
+    private void initColumnsRevs(final OverviewStepSash sash, final Boolean estimatedDurationAvailable) {
 	sash.removeColumn(0);
 	sash.removeColumn(0);
 	sash.addColumn(Messages.Overview_15, null);
 	sash.addColumn(Messages.Overview_16, null);
 	sash.addColumn(Messages.Overview_17, null);
 	sash.addColumn(Messages.Overview_18, null);
-	if (star) {
+	
+	//If no estimated duration was given (that is the case if duration is equal to "00:00")
+	//a star is displayed in the gui.
+	if (!estimatedDurationAvailable) {
 	    sash.addColumn(Messages.Overview_19 + "*", Messages.Overview_23);
 	    sash.addColumn(Messages.Overview_20 + "*", Messages.Overview_23);
 	} else {
@@ -841,16 +863,14 @@ public class Overview extends MultiPageEditorPartInput implements
     }
 
     /**
-     * Goes through all reports of the testcase and returns the latest report of
-     * each revision
+     * Goes through all reports of the test case and returns the latest report of
+     * a given revision.
      * 
-     * @param testcase
-     *            testcase that is scanned
-     * @param rev FIXME For what is the parameter rev used?
-     * @return Array of reports with the latest report of each revision ordered
-     *         from top to down
+     * @param testcase Test case that is scanned.
+     * @param rev The revision number for which the the last report should be retrieved.
+     * @return The last report for the given revision for the given test case.
      */
-    protected TSMReport getCurrentReport(final TSMTestCase testcase, final int rev) {
+    private TSMReport getCurrentReport(final TSMTestCase testcase, final int rev) {
 	// getting all reports
 	final Collection<TSMReport> reportsForTestcase = testcase.getReports();
 	

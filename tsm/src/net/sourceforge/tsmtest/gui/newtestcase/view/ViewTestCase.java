@@ -20,12 +20,14 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Iterator;
 import java.util.List;
+
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.SWTUtils;
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.EditorPartInput;
 import net.sourceforge.tsmtest.datamodel.ResourceEditorInput;
 import net.sourceforge.tsmtest.datamodel.TSMContainer;
@@ -74,7 +76,6 @@ import org.xml.sax.SAXException;
  */
 public class ViewTestCase extends EditorPartInput implements
 	DataModelObservable {
-
     public static final String ID = "net.sourceforge.tsmtest.gui.newtestcase.view.viewtestcase"; //$NON-NLS-1$
     private Text txtName;
     private Text txtPackage;
@@ -82,7 +83,6 @@ public class ViewTestCase extends EditorPartInput implements
     private Text txtDuration;
     private PriorityType priority;
     private Combo comboPriority;
-    // private Composite myParent;
     private RichText richTextEditShortDes;
     private RichText richTextEditPreCon;
     private Group preCondition;
@@ -96,15 +96,11 @@ public class ViewTestCase extends EditorPartInput implements
     private final String ERROR_DURATION_INVALID = Messages.ViewTestCase_6;
     private String tempErrorMessage;
     private StepSash sashSteps;
-    private Label lblAssignedTo;
     private Text txtAssignedTo;
     private boolean dirty;
-    private Group mainSettings;
-    private Label lblProject;
     private Text txtProj;
     private TSMTestCase input;
     private volatile boolean saving = false;
-    private TSMBreadcrumbViewer viewer;
     private ModifyListener dirtyListen;
 
     public ViewTestCase() {
@@ -119,21 +115,19 @@ public class ViewTestCase extends EditorPartInput implements
     @Override
     public void createPartControl(final Composite parent) {
 	parent.addDisposeListener(new DisposeListener() {
-
 	    /*
 	     * Detach a non-ui thread to extract and save the images
 	     */
 	    @Override
 	    public void widgetDisposed(final DisposeEvent e) {
-		final Job j = new Job("Saving images") {
+		final Job job = new Job("Saving images") {
 		    @Override
 		    protected IStatus run(final IProgressMonitor monitor) {
 			// TODO: add Method for images
 			return Status.OK_STATUS;
 		    }
-
 		};
-		j.schedule();
+		job.schedule();
 	    }
 
 	});
@@ -142,6 +136,7 @@ public class ViewTestCase extends EditorPartInput implements
 
 	parent.setLayout(new GridLayout(2, false));
 
+	TSMBreadcrumbViewer viewer;
 	viewer = new TSMBreadcrumbViewer(parent, SWT.NONE);
 	viewer.setLayoutData(new GridData(SWT.FILL, SWT.NONE, true, false, 2, 1));
 	viewer.setInput(input);
@@ -170,31 +165,20 @@ public class ViewTestCase extends EditorPartInput implements
 	});
 
 	dirtyListen = new ModifyListener() {
-
 	    @Override
 	    public void modifyText(final ModifyEvent e) {
 		setDirty(true);
 	    }
 	};
 
+	Group mainSettings;
 	mainSettings = new Group(parent, SWT.NONE);
-	final GridData gd_mainSettings = new GridData(SWT.FILL, SWT.CENTER,
+	final GridData gridDataMainSettings = new GridData(SWT.FILL, SWT.CENTER,
 		true, false, 2, 1);
-	gd_mainSettings.heightHint = 74;
-	mainSettings.setLayoutData(gd_mainSettings);
+	gridDataMainSettings.heightHint = 74;
+	mainSettings.setLayoutData(gridDataMainSettings);
 	mainSettings.setText(Messages.ViewTestCase_8);
 	mainSettings.setLayout(new GridLayout(8, false));
-
-	// lblId = new Label(mainSettings, SWT.NONE);
-	// lblId.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
-	// 1, 1));
-	// lblId.setText(Messages.ViewTestCase_9);
-	//
-	// txtID = new Text(mainSettings, SWT.BORDER);
-	// txtID.setEditable(false);
-	// txtID.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
-	// 1,
-	// 1));
 
 	final CLabel lblName = new CLabel(mainSettings, SWT.NONE);
 	lblName.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false, 1,
@@ -204,8 +188,9 @@ public class ViewTestCase extends EditorPartInput implements
 	txtName = new Text(mainSettings, SWT.BORDER);
 	txtName.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
 	txtName.addModifyListener(dirtyListen);
-	txtName.setTextLimit(200);
+	txtName.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 
+	Label lblProject;
 	lblProject = new Label(mainSettings, SWT.NONE);
 	lblProject.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
@@ -263,6 +248,7 @@ public class ViewTestCase extends EditorPartInput implements
 		1, 1));
 	txtCreator.addModifyListener(dirtyListen);
 
+	Label lblAssignedTo;
 	lblAssignedTo = new Label(mainSettings, SWT.NONE);
 	lblAssignedTo.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
@@ -284,44 +270,44 @@ public class ViewTestCase extends EditorPartInput implements
 	txtDuration.setText("00:00"); //$NON-NLS-1$
 	txtDuration.addModifyListener(dirtyListen);
 
-	final GridData gd_Group = new GridData(SWT.FILL, SWT.FILL, true, false,
+	final GridData gridDataGroup = new GridData(SWT.FILL, SWT.FILL, true, false,
 		1, 1);
-	gd_Group.minimumHeight = 200;
+	gridDataGroup.minimumHeight = 200;
 
-	final GridData gd_Group_1 = new GridData(SWT.FILL, SWT.FILL, true,
+	final GridData gridDataGroup11 = new GridData(SWT.FILL, SWT.FILL, true,
 		false, 1, 1);
-	gd_Group_1.minimumHeight = 200;
+	gridDataGroup11.minimumHeight = 200;
 
 	shortDescription = new Group(parent, SWT.NONE);
 	shortDescription.setLayout(new GridLayout(1, false));
-	shortDescription.setLayoutData(gd_Group);
+	shortDescription.setLayoutData(gridDataGroup);
 	shortDescription.setText(Messages.ViewTestCase_22);
 
 	// insert RichTextEditor
 
 	richTextEditShortDes = new RichText(shortDescription, SWT.WRAP
 		| SWT.MULTI | SWT.V_SCROLL);
-	final GridData gd_richTextEditor = new GridData(SWT.FILL, SWT.CENTER,
+	final GridData gridDataRichTextEditor = new GridData(SWT.FILL, SWT.CENTER,
 		true, false, 1, 1);
-	gd_richTextEditor.widthHint = 98;
-	gd_richTextEditor.heightHint = 100;
+	gridDataRichTextEditor.widthHint = 98;
+	gridDataRichTextEditor.heightHint = 100;
 	richTextEditShortDes.addModifyListener(dirtyListen);
-	richTextEditShortDes.setLayoutData(gd_richTextEditor);
+	richTextEditShortDes.setLayoutData(gridDataRichTextEditor);
 
 	preCondition = new Group(parent, SWT.NONE);
 	preCondition.setLayout(new GridLayout(1, false));
-	preCondition.setLayoutData(gd_Group_1);
+	preCondition.setLayoutData(gridDataGroup11);
 	preCondition.setText(Messages.ViewTestCase_23);
 
 	// insert RichTextEditor
 
 	richTextEditPreCon = new RichText(preCondition, SWT.WRAP | SWT.MULTI
 		| SWT.V_SCROLL);
-	final GridData gd_richTextEditorPre = new GridData(SWT.FILL,
+	final GridData gridDataRichTextEditorPre = new GridData(SWT.FILL,
 		SWT.CENTER, true, false, 1, 1);
-	gd_richTextEditorPre.heightHint = 100;
+	gridDataRichTextEditorPre.heightHint = 100;
 	richTextEditPreCon.addModifyListener(dirtyListen);
-	richTextEditPreCon.setLayoutData(gd_richTextEditorPre);
+	richTextEditPreCon.setLayoutData(gridDataRichTextEditorPre);
 
 	sashSteps = new StepSash(parent, dirtyListen, input);
 	sashSteps.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2,
@@ -416,7 +402,7 @@ public class ViewTestCase extends EditorPartInput implements
 		.iterator(); iterator.hasNext();) {
 	    final TestStepDescriptor s = iterator.next();
 	    final String strExp = s.getExpectedResult();
-	    final String strDes = s.getRichTextDescription();
+	    final String strDes = s.getActionRichText();
 	    if (((strDes.equals("<html><p></p></html>") || strDes.isEmpty()) && (strExp
 		    .equals("<html><p></p></html>") || strExp.isEmpty()))) {
 		iterator.remove();
@@ -451,21 +437,19 @@ public class ViewTestCase extends EditorPartInput implements
 	    final TestCaseDescriptor testCaseData) {
 	boolean isValid = true;
 
-	resetFields();
+	resetFieldBackgrounds();
 	if (name.trim().equals("")) {
 	    isValid = false;
-	    nameEmpty();
+	    errorMessageNameEmpty();
 	}
 	if (name.matches(".*[<>?|\".:_\\*/].*") || name.matches(".*\\\\.*")) {
 	    isValid = false;
-	    nameNotValid();
+	    errorMessageNameNotValid();
 	}
 
 	if (testCaseData.getExpectedDuration().length() > 0) {
 	    // check if right format
 	    final String[] splittedDuration = testCaseData.getExpectedDuration().split(":");
-	    // TODO Findbugs says this variable is never read or used after
-	    // assignment
 	    String expectedDuration = testCaseData.getExpectedDuration();
 	    try {
 		// HH:something
@@ -473,7 +457,7 @@ public class ViewTestCase extends EditorPartInput implements
 		    // HH:MMsomething
 		    if (splittedDuration[1].length() == 2) {
 			expectedDuration = splittedDuration[0] + ":" + splittedDuration[1];
-			TSMTestCase.durationFormat.parse(expectedDuration);
+			TSMTestCase.getDurationFormat().parse(expectedDuration);
 		    } else {
 			throw new ParseException(null, 0);
 		    }
@@ -483,22 +467,9 @@ public class ViewTestCase extends EditorPartInput implements
 		}
 	    } catch (final ParseException e) {
 		isValid = false;
-		durationNotValid();
+		errorMessageDurationNotValid();
 	    }
 	}
-
-	// final Pattern pattern = Pattern.compile("<.*?>");
-	// final Matcher matcher = pattern.matcher(testCaseData
-	// .getShortDescription());
-	// int overhead = 0;
-	// while (matcher.find()) {
-	// overhead += matcher.group().length();
-	// }
-	// if (ishtmlEmpty(testCase.getRichTextPrecondition()).equals("")) {
-	// isValid = false;
-	// testcaseInterface.preConditionNotValid();
-	// }
-
 	return isValid;
     }
 
@@ -517,22 +488,34 @@ public class ViewTestCase extends EditorPartInput implements
 	return false;
     }
 
-    public void nameNotValid() {
+    /**
+     * Sets the error message if the name is not valid.
+     */
+    public void errorMessageNameNotValid() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_CHAR;
     }
 
-    public void durationNotValid() {
+    /**
+     * Sets the error message if the duration is not valid.
+     */
+    public void errorMessageDurationNotValid() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_INVALID;
     }
 
-    public void durationEmpty() {
+    /**
+     * Sets the error message if the duration field is empty.
+     */
+    public void errorMessageDurationEmpty() {
 	txtDuration.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_DURATION_EMPTY;
     }
 
-    public void resetFields() {
+    /**
+     * Reset background color of the gui input fields.
+     */
+    public void resetFieldBackgrounds() {
 	tempErrorMessage = "";
 	preCondition.setBackground(backgroundColorGroupField);
 	txtName.setBackground(backgroundColorTextfield);
@@ -541,7 +524,10 @@ public class ViewTestCase extends EditorPartInput implements
 	shortDescription.setBackground(backgroundColorGroupField);
     }
 
-    public void nameEmpty() {
+    /**
+     * Sets the error message if the name field is empty.
+     */
+    public void errorMessageNameEmpty() {
 	txtName.setBackground(colorError);
 	tempErrorMessage = tempErrorMessage + "\n" + ERROR_NAME_EMPTY;
     }

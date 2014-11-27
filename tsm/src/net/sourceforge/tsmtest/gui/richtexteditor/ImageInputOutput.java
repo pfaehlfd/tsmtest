@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.sourceforge.tsmtest.datamodel.DataModelTypes;
+import net.sourceforge.tsmtest.io.vcs.settings.VCSSettings;
+import net.sourceforge.tsmtest.io.vcs.svn.SubversionWrapper;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.swt.SWT;
@@ -35,8 +37,6 @@ public final class ImageInputOutput {
 
     private final ArrayList<String> tempImagePaths = new ArrayList<String>();
     private final ArrayList<String> tempImageFilenames = new ArrayList<String>();
-
-    private ImageLoader il;
 
     public static ImageInputOutput createHandler(final String[] paths) {
 	return new ImageInputOutput(paths);
@@ -75,7 +75,7 @@ public final class ImageInputOutput {
      * @return the relative path to the workspace root to the new image.
      */
     public void saveImage(final String projectName) throws IOException {
-
+	ImageLoader il;
 	il = new ImageLoader();
 	String absolutePath;
 	String relativePath;
@@ -89,6 +89,10 @@ public final class ImageInputOutput {
 		    .getLocation().toString()
 		    + relativePath;
 	    il.save(absolutePath, SWT.IMAGE_PNG);
+	    if (VCSSettings.isSubversionSupportEnabled()) {
+		SubversionWrapper.addForCommit(absolutePath);
+		SubversionWrapper.commit(absolutePath);
+	    }
 	    tempImagePaths.add(absolutePath);
 	    tempImageFilenames.add(filename);
 
@@ -108,6 +112,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_JPEG);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		} else if (imagePaths[i].endsWith(".png")) {
@@ -120,6 +126,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_PNG);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		} else if (imagePaths[i].endsWith(".gif")) {
@@ -132,6 +140,8 @@ public final class ImageInputOutput {
 			    .getLocation().toString()
 			    + relativePath;
 		    il.save(absolutePath, SWT.IMAGE_GIF);
+		    SubversionWrapper.addForCommit(absolutePath);
+		    SubversionWrapper.commit(absolutePath);
 		    tempImagePaths.add(absolutePath);
 		    tempImageFilenames.add(filename);
 		}

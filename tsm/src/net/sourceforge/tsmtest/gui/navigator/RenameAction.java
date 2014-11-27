@@ -41,7 +41,7 @@ public class RenameAction extends Action {
 
     @Override
     public void run() {
-	final TSMResource resource = SelectionManager.instance.getSelection()
+	final TSMResource resource = SelectionManager.getInstance().getSelection()
 		.getFirstResource();
 	if (resource != null) {
 	    tsmViewer.editElement(resource);

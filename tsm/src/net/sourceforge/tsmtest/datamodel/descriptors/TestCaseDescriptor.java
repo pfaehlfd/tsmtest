@@ -105,6 +105,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
      * Holds the revision of the tested program
      */
     private int revision = 0;
+    
+    //Holds the version as a free text string.
+    private String versionUnderTest = "";
 
     @Override
     public long getId() {
@@ -120,15 +123,26 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return author;
     }
 
+    /**
+     * Sets the author of the test case.
+     * @param author The author name to be set.
+     */
     public void setAuthor(final String author) {
 	this.author = author;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getAssignedTo()
+     */
     @Override
     public String getAssignedTo() {
 	return assignedTo;
     }
 
+    /**
+     * Sets the assigned to of the test case.
+     * @param assignedTo The assigned to name to be set.
+     */
     public void setAssignedTo(final String assignedTo) {
 	this.assignedTo = assignedTo;
     }
@@ -138,6 +152,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return priority;
     }
 
+    /**
+     * Sets the priority of the test case.
+     * @param priority The priority to be set.
+     */
     public void setPriority(final PriorityType priority) {
 	this.priority = priority;
     }
@@ -147,6 +165,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return expectedDuration;
     }
 
+    /**
+     * Sets the expected duration of the test case.
+     * @param expectedDuration The expected duration to be set.
+     */
     public void setExpectedDuration(final String expectedDuration) {
 	this.expectedDuration = expectedDuration;
     }
@@ -156,6 +178,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return realDuration;
     }
 
+    /**
+     * Sets the real duration of the test case.
+     * @param realDuration The real duration to be set.
+     */
     public void setRealDuration(final String realDuration) {
 	this.realDuration = realDuration;
     }
@@ -165,6 +191,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return shortDescription;
     }
 
+    /**
+     * Sets the short description of the test case.
+     * @param shortDescription The short description to be set.
+     */
     public void setShortDescription(final String shortDescription) {
 	this.shortDescription = shortDescription;
     }
@@ -174,6 +204,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return richTextPrecondition;
     }
 
+    /**
+     * Sets the rich text precondition of the test case.
+     * @param richTextPrecondition The rich text precondition to be set.
+     */
     public void setRichTextPrecondition(final String richTextPrecondition) {
 	this.richTextPrecondition = richTextPrecondition;
     }
@@ -183,6 +217,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return steps;
     }
 
+    /**
+     * Adds a test step to the test case.
+     * @param step The test step to be added to the test case.
+     */
     public void addStep(final TestStepDescriptor step) {
 	steps.add(step);
     }
@@ -196,10 +234,17 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return numberOfExecutions;
     }
 
+    /**
+     * Sets the number of executions of the test case.
+     * @param numberOfExecutions The number of executions to be set.
+     */
     public void setNumberOfExecutions(final int numberOfExecutions) {
 	this.numberOfExecutions = numberOfExecutions;
     }
 
+    /**
+     * Increases the number of executions of the test case.
+     */
     public void increaseNumberOfExecutions() {
 	numberOfExecutions++;
     }
@@ -209,10 +254,17 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return numberOfFailures;
     }
 
+    /**
+     * Sets the number of failures of the test case.
+     * @param numberOfFailures The number of failures to be set.
+     */
     public void setNumberOfFailures(final int numberOfFailures) {
 	this.numberOfFailures = numberOfFailures;
     }
 
+    /**
+     * Increases the number of failures of the test case.
+     */
     public void increaseNumberOfFailures() {
 	numberOfFailures++;
     }
@@ -222,6 +274,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return lastExecution;
     }
 
+    /**
+     * Sets the last execution on date of the test case.
+     * @param lastExecution The last execution date to be set.
+     */
     public void setLastExecution(final Date lastExecution) {
 	this.lastExecution = lastExecution;
     }
@@ -231,6 +287,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return status;
     }
 
+    /**
+     * Sets the status of the test case.
+     * @param status The status to be set.
+     */
     public void setStatus(final StatusType status) {
 	this.status = status;
     }
@@ -240,6 +300,10 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return creationDate;
     }
 
+    /**
+     * Sets the creation date of the test case.
+     * @param creationDate The creation date to be set.
+     */
     public void setCreationDate(final Date creationDate) {
 	this.creationDate = creationDate;
     }
@@ -249,10 +313,17 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	return richTextResult;
     }
 
+    /**
+     * Sets the rich text result of the test case.
+     * @param richTextResult The rich text result to be set.
+     */
     public void setRichTextResult(final String richTextResult) {
 	this.richTextResult = richTextResult;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#clone()
+     */
     @Override
     protected Object clone() throws CloneNotSupportedException {
 	final TestCaseDescriptor clone = (TestCaseDescriptor) super.clone();
@@ -278,6 +349,9 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	}
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
 	int hashCode = getClass().getName().hashCode();
@@ -296,11 +370,14 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 	for (int i = 0; i < steps.size(); i++) {
 	    final TestStepDescriptor testStep = steps.get(i);
 	    hashCode += testStep.getExpectedResult().hashCode();
-	    hashCode += testStep.getRichTextDescription().hashCode();
+	    hashCode += testStep.getActionRichText().hashCode();
 	}
 	return hashCode;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(final Object other) {
 	// Check all attributes
@@ -361,25 +438,31 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
 		    testStep2.getExpectedResult())) {
 		return false;
 	    }
-	    if (!testStep.getRichTextDescription().equals(
-		    testStep2.getRichTextDescription())) {
+	    if (!testStep.getActionRichText().equals(
+		    testStep2.getActionRichText())) {
 		return false;
 	    }
 	}
 	return true;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getLastChangedOn()
+     */
     @Override
     public Date getLastChangedOn() {
 	return lastChangedOn;
     }
 
+    /**
+     * @param lastChangedOn The date on which the test case was changed last time.
+     */
     public void setLastChangedOn(final Date lastChangedOn) {
 	this.lastChangedOn = lastChangedOn;
     }
 
-    /**
-     * returns the revision of the tested program
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getRevisionNumber()
      */
     @Override
     public int getRevisionNumber() {
@@ -387,13 +470,28 @@ public class TestCaseDescriptor implements ITestCaseDescriptor, Cloneable {
     }
 
     /**
-     * sets the revision of the tested program
+     * Dets the revision of the system under test.
      * 
-     * @param revision
-     *            version of the tested program
+     * @param revision of the system under test.
      */
     public void setRevisionNumber(final int revision) {
 	this.revision = revision;
     }
 
+    /**
+     * Set the version as a free text string.
+     * @param versionText The version text to be set.
+     */
+    public void setVersionText(final String versionText) {
+	this.versionUnderTest = versionText;
+    }
+
+
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestCaseDescriptor#getVersion()
+     */
+    @Override
+    public String getVersion() {
+	return versionUnderTest;
+    }
 }

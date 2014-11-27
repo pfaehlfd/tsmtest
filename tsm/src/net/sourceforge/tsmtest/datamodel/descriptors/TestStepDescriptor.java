@@ -19,7 +19,6 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  *
  */
 public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
-
     /**
      * Holds the description of the tesnewContentt step as a rich text in html
      * format.
@@ -37,37 +36,58 @@ public class TestStepDescriptor implements ITestStepDescriptor, Cloneable {
      * Holds the current status of the newContenttest step.
      */
     private StatusType status = StatusType.notExecuted;
-    /**
-     * Returns the description of a test case in html format
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getAction()
      */
-    public String getRichTextDescription() {
+    public String getActionRichText() {
 	return richTextDescription;
     }
 
-    public void setRichTextDescription(String richTextDescription) {
-	this.richTextDescription = richTextDescription;
+    /**
+     * @param action The action as a rich text that the tester should execute.
+     */
+    public void setActionRichText(String action) {
+	this.richTextDescription = action;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getExpectedResult()
+     */
     public String getExpectedResult() {
 	return expectedResult;
     }
 
+    /**
+     * @param expectedResult The action as a rich text that the tester should execute.
+     */
     public void setExpectedResult(String expectedResult) {
 	this.expectedResult = expectedResult;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getRealResult()
+     */
     public String getRealResult() {
 	return realResult;
     }
 
+    /**
+     * @param realResult The real result that was entered by the tester during the execution.
+     */
     public void setRealResult(String realResult) {
 	this.realResult = realResult;
     }
 
+    /* (non-Javadoc)
+     * @see net.sourceforge.tsmtest.datamodel.descriptors.ITestStepDescriptor#getStatus()
+     */
     public StatusType getStatus() {
 	return status;
     }
 
+    /**
+     * @param status The status of the test step.
+     */
     public void setStatus(StatusType status) {
 	this.status = status;
     }

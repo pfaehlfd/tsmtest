@@ -22,7 +22,8 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  */
 public class TestResult {
     private String description;
-    private StatusType state;
+    private StatusType status;
+    private String time;
     private boolean updateTime;
     
     public String getDescription() {
@@ -31,17 +32,43 @@ public class TestResult {
     public void setDescription(String description) {
 	this.description = description;
     }
-    public StatusType getState() {
-	return state;
+    /**
+     * @return The status of the test case execution.
+     */
+    public StatusType getStatus() {
+	return status;
     }
-    public void setState(StatusType state) {
-	this.state = state;
+    /**
+     * @param status Sets the status of the test case execution.
+     */
+    public void setStatus(StatusType status) {
+	this.status = status;
     }
+    /**
+     * @return True, if the estimated time of the test case should be updated.
+     */
     public boolean isUpdateTime() {
 	return updateTime;
     }
+    /**
+     * @param updateTime Whether the estimated time of the test case should be updated.
+     */
     public void setUpdateTime(boolean updateTime) {
 	this.updateTime = updateTime;
+    }
+    
+    /**
+     * @return The duration of the test case execution.
+     */
+    public String getDuration() {
+	return time;
+    }
+    
+    /**
+     * @param newDuration The new duration of the test case execution.
+     */
+    public void setDuration(String newDuration) {
+	time = newDuration;
     }
     
 }

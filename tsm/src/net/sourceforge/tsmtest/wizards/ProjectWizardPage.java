@@ -18,6 +18,7 @@ package net.sourceforge.tsmtest.wizards;
 import java.net.URI;
 
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -235,7 +236,7 @@ public class ProjectWizardPage extends WizardPage {
 	data.widthHint = SIZING_TEXT_FIELD_WIDTH;
 	projectNameField.setLayoutData(data);
 	projectNameField.setFont(parent.getFont());
-	projectNameField.setTextLimit(200);
+	projectNameField.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 
 	// Set the initial value first before listener
 	// to avoid handling an event during the creation.

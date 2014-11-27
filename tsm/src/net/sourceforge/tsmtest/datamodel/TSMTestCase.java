@@ -34,8 +34,7 @@ import net.sourceforge.tsmtest.datamodel.descriptors.TestCaseDescriptor;
  *
  */
 public class TSMTestCase extends TSMResource {
-
-    public static final DateFormat durationFormat = createDateFormat();
+    private static final DateFormat durationFormat = createDateFormat();
     private TestCaseDescriptor data;
 
     protected TSMTestCase(final String name, final TSMContainer parent,
@@ -44,6 +43,10 @@ public class TSMTestCase extends TSMResource {
 	this.data = data;
     }
 
+    /**
+     * Creates the DateFormat object for the duration.
+     * @return an DateFormat object with the format "HH:mm".
+     */
     private static DateFormat createDateFormat() {
 	final DateFormat durationFormat = new SimpleDateFormat("HH:mm");
 	durationFormat.setLenient(false);
@@ -85,14 +88,24 @@ public class TSMTestCase extends TSMResource {
 	return update(getName(), data);
     }
 
+    /**
+     * @return A collection containing all reports that belong to the test case.
+     *  If no protocols were found a new HashSet is returned.
+     */
     public Collection<TSMReport> getReports() {
 	return DataModel.getInstance().getReportOfTestCase(getData().getId());
     }
 
+    /**
+     * Creates a new TSMReport that belongs to the TSMTestCase.
+     * @param newReport The TestCaseDescriptor to which the report should belong.
+     * @return The new TSMReport.
+     * @throws DataModelException
+     */
     public TSMReport createReport(final TestCaseDescriptor newReport)
 	    throws DataModelException {
 	final String name = TSMReport.getDefaultName(getName(),
-		newReport.getLastExecution());
+		newReport.getLastExecution(), newReport.getRevisionNumber());
 	return DataModel.getInstance().createReport(name, newReport, this);
     }
 
@@ -109,15 +122,26 @@ public class TSMTestCase extends TSMResource {
 	return DataModelTypes.TSM_TEST_CASE_EXTENSION;
     }
 
+    /**
+     * Getter for the category for TSMViewerComparator.
+     * @return The categories of the TSMTestCase.
+     */
     public static int getCategory() {
-	return 1;
+	return DataModelTypes.CATEGORY_TSMTESTCASE;
     }
 
+    /**
+     * @param creationDate The date of the creation of test case.
+     * @return A random and unique ID for a test case.
+     */
     public static long generateID(final Date creationDate) {
 	return creationDate.getTime()
 		+ (long) (Math.random() * Integer.MAX_VALUE);
     }
 
+    /**
+     * @return An array of Strings with the name of all creators of test cases.
+     */
     public static String[] getAllCreators() {
 	final Set<String> list = DataModel.getInstance().getAllCreators();
 	final String[] array = new String[list.size()];
@@ -127,5 +151,12 @@ public class TSMTestCase extends TSMResource {
 	    array[i] = iterator.next();
 	}
 	return array;
+    }
+    
+    /**
+     * @return an DateFormat object with the format "HH:mm".
+     */
+    public static synchronized DateFormat getDurationFormat() {
+	return durationFormat;
     }
 }

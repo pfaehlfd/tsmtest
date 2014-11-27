@@ -42,23 +42,44 @@ public class DataModelTypes {
      * The ID of the contentType of a test case file.
      */
     public static final String CONTENT_TYPE_ID_TESTCASE = "net.sourceforge.tsmtest.contenttype.testcase";
+    //Categories for TSMViewerComparator.
+    static final int CATEGORY_TSMTESTCASE = 1;
+    static final int CATEGORY_TSMREPORT = 2;
+    static final int CATEGORY_TSMPACKAGE = 3;
+    static final int CATEGORY_TSMPROJECT = 4;
 
     /**
      * The ID of the protocol.
      */
     public static final String CONTENT_TYPE_ID_PROTOCOL = "net.sourceforge.tsmtest.contenttype.testcaseprotocol";
-
+    /**
+     * The project nature for Eclipse.
+     */
     public static final String TSM_NATURE = "net.sourceforge.tsmtest.datamodel.TSMNature";
-
+    /**
+     * The file name extension for test cases.
+     */
     public static final String TSM_TEST_CASE_EXTENSION = ".xml";
+    /**
+     * The file name extension for reports.
+     */
     public static final String TSM_REPORT_EXTENSION = ".xml";
+    
     /**
      * Global date format for durations and dates of last execution.
      */
-    public static final SimpleDateFormat dateFormat = new SimpleDateFormat(
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat(
 	    "yyyy-MM-dd, HH:mm:ss");
 
+    /**
+     * Folder name for the images.
+     */
     public static final String imageFolderName = "images";
+    
+    /**
+     * Maximum length for names (projects, packets, test cases, file names, ...)
+     */
+    public static final int NAME_MAX_LENGTH = 200;
 
     /**
      * @param file
@@ -76,5 +97,12 @@ public class DataModelTypes {
 	    return TSMProject.getCategory();
 	}
 	return -1;
+    }
+    
+    /**
+     * @return the date format for the data model.
+     */
+    public static synchronized SimpleDateFormat getDateFormat() {
+	return dateFormat;
     }
 }

@@ -54,7 +54,7 @@ public abstract class MultiPageEditorPartInput extends MultiPageEditorPart {
 	    getInput((TSMTestCase) resource);
 	}
 	else if (resource instanceof TSMReport) {
-	    getInput((TSMReport) resource);
+	    setEditorInput((TSMReport) resource);
 	}
 	else {
 	    throw new PartInitException(Messages.MultiPageEditorPartInput_1);
@@ -73,7 +73,7 @@ public abstract class MultiPageEditorPartInput extends MultiPageEditorPart {
      * @param input
      *            for this editor. Can be <code>null</code>.
      */
-    protected abstract void getInput(TSMReport input);
+    protected abstract void setEditorInput(TSMReport input);
     
     public abstract TSMTestCase getTestCaseInput();
 

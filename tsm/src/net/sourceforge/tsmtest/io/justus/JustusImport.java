@@ -20,6 +20,7 @@ import java.util.Date;
 
 import net.sourceforge.tsmtest.datamodel.DataModel;
 import net.sourceforge.tsmtest.datamodel.DataModelException;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.TSMContainer;
 import net.sourceforge.tsmtest.datamodel.TSMPackage;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
@@ -46,7 +47,6 @@ import org.jdom2.Element;
  * 
  */
 public class JustusImport {
-
     /**
      * @param source
      *            The String path given by the wizard.
@@ -58,7 +58,6 @@ public class JustusImport {
      * @throws ParseException
      * @throws DataModelException
      */
-
     public static boolean importFile(final Element root,
 	    final IPath parentPackage, final boolean isSeqeuenceTestCase,
 	    final IProgressMonitor monitor, final int number)
@@ -112,7 +111,6 @@ public class JustusImport {
      * @throws DataModelException
      * @throws ParseException
      */
-
     private static synchronized boolean readPackages(
 	    final Element parentElement, final IPath parentPath,
 	    final String preCondition, final boolean isSeqeuenceTestCase,
@@ -230,6 +228,7 @@ public class JustusImport {
     }
 
     /**
+     * Replaces characters that would cause illegal xml tags or parsing problems with "#".
      * @param name
      *            The name of the test case or package which should be parsed.
      * @return The parsed string
@@ -244,21 +243,20 @@ public class JustusImport {
 	newString = newString.replace("\\", "#"); //$NON-NLS-1$ //$NON-NLS-2$
 	newString = newString.replace("/", "#"); //$NON-NLS-1$ //$NON-NLS-2$
 	newString = newString.replace("|", "#"); //$NON-NLS-1$ //$NON-NLS-2$
-	if (newString.length() > 200) {
-	    newString = newString.substring(0, 200);
+	if (newString.length() > DataModelTypes.NAME_MAX_LENGTH) {
+	    newString = newString.substring(0, DataModelTypes.NAME_MAX_LENGTH);
 	}
 	return newString;
     }
 
     /**
-     * The method replaces several characters. Needed for rich text
+     * The method replaces several characters. Needed for rich text.
      * 
      * @param text
      *            The text to parse
      * @return The text with replaced characters.
      */
     private static String replaceCharacters(final String text) {
-
 	final String[][] escapes = new String[RichText.escapes.length + 2][2];
 	System.arraycopy(RichText.escapes, 0, escapes, 0,
 		RichText.escapes.length);
@@ -377,11 +375,11 @@ public class JustusImport {
 	    final TestStepDescriptor step = new TestStepDescriptor();
 
 	    if (currentElement.getChildText("actions") != null) {
-		step.setRichTextDescription("<html><p>" //$NON-NLS-1$
+		step.setActionRichText("<html><p>" //$NON-NLS-1$
 			+ replaceCharacters(currentElement
 				.getChildText("actions")) + "</p></html>"); //$NON-NLS-1$ //$NON-NLS-2$
 	    } else {
-		step.setRichTextDescription("<html><p></p></html>"); //$NON-NLS-1$ 
+		step.setActionRichText("<html><p></p></html>"); //$NON-NLS-1$ 
 	    }
 
 	    if (currentElement.getChildText("post") != null) {
@@ -547,11 +545,11 @@ public class JustusImport {
 		    final TestStepDescriptor step = new TestStepDescriptor();
 
 		    if (currentElement.getChildText("actions") != null) {
-			step.setRichTextDescription("<html><p>" //$NON-NLS-1$
+			step.setActionRichText("<html><p>" //$NON-NLS-1$
 				+ replaceCharacters(currentElement
 					.getChildText("actions")) + "</p></html>"); //$NON-NLS-1$ //$NON-NLS-2$
 		    } else {
-			step.setRichTextDescription("<html><p></p></html>"); //$NON-NLS-1$ 
+			step.setActionRichText("<html><p></p></html>"); //$NON-NLS-1$ 
 		    }
 
 		    if (currentElement.getChildText("post") != null) {
@@ -563,7 +561,7 @@ public class JustusImport {
 			step.setExpectedResult("<html><p></p></html>"); //$NON-NLS-1$
 		    }
 		    // step is only added if it is not empty
-		    if (!(step.getRichTextDescription().equals(
+		    if (!(step.getActionRichText().equals(
 			    "<html><p></p></html>") && step.getExpectedResult()
 			    .equals("<html><p></p></html>"))) {
 			testCase.addStep(step);

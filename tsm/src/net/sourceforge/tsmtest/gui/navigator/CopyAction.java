@@ -40,7 +40,7 @@ public class CopyAction extends Action {
     @Override
     public void run() {
 	// clipboard.setContents(data, dataTypes)
-	PasteAction.setClipboard(SelectionManager.instance.getSelection()
+	PasteAction.setClipboard(SelectionManager.getInstance().getSelection()
 		.getAllResources(), true);
     }
 }

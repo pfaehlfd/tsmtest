@@ -20,14 +20,26 @@ import java.util.ArrayList;
  */
 public final class FilterManager {
     /**
-     * Returns the Singleton of this class.
+     * Instance of the FilterManager.
      */
-    public static final FilterManager instance = new FilterManager();
+    private static volatile FilterManager instance;
 
     private ArrayList<FilterListener> listeners = new ArrayList<FilterListener>();
 
     private FilterManager() {
 
+    }
+    
+    /**
+     * FilterManager singleton.
+     * 
+     * @return instance of FilterManager
+     */
+    public static FilterManager getInstance() {
+	if (instance == null) {
+	    instance = new FilterManager();
+	}
+	return instance;
     }
 
     /**
@@ -36,7 +48,7 @@ public final class FilterManager {
      * 
      * @param listener
      *            the object which receives preference updates
-     * @usage <code>PreferenceManager.instance.register(this);</code>
+     * @usage <code>PreferenceManager.getInstance().register(this);</code>
      */
     public void register(FilterListener listener) {
 	listeners.add((FilterListener) listener);
@@ -48,7 +60,7 @@ public final class FilterManager {
      * 
      * @param listener
      *            the object which receives selection updates
-     * @usage <code>PreferenceManager.instance.unregister(this);</code>
+     * @usage <code>PreferenceManager.getInstance().unregister(this);</code>
      */
     public void unregister(FilterListener listener) {
 	listeners.remove((FilterListener) listener);
@@ -65,6 +77,9 @@ public final class FilterManager {
 	public void filterChanged();
     }
 
+    /**
+     * Call when model has changed.
+     */
     public void invoke(){
 	for(FilterListener listener : listeners) {
 	    listener.filterChanged();

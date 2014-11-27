@@ -55,28 +55,28 @@ public class SashManager<T> {
     /**
      * Used to control the speed of the mousewheel-listener
      */
-    private static int SCROLLSPEED = 12;
+    private static int scrollspeed = 12;
     private ModifyListener heightListener;
 
     private Composite composite;
     private boolean disposed = false;
 
     /**
-     * Getter for Scrollspeed
+     * Getter for scrollspeed.
      * 
-     * @return scrollspeed
+     * @return The current scrollspeed.
      */
     public static int getScrollSpeed() {
-	return SCROLLSPEED;
+	return scrollspeed;
     }
 
     /**
-     * setter for ScrollSpeed
+     * Setter for scrollspeed.
      * 
-     * @param newSpeed
+     * @param newSpeed The new scrollspeed.
      */
     public synchronized static void setScrollSpeed(int newSpeed) {
-	SCROLLSPEED = newSpeed;
+	scrollspeed = newSpeed;
     }
 
     /**
@@ -113,7 +113,7 @@ public class SashManager<T> {
 	    public void mouseScrolled(final MouseEvent mouseEvent) {
 		ScrolledComposite scrolledComposite = (ScrolledComposite) mouseEvent.getSource();
 		Point point = scrolledComposite.getOrigin();
-		point.y -= mouseEvent.count * SCROLLSPEED;
+		point.y -= mouseEvent.count * scrollspeed;
 		scrolledComposite.setOrigin(point);
 	    }
 	};
@@ -178,15 +178,15 @@ public class SashManager<T> {
     }
 
     /**
-     * adds the given column to the Sashform
+     * Adds the given column to the Sashform
      * 
      * @param sashManagerColumn
      *            the column to be added to the list
-     * @param title
+     * @param title Title of the column.
      * @param width
      * @param fixedWidth
      * @param traversable
-     * @param tooltip Text of the tooltip
+     * @param tooltip Text of the tooltip.
      */
     public void addColumn(SashManagerColumn<?> sashManagerColumn, String title,
 	    int width, boolean fixedWidth, boolean traversable, String tooltip) {
@@ -197,16 +197,16 @@ public class SashManager<T> {
     /**
      * Disposes and removes the column at the specific index
      * 
-     * @param revision
+     * @param index
      *            index to be disposed
      */
-    public void removeColumn(int revision) {
-	columnList.get(revision).dispose();
-	columnList.remove(revision);
+    public void removeColumn(int index) {
+	columnList.get(index).dispose();
+	columnList.remove(index);
     }
 
     /**
-     * Sets the content of the sashform with the given testcases
+     * Sets the content of the sashform with the given testcases.
      * 
      * @param objects
      */
@@ -248,7 +248,7 @@ public class SashManager<T> {
     }
 
     /**
-     * Sets the content of the sashform with the given strings
+     * Sets the content of the sashform with the given strings.
      * 
      * @param objects
      */
@@ -289,7 +289,7 @@ public class SashManager<T> {
     }
 
     /**
-     * returns the Content
+     * @return the Content
      */
     public List<T> getContent() {
 	List<T> content = new ArrayList<T>();
@@ -301,18 +301,18 @@ public class SashManager<T> {
     }
 
     /**
-     * getter for stepSize
+     * Getter for stepSize.
      * 
-     * @return rowList.size()
+     * @return The size of the rowList.
      */
     public int getStepSize() {
 	return rowList.size();
     }
 
     /**
-     * Deletes the given row
+     * Deletes the given row.
      * 
-     * @param e
+     * @param row The number of the row to be deleted.
      */
     public void deleteRow(int row) {
 	SashManagerRow sashRow = rowList.remove(row);
@@ -399,10 +399,11 @@ public class SashManager<T> {
     }
 
     /**
-     * Resized the component
+     * Resizes the component.
      * 
      * @param force
      *            layout even if no sashform changed height
+     * @param scrollToRow
      */
     private void resize(boolean force, SashManager<?>.SashManagerRow scrollToRow) {
 	int height = 0;
@@ -448,10 +449,10 @@ public class SashManager<T> {
      * Updates the labels of our SashForms, updates their position and the size
      * of the ScrolledComosite
      * 
-     * @param sf
+     * @param resizeForce layout even if no sashform changed height.
+     * @param updateRow row which labels should be updated.
      */
-    private void updateLabels(boolean resizeForce, SashManagerRow scrollToRow) {
-
+    private void updateLabels(boolean resizeForce, SashManagerRow updateRow) {
 	if (isDisposed()) {
 	    return;
 	}
@@ -467,7 +468,7 @@ public class SashManager<T> {
 		sashManagerRow.moveBelow(rowList.get(i - 1));
 	    }
 	}
-	resize(resizeForce, scrollToRow);
+	resize(resizeForce, updateRow);
     }
 
     /**
@@ -544,14 +545,13 @@ public class SashManager<T> {
 		int column);
 
 	/**
-	 * Sets up the columnheader
+	 * Sets up the columnheader.
 	 * 
-	 * @param title
-	 *            title of the columm
+	 * @param title Title of the columm.
 	 * @param width
 	 * @param fixedWidth
 	 * @param traversable
-	 * @param tooltip Text of the tooltip
+	 * @param tooltip Text of the tooltip.
 	 */
 	final void setup(String title, int width, boolean fixedWidth,
 		boolean traversable, String tooltip) {
@@ -578,7 +578,7 @@ public class SashManager<T> {
 	}
 
 	/**
-	 * Getter for the width
+	 * Getter for the width.
 	 * 
 	 * @return
 	 */
@@ -604,13 +604,11 @@ public class SashManager<T> {
 	}
 
 	/**
-	 * Returns the data
-	 * 
 	 * @param control
 	 * @param data
 	 * @param row
 	 * @param column
-	 * @return
+	 * @return the data.
 	 */
 	protected T writeContentToData(W control, T data, int row, int column) {
 	    return data;
@@ -625,7 +623,7 @@ public class SashManager<T> {
 	}
 
 	/**
-	 * Returns the height of the control
+	 * Returns the height of the control.
 	 * 
 	 * @param control
 	 * @return
@@ -636,7 +634,7 @@ public class SashManager<T> {
 	}
 
 	/**
-	 * Renders the testcases
+	 * Renders the testcases.
 	 * 
 	 * @param control
 	 *            widget of the testcase
@@ -676,7 +674,7 @@ public class SashManager<T> {
 	}
 
 	/**
-	 * returns the data
+	 * Returns the data.
 	 * 
 	 * @param control
 	 * @param data
@@ -721,7 +719,7 @@ public class SashManager<T> {
 	private int oldMaxHeight;
 
 	/**
-	 * Creates a new row
+	 * Creates a new row.
 	 * 
 	 * @param parent
 	 *            parent composite
@@ -745,6 +743,9 @@ public class SashManager<T> {
 	    }
 	}
 
+	/**
+	 * @param row number of the row which index changed.
+	 */
 	void rowIndexChanged(int row) {
 	    for (int index = 0; index < columnList.size(); index++) {
 		SashManagerColumn<? extends Control> column = columnList
@@ -783,6 +784,10 @@ public class SashManager<T> {
 	    wasHeightChanged = change;
 	}
 
+	/**
+	* Renders a row.
+	* @param row The number of the row to be rendered.
+	*/
 	void render(int row) {
 	    if (tcData == null) {
 		if (data == null) {
@@ -803,6 +808,11 @@ public class SashManager<T> {
 	    }
 	}
 
+	/**
+	* Gets the content of a given row.
+	* @param row The row to get the content from.
+	* @return The content of the row.
+	*/
 	void setup() {
 	    tcData = createDefaultData();
 	    ArrayList<Control> tabList = new ArrayList<Control>();
@@ -826,6 +836,10 @@ public class SashManager<T> {
 	    this.data = data;
 	}
 
+	/**
+	* Gets the name of all columns of the SashManager.
+	* @return An array with the name of all columns.
+	*/
 	T getContent(int row) {
 	    for (int index = 0; index < columnList.size(); index++) {
 		SashManagerColumn<? extends Control> column = columnList
@@ -845,6 +859,9 @@ public class SashManager<T> {
 	return headerNames;
     }
 
+    /**
+    * Removes all columns except the first two.
+    */
     public void removeAllColumns() {
 	while (columnList.size() > 2) {
 	    columnList.get(2).dispose();
@@ -852,6 +869,9 @@ public class SashManager<T> {
 	}
     }
 
+    /**
+    * @return True if SashManager is disposed.
+    */
     public boolean isDisposed() {
 	return disposed;
     }
