@@ -2,5 +2,17 @@ Changelog for Testsuite-Management (TSM) - https://sourceforge.net/projects/tsmt
 
 Note: This changelog only contains changes that were made after the publishing on Sourceforge.
 
+2014-11-28 - Version 1.5.2:
+  * Subversion support can now be enabled. See manual for details.
+  * PDF export can be filtered for status, priority and revisions.
+  * Revision number of protocols is now displayed in the navigator.
+  * Beside the revision number the tester can also enter a free text string as a version identifier of the system under test.
+  * The field "Duration" on edit test case has been renamed to "Estimated duration"
+  * The test duration can now be edited on entering the result.
+  * Simplified gui by hiding filter and quick view on default.
+  * Added save button in the toolbar.
+  * Added epxand all button in the tsm navigator.
+  * Adapted user manual to new version.
+
 2014-05-29 - Version 1.5.1:
   * Fixed a bug that prevented the correct recognition of Justus files that were created with the German language settings in Justus.
