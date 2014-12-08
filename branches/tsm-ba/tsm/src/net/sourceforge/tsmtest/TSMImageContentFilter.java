@@ -24,7 +24,6 @@ import org.eclipse.jface.viewers.ViewerFilter;
  *
  */
 public class TSMImageContentFilter extends ViewerFilter {
-
     @Override
     public boolean select(final Viewer viewer, final Object parentElement,
 	    final Object element) {

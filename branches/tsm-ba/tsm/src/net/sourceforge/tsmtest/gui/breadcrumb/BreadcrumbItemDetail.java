@@ -80,9 +80,9 @@ class BreadcrumbItemDetail {
 		imageComposite.setLayout(layout);
 		imageComposite.addListener(SWT.Paint, new Listener() {
 			@Override
-			public void handleEvent(final Event e) {
+			public void handleEvent(final Event event) {
 				if (hasFocus && !isTextVisible()) {
-					e.gc.drawFocus(e.x, e.y, e.width, e.height);
+					event.gc.drawFocus(event.x, event.y, event.width, event.height);
 				}
 			}
 		});
@@ -106,9 +106,9 @@ class BreadcrumbItemDetail {
 		addElementListeners(textComposite);
 		textComposite.addListener(SWT.Paint, new Listener() {
 			@Override
-			public void handleEvent(final Event e) {
+			public void handleEvent(final Event event) {
 				if (hasFocus && isTextVisible()) {
-					e.gc.drawFocus(e.x, e.y, e.width, e.height);
+					event.gc.drawFocus(event.x, event.y, event.width, event.height);
 				}
 			}
 		});
@@ -124,15 +124,15 @@ class BreadcrumbItemDetail {
 		textComposite.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(final AccessibleEvent e) {
-						e.result = getText();
+					public void getName(final AccessibleEvent accessibleEvent) {
+						accessibleEvent.result = getText();
 					}
 				});
 		imageComposite.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(final AccessibleEvent e) {
-						e.result = getText();
+					public void getName(final AccessibleEvent accessibleEvent) {
+						accessibleEvent.result = getText();
 					}
 				});
 
