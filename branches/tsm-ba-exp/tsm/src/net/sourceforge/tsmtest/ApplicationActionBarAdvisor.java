@@ -143,9 +143,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	pasteAction1 = ActionFactory.PASTE.create(window);
 	register(pasteAction1);
 
-	saveAsAction = ActionFactory.SAVE_AS.create(window);
-	register(saveAsAction);
-
 	saveAllAction = ActionFactory.SAVE_ALL.create(window);
 	register(saveAllAction);
 
@@ -220,7 +217,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	fileMenu.add(closeAllAction);
 	fileMenu.add(new Separator());
 	fileMenu.add(saveAction);
-	fileMenu.add(saveAsAction);
 	fileMenu.add(saveAllAction);
 	fileMenu.add(new Separator());
 	fileMenu.add(moveAction);
