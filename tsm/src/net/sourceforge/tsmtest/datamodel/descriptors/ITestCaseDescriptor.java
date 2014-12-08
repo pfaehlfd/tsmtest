@@ -24,20 +24,87 @@ import net.sourceforge.tsmtest.datamodel.DataModelTypes.StatusType;
  */
 public interface ITestCaseDescriptor {
     public long getId();
+    /**
+     * Gets the name of the tester.
+     * @return The name of the assigned tester.
+     */
     public String getAssignedTo();
+    /**
+     * Gets the author of the test case.
+     * @return The name of the autor of the test case.
+     */
     public String getAuthor();
+    /**
+     * Gets the creation date.
+     * @return The date of the creation.
+     */
     public Date getCreationDate();
+    /**
+     * Get the expected duration of the test case.
+     * @return The expected duration.
+     */
     public String getExpectedDuration();
+    /**
+     * Gets the last execution on date of the test case.
+     * @return The date for last changed on.
+     */
     public Date getLastExecution();
+    /**
+     * Gets the number of executions of the test case.
+     * @return The number of executions the test case was already executed.
+     */
     public int getNumberOfExecutions();
+    /**
+     * Gets the number of failues of the test cases.
+     * @return The number of times the execution of the test case failed.
+     */
     public int getNumberOfFailures();
+    /**
+     * Gets the priority of the test case.
+     * @return The priority of the test case.
+     */
     public PriorityType getPriority();
+    /**
+     * Gets the real duration of the test case.
+     * @return The real duration.
+     */
     public String getRealDuration();
+    /**
+     * Gets the rich text precondition of the test case as html.
+     * @return The precondition of the test case as rich text.
+     */
     public String getRichTextPrecondition();
+    /**
+     * Gets the rich text result of the test case as html.
+     * @return The result of the test case as rich text.
+     */
     public String getRichTextResult();
+    /**
+     * Gets the short description of the test case as html.
+     * @return The short description of the test case.
+     */
     public String getShortDescription();
+    /**
+     * Gets the status of the test case.
+     * @return The status of the test case.
+     */
     public StatusType getStatus();
+    /**
+     * Gets the test steps of the test case.
+     * @return The test steps of the test case as a list.
+     */
     public List<TestStepDescriptor> getSteps();
+    /**
+     * @return The date when the test case was last changed.
+     */
     public Date getLastChangedOn();
+    /**
+     * @return The revision of the system under test.
+     */
     public int getRevisionNumber();
+    /**
+     * Gets the free text string for the version.
+     * @return The version as a free text string.
+     */
+    public String getVersion();
 }

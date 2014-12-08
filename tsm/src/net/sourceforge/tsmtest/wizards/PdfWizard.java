@@ -23,6 +23,7 @@ import net.sourceforge.tsmtest.Activator;
 import net.sourceforge.tsmtest.Messages;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.io.pdf.ExportPdf;
+import net.sourceforge.tsmtest.io.pdf.FontsToolsConstants.ExportType;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -131,13 +132,16 @@ public class PdfWizard extends Wizard implements INewWizard {
      */
     @Override
     public boolean performFinish() {
-	final boolean intoOneFile = page.oneFile();
+	final ExportType exportType = page.getExportType();
 	boolean yesToAll = false;
 	boolean noToAll = false;
 	int answer = 0;
+	
+	List<TSMResource> exportList;
 
 	try {
-	    if (page.getProtocols().isEmpty()) {
+	    exportList = page.getExportList();
+	    if (exportList.isEmpty()) {
 		page.setErrorMessage(Messages.PdfWizard_1);
 		return false;
 	    }
@@ -147,12 +151,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 	}
 	
 	final List<TSMResource> newList;
-	try {
-	    newList = page.getProtocols();
-	} catch (CoreException e1) {
-	    page.setErrorMessage(e1.getLocalizedMessage());
-	    return false;
-	}
+	newList = exportList;
 
 	// check if path is valid
 	if (page.getPath().equals("")) { //$NON-NLS-1$
@@ -160,7 +159,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 	    return false;
 	}
 
-	if (intoOneFile) {
+	if (exportType.equals(ExportType.ONE_FILE)) {
 	    File file = new File(page.getPath());
 	    // file is a folder
 	    if (file.isDirectory()) {
@@ -177,7 +176,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 		}
 	    }
 
-	} else {
+	} else if (exportType.equals(ExportType.MULTIPLE_FILES)){
 	    final File directory = new File(page.getPath());
 	    // file is not a folder
 	    if (!directory.isDirectory()) {
@@ -259,7 +258,7 @@ public class PdfWizard extends Wizard implements INewWizard {
 		Display.getDefault().syncExec(r);
 		monitor.beginTask("Export", IProgressMonitor.UNKNOWN);
 		try {
-		    ExportPdf.print(newList, r.path, intoOneFile,
+		    ExportPdf.print(newList, r.path, exportType,
 			    getSubMonitor(monitor, 1));
 		} catch (DocumentException e) {
 		    throw new InvocationTargetException(e);

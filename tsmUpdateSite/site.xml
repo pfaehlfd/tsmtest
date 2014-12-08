@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/tsmFeature_1.5.1.jar" id="tsmFeature" version="1.5.1">
-      <category name="TSM"/>
-   </feature>
-   <category-def name="TSM" label="TSM"/>
-</site>

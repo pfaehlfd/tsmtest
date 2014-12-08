@@ -1,6 +1,7 @@
 package net.sourceforge.tsmtest.rename;
 
 import net.sourceforge.tsmtest.Messages;
+import net.sourceforge.tsmtest.datamodel.DataModelTypes;
 import net.sourceforge.tsmtest.datamodel.TSMResource;
 import net.sourceforge.tsmtest.datamodel.TSMTestCase;
 
@@ -17,9 +18,6 @@ import org.eclipse.ltk.core.refactoring.participants.ResourceChangeChecker;
 
 public class Rename extends
 	org.eclipse.ltk.core.refactoring.participants.RenameParticipant {
-
-    private String resourceName = "";
-
     /*
      * (non-Javadoc)
      * 
@@ -54,45 +52,50 @@ public class Rename extends
 	    if (resourceDelta.getMovedFromPath() != null) {
 		if (resourceDelta.getResource() instanceof TSMResource) {
 		    String name = resourceDelta.getResource().getName();
-		    boolean character = true;
-		    boolean length = true;
-		    boolean end = true;
+		    //Indicates whether only valid characters were entered:
+		    //invalid characters are: <, >, ?, ", \:, |, _, ., \\, / or *
+		    boolean containsOnlyValidCharacters = true;
+		    //Indicates whether the length of the input is correct.
+		    boolean lengthCorrect = true;
+		    //Indicates whether the name ends with .xml.
+		    boolean endsWithXml = true;
+		    
 		    if (resourceDelta.getResource() instanceof TSMTestCase
 			    && !name.endsWith(".xml")) { //$NON-NLS-1$
-			end = false;
+			endsWithXml = false;
 		    }
 
 		    if (name == null || name.isEmpty()) {
-			character = false;
-		    } else if (name.length() > 200) {
-			length = false;
+			containsOnlyValidCharacters = false;
+		    } else if (name.length() > DataModelTypes.NAME_MAX_LENGTH) {
+			lengthCorrect = false;
 		    } else if (name.contains("<")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains(">")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("?")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("\"")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains(":")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("|")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("\\")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("/")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    } else if (name.contains("*")) { //$NON-NLS-1$
-			character = false;
+			containsOnlyValidCharacters = false;
 		    }
 
-		    if (!character) {
+		    if (!containsOnlyValidCharacters) {
 			return RefactoringStatus
 				.createFatalErrorStatus(Messages.rename_1);
-		    } else if (!length) {
+		    } else if (!lengthCorrect) {
 			return RefactoringStatus
 				.createFatalErrorStatus(Messages.rename_2);
-		    } else if (!end) {
+		    } else if (!endsWithXml) {
 			return RefactoringStatus
 				.createFatalErrorStatus(Messages.rename_3);
 		    }

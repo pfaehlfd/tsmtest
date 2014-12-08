@@ -159,22 +159,18 @@ class BreadcrumbItemArrow {
 
 			if (isLTR()) {
 				lblMessage = new CLabel(statusLine, SWT.NONE);
-				lblMessage
-						.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				lblMessage.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
 				grip = new SizeGrip(statusLine, SWT.NONE);
-				grip
-						.setLayoutData(new GridData(SWT.END, SWT.END, false,
+				grip.setLayoutData(new GridData(SWT.END, SWT.END, false,
 								false));
 			} else {
 				grip = new SizeGrip(statusLine, SWT.RIGHT_TO_LEFT);
-				grip
-						.setLayoutData(new GridData(SWT.END, SWT.END, false,
+				grip.setLayoutData(new GridData(SWT.END, SWT.END, false,
 								false));
 
 				lblMessage = new CLabel(statusLine, SWT.RIGHT_TO_LEFT);
-				lblMessage
-						.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				lblMessage.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 			}
 
 			final Object input = parentItem.element;
@@ -267,35 +263,35 @@ class BreadcrumbItemArrow {
 				private TreeItem fLastItem = null;
 
 				@Override
-				public void handleEvent(final Event e) {
-					if (!tree.equals(e.widget)) {
+				public void handleEvent(final Event event) {
+					if (!tree.equals(event.widget)) {
 						return;
 					}
 
-					final TreeItem currentItem = tree.getItem(new Point(e.x,
-							e.y));
+					final TreeItem currentItem = tree.getItem(new Point(event.x,
+							event.y));
 					if (currentItem == null) {
 						return;
 					}
 
 					if (!currentItem.equals(fLastItem)) {
-						updateSelection(currentItem, e);
-					} else if (e.y < tree.getItemHeight() / 4) {
+						updateSelection(currentItem, event);
+					} else if (event.y < tree.getItemHeight() / 4) {
 						// scroll up
 						if (currentItem.getParentItem() == null) {
 							final int index = tree.indexOf(currentItem);
 							if (index < 1) {
 								return;
 							}
-							updateSelection(tree.getItem(index - 1), e);
+							updateSelection(tree.getItem(index - 1), event);
 						} else {
-							final Point p = tree.toDisplay(e.x, e.y);
+							final Point p = tree.toDisplay(event.x, event.y);
 							final Item item = dropDownViewer.scrollUp(p.x, p.y);
 							if (item instanceof TreeItem) {
-								updateSelection((TreeItem) item, e);
+								updateSelection((TreeItem) item, event);
 							}
 						}
-					} else if (e.y > tree.getBounds().height
+					} else if (event.y > tree.getBounds().height
 							- tree.getItemHeight() / 4) {
 						// scroll down
 						if (currentItem.getParentItem() == null) {
@@ -303,13 +299,13 @@ class BreadcrumbItemArrow {
 							if (index >= tree.getItemCount() - 1) {
 								return;
 							}
-							updateSelection(tree.getItem(index + 1), e);
+							updateSelection(tree.getItem(index + 1), event);
 						} else {
-							final Point p = tree.toDisplay(e.x, e.y);
+							final Point p = tree.toDisplay(event.x, event.y);
 							final Item item = dropDownViewer.scrollDown(p.x,
 									p.y);
 							if (item instanceof TreeItem) {
-								updateSelection((TreeItem) item, e);
+								updateSelection((TreeItem) item, event);
 							}
 						}
 					}
@@ -490,8 +486,8 @@ class BreadcrumbItemArrow {
 		imageElement.getAccessible().addAccessibleListener(
 				new AccessibleAdapter() {
 					@Override
-					public void getName(final AccessibleEvent e) {
-						e.result = Messages.BreadcrumbItemArrow_1;
+					public void getName(final AccessibleEvent accessibleEvent) {
+						accessibleEvent.result = Messages.BreadcrumbItemArrow_1;
 					}
 				});
 		imageElement.addListener(SWT.FocusIn, new Listener() {

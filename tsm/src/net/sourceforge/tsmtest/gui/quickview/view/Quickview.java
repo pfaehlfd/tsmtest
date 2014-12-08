@@ -53,7 +53,6 @@ public class Quickview extends ViewPart implements SelectionObservable {
     private Label lblNrFailuresHere;
     private Label lblLastExecutionHere;
     private Label lblStateHere;
-    private Composite mainComp;
 
     private Label lblId;
     private Label lblModify;
@@ -68,10 +67,12 @@ public class Quickview extends ViewPart implements SelectionObservable {
     private Label lblName;
     private Label lblState;
 
+    public Quickview() {
+    }
 
     @Override
     public void createPartControl(Composite parent) {
-
+	Composite mainComp;
 	GridData gdStd = new GridData(SWT.LEFT, SWT.TOP, false, false, 1, 1);
 	gdStd.minimumWidth = 110;
 	gdStd.widthHint = 110;
@@ -86,7 +87,7 @@ public class Quickview extends ViewPart implements SelectionObservable {
 	lblName = new Label(group, SWT.NONE);
 	lblName.setText(Messages.Quickview_1);
 	lblName.setLayoutData(gdStd);
-
+	
 	lblNameHere = new Label(group, SWT.NONE);
 	lblNameHere.setText(Messages.Quickview_2);
 	lblNameHere.setLayoutData(gdStd);
@@ -179,7 +180,7 @@ public class Quickview extends ViewPart implements SelectionObservable {
 	lblStateHere.setLayoutData(gdState);
 
 	setNoTestCase();
-	SelectionManager.instance.register(this);
+	SelectionManager.getInstance().register(this);
 	this.setTitleImage(ResourceManager.getImgQuickview());
     }
 
@@ -253,13 +254,13 @@ public class Quickview extends ViewPart implements SelectionObservable {
 	if (tp.getLastExecution() == null) {
 	    lblLastExecutionHere.setText(Messages.Quickview_44);
 	} else {
-	    lblLastExecutionHere.setText(DataModelTypes.dateFormat.format(tp
+	    lblLastExecutionHere.setText(DataModelTypes.getDateFormat().format(tp
 		    .getLastExecution()));
 	}
 	lblNameHere.setText(t.getName());
 	lblNrFailuresHere.setText(tp.getNumberOfFailures() + ""); //$NON-NLS-1$
 	lblPriorityHere.setText(tp.getPriority().toString());
-	lblModifyHere.setText(DataModelTypes.dateFormat.format(tp
+	lblModifyHere.setText(DataModelTypes.getDateFormat().format(tp
 		.getLastChangedOn()));
 	switch (tp.getStatus()) {
 	case failed:
@@ -284,7 +285,7 @@ public class Quickview extends ViewPart implements SelectionObservable {
     }
 
     public void dispose() {
-	SelectionManager.instance.unregister(this);
+	SelectionManager.getInstance().unregister(this);
 	super.dispose();
     }
 
@@ -328,13 +329,13 @@ public class Quickview extends ViewPart implements SelectionObservable {
 	if (tp.getLastExecution() == null) {
 	    lblLastExecutionHere.setText(Messages.Quickview_58);
 	} else {
-	    lblLastExecutionHere.setText(DataModelTypes.dateFormat.format(tp
+	    lblLastExecutionHere.setText(DataModelTypes.getDateFormat().format(tp
 		    .getLastExecution()));
 	}
 	lblNameHere.setText(file.getName());
 	lblNrFailuresHere.setText(tp.getNumberOfFailures() + ""); //$NON-NLS-1$
 	lblPriorityHere.setText(tp.getPriority().toString());
-	lblModifyHere.setText(DataModelTypes.dateFormat.format(tp
+	lblModifyHere.setText(DataModelTypes.getDateFormat().format(tp
 		.getLastChangedOn()));
 	switch (tp.getStatus()) {
 	case failed:
@@ -482,7 +483,7 @@ public class Quickview extends ViewPart implements SelectionObservable {
 
     @Override
     public void selectionChanged() {
-	SelectionModel sm = SelectionManager.instance.getSelection();
+	SelectionModel sm = SelectionManager.getInstance().getSelection();
 	setNoTestCase();
 	TSMResource file = sm.getFirstResource();
 	if (file != null) {

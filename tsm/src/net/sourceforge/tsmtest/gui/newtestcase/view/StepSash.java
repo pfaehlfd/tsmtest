@@ -155,9 +155,9 @@ public class StepSash {
 	return tableManager;
     }
 
-    public void initSteps(final List<TestStepDescriptor> TestStepDescriptors) {
+    public void initSteps(final List<TestStepDescriptor> testStepDescriptors) {
 	final ArrayList<TestStepDescriptor> copy = new ArrayList<TestStepDescriptor>(
-		TestStepDescriptors);
+		testStepDescriptors);
 	copy.add(new TestStepDescriptor());
 
 	tableManager.setContent(copy);
@@ -208,7 +208,7 @@ public class StepSash {
 		    case 1:
 			final Map<Integer, Listener[]> m = SWTUtils
 				.removeAllListeners(widget);
-			widget.setFormattedText(data.getRichTextDescription());
+			widget.setFormattedText(data.getActionRichText());
 			SWTUtils.restoreAllListeners(widget, m);
 			break;
 		    case 2:
@@ -240,7 +240,7 @@ public class StepSash {
 		    final int row, final int column) {
 		switch (column) {
 		case 1:
-		    data.setRichTextDescription(control.getFormattedText());
+		    data.setActionRichText(control.getFormattedText());
 		    break;
 		case 2:
 		    data.setExpectedResult(control.getFormattedText());

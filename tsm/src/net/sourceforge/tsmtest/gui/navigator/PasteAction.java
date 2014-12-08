@@ -34,7 +34,7 @@ public class PasteAction extends Action {
     // FIXME Better clipboard handling
     private static ArrayList<TSMResource> customClipboard = null;
     private static boolean copy;
-    protected static boolean enabled = false;
+    static boolean enabled = false;
     private static final Collection<PasteAction> allActions = new ArrayList<PasteAction>();
 
     public PasteAction(final String name, final IWorkbenchWindow window,
@@ -111,7 +111,7 @@ public class PasteAction extends Action {
 	    filesToCopy.addAll(reportsToAddToFilesToCopy);
 	}
 	// get destination
-	TSMResource destination = SelectionManager.instance.getSelection()
+	TSMResource destination = SelectionManager.getInstance().getSelection()
 		.getFirstResource();
 	if (!(destination instanceof TSMContainer)) {
 	    destination = destination.getParent();

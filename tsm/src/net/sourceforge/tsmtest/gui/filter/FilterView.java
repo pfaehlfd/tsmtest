@@ -44,28 +44,25 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
 public class FilterView extends ViewPart implements DataModelObservable {
-
     public static final String ID = "net.sourceforge.tsmtest.gui.filter.Filter"; //$NON-NLS-1$
-    private Text text;
-    private Combo text_1;
-    private DateTime dateTime;
-    private DateTime dateTime_1;
-    private DateTime dateTime_2;
-    private Button btnUnassignedTestCases;
-    protected Button btnNotExecuted;
-    private Button btnHigh;
-    private Button btnPassed;
-    private Button btnMedium;
-    private Button btnPassedWithAnnotation;
-    private Button btnLastExecution;
-    private Button btnCreationDate;
-    private Button btnLastChange;
-    private Button btnLow;
-    private Button btnFailed;
-    private Label lblCreator;
-    private Group grpSuchmodus;
-    private Button btnTestcases;
-    private Button btnReports;
+    private Text textFieldName;
+    private Combo textFieldCreator;
+    private DateTime dateTimeLastExecution;
+    private DateTime dateTimeCreationDate;
+    private DateTime dateTimeLastChangedOn;
+    private Button buttonNotAssignedTestCases;
+    private Button buttonNotExecuted;
+    private Button buttonHigh;
+    private Button buttonPassed;
+    private Button buttonMedium;
+    private Button buttonPassedWithAnnotation;
+    private Button buttonLastExecutionOn;
+    private Button buttonCreationDate;
+    private Button buttonLastChangedOn;
+    private Button buttonLow;
+    private Button buttonFailed;
+    private Label labelCreator;
+    private Button buttonTestcases;
 
     public FilterView() {
 	DataModel.getInstance().register(this);
@@ -80,290 +77,292 @@ public class FilterView extends ViewPart implements DataModelObservable {
     public void createPartControl(final Composite parent) {
 	final Composite container = new Composite(parent, SWT.NONE);
 	container.setLayout(new GridLayout(5, true));
+	Group groupSearchMode;
 
-	grpSuchmodus = new Group(container, SWT.NONE);
-	grpSuchmodus.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+	groupSearchMode = new Group(container, SWT.NONE);
+	groupSearchMode.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 		false, 2, 1));
-	grpSuchmodus.setText(Messages.FilterView_0);
-	grpSuchmodus.setLayout(new GridLayout(2, true));
+	groupSearchMode.setText(Messages.FilterView_0);
+	groupSearchMode.setLayout(new GridLayout(2, true));
 
-	btnTestcases = new Button(grpSuchmodus, SWT.RADIO);
-	btnTestcases.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
+	buttonTestcases = new Button(groupSearchMode, SWT.RADIO);
+	buttonTestcases.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
 		false, 1, 1));
-	btnTestcases.addSelectionListener(new SelectionAdapter() {
+	buttonTestcases.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		testCaseSelected();
-		lblCreator.setText(Messages.FilterView_1);
+		labelCreator.setText(Messages.FilterView_1);
 	    }
 
 	});
-	btnTestcases.setText(Messages.FilterView_2);
-	btnTestcases.setSelection(true);
+	buttonTestcases.setText(Messages.FilterView_2);
+	buttonTestcases.setSelection(true);
 
-	btnReports = new Button(grpSuchmodus, SWT.RADIO);
-	btnReports.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
+	Button buttonProtocols;
+	buttonProtocols = new Button(groupSearchMode, SWT.RADIO);
+	buttonProtocols.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, true,
 		false, 1, 1));
-	btnReports.addSelectionListener(new SelectionAdapter() {
+	buttonProtocols.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		FilterModel.getInstance().setTestCases(false);
-		btnHigh.setEnabled(false);
-		btnMedium.setEnabled(false);
-		btnLow.setEnabled(false);
-		btnLastExecution.setEnabled(false);
-		dateTime.setEnabled(false);
-		btnLastChange.setEnabled(false);
-		dateTime_2.setEnabled(false);
-		btnPassed.setEnabled(true);
-		btnPassedWithAnnotation.setEnabled(true);
-		btnFailed.setEnabled(true);
-		lblCreator.setText(Messages.FilterView_3);
-		text_1.setItems(TSMReport.getAllTesters());
-		btnUnassignedTestCases.setEnabled(false);
-		btnNotExecuted.setEnabled(true);
+		FilterModel.getInstance().setFilterForTestCases(false);
+		buttonHigh.setEnabled(false);
+		buttonMedium.setEnabled(false);
+		buttonLow.setEnabled(false);
+		buttonLastExecutionOn.setEnabled(false);
+		dateTimeLastExecution.setEnabled(false);
+		buttonLastChangedOn.setEnabled(false);
+		dateTimeLastChangedOn.setEnabled(false);
+		buttonPassed.setEnabled(true);
+		buttonPassedWithAnnotation.setEnabled(true);
+		buttonFailed.setEnabled(true);
+		labelCreator.setText(Messages.FilterView_3);
+		textFieldCreator.setItems(TSMReport.getAllTesters());
+		buttonNotAssignedTestCases.setEnabled(false);
+		buttonNotExecuted.setEnabled(true);
 	    }
 	});
-	btnReports.setText(Messages.FilterView_4);
+	buttonProtocols.setText(Messages.FilterView_4);
 	new Label(container, SWT.NONE);
 	new Label(container, SWT.NONE);
 	new Label(container, SWT.NONE);
 
-	final Label lblPrioritt = new Label(container, SWT.NONE);
-	lblPrioritt.setText(Messages.FilterView_5);
+	final Label labelPriority = new Label(container, SWT.NONE);
+	labelPriority.setText(Messages.FilterView_5);
 
-	final Label lblStatus = new Label(container, SWT.NONE);
-	lblStatus.setText(Messages.FilterView_6);
+	final Label labelStatus = new Label(container, SWT.NONE);
+	labelStatus.setText(Messages.FilterView_6);
 
-	final Label lblName = new Label(container, SWT.NONE);
-	lblName.setText(Messages.FilterView_7);
+	final Label labelName = new Label(container, SWT.NONE);
+	labelName.setText(Messages.FilterView_7);
 	new Label(container, SWT.NONE);
 
-	lblCreator = new Label(container, SWT.NONE);
-	lblCreator.setText(Messages.FilterView_8);
+	labelCreator = new Label(container, SWT.NONE);
+	labelCreator.setText(Messages.FilterView_8);
 
-	btnHigh = new Button(container, SWT.CHECK);
-	btnHigh.addSelectionListener(new SelectionAdapter() {
+	buttonHigh = new Button(container, SWT.CHECK);
+	buttonHigh.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setPriority(PriorityType.high,
-			btnHigh.getSelection());
+			buttonHigh.getSelection());
 	    }
 	});
-	btnHigh.setText(Messages.FilterView_9);
+	buttonHigh.setText(Messages.FilterView_9);
 
-	btnPassed = new Button(container, SWT.CHECK);
-	btnPassed.addSelectionListener(new SelectionAdapter() {
+	buttonPassed = new Button(container, SWT.CHECK);
+	buttonPassed.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setStatus(StatusType.passed,
-			btnPassed.getSelection());
+			buttonPassed.getSelection());
 	    }
 	});
-	btnPassed.setText(Messages.FilterView_10);
+	buttonPassed.setText(Messages.FilterView_10);
 
-	text = new Text(container, SWT.BORDER);
-	text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
-	text.addKeyListener(new KeyAdapter() {
+	textFieldName = new Text(container, SWT.BORDER);
+	textFieldName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 2, 1));
+	textFieldName.addKeyListener(new KeyAdapter() {
 	    @Override
 	    public void keyReleased(final KeyEvent e) {
-		FilterModel.getInstance().setName(text.getText());
+		FilterModel.getInstance().setName(textFieldName.getText());
 	    }
 	});
 
-	text_1 = new Combo(container, SWT.BORDER);
-	text_1.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1,
+	textFieldCreator = new Combo(container, SWT.BORDER);
+	textFieldCreator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1,
 		1));
-	text_1.addKeyListener(new KeyAdapter() {
+	textFieldCreator.addKeyListener(new KeyAdapter() {
 	    @Override
 	    public void keyReleased(final KeyEvent e) {
-		FilterModel.getInstance().setCreator(text_1.getText());
+		FilterModel.getInstance().setCreator(textFieldCreator.getText());
 	    }
 	});
-	text_1.addSelectionListener(new SelectionAdapter() {
+	textFieldCreator.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(SelectionEvent e) {
-		FilterModel.getInstance().setCreator(text_1.getText());
+		FilterModel.getInstance().setCreator(textFieldCreator.getText());
 	    }
 	});
 
-	btnMedium = new Button(container, SWT.CHECK);
-	btnMedium.addSelectionListener(new SelectionAdapter() {
+	buttonMedium = new Button(container, SWT.CHECK);
+	buttonMedium.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setPriority(PriorityType.medium,
-			btnMedium.getSelection());
+			buttonMedium.getSelection());
 	    }
 	});
-	btnMedium.setText(Messages.FilterView_11);
+	buttonMedium.setText(Messages.FilterView_11);
 
-	btnPassedWithAnnotation = new Button(container, SWT.CHECK);
-	btnPassedWithAnnotation.addSelectionListener(new SelectionAdapter() {
+	buttonPassedWithAnnotation = new Button(container, SWT.CHECK);
+	buttonPassedWithAnnotation.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setStatus(
 			StatusType.passedWithAnnotation,
-			btnPassedWithAnnotation.getSelection());
+			buttonPassedWithAnnotation.getSelection());
 	    }
 	});
-	btnPassedWithAnnotation.setText(Messages.FilterView_12);
+	buttonPassedWithAnnotation.setText(Messages.FilterView_12);
 
-	btnLastExecution = new Button(container, SWT.CHECK);
-	btnLastExecution.addSelectionListener(new SelectionAdapter() {
+	buttonLastExecutionOn = new Button(container, SWT.CHECK);
+	buttonLastExecutionOn.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		if (btnLastExecution.getSelection()) {
-		    dateTime.setEnabled(true);
-		    btnNotExecuted.setEnabled(false);
+		if (buttonLastExecutionOn.getSelection()) {
+		    dateTimeLastExecution.setEnabled(true);
+		    buttonNotExecuted.setEnabled(false);
 		    FilterModel.getInstance().setLastExecution(
-			    getDate(dateTime));
+			    getDate(dateTimeLastExecution));
 		} else {
-		    btnNotExecuted.setEnabled(true);
-		    dateTime.setEnabled(false);
+		    buttonNotExecuted.setEnabled(true);
+		    dateTimeLastExecution.setEnabled(false);
 		    FilterModel.getInstance().setLastExecution(null);
 		}
 	    }
 	});
-	btnLastExecution.setText(Messages.FilterView_13);
+	buttonLastExecutionOn.setText(Messages.FilterView_13);
 
-	btnCreationDate = new Button(container, SWT.CHECK);
-	btnCreationDate.addSelectionListener(new SelectionAdapter() {
+	buttonCreationDate = new Button(container, SWT.CHECK);
+	buttonCreationDate.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		if (btnCreationDate.getSelection()) {
-		    dateTime_1.setEnabled(true);
+		if (buttonCreationDate.getSelection()) {
+		    dateTimeCreationDate.setEnabled(true);
 		    FilterModel.getInstance().setCreationTime(
-			    getDate(dateTime_1));
+			    getDate(dateTimeCreationDate));
 		} else {
-		    dateTime_1.setEnabled(false);
+		    dateTimeCreationDate.setEnabled(false);
 		    FilterModel.getInstance().setCreationTime(null);
 		}
 	    }
 	});
-	btnCreationDate.setText(Messages.FilterView_14);
+	buttonCreationDate.setText(Messages.FilterView_14);
 
-	btnLastChange = new Button(container, SWT.CHECK);
-	btnLastChange.addSelectionListener(new SelectionAdapter() {
+	buttonLastChangedOn = new Button(container, SWT.CHECK);
+	buttonLastChangedOn.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		if (btnLastChange.getSelection()) {
-		    dateTime_2.setEnabled(true);
+		if (buttonLastChangedOn.getSelection()) {
+		    dateTimeLastChangedOn.setEnabled(true);
 		    FilterModel.getInstance()
-			    .setLastChange(getDate(dateTime_2));
+			    .setLastChange(getDate(dateTimeLastChangedOn));
 		} else {
-		    dateTime_2.setEnabled(false);
+		    dateTimeLastChangedOn.setEnabled(false);
 		    FilterModel.getInstance().setLastChange(null);
 		}
 	    }
 	});
-	btnLastChange.setText(Messages.FilterView_15);
+	buttonLastChangedOn.setText(Messages.FilterView_15);
 
-	btnLow = new Button(container, SWT.CHECK);
-	btnLow.addSelectionListener(new SelectionAdapter() {
+	buttonLow = new Button(container, SWT.CHECK);
+	buttonLow.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setPriority(PriorityType.low,
-			btnLow.getSelection());
+			buttonLow.getSelection());
 	    }
 	});
-	btnLow.setText(Messages.FilterView_16);
+	buttonLow.setText(Messages.FilterView_16);
 
-	btnFailed = new Button(container, SWT.CHECK);
-	btnFailed.addSelectionListener(new SelectionAdapter() {
+	buttonFailed = new Button(container, SWT.CHECK);
+	buttonFailed.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setStatus(StatusType.failed,
-			btnFailed.getSelection());
+			buttonFailed.getSelection());
 	    }
 	});
-	btnFailed.setText(Messages.FilterView_17);
+	buttonFailed.setText(Messages.FilterView_17);
 
-	dateTime = new DateTime(container, SWT.BORDER);
-	dateTime.addSelectionListener(new SelectionAdapter() {
+	dateTimeLastExecution = new DateTime(container, SWT.BORDER);
+	dateTimeLastExecution.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		FilterModel.getInstance().setLastExecution(getDate(dateTime));
+		FilterModel.getInstance().setLastExecution(getDate(dateTimeLastExecution));
 	    }
 	});
-	dateTime.setEnabled(false);
-	dateTime_1 = new DateTime(container, SWT.BORDER);
-	dateTime_1.addSelectionListener(new SelectionAdapter() {
+	dateTimeLastExecution.setEnabled(false);
+	dateTimeCreationDate = new DateTime(container, SWT.BORDER);
+	dateTimeCreationDate.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		FilterModel.getInstance().setCreationTime(getDate(dateTime_1));
+		FilterModel.getInstance().setCreationTime(getDate(dateTimeCreationDate));
 	    }
 	});
-	dateTime_1.setEnabled(false);
-	dateTime_2 = new DateTime(container, SWT.BORDER);
-	dateTime_2.addSelectionListener(new SelectionAdapter() {
+	dateTimeCreationDate.setEnabled(false);
+	dateTimeLastChangedOn = new DateTime(container, SWT.BORDER);
+	dateTimeLastChangedOn.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		FilterModel.getInstance().setLastChange(getDate(dateTime_2));
+		FilterModel.getInstance().setLastChange(getDate(dateTimeLastChangedOn));
 	    }
 	});
-	dateTime_2.setEnabled(false);
+	dateTimeLastChangedOn.setEnabled(false);
 	new Label(container, SWT.NONE);
 
-	btnNotExecuted = new Button(container, SWT.CHECK);
-	btnNotExecuted.addSelectionListener(new SelectionAdapter() {
+	buttonNotExecuted = new Button(container, SWT.CHECK);
+	buttonNotExecuted.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setStatus(StatusType.notExecuted,
-			btnNotExecuted.getSelection());
-		if (btnTestcases.getSelection()) {
-		    btnLastExecution.setEnabled(!btnNotExecuted.getSelection());
-		} else if (btnNotExecuted.getSelection()) {
-		    btnLastExecution.setSelection(false);
+			buttonNotExecuted.getSelection());
+		if (buttonTestcases.getSelection()) {
+		    buttonLastExecutionOn.setEnabled(!buttonNotExecuted.getSelection());
+		} else if (buttonNotExecuted.getSelection()) {
+		    buttonLastExecutionOn.setSelection(false);
 		}
 	    }
 	});
-	btnNotExecuted.setText(Messages.FilterView_18);
+	buttonNotExecuted.setText(Messages.FilterView_18);
 
-	btnUnassignedTestCases = new Button(container, SWT.CHECK);
-	btnUnassignedTestCases.addSelectionListener(new SelectionAdapter() {
+	buttonNotAssignedTestCases = new Button(container, SWT.CHECK);
+	buttonNotAssignedTestCases.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
 		FilterModel.getInstance().setUnassigned(
-			btnUnassignedTestCases.getSelection());
+			buttonNotAssignedTestCases.getSelection());
 	    }
 	});
-	btnUnassignedTestCases.setText(Messages.FilterView_19);
+	buttonNotAssignedTestCases.setText(Messages.FilterView_19);
 
-	final Button btnReset = new Button(container, SWT.NONE);
-	btnReset.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
+	final Button buttonReset = new Button(container, SWT.NONE);
+	buttonReset.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false,
 		2, 1));
-	btnReset.addSelectionListener(new SelectionAdapter() {
+	buttonReset.addSelectionListener(new SelectionAdapter() {
 	    @Override
 	    public void widgetSelected(final SelectionEvent e) {
-		btnHigh.setSelection(false);
-		btnMedium.setSelection(false);
-		btnLow.setSelection(false);
-		btnPassed.setSelection(false);
-		btnPassedWithAnnotation.setSelection(false);
-		btnFailed.setSelection(false);
-		btnNotExecuted.setSelection(false);
-		btnUnassignedTestCases.setSelection(false);
-		btnLastExecution.setSelection(false);
-		btnCreationDate.setSelection(false);
-		btnLastChange.setSelection(false);
-		text.setText(""); //$NON-NLS-1$
-		text_1.setText(""); //$NON-NLS-1$
-		dateTime.setEnabled(false);
-		dateTime.setDate(Calendar.getInstance().get(Calendar.YEAR),
+		buttonHigh.setSelection(false);
+		buttonMedium.setSelection(false);
+		buttonLow.setSelection(false);
+		buttonPassed.setSelection(false);
+		buttonPassedWithAnnotation.setSelection(false);
+		buttonFailed.setSelection(false);
+		buttonNotExecuted.setSelection(false);
+		buttonNotAssignedTestCases.setSelection(false);
+		buttonLastExecutionOn.setSelection(false);
+		buttonCreationDate.setSelection(false);
+		buttonLastChangedOn.setSelection(false);
+		textFieldName.setText(""); //$NON-NLS-1$
+		textFieldCreator.setText(""); //$NON-NLS-1$
+		dateTimeLastExecution.setEnabled(false);
+		dateTimeLastExecution.setDate(Calendar.getInstance().get(Calendar.YEAR),
 			Calendar.getInstance().get(Calendar.MONTH), Calendar
 				.getInstance().get(Calendar.DAY_OF_MONTH));
-		dateTime_1.setEnabled(false);
-		dateTime_2.setDate(Calendar.getInstance().get(Calendar.YEAR),
+		dateTimeCreationDate.setEnabled(false);
+		dateTimeLastChangedOn.setDate(Calendar.getInstance().get(Calendar.YEAR),
 			Calendar.getInstance().get(Calendar.MONTH), Calendar
 				.getInstance().get(Calendar.DAY_OF_MONTH));
-		dateTime_2.setEnabled(false);
-		dateTime_2.setDate(Calendar.getInstance().get(Calendar.YEAR),
+		dateTimeLastChangedOn.setEnabled(false);
+		dateTimeLastChangedOn.setDate(Calendar.getInstance().get(Calendar.YEAR),
 			Calendar.getInstance().get(Calendar.MONTH), Calendar
 				.getInstance().get(Calendar.DAY_OF_MONTH));
 		FilterModel.getInstance().reset();
 	    }
 	});
-	btnReset.setText(Messages.FilterView_22);
+	buttonReset.setText(Messages.FilterView_22);
 
 	createActions();
 	initializeToolBar();
@@ -409,23 +408,25 @@ public class FilterView extends ViewPart implements DataModelObservable {
     }
 
     private void testCaseSelected() {
-	FilterModel.getInstance().setTestCases(true);
-	btnPassed.setEnabled(false);
-	btnPassedWithAnnotation.setEnabled(false);
-	btnFailed.setEnabled(false);
-	btnHigh.setEnabled(true);
-	btnMedium.setEnabled(true);
-	btnLow.setEnabled(true);
-	btnLastExecution.setEnabled(true);
-	dateTime.setEnabled(btnLastExecution.getSelection());
-	btnLastChange.setEnabled(true);
-	dateTime_2.setEnabled(btnLastChange.getSelection());
-	btnUnassignedTestCases.setEnabled(true);
-	text_1.setItems(TSMTestCase.getAllCreators());
-	if (btnNotExecuted.getSelection()) {
-	    btnLastExecution.setEnabled(false);
-	} else if (btnLastExecution.getSelection()) {
-	    btnNotExecuted.setEnabled(false);
+	FilterModel.getInstance().setFilterForTestCases(true);
+	buttonPassed.setEnabled(false);
+	buttonPassedWithAnnotation.setEnabled(false);
+	buttonFailed.setEnabled(false);
+	buttonHigh.setEnabled(true);
+	buttonMedium.setEnabled(true);
+	buttonLow.setEnabled(true);
+	buttonLastExecutionOn.setEnabled(true);
+	dateTimeLastExecution.setEnabled(buttonLastExecutionOn.getSelection());
+	buttonLastChangedOn.setEnabled(true);
+	dateTimeLastChangedOn.setEnabled(buttonLastChangedOn.getSelection());
+	buttonNotAssignedTestCases.setEnabled(true);
+	textFieldCreator.setItems(TSMTestCase.getAllCreators());
+	if (buttonNotExecuted.getSelection()) {
+	    //Disable "last execution on" button when filtering for status "not executed".
+	    buttonLastExecutionOn.setEnabled(false);
+	} else if (buttonLastExecutionOn.getSelection()) {
+	    //Disable "not executed" button when filtering for "last execution on".
+	    buttonNotExecuted.setEnabled(false);
 	}
     }
 
@@ -434,13 +435,13 @@ public class FilterView extends ViewPart implements DataModelObservable {
 	Display.getDefault().asyncExec(new Runnable() {
 	    @Override
 	    public void run() {
-		if (btnTestcases.isDisposed()) {
+		if (buttonTestcases.isDisposed()) {
 		    return;
 		}
-		if (btnTestcases.getSelection()) {
-		    text_1.setItems(TSMTestCase.getAllCreators());
+		if (buttonTestcases.getSelection()) {
+		    textFieldCreator.setItems(TSMTestCase.getAllCreators());
 		} else {
-		    text_1.setItems(TSMReport.getAllTesters());
+		    textFieldCreator.setItems(TSMReport.getAllTesters());
 		}
 	    }
 

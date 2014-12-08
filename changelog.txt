@@ -1,6 +1,0 @@
-Changelog for Testsuite-Management (TSM) - https://sourceforge.net/projects/tsmtest/
-
-Note: This changelog only contains changes that were made after the publishing on Sourceforge.
-
-2014-05-29 - Version 1.5.1:
-  * Fixed a bug that prevented the correct recognition of Justus files that were created with the German language settings in Justus.

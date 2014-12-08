@@ -25,31 +25,31 @@ public class TestStepDescriptorTest {
 
     /**
      * Test method for
-     * {@link net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor#getRichTextDescription()}
+     * {@link net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor#getActionRichText()}
      * .
      */
     @Test
     public final void testGetRichTextDescription() {
 	TestStepDescriptor testTestStepDescriptor = new TestStepDescriptor();
 
-	assertEquals("", testTestStepDescriptor.getRichTextDescription());
-	testTestStepDescriptor.setRichTextDescription("äöüßÄÖÜ xy");
+	assertEquals("", testTestStepDescriptor.getActionRichText());
+	testTestStepDescriptor.setActionRichText("äöüßÄÖÜ xy");
 	assertEquals("äöüßÄÖÜ xy",
-		testTestStepDescriptor.getRichTextDescription());
+		testTestStepDescriptor.getActionRichText());
     }
 
     /**
      * Test method for
-     * {@link net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor#setRichTextDescription(java.lang.String)}
+     * {@link net.sourceforge.tsmtest.datamodel.descriptors.TestStepDescriptor#setActionRichText(java.lang.String)}
      * .
      */
     @Test
     public final void testSetRichTextDescription() {
 	TestStepDescriptor testTestStepDescriptor = new TestStepDescriptor();
 
-	testTestStepDescriptor.setRichTextDescription("äöüßÄÖÜ xy");
+	testTestStepDescriptor.setActionRichText("äöüßÄÖÜ xy");
 	assertEquals("äöüßÄÖÜ xy",
-		testTestStepDescriptor.getRichTextDescription());
+		testTestStepDescriptor.getActionRichText());
     }
 
     /**

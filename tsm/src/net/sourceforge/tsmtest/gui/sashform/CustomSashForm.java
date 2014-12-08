@@ -42,11 +42,10 @@ import org.eclipse.swt.widgets.Listener;
  * @author Albert Flaig
  */
 public class CustomSashForm extends Composite {
-
     /**
      * The width of all sashes in the form.
      */
-    protected static int SASH_WIDTH = 3;
+    private static int sashWidth = 3;
 
     private int sashStyle;
     protected CustomComposite[] sashes = new CustomComposite[0];
@@ -163,7 +162,7 @@ public class CustomSashForm extends Composite {
      */
     public int getSashWidth() {
 	checkWidget();
-	return SASH_WIDTH;
+	return sashWidth;
     }
 
     public int getStyle() {
@@ -256,93 +255,93 @@ public class CustomSashForm extends Composite {
 	    return;
 	}
 
-	Control c1 = controls[sashIndex];
-	Control c2 = controls[sashIndex + 1];
-	Rectangle b1 = c1.getBounds();
-	Rectangle b2 = c2.getBounds();
+	Control control1 = controls[sashIndex];
+	Control control2 = controls[sashIndex + 1];
+	Rectangle rectangle1 = control1.getBounds();
+	Rectangle rectangle2 = control2.getBounds();
 
 	Rectangle sashBounds = sash.getBounds();
 	Rectangle area = getClientArea();
 	boolean correction = false;
 	if (getOrientation() == SWT.HORIZONTAL) {
-	    correction = b1.width < DRAG_MINIMUM || b2.width < DRAG_MINIMUM;
-	    int totalWidth = b2.x + b2.width - b1.x;
+	    correction = rectangle1.width < DRAG_MINIMUM || rectangle2.width < DRAG_MINIMUM;
+	    int totalWidth = rectangle2.x + rectangle2.width - rectangle1.x;
 	    int shift = event.x - sashBounds.x;
-	    b1.width += shift;
-	    b2.x += shift;
-	    b2.width -= shift;
-	    if (b1.width < DRAG_MINIMUM) {
-		b1.width = DRAG_MINIMUM;
-		b2.x = b1.x + b1.width + sashBounds.width;
-		b2.width = totalWidth - b2.x;
-		event.x = b1.x + b1.width;
+	    rectangle1.width += shift;
+	    rectangle2.x += shift;
+	    rectangle2.width -= shift;
+	    if (rectangle1.width < DRAG_MINIMUM) {
+		rectangle1.width = DRAG_MINIMUM;
+		rectangle2.x = rectangle1.x + rectangle1.width + sashBounds.width;
+		rectangle2.width = totalWidth - rectangle2.x;
+		event.x = rectangle1.x + rectangle1.width;
 		event.doit = false;
 	    }
-	    if (b2.width < DRAG_MINIMUM) {
-		b1.width = totalWidth - DRAG_MINIMUM - sashBounds.width;
-		b2.x = b1.x + b1.width + sashBounds.width;
-		b2.width = DRAG_MINIMUM;
-		event.x = b1.x + b1.width;
+	    if (rectangle2.width < DRAG_MINIMUM) {
+		rectangle1.width = totalWidth - DRAG_MINIMUM - sashBounds.width;
+		rectangle2.x = rectangle1.x + rectangle1.width + sashBounds.width;
+		rectangle2.width = DRAG_MINIMUM;
+		event.x = rectangle1.x + rectangle1.width;
 		event.doit = false;
 	    }
-	    Object data1 = c1.getLayoutData();
+	    Object data1 = control1.getLayoutData();
 	    if (!(data1 instanceof CustomSashFormData)) {
 		data1 = new CustomSashFormData();
-		c1.setLayoutData(data1);
+		control1.setLayoutData(data1);
 	    }
-	    Object data2 = c2.getLayoutData();
+	    Object data2 = control2.getLayoutData();
 	    if (!(data2 instanceof CustomSashFormData)) {
 		data2 = new CustomSashFormData();
-		c2.setLayoutData(data2);
+		control2.setLayoutData(data2);
 	    }
-	    ((CustomSashFormData) data1).weight = (((long) b1.width << 16)
+	    ((CustomSashFormData) data1).weight = (((long) rectangle1.width << 16)
 		    + area.width - 1)
 		    / area.width;
-	    ((CustomSashFormData) data2).weight = (((long) b2.width << 16)
+	    ((CustomSashFormData) data2).weight = (((long) rectangle2.width << 16)
 		    + area.width - 1)
 		    / area.width;
 	} else {
-	    correction = b1.height < DRAG_MINIMUM || b2.height < DRAG_MINIMUM;
-	    int totalHeight = b2.y + b2.height - b1.y;
+	    correction = rectangle1.height < DRAG_MINIMUM || rectangle2.height < DRAG_MINIMUM;
+	    int totalHeight = rectangle2.y + rectangle2.height - rectangle1.y;
 	    int shift = event.y - sashBounds.y;
-	    b1.height += shift;
-	    b2.y += shift;
-	    b2.height -= shift;
-	    if (b1.height < DRAG_MINIMUM) {
-		b1.height = DRAG_MINIMUM;
-		b2.y = b1.y + b1.height + sashBounds.height;
-		b2.height = totalHeight - b2.y;
-		event.y = b1.y + b1.height;
+	    rectangle1.height += shift;
+	    rectangle2.y += shift;
+	    rectangle2.height -= shift;
+	    if (rectangle1.height < DRAG_MINIMUM) {
+		rectangle1.height = DRAG_MINIMUM;
+		rectangle2.y = rectangle1.y + rectangle1.height + sashBounds.height;
+		rectangle2.height = totalHeight - rectangle2.y;
+		event.y = rectangle1.y + rectangle1.height;
 		event.doit = false;
 	    }
-	    if (b2.height < DRAG_MINIMUM) {
-		b1.height = totalHeight - DRAG_MINIMUM - sashBounds.height;
-		b2.y = b1.y + b1.height + sashBounds.height;
-		b2.height = DRAG_MINIMUM;
-		event.y = b1.y + b1.height;
+	    if (rectangle2.height < DRAG_MINIMUM) {
+		rectangle1.height = totalHeight - DRAG_MINIMUM - sashBounds.height;
+		rectangle2.y = rectangle1.y + rectangle1.height + sashBounds.height;
+		rectangle2.height = DRAG_MINIMUM;
+		event.y = rectangle1.y + rectangle1.height;
 		event.doit = false;
 	    }
-	    Object data1 = c1.getLayoutData();
+	    Object data1 = control1.getLayoutData();
 	    if (!(data1 instanceof CustomSashFormData)) {
 		data1 = new CustomSashFormData();
-		c1.setLayoutData(data1);
+		control1.setLayoutData(data1);
 	    }
-	    Object data2 = c2.getLayoutData();
+	    Object data2 = control2.getLayoutData();
 	    if (!(data2 instanceof CustomSashFormData)) {
 		data2 = new CustomSashFormData();
-		c2.setLayoutData(data2);
+		control2.setLayoutData(data2);
 	    }
-	    ((CustomSashFormData) data1).weight = (((long) b1.height << 16)
+	    ((CustomSashFormData) data1).weight = (((long) rectangle1.height << 16)
 		    + area.height - 1)
 		    / area.height;
-	    ((CustomSashFormData) data2).weight = (((long) b2.height << 16)
+	    ((CustomSashFormData) data2).weight = (((long) rectangle2.height << 16)
 		    + area.height - 1)
 		    / area.height;
 	}
 	if (correction || (event.doit && event.detail != SWT.DRAG)) {
-	    c1.setBounds(b1);
+	    control1.setBounds(rectangle1);
 	    sash.setBounds(event.x, event.y, event.width, event.height);
-	    c2.setBounds(b2);
+	    control2.setBounds(rectangle2);
 	}
     }
 
@@ -494,10 +493,10 @@ public class CustomSashForm extends Composite {
      */
     public void setSashWidth(int width) {
 	checkWidget();
-	if (SASH_WIDTH == width){
+	if (sashWidth == width){
 	    return;
 	}
-	SASH_WIDTH = width;
+	sashWidth = width;
 	layout(false);
     }
 
@@ -559,5 +558,13 @@ public class CustomSashForm extends Composite {
 	}
 
 	layout(false);
+    }
+
+    /**
+     * Getter for the width of the sash.
+     * @return The width of the sash as int.
+     */
+    public int getSash_Width() {
+        return sashWidth;
     }
 }

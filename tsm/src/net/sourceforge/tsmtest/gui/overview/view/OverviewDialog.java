@@ -43,19 +43,12 @@ public class OverviewDialog extends InputDialog {
     public final static String ID = "net.sourceforge.tsmtest.gui.runtest.view.dialogruntest"; //$NON-NLS-1$s
     private ArrayList<Integer> revisionsDialog = new ArrayList<Integer>();
     private ArrayList<Button> revCheck = new ArrayList<Button>();
-    ArrayList<Integer> revTicks = new ArrayList<Integer>();
+    private ArrayList<Integer> revTicks = new ArrayList<Integer>();
 
     /**
-     * Creates a new InputDialog with the needed fields
-     * @param revisionsSelected 
-     * 
-     * @param duration
-     *            The real duration as String
-     * @param name
-     *            of the tester
-     * @param worstStatus
-     *            of the test execution
-     */
+    * @param revisions The available revisions.
+    * @param revisionsSelected Selected revisions.
+    */
     public OverviewDialog(ArrayList<Integer> revisions, ArrayList<Integer> revisionsSelected) {
 
 	super(null, Messages.OverviewDialog_1, null, "", null); //$NON-NLS-2$ //$NON-NLS-1$
@@ -199,6 +192,14 @@ public class OverviewDialog extends InputDialog {
     @Override
     protected int getInputTextStyle() {
 	return (SWT.MULTI | SWT.WRAP);
+    }
+
+    /**
+     * Getter for the list with the ticks for the selected revisions.
+     * @return An ArrayList of Integers with the number of the selected revisions.
+     */
+    public ArrayList<Integer> getRevTicks() {
+        return revTicks;
     }
 
 }

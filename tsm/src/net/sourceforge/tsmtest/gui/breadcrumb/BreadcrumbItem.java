@@ -69,8 +69,7 @@ public class BreadcrumbItem extends Item {
 		this.parent = viewer;
 
 		container = new Composite(parent, SWT.NONE);
-		container
-				.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
+		container.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, false, false));
 		final GridLayout layout = new GridLayout(2, false);
 		layout.marginTop = 1;
 		layout.marginBottom = 2;

@@ -69,6 +69,9 @@ public abstract class TSMResource {
 	return null;
     }
 
+    /**
+     * @return The name of the resource.
+     */
     public String getName() {
 	return name;
     }

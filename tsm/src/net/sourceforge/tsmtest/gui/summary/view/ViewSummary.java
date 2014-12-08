@@ -28,12 +28,12 @@ import org.eclipse.ui.part.ViewPart;
  */
 public class ViewSummary extends ViewPart{
     public static final String ID = "net.sourceforge.tsmtest.gui.summary.view.viewsummary";
-    private OverviewStepSash sash;
 
     @Override
     public void createPartControl(Composite parent) {
+	OverviewStepSash sash;
 	parent.setLayout(new GridLayout());
-	SelectionModel sm = SelectionManager.instance.getSelection();
+	SelectionModel sm = SelectionManager.getInstance().getSelection();
 	ArrayList<TSMTestCase> tcs = sm.getTestCases();
 	sash = new OverviewStepSash(parent);
 	sash.initSteps(tcs);

@@ -20,23 +20,28 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.ide.IDE;
 
 public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
-    	
-    	/**
-    	 * The workbench window advisor object is created in response to a workbench window being created 
-    	 * (one per window), and is used to configure the window. 
+	/**
+	 * The workbench window advisor object is created in response to a workbench window being created 
+    	 * (one per window), and is used to configure the window.
     	 */
 	@Override
 	public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(
 			IWorkbenchWindowConfigurer configurer) {
 		return new ApplicationWorkbenchWindowAdvisor(configurer);
 	}
+
 	/**
-	 * Returns the Perspectives ID
+	 * Returns the Perspectives ID 
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#getInitialWindowPerspectiveId()
 	 */
 	public String getInitialWindowPerspectiveId() {
 		return net.sourceforge.tsmtest.Perspective.ID;
 	} 
 	
+	/* (non-Javadoc)
+	 * @see org.eclipse.ui.application.WorkbenchAdvisor#initialize(org.eclipse.ui.application.IWorkbenchConfigurer)
+	 */
 	public void initialize(IWorkbenchConfigurer configurer) {
 	    super.initialize(configurer);
 	    IDE.registerAdapters();

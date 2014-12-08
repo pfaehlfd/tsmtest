@@ -62,7 +62,7 @@ public class NewPackageAction extends AbstractNewFileAction {
 
     @Override
     public void selectionChanged() {
-	if (SelectionManager.instance.getSelection().getFirstContainer() == null) {
+	if (SelectionManager.getInstance().getSelection().getFirstContainer() == null) {
 	    setEnabled(false);
 	} else {
 	    setEnabled(true);

@@ -20,9 +20,9 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 
 /**
  * Manages PreferenceChanges. <br>
- * Just use <code>PreferenceManager.instance.register(this);</code> to start
+ * Just use <code>PreferenceManager.getInstance().register(this);</code> to start
  * getting preference change events and<br>
- * <code>PreferenceManager.instance.unregister(this);</code> when it is not
+ * <code>PreferenceManager.getInstance().unregister(this);</code> when it is not
  * needed anymore. Remember to let your class implement
  * {@link PreferenceListener}.
  * 
@@ -30,10 +30,7 @@ import org.eclipse.jface.util.PropertyChangeEvent;
  * 
  */
 public class PreferenceManager {
-    /**
-     * Returns the Singleton of this class.
-     */
-    public static final PreferenceManager instance = new PreferenceManager();
+    private static PreferenceManager instance;
 
     private ArrayList<PreferenceListener> listeners = new ArrayList<PreferenceListener>();
 
@@ -58,7 +55,17 @@ public class PreferenceManager {
     private PreferenceModel preferenceModel = loadPreferences();
 
     public PreferenceManager() {
-	
+    }
+    
+    /**
+     * Singleton PreferenceManager.
+     * @return the singleton instance of PreferenceManager.
+     */
+    public static PreferenceManager getInstance() {
+	if (instance == null) {
+	    instance = new PreferenceManager();
+	}
+	return instance;
     }
     
     /**
@@ -67,7 +74,7 @@ public class PreferenceManager {
      * 
      * @param listener
      *            the object which receives preference updates
-     * @usage <code>PreferenceManager.instance.register(this);</code>
+     * @usage <code>PreferenceManager.getInstance().register(this);</code>
      */
     public void register(PreferenceListener listener) {
 	if (listeners.isEmpty()) {
@@ -77,6 +84,10 @@ public class PreferenceManager {
 	listeners.add((PreferenceListener) listener);
     }
 
+    /**
+     * Loads the preferenceModel.
+     * @return the current PreferenceModel.
+     */
     private PreferenceModel loadPreferences() {
 	// TODO das aktuelle preferenceModel muss aus den Einstellungen geladen werden.
 	PreferenceModel pm = new PreferenceModel();
@@ -90,7 +101,7 @@ public class PreferenceManager {
      * 
      * @param listener
      *            the object which receives selection updates
-     * @usage <code>PreferenceManager.instance.unregister(this);</code>
+     * @usage <code>PreferenceManager.getInstance().unregister(this);</code>
      */
     public void unregister(PreferenceListener listener) {
 	listeners.remove((PreferenceListener) listener);
@@ -103,7 +114,7 @@ public class PreferenceManager {
     /**
      * Changes the current preference and notifies each listener.
      * 
-     * @param preferenceModel
+     * @param preferenceModel the current PreferenceModel.
      */
     private void changePreference(PreferenceModel preferenceModel) {
 	// Update the property tester
@@ -115,6 +126,7 @@ public class PreferenceManager {
     }
 
     /**
+     * Getter for the current PreferenceModel.
      * @return the current preferences.
      */
     public PreferenceModel getPreferences() {
@@ -138,10 +150,18 @@ public class PreferenceManager {
     public class PreferenceModel {
 	private int role;
 
+	/**
+	 * Getter for the role
+	 * @return the role.
+	 */
 	public int getRole() {
 	    return role;
 	}
 
+	/**
+	 * Setter for the role.
+	 * @param role the role to be set.
+	 */
 	void setRole(int role) {
 	    this.role = role;
 	}

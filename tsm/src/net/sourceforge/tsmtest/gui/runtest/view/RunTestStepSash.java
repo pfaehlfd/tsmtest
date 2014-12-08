@@ -40,14 +40,22 @@ import org.xml.sax.SAXException;
  */
 public class RunTestStepSash {
     private SashManager<TestStepDescriptor> tableManager;
+    //Column numbers for description, expected result and real result.
     private static final int POSDESC = 1;
     private static final int POSEXP = 2;
     private static final int POSREAL = 3;
-    private final boolean loadActual;
-    TSMTestCase testcase;
+    private final boolean loadActualOldExecutionData;
+    private TSMTestCase testcase;
 
+    /**
+     * @param parent
+     * @param listen
+     * @param lastChangedListener
+     * @param loadOldExecutionData indicates whether the old execution data should be loaded.
+     * @param input
+     */
     public RunTestStepSash(final Composite parent, final ModifyListener listen,
-	    final ModifyListener lastChangedListener, final boolean load,
+	    final ModifyListener lastChangedListener, final boolean loadOldExecutionData,
 	    final TSMTestCase input) {
 	testcase = input;
 	tableManager = new SashManager<TestStepDescriptor>(parent) {
@@ -56,7 +64,8 @@ public class RunTestStepSash {
 		return new TestStepDescriptor();
 	    }
 	};
-	loadActual = load;
+	//Indicates whether the old execution data should be loaded.
+	loadActualOldExecutionData = loadOldExecutionData;
 
 	tableManager.addColumn(createLabelColumn(tableManager, listen), "#", //$NON-NLS-1$
 		10, true, false, null);
@@ -84,8 +93,8 @@ public class RunTestStepSash {
 	return tableManager;
     }
 
-    public void initSteps(final List<TestStepDescriptor> TestStepDescriptors) {
-	tableManager.setContent(TestStepDescriptors);
+    public void initSteps(final List<TestStepDescriptor> testStepDescriptors) {
+	tableManager.setContent(testStepDescriptors);
     }
 
     private SashManager<TestStepDescriptor>.SashManagerColumn<RichText> createTextColumn(
@@ -107,35 +116,42 @@ public class RunTestStepSash {
 		return text;
 	    }
 
+	    /**
+	     * @param richTextWidget
+	     * @param testStepDescriptor a test step from the test case.
+	     * @param row the row of the test step.
+	     * @param column the column of the test step.
+	     */
 	    @Override
-	    public void renderTC(final RichText widget,
-		    final TestStepDescriptor data, final int row,
+	    public void renderTC(final RichText richTextWidget,
+		    final TestStepDescriptor testStepDescriptor, final int row,
 		    final int column) {
 		try {
 		    switch (column) {
 		    case POSDESC:
-			String desc = data.getRichTextDescription();
-			if (desc.length() < 13) {
-			    desc = "<html></html>"; //$NON-NLS-1$
+			String description = testStepDescriptor.getActionRichText();
+			if (description.length() < 13) {
+			    description = "<html></html>"; //$NON-NLS-1$
 			}
 
-			widget.setFormattedText(desc);
+			richTextWidget.setFormattedText(description);
 			break;
 		    case POSEXP:
-			String exp = data.getExpectedResult();
-			if (exp.length() < 13) {
-			    exp = "<html></html>"; //$NON-NLS-1$
+			String expectedResult = testStepDescriptor.getExpectedResult();
+			if (expectedResult.length() < 13) {
+			    expectedResult = "<html></html>"; //$NON-NLS-1$
 			}
 
-			widget.setFormattedText(exp);
+			richTextWidget.setFormattedText(expectedResult);
 			break;
 		    case POSREAL:
-			if (loadActual) {
-			    String real = data.getRealResult();
-			    if (real.length() < 13) {
-				real = "<html></html>"; //$NON-NLS-1$
+			//Old execution data should be loaded.
+			if (loadActualOldExecutionData) {
+			    String realResult = testStepDescriptor.getRealResult();
+			    if (realResult.length() < 13) {
+				realResult = "<html></html>"; //$NON-NLS-1$
 			    }
-			    widget.setFormattedText(real);
+			    richTextWidget.setFormattedText(realResult);
 			}
 			break;
 		    default:
@@ -153,28 +169,35 @@ public class RunTestStepSash {
 
 	    @Override
 	    protected int getHeight(final RichText widget) {
-		Point p = widget.getSize();
-		p.x = Math.max(p.x, 150);
-		p = widget.computeSize(p.x, SWT.DEFAULT);
+		Point point = widget.getSize();
+		point.x = Math.max(point.x, 150);
+		point = widget.computeSize(point.x, SWT.DEFAULT);
 
-		return p.y + 10 + widget.getLineCount() / 10;
+		return point.y + 10 + widget.getLineCount() / 10;
 	    }
 
+	    /**
+	     * @param control
+	     * @param testStepDescriptor
+	     * @param row
+	     * @param column
+	     * @return the TestStepDescriptor that was given.
+	     */
 	    @Override
 	    protected TestStepDescriptor writeContentToData(
-		    final RichText control, final TestStepDescriptor data,
+		    final RichText control, final TestStepDescriptor testStepDescriptor,
 		    final int row, final int column) {
 		switch (column) {
 		case POSDESC:
-		    data.setRichTextDescription(control.getFormattedText());
+		    testStepDescriptor.setActionRichText(control.getFormattedText());
 		    break;
 		case POSEXP:
-		    data.setExpectedResult(control.getFormattedText());
+		    testStepDescriptor.setExpectedResult(control.getFormattedText());
 		    break;
 		case POSREAL:
-		    data.setRealResult(control.getFormattedText());
+		    testStepDescriptor.setRealResult(control.getFormattedText());
 		}
-		return data;
+		return testStepDescriptor;
 	    }
 
 	    @Override
@@ -186,6 +209,12 @@ public class RunTestStepSash {
 	};
     }
 
+    /**
+     * Creates the image column for the red, yellow, green and grey circles.
+     * @param tableManager
+     * @param listen
+     * @return the ClickableImage for the status.
+     */
     private SashManager<TestStepDescriptor>.SashManagerColumn<ClickableImage> createImageColumn(
 	    final SashManager<TestStepDescriptor> tableManager,
 	    final ModifyListener listen) {
@@ -210,20 +239,20 @@ public class RunTestStepSash {
 
 	    @Override
 	    public void renderTC(final ClickableImage widget,
-		    final TestStepDescriptor data, final int row,
+		    final TestStepDescriptor testStepDescriptor, final int row,
 		    final int column) {
-		if (loadActual) {
-		    widget.setStatus(data.getStatus());
+		if (loadActualOldExecutionData) {
+		    widget.setStatus(testStepDescriptor.getStatus());
 		}
 	    }
 
 	    @Override
 	    protected TestStepDescriptor writeContentToData(
 		    final ClickableImage control,
-		    final TestStepDescriptor data, final int row,
+		    final TestStepDescriptor testStepDescriptor, final int row,
 		    final int column) {
-		data.setStatus(control.getStatus());
-		return data;
+		testStepDescriptor.setStatus(control.getStatus());
+		return testStepDescriptor;
 	    }
 
 	    @Override
@@ -253,7 +282,6 @@ public class RunTestStepSash {
 
 	    @Override
 	    protected int getHeight(final Label widget) {
-
 		return 20;
 	    }
 
@@ -273,6 +301,9 @@ public class RunTestStepSash {
 	};
     }
 
+    /**
+     * @return a List all steps in the table.
+     */
     public List<TestStepDescriptor> getAllSteps() {
 	return tableManager.getContent();
     }
