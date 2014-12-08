@@ -73,6 +73,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 	super(configurer);
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.application.ActionBarAdvisor#makeActions(org.eclipse.ui.IWorkbenchWindow)
+     */
     protected void makeActions(IWorkbenchWindow window) {
 	exitAction = ActionFactory.QUIT.create(window);
 	register(exitAction);
@@ -199,6 +202,9 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.application.ActionBarAdvisor#fillMenuBar(org.eclipse.jface.action.IMenuManager)
+     */
     protected void fillMenuBar(IMenuManager menuBar) {
 	MenuManager fileMenu = new MenuManager(
 		Messages.ApplicationActionBarAdvisor_2, "fileTSM"); //$NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-1$

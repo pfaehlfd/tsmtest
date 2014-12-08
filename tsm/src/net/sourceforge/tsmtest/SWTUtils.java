@@ -33,7 +33,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.wizards.IWizardDescriptor;
 
 public class SWTUtils {
-
     /**
      * Contains most known listener types. Some listener IDs have to be
      * represented as numbers because the constants are not visible.

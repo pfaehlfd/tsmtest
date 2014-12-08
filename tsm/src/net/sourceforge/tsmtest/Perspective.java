@@ -22,14 +22,14 @@ import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
-//import net.sourceforge.tsmtest.gui.newtestcase.view.ViewTestCase;
-
 public class Perspective implements IPerspectiveFactory {
 
     public static final String ID = "net.sourceforge.tsmtest.perspective"; //$NON-NLS-1$
 
     /**
      * adds left&right view and makes editor visible
+     * (non-Javadoc)
+     * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
      */
     @Override
     public void createInitialLayout(final IPageLayout layout) {
@@ -39,7 +39,6 @@ public class Perspective implements IPerspectiveFactory {
 	final IFolderLayout topLeft = layout.createFolder("topLeft", // NON-NLS-1 //$NON-NLS-1$
 		IPageLayout.LEFT, 0.20f, layout.getEditorArea());
 	topLeft.addView(TSMNavigator.ID);
-	// topLeft.addView(JavaUI.ID_PACKAGES); // NON-NLS-1
 	topLeft.addView("org.eclipse.ui.navigator.ProjectExplorer");
     }
 

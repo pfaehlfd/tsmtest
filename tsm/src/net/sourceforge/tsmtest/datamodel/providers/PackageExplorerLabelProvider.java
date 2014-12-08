@@ -65,7 +65,6 @@ public class PackageExplorerLabelProvider extends LabelProvider implements
 	    final TSMReport report = (TSMReport) res;
 	    return report.getName() + Messages.PackageExplorerLabelProvider_2
 		    + report.getData().getRevisionNumber();
-	    // + " (" + report.getData().getLastExecution() + ")";
 	}
 	return text;
     }

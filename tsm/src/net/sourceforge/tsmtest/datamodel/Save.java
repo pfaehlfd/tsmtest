@@ -78,7 +78,7 @@ public class Save {
     }
 
     /**
-     * @param t
+     * @param testCaseDescriptor
      *            the test case to save
      * @param file
      *            The IFile of the testCase
@@ -86,7 +86,7 @@ public class Save {
      * @throws DataModelException
      */
     public synchronized static InputStream saveTestCase(
-	    final TestCaseDescriptor t, final String project)
+	    final TestCaseDescriptor testCaseDescriptor, final String project)
 	    throws DataModelException {
 
 	final XMLOutputter outputter = new XMLOutputter(
@@ -95,48 +95,48 @@ public class Save {
 	final Element rootTestCase = new Element("tsmtestcase");
 	doc.setRootElement(rootTestCase);
 
-	final Attribute id = new Attribute("id", Long.toString(t.getId()));
+	final Attribute id = new Attribute("id", Long.toString(testCaseDescriptor.getId()));
 	rootTestCase.setAttribute(id);
 
 	final Element assignedTo = new Element("assignedTo");
-	assignedTo.setText(t.getAssignedTo());
+	assignedTo.setText(testCaseDescriptor.getAssignedTo());
 	rootTestCase.addContent(assignedTo);
 
 	final Element author = new Element("author");
-	author.setText(t.getAuthor());
+	author.setText(testCaseDescriptor.getAuthor());
 	rootTestCase.addContent(author);
 
 	final Element expectedDuration = new Element("expectedDuration");
-	expectedDuration.setText(t.getExpectedDuration());
+	expectedDuration.setText(testCaseDescriptor.getExpectedDuration());
 	rootTestCase.addContent(expectedDuration);
 
 	final Element realDuration = new Element("realDuration");
-	realDuration.setText(t.getRealDuration());
+	realDuration.setText(testCaseDescriptor.getRealDuration());
 	rootTestCase.addContent(realDuration);
 
 	final Element richTextPrecondition = new Element("richTextPrecondition");
-	richTextPrecondition.setText(t.getRichTextPrecondition());
+	richTextPrecondition.setText(testCaseDescriptor.getRichTextPrecondition());
 	rootTestCase.addContent(richTextPrecondition);
 
 	// TODO pictures
 	final Element richTextResult = new Element("richTextResult");
-	richTextResult.setText(t.getRichTextResult());
+	richTextResult.setText(testCaseDescriptor.getRichTextResult());
 	rootTestCase.addContent(richTextResult);
 
 	final Element shortDescription = new Element("shortDescription");
-	shortDescription.setText(t.getShortDescription());
+	shortDescription.setText(testCaseDescriptor.getShortDescription());
 	rootTestCase.addContent(shortDescription);
 
 	final Element creationDateElement = new Element("creationDate");
-	creationDateElement.setText(t.getCreationDate().getTime() + "");
+	creationDateElement.setText(testCaseDescriptor.getCreationDate().getTime() + "");
 	rootTestCase.addContent(creationDateElement);
 
 	final Element lastExecutionElement = new Element("lastExecution");
 
-	if (t.getLastExecution() == null) {
+	if (testCaseDescriptor.getLastExecution() == null) {
 	    lastExecutionElement.setText("not executed");
 	} else {
-	    lastExecutionElement.setText(t.getLastExecution().getTime() + "");
+	    lastExecutionElement.setText(testCaseDescriptor.getLastExecution().getTime() + "");
 
 	}
 
@@ -147,32 +147,32 @@ public class Save {
 	rootTestCase.addContent(lastChangedOnElement);
 
 	final Element numberOfExecutions = new Element("numberOfExecutions");
-	numberOfExecutions.setText(Integer.toString(t.getNumberOfExecutions()));
+	numberOfExecutions.setText(Integer.toString(testCaseDescriptor.getNumberOfExecutions()));
 	rootTestCase.addContent(numberOfExecutions);
 
 	final Element numberOfFailures = new Element("numberOfFailures");
-	numberOfFailures.setText(Integer.toString(t.getNumberOfFailures()));
+	numberOfFailures.setText(Integer.toString(testCaseDescriptor.getNumberOfFailures()));
 	rootTestCase.addContent(numberOfFailures);
 
 	final Element priority = new Element("priority");
-	priority.setText(t.getPriority().toString());
+	priority.setText(testCaseDescriptor.getPriority().toString());
 	rootTestCase.addContent(priority);
 
 	final Element status = new Element("status");
-	status.setText(t.getStatus().toString());
+	status.setText(testCaseDescriptor.getStatus().toString());
 	rootTestCase.addContent(status);
 
 	final Element revision = new Element("revision");
-	revision.setText(t.getRevisionNumber() + "");
+	revision.setText(testCaseDescriptor.getRevisionNumber() + "");
 	rootTestCase.addContent(revision);
 	
 	final Element version = new Element("version");
-	version.setText(t.getVersion());
+	version.setText(testCaseDescriptor.getVersion());
 	rootTestCase.addContent(version);
 
 	// list of all steps
 	final Element steps = new Element("steps");
-	for (final TestStepDescriptor step : t.getSteps()) {
+	for (final TestStepDescriptor step : testCaseDescriptor.getSteps()) {
 	    final Element testStep = new Element("TestStep");
 
 	    final Element expectedResult = new Element("expectedResult");

@@ -27,6 +27,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 	public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
 		super(configurer);
 	}
+
 	/**
 	 * used to customize new windows for RCP usage
 	 * http://help.eclipse.org/indigo/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fapi%2Forg%2Feclipse%2Fui%2Fapplication%2FWorkbenchWindowAdvisor.html
@@ -37,8 +38,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 			IActionBarConfigurer configurer) {
 		return new ApplicationActionBarAdvisor(configurer);
 	}
+
 	/**
 	 * configuring of the new window
+	 * (non-Javadoc)
+	 * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#preWindowOpen()
 	 */
 	@Override
 	public void preWindowOpen() {
