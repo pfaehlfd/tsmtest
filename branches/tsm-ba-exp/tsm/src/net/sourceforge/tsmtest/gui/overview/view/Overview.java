@@ -419,6 +419,13 @@ public class Overview extends MultiPageEditorPartInput implements SelectionObser
 
 	    }
 	});
+	//If there are no revisions available for the current selection
+	//we disable the two revision-selection buttons.
+	if (revisions.isEmpty()) {
+	    btnAddAll.setEnabled(false);
+	    btnCustom.setEnabled(false);
+	}
+	
 	// initialize sashform
 	sashPage0 = new OverviewStepSash(parent);
 	if (onlyRep) {
