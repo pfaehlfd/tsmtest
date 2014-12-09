@@ -43,7 +43,7 @@ public class TSMNavigatorContextMenu {
 	    public void menuAboutToShow(final IMenuManager manager) {
 		final SelectionModel sm = SelectionManager.getInstance()
 			.processSelection(tsmViewer.getSelection());
-		manager.add(createNewMenu(window, tsmViewer));
+		manager.add(createNewMenu(window, tsmViewer, sm));
 		if (sm != null && !sm.isEmpty()) {
 		    manager.add(new Separator());
 		    if (isTestCase(sm) || isPackage(sm) || isProject(sm)) {
@@ -129,15 +129,33 @@ public class TSMNavigatorContextMenu {
 		.getFirstResource() instanceof TSMReport);
     }
 
+    /**
+     * Creates the "New" submenu in the context menu.
+     * @param window
+     * @param tsmViewer
+     * @param sm The current selection.
+     * @return
+     */
     private IMenuManager createNewMenu(final IWorkbenchWindow window,
-	    final TSMTreeViewer tsmViewer) {
+	    final TSMTreeViewer tsmViewer, SelectionModel sm) {
 	final IMenuManager menu = new MenuManager(
 		Messages.TSMNavigatorContextMenu_8);
-	menu.add(new NewProjectAction(Messages.TSMNavigatorContextMenu_9));
-	menu.add(new NewPackageAction(Messages.TSMNavigatorContextMenu_10,
-		tsmViewer));
-	menu.add(new NewTestCaseAction(Messages.TSMNavigatorContextMenu_11,
-		tsmViewer));
+	//Only show "New project" if no TSMResource is selected.
+	if (!isProject(sm) && !isPackage(sm) && !isTestCase(sm) && !isReport(sm)) {
+	    menu.add(new NewProjectAction(Messages.TSMNavigatorContextMenu_9));
+	}
+	
+	//Only show "New Package" if no test case or report is selected.
+	if (!isTestCase(sm) && !isReport(sm)) {
+	    menu.add(new NewPackageAction(Messages.TSMNavigatorContextMenu_10,
+		    tsmViewer));
+	}
+	
+	//Only show "New test case" if no test case or report is selected.
+	if (!isTestCase(sm) && !isReport(sm)) {
+	    menu.add(new NewTestCaseAction(Messages.TSMNavigatorContextMenu_11,
+		    tsmViewer));
+	}
 	menu.add(new Separator());
 	menu.add(ActionFactory.NEW.create(window));
 	return menu;
