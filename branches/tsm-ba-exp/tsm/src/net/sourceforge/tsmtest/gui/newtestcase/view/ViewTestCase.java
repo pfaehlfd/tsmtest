@@ -181,12 +181,12 @@ public class ViewTestCase extends EditorPartInput implements
 	mainSettings.setLayout(new GridLayout(8, false));
 
 	final CLabel lblName = new CLabel(mainSettings, SWT.NONE);
-	lblName.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false, 1,
+	lblName.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false, 1,
 		1));
 	lblName.setText(Messages.ViewTestCase_10);
 
 	txtName = new Text(mainSettings, SWT.BORDER);
-	txtName.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
+	txtName.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 	txtName.addModifyListener(dirtyListen);
 	txtName.setTextLimit(DataModelTypes.NAME_MAX_LENGTH);
 
@@ -198,28 +198,28 @@ public class ViewTestCase extends EditorPartInput implements
 
 	txtProj = new Text(mainSettings, SWT.BORDER);
 	txtProj.setText(""); //$NON-NLS-1$
-	txtProj.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false, 1, 1));
+	txtProj.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
 	txtProj.setEditable(false);
 
 	final Label lblPackage = new Label(mainSettings, SWT.NONE);
-	lblPackage.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false,
+	lblPackage.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 		1, 1));
 	lblPackage.setText(Messages.ViewTestCase_13);
 
 	txtPackage = new Text(mainSettings, SWT.BORDER);
-	txtPackage.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false,
+	txtPackage.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1));
 	txtPackage.setEditable(false);
 
 	final Label lblPriority = new Label(mainSettings, SWT.NONE);
-	lblPriority.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false,
+	lblPriority.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
 	lblPriority.setText(Messages.ViewTestCase_14);
 
 	comboPriority = new Combo(mainSettings, SWT.READ_ONLY);
 	comboPriority.setItems(new String[] { Messages.ViewTestCase_15,
 		Messages.ViewTestCase_16, Messages.ViewTestCase_17 });
-	comboPriority.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true,
+	comboPriority.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
 		false, 1, 1));
 	comboPriority.select(1);
 
@@ -239,12 +239,12 @@ public class ViewTestCase extends EditorPartInput implements
 	priority = PriorityType.medium;
 
 	final Label lblCreator = new Label(mainSettings, SWT.NONE);
-	lblCreator.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false, false,
+	lblCreator.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
 		1, 1));
 	lblCreator.setText(Messages.ViewTestCase_18);
 
 	txtCreator = new Text(mainSettings, SWT.BORDER);
-	txtCreator.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false,
+	txtCreator.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1));
 	txtCreator.addModifyListener(dirtyListen);
 
@@ -260,12 +260,12 @@ public class ViewTestCase extends EditorPartInput implements
 	txtAssignedTo.addModifyListener(dirtyListen);
 
 	final Label lblDuration = new Label(mainSettings, SWT.NONE);
-	lblDuration.setLayoutData(new GridData(SWT.RIGHT, SWT.TOP, false,
+	lblDuration.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false,
 		false, 1, 1));
 	lblDuration.setText(Messages.ViewTestCase_20);
 
 	txtDuration = new Text(mainSettings, SWT.BORDER);
-	txtDuration.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false,
+	txtDuration.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false,
 		1, 1));
 	txtDuration.setText("00:00"); //$NON-NLS-1$
 	txtDuration.addModifyListener(dirtyListen);
