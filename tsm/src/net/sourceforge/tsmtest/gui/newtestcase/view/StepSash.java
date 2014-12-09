@@ -63,7 +63,7 @@ public class StepSash {
     private SashManager<TestStepDescriptor> tableManager;
     private final Logger log = Logger.getLogger(StepSash.class);
     private ModifyListener lastStepListener;
-    private static final String strRowData = "rowData";
+    private static final String strRowData = "rowData"; //$NON-NLS-1$
     private boolean initComplete = false;
     private TSMTestCase testcase;
 
@@ -268,14 +268,14 @@ public class StepSash {
 	    @Override
 	    public Composite create(final Composite parent,
 		    final ModifyListener heightListener) {
-		final Composite c = new Composite(parent, SWT.NONE);
-		c.setLayout(new GridLayout(3, false));
-		c.setLayoutData(gd);
+		final Composite composiste = new Composite(parent, SWT.NONE);
+		composiste.setLayout(new GridLayout(3, false));
+		composiste.setLayoutData(gd);
 		final Color white = new Color(null, 255, 255, 255);
-		c.setBackground(white);
+		composiste.setBackground(white);
 		white.dispose();
 
-		final Button btnTop = new Button(c, SWT.CENTER);
+		final Button btnTop = new Button(composiste, SWT.CENTER);
 		// btnTop.setText("\u2191+");
 		btnTop.setImage(ResourceManager.getImgArrowUp());
 		btnTop.addSelectionListener(new SelectionAdapter() {
@@ -288,9 +288,10 @@ public class StepSash {
 		    }
 		});
 		btnTop.setLayoutData(gd);
-		btnTop.setData(c);
+		btnTop.setData(composiste);
+		btnTop.setToolTipText(Messages.StepSash_4);
 
-		final Button btnDel = new Button(c, SWT.CENTER);
+		final Button btnDel = new Button(composiste, SWT.CENTER);
 		// btnDel.setText("\u2715");
 		btnDel.setImage(ResourceManager.getImgCrossGrey());
 		btnDel.addSelectionListener(new SelectionAdapter() {
@@ -332,9 +333,10 @@ public class StepSash {
 		    }
 		});
 		btnDel.setLayoutData(gd);
-		btnDel.setData(c);
+		btnDel.setData(composiste);
+		btnDel.setToolTipText(Messages.StepSash_5);;
 
-		final Button btnBottom = new Button(c, SWT.CENTER);
+		final Button btnBottom = new Button(composiste, SWT.CENTER);
 		// btnBottom.setText("+\u2193");
 		btnBottom.setImage(ResourceManager.getImgArrowDown());
 		btnBottom.addSelectionListener(new SelectionAdapter() {
@@ -347,8 +349,9 @@ public class StepSash {
 		    }
 		});
 		btnBottom.setLayoutData(gd);
-		btnBottom.setData(c);
-		return c;
+		btnBottom.setData(composiste);
+		btnBottom.setToolTipText(Messages.StepSash_6);
+		return composiste;
 	    }
 
 	    @Override
