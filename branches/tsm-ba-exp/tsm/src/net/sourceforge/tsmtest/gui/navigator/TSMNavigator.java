@@ -76,6 +76,7 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 		tsmViewer.collapseAll();
 	    }
 	};
+	collapseAllAction.setToolTipText("Collapse all elements");
 	final Action expandAllAction = new Action() {
 	    @Override
 	    public void run() {
@@ -90,11 +91,20 @@ public class TSMNavigator extends ViewPart implements DataModelObservable, Filte
 		.getImageDescriptor("platform:/plugin/org.eclipse.search/icons/full/elcl16/expandall.gif"); //$NON-NLS-1$
 	expandAllAction.setImageDescriptor(expandAllIcon);
 	expandAllAction.setHoverImageDescriptor(expandAllIcon);
-	toolbarManager.add(new NewProjectAction(""));
-	toolbarManager.add(new NewPackageAction("", tsmViewer));
-	toolbarManager.add(new NewTestCaseAction("", tsmViewer));
+	expandAllAction.setToolTipText("Expand all elements");
+	NewProjectAction newProjectAction = new NewProjectAction("");
+	newProjectAction.setToolTipText("Create project");
+	toolbarManager.add(newProjectAction);
+	NewPackageAction newPackageAction = new NewPackageAction("", tsmViewer);
+	newPackageAction.setToolTipText("Create package");
+	toolbarManager.add(newPackageAction);
+	NewTestCaseAction newTestCaseAction = new NewTestCaseAction("", tsmViewer);
+	newTestCaseAction.setToolTipText("Create test case");
+	toolbarManager.add(newTestCaseAction);
 	toolbarManager.add(new Separator());
-	toolbarManager.add(new RunTestAction(""));
+	RunTestAction runTestAction = new RunTestAction("");
+	runTestAction.setToolTipText("Execute test case");
+	toolbarManager.add(runTestAction);
 	toolbarManager.add(new Separator());
 	toolbarManager.add(expandAllAction);
 	toolbarManager.add(collapseAllAction);
