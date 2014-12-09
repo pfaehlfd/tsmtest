@@ -458,6 +458,9 @@ public final class Messages extends NLS {
     public static String StepSash_10;
     public static String StepSash_11;
     public static String StepSash_12;
+    public static String StepSash_4;
+    public static String StepSash_5;
+    public static String StepSash_6;
     public static String TSMNavigatorContextMenu_0;
     public static String TSMNavigatorContextMenu_1;
     public static String TSMNavigatorContextMenu_10;
